@@ -160,4 +160,65 @@ module.exports = {
         });
     },
     // Cosas extra como subir archivos etc
+    subirInvitacion: async(req, res) => {
+        try {
+            // Existe archivo
+            if (!req.file) {
+                return res.json({ ok: false, mensaje: 'No subiste ningun archivo.' });
+            }
+            // Existe la comision
+            const comisiones = await pool.query('SELECT invitacionEvento FROM comision WHERE id_comision=?', [req.body.id_comision]);
+            if (comisiones.length === 0) {
+                return res.json({ ok: false, mensaje: 'No existe la comisión.' });
+            }
+            // Cual es el archivo 
+            let currentFile = comisiones[0].invitacionEvento;
+            // Mover archivo nuevo
+            let newFileName = `${uniqid()}.${req.file.originalname.split('.')[1]}`;
+            if (!fs.existsSync(`public/files/${req.body.id_comision}`)) {
+                fs.mkdirSync(`public/files/${req.body.id_comision}`);
+            }
+            fs.renameSync(req.file.path, `public/files/${req.body.id_comision}/${newFileName}`);
+            // Actuvalizar bd
+            await pool.query('UPDATE comision SET invitacionEvento=? WHERE id_comision=?', [newFileName, req.body.id_comision]);
+            // Borrar archivo antiguo si existe
+            if (fs.existsSync(`public/files/${req.body.id_comision}/${currentFile}`)) {
+                fs.unlinkSync(`public/files/${req.body.id_comision}/${currentFile}`);
+            }
+            res.json({ ok: true, mensaje: 'Archivo agregado.' })
+        } catch (error) {
+            res.json({ ok: false, error, mensaje: 'Ocurrio un error inespedado.' });
+        }
+    },
+
+    subirPrograma: async(req, res) => {
+        try {
+            // Existe archivo
+            if (!req.file) {
+                return res.json({ ok: false, mensaje: 'No subiste ningun archivo.' });
+            }
+            // Existe la comision
+            const comisiones = await pool.query('SELECT programaEvento FROM comision WHERE id_comision=?', [req.body.id_comision]);
+            if (comisiones.length === 0) {
+                return res.json({ ok: false, mensaje: 'No existe la comisión.' });
+            }
+            // Cual es el archivo 
+            let currentFile = comisiones[0].programaEvento;
+            // Mover archivo nuevo
+            let newFileName = `${uniqid()}.${req.file.originalname.split('.')[1]}`;
+            if (!fs.existsSync(`public/files/${req.body.id_comision}`)) {
+                fs.mkdirSync(`public/files/${req.body.id_comision}`);
+            }
+            fs.renameSync(req.file.path, `public/files/${req.body.id_comision}/${newFileName}`);
+            // Actuvalizar bd
+            await pool.query('UPDATE comision SET programaEvento=? WHERE id_comision=?', [newFileName, req.body.id_comision]);
+            // Borrar archivo antiguo si existe
+            if (fs.existsSync(`public/files/${req.body.id_comision}/${currentFile}`)) {
+                fs.unlinkSync(`public/files/${req.body.id_comision}/${currentFile}`);
+            }
+            res.json({ ok: true, mensaje: 'Archivo agregado.' })
+        } catch (error) {
+            res.json({ ok: false, error, mensaje: 'Ocurrio un error inespedado.' });
+        }
+    },
 }

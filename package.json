@@ -1,0 +1,29 @@
+{
+  "name": "viaticos",
+  "version": "1.0.0",
+  "description": "Viaticos",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JairoGlez9612/Viaticos.git"
+  },
+  "author": "Fernando Mayorga, Jairo Gonzalez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JairoGlez9612/Viaticos/issues"
+  },
+  "homepage": "https://github.com/JairoGlez9612/Viaticos#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "express-validator": "^6.2.0",
+    "jsonwebtoken": "^8.5.1",
+    "morgan": "^1.9.1",
+    "multer": "^1.4.2",
+    "mysql": "^2.17.1"
+  }
+}

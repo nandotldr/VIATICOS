@@ -4,6 +4,6 @@ var app = express();
 
 const router = express.Router();
 
-router.get('/', paisCtl.selectContinentes);
+router.get('/', paisCtl.selectPais);
 
 module.exports = router;

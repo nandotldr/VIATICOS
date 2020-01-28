@@ -7,7 +7,7 @@ const pool = require('../database');
  */
 module.exports = {
 
-    guardarComision: async(req, res) => {
+    guardar_solicitud_comision: async(req, res) => {
         //utilities.validarParametros([req.body.folio, req.body.fechaCreacion, req.body.fechaEnvio, req.body.fechaAprobacion, req.body.estatus, req.body.codigoTrabajador, req.body.nombreSolicitante, req.body.areaAdscripcion, req.body.tipo, req.body.destino, req.body.plazaLaboral, req.body.justificacion, req.body.programaTrabajo, req.body.objetivoTrabajo, req.body.evento, req.body.dia, req.body.fecha, req.body.lugar, req.body.tareas, req.body.invitacionEvento, req.body.programaEvento]).then(comision(){
         //Define variables locales:
 
@@ -105,7 +105,7 @@ module.exports = {
         res.json({ ok: true, mensaje: "Comision creada" });
     },
 
-    selectComision: (req, res) => {
+    select_solicitud_comision: (req, res) => {
         const { id } = req.params;
         pool.query('SELECT * FROM comision WHERE id_comision = ?', [id], (errorComision, comision) => {
             if (errorComision) return res.json(errorComision);

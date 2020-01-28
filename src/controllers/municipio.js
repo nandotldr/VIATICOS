@@ -1,7 +1,7 @@
 const pool = require('../database');
 
 module.exports = {
-    selectEstados: (req, res) => {
+    selectMunicipio: (req, res) => {
         var sqlestados = 'SELECT estados.id as id, estados.nombre as estados, municipios.id as id , municipios.nombre as municipios, municipios.zona as zona FROM estados INNER JOIN municipios WHERE estados.id=municipios.estado_id';
         pool.query(sqlestados, (errorestados, estados, fields) => {
             if (errorestados) return res.json(errorestados);

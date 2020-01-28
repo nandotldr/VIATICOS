@@ -8,7 +8,7 @@ const pool = require('../database');
 
 module.exports = {
 
-    crearCuenta: async(req, res) => {
+    crearUsuario: async(req, res) => {
 
         var nombre1 = req.body.nombre1;
         var nombre2 = req.body.nombre2;
@@ -69,7 +69,7 @@ module.exports = {
         res.json({ ok: true, mensaje: 'Cuenta creada' })
     },
 
-    selectCuenta: (req, res) => {
+    selectUsuario: (req, res) => {
         const { id } = req.params;
         pool.query('SELECT * FROM trabajador WHERE id_trabajador = ?', [id], (errorCuenta, cuenta) => {
             if (errorCuenta) return res.json(errorCuenta);
@@ -91,7 +91,7 @@ module.exports = {
         });
     },
     //D
-    modificarCuenta: async(req, res) => {
+    modificarUsuario: async(req, res) => {
         var id_trabajdor = req.body.idTrabajador;
         var nombre1 = req.body.nombre1;
         var nombre2 = req.body.nombre2;

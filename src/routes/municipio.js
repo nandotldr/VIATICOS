@@ -4,6 +4,6 @@ var app = express();
 
 const router = express.Router();
 
-router.get('/', municipioCtl.selectEstados);
+router.get('/', municipioCtl.selectMunicipio);
 
 module.exports = router;

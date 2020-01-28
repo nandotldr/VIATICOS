@@ -7,7 +7,7 @@ const guard = require('../../config/config').validador;
 
 router.post('/', usuarioCtl.crearUsuario);
 router.put('/', guard,usuarioCtl.modificarUsuario);
-router.get('/:id', usuarioCtl.selectUsuario);
+router.get('/:codigo', usuarioCtl.selectUsuario);
 
 // Rutas extras del controlador como archivos, etc.
 

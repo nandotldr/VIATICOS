@@ -1,13 +1,13 @@
 const express = require('express');
-const solicitudViaticoCtl = require('../controllers/solicitudViatico');
+const solicitud_viaticoCtl = require('../controllers/solicitud_viatico');
 
 const router = express.Router();
 
-router.post('/', solicitudViaticoCtl.insert);
-router.get('/', solicitudViaticoCtl.selectAll);
-router.get('/:id', solicitudViaticoCtl.select);
-router.put('/', solicitudViaticoCtl.update);
-router.delete('/', solicitudViaticoCtl.delete);
+router.post('/', solicitud_viaticoCtl.insert);
+router.get('/', solicitud_viaticoCtl.selectAll);
+router.get('/:id', solicitud_viaticoCtl.select);
+router.put('/', solicitud_viaticoCtl.update);
+router.delete('/', solicitud_viaticoCtl.delete);
 
 // Rutas extras del controlador como archivos, etc.
 

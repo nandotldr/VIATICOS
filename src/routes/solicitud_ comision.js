@@ -1,14 +1,14 @@
 const express = require('express');
-const comisionCtl = require('../controllers/comision');
+const solicitud_comisionCtl = require('../controllers/solicitud_comision');
 
 const router = express.Router();
 
 const guard = require('../../config/config').validador;
 
-router.post('/', comisionCtl.guardarComision);
-router.get('/:id', comisionCtl.selectComision);
-router.put('/', comisionCtl.update);
-router.delete('/', comisionCtl.delete);
+router.post('/', solicitud_comisionCtl.guardarsolicitud_comision);
+router.get('/:id', solicitud_comisionCtl.selectsolicitud_comision);
+router.put('/', solicitud_comisionCtl.update);
+router.delete('/', solicitud_comisionCtl.delete);
 
 
 // Rutas extras del controlador como archivos, etc.

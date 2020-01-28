@@ -1,13 +1,13 @@
 const express = require('express');
-const facturasCtl = require('../controllers/facturas');
+const facturaCtl = require('../controllers/factura');
 
 const router = express.Router();
 
-router.post('/', facturasCtl.insert);
-router.get('/', facturasCtl.selectAll);
-router.get('/:id', facturasCtl.select);
-router.put('/', facturasCtl.update);
-router.delete('/', facturasCtl.delete);
+router.post('/', facturaCtl.insert);
+router.get('/', facturaCtl.selectAll);
+router.get('/:id', facturaCtl.select);
+router.put('/', facturaCtl.update);
+router.delete('/', facturaCtl.delete);
 
 // Rutas extras del controlador como archivos, etc.
 

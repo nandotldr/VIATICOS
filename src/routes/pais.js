@@ -1,9 +1,9 @@
 const express = require('express');
-const paisesCtl = require('../controllers/paises');
+const paisCtl = require('../controllers/pais');
 var app = express();
 
 const router = express.Router();
 
-router.get('/', paisesCtl.selectContinentes);
+router.get('/', paisCtl.selectContinentes);
 
 module.exports = router;

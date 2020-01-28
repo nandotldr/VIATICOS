@@ -1,13 +1,13 @@
 const express = require('express');
-const cuentaCtl = require('../controllers/cuenta');
+const usuarioCtl = require('../controllers/usuario');
 
 const router = express.Router();
 
 const guard = require('../../config/config').validador;
 
-router.post('/', cuentaCtl.crearCuenta);
-router.put('/', cuentaCtl.modificarCuenta);
-router.get('/:id', cuentaCtl.selectCuenta);
+router.post('/', usuarioCtl.crearusuario);
+router.put('/', usuarioCtl.modificarusuario);
+router.get('/:id', usuarioCtl.selectusuario);
 
 // Rutas extras del controlador como archivos, etc.
 

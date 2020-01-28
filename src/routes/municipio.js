@@ -1,9 +1,9 @@
 const express = require('express');
-const municipiosCtl = require('../controllers/municipios');
+const municipioCtl = require('../controllers/municipio');
 var app = express();
 
 const router = express.Router();
 
-router.get('/', municipiosCtl.selectEstados);
+router.get('/', municipioCtl.selectEstados);
 
 module.exports = router;

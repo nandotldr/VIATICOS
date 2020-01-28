@@ -5,23 +5,21 @@ router.get('/', (req, res) => {
     res.send('Viaticos API');
 });
 
-router.use('/comision', require('./comision'));
-router.use('/comisionLugar', require('./comisionLugar'));
-router.use('/conceptoGasto', require('./conceptoGasto'));
-router.use('/facturas', require('./facturas'));
-router.use('/programaTrabajo', require('./programaTrabajo'));
-router.use('/proyecto', require('./proyecto'));
-router.use('/proyectoHasComision', require('./proyectoHasComision'));
-router.use('/reporte', require('./reporte'));
-router.use('/solicitudViatico', require('./solicitudViatico'));
-router.use('/trabajador', require('./trabajador'));
-router.use('/usuario', require('./usuario'));
-router.use('/viatico', require('./viatico'));
-router.use('/viaticoProyecto', require('./viaticoProyecto'));
-router.use('/paises', require('./paises'));
+
+router.use('/factura', require('./factura'));
+router.use('/gasto', require('./gasto'));
+router.use('/historial_usuario', require('./historial_usuario'));
+router.use('/informe_actividades', require('./informe_actividades'));
 router.use('/login', require('./login'));
-router.use('/municipios', require('./municipios'));
-router.use('/historialComision', require('./historialComision'));
-router.use('/cuenta', require('./cuenta'));
+router.use('/municipio', require('./municipio'));
+router.use('/pais', require('./pais'));
+router.use('/programa_trabajo', require('./programa_trabajo'));
+router.use('/solicitud_comision', require('./solicitud_ comision'));
+router.use('/solicitud_viatico', require('./solicitud_viatico'));
+router.use('/usuario', require('./usuario'));
+router.use('/viatico_proyecto', require('./viatico_proyecto'));
+
+
+
 
 module.exports = router;

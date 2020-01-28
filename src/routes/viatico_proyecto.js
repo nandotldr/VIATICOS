@@ -1,13 +1,13 @@
 const express = require('express');
-const proyectoCtl = require('../controllers/proyecto');
+const viatico_proyectoCtl = require('../controllers/viatico_proyecto');
 
 const router = express.Router();
 
-router.post('/', proyectoCtl.insert);
-router.get('/', proyectoCtl.selectAll);
-router.get('/:id', proyectoCtl.select);
-router.put('/', proyectoCtl.update);
-router.delete('/', proyectoCtl.delete);
+router.post('/', viatico_proyectoCtl.insert);
+router.get('/', viatico_proyectoCtl.selectAll);
+router.get('/:id', viatico_proyectoCtl.select);
+router.put('/', viatico_proyectoCtl.update);
+router.delete('/', viatico_proyectoCtl.delete);
 
 // Rutas extras del controlador como archivos, etc.
 

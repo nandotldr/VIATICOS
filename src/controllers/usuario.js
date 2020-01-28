@@ -12,7 +12,7 @@ module.exports = {
         var codigoUsuario =req.body.codigo;
         var nombresUsuario = req.body.nombres;
         var apellidosUsuario = req.body.apellidos;
-        var tipoUsuario = req.body.tipo_usuario;
+        var tipo_usuario = req.body.tipo_usuario;
         var password = req.body.nip;
         var areaAdscripcion = req.body.area_adscripcion;
         var plazaLaboral = req.body.plaza_laboral;
@@ -30,7 +30,7 @@ module.exports = {
                 codigo: codigoUsuario,
                 nombres: nombresUsuario,
                 apellidos: apellidosUsuario,
-                tipo_usuario: tipoUsuario,
+                tipo_usuario: tipo_usuario,
                 nip: password,
                 area_adscripcion: areaAdscripcion,
                 plaza_laboral: plazaLaboral,
@@ -48,22 +48,19 @@ module.exports = {
     },
 
     selectUsuario: (req, res) => {
-        const { id } = req.params;
-        pool.query('SELECT * FROM trabajador WHERE id_trabajador = ?', [id], (errorCuenta, cuenta) => {
-            if (errorCuenta) return res.json(errorCuenta);
-            if (cuenta.lenght < 1) return res.json(cuenta);
-
+        const { codigo } = req.params;
+        pool.query('SELECT * FROM usuario WHERE codigo = ?', [codigo], (errorUsuario, usuario) => {
+            if (errorUsuario) return res.json(errorUsuario);
+            if (usuario.length < 1) return res.json(usuario);
             let json = {
-                nombre1: cuenta[0].nombre1,
-                nombre2: cuenta[0].nombre2,
-                apellidoP: cuenta[0].apellidoP,
-                apellidoM: cuenta[0].apellidoM,
-                codigo_trabajador: cuenta[0].codigo_trabajador,
-                area_adscripcion: cuenta[0].area_adscripcion,
-                plazaLaboral: cuenta[0].plaza_laboral
+                codigo: usuario[0].codigo,
+                nombres: usuario[0].nombres,
+                apellidos: usuario[0].apellidos,
+                area_adscripcion: usuario[0].area_adscripcion,
+                plaza_laboral: usuario[0].plaza_laboral,
+                numero_social: usuario[0].numero_social
             };
             res.json(json);
-
 
         });
     },

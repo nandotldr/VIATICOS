@@ -27,7 +27,7 @@ rutasProtegidas.use((req, res, next) => {
 module.exports = {
     validador: rutasProtegidas,
 
-    generador: (usuario, trabajador) => {
+    generador: (usuario) => {
         const payload = {
             check: true
         };
@@ -38,9 +38,9 @@ module.exports = {
 
         let json = {
             mensaje: 'Autenticación correcta',
-            "id_trabajador": usuario[0].id_trabajador,
-            "tipo": usuario[0].tipo_user,
-            "nombre": trabajador[0].nombre,
+            "codigo": usuario[0].codigo,
+            "tipo": usuario[0].tipo_usuario,
+            "nombres": usuario[0].nombres,
             token: token
         };
 

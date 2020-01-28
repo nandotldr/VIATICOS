@@ -5,8 +5,8 @@ const router = express.Router();
 
 const guard = require('../../config/config').validador;
 
-router.post('/', usuarioCtl.crearUsuario);
-router.put('/', usuarioCtl.modificarUsuario);
+router.post('/', guard,usuarioCtl.crearUsuario);
+router.put('/', guard,usuarioCtl.modificarUsuario);
 router.get('/:id', usuarioCtl.selectUsuario);
 
 // Rutas extras del controlador como archivos, etc.

@@ -29,7 +29,10 @@ module.exports = {
 
     generador: (usuario) => {
         const payload = {
-            check: true
+            check: true,
+            "codigo": usuario[0].codigo,
+            "tipo_usuario": usuario[0].tipo_usuario,
+            "nombres": usuario[0].nombres
         };
 
         const token = jwt.sign(payload, "viaticos123*", {
@@ -39,7 +42,7 @@ module.exports = {
         let json = {
             mensaje: 'Autenticación correcta',
             "codigo": usuario[0].codigo,
-            "tipo": usuario[0].tipo_usuario,
+            "tipo_usuario": usuario[0].tipo_usuario,
             "nombres": usuario[0].nombres,
             token: token
         };

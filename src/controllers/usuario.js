@@ -49,7 +49,9 @@ module.exports = {
 
     selectUsuario: (req, res) => {
         const { codigo } = req.params;
+        console.log(codigo);
         pool.query('SELECT * FROM usuario WHERE codigo = ?', [codigo], (errorUsuario, usuario) => {
+            console.log(errorUsuario);
             if (errorUsuario) return res.json(errorUsuario);
             if (usuario.length < 1) return res.json(usuario);
             let json = {
@@ -60,9 +62,11 @@ module.exports = {
                 plaza_laboral: usuario[0].plaza_laboral,
                 numero_social: usuario[0].numero_social
             };
+            console.log(json);
             res.json(json);
-
         });
+
+
     },
     //D
     modificarUsuario: async(req, res) => {
@@ -72,7 +76,7 @@ module.exports = {
             var apellidos = req.body.apellidos;
             var areaAdscripcion = req.body.area_adscripcion;
             var plazaLaboral = req.body.plaza_laboral;
-            var numeroSocial = req.body.numeroSocial;
+            var numeroSocial = req.body.numero_social;
             var valuesUsuario = {
                 nombres: nombres,
                 apellidos: apellidos,

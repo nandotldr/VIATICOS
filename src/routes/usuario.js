@@ -5,7 +5,7 @@ const router = express.Router();
 
 const guard = require('../../config/config').validador;
 
-router.post('/', guard,usuarioCtl.crearUsuario);
+router.post('/', usuarioCtl.crearUsuario);
 router.put('/', guard,usuarioCtl.modificarUsuario);
 router.get('/:id', usuarioCtl.selectUsuario);
 

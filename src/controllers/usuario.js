@@ -9,64 +9,42 @@ const pool = require('../database');
 module.exports = {
 
     crearUsuario: async(req, res) => {
+        var codigoUsuario =req.body.codigo;
+        var nombresUsuario = req.body.nombres;
+        var apellidosUsuario = req.body.apellidos;
+        var tipoUsuario = req.body.tipo_usuario;
+        var password = req.body.nip;
+        var areaAdscripcion = req.body.area_adscripcion;
+        var plazaLaboral = req.body.plaza_laboral;
+        var numeroSocial = req.body.numero_social;
 
-        var nombre1 = req.body.nombre1;
-        var nombre2 = req.body.nombre2;
-        var apellido_p = req.body.apellidoP;
-        var apellido_m = req.body.apellidoM;
-        var area_adscripcion = req.body.areaAdscripcion;
-        var codigo_trabajador = req.body.codigoTrabajador;
-        var plaza_laboral = req.body.plazaLaboral;
-        var username = req.body.usuario;
-        var password = req.body.password;
-
-        var sqlExisteTrabajador = "SELECT id_trabajador FROM trabajador WHERE codigo_trabajador= ?";
-        var sqlExisteUsuario = "SELECT id_usuario FROM usuario WHERE username = ?";
-        var sqlCuenta = "INSERT INTO trabajador SET ?";
+        var sqlExisteUsuario= "SELECT codigo FROM usuario WHERE codigo= ?";
         var sqlUsuario = "INSERT INTO usuario SET ?";
-
-
         try {
-
-            const existeUsuario = await pool.query(sqlExisteUsuario, [username]);
+            const existeUsuario = await pool.query(sqlExisteUsuario, [codigoUsuario]);
             console.log(existeUsuario.length);
             if (existeUsuario.length > 0) {
                 return res.json({ ok: false, mensaje: "Este usuario ya existe" });
             }
-            const existeTrabajador = await pool.query(sqlExisteTrabajador, [codigo_trabajador]);
-            if (existeTrabajador.length > 0) {
-                return res.json({ ok: false, mensaje: "El trabajador ya existe" });
-            }
-            var valuesTrabajador = {
-                nombre1: nombre1,
-                nombre2: nombre2,
-                apellido_p: apellido_p,
-                apellido_m: apellido_m,
-                area_adscripcion: area_adscripcion,
-                codigo_trabajador: codigo_trabajador,
-                plaza_laboral: plaza_laboral
-            };
-
-            const resp = await pool.query(sqlCuenta, [valuesTrabajador]);
-            console.log("Trabajador Creado");
-            console.log(resp.insertId);
-            var id_trabajador = resp.insertId;
             var valuesUsuario = {
-                username: username,
-                password: password,
-                tipo_user: tipo_user = 1,
-                id_trabajador: id_trabajador
+                codigo: codigoUsuario,
+                nombres: nombresUsuario,
+                apellidos: apellidosUsuario,
+                tipo_usuario: tipoUsuario,
+                nip: password,
+                area_adscripcion: areaAdscripcion,
+                plaza_laboral: plazaLaboral,
+                fecha_creacion: new Date(),
+                numero_social: numeroSocial
             };
-            console.log(valuesUsuario);
-            console.log("Usuario Creado");
             pool.query(sqlUsuario, [valuesUsuario], (error, results) => {
                 if (error) return res.json(error);
             });
-
+            console.log("Cuenta Creada");
         } catch (e) {
             return res.json({ ok: false, mensaje: e });
         }
-        res.json({ ok: true, mensaje: 'Cuenta creada' })
+        res.json({ ok: true, mensaje: 'Cuenta creada' });
     },
 
     selectUsuario: (req, res) => {
@@ -85,7 +63,6 @@ module.exports = {
                 plazaLaboral: cuenta[0].plaza_laboral
             };
             res.json(json);
-            //res.json(programa);
 
 
         });

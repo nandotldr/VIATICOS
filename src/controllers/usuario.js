@@ -69,64 +69,30 @@ module.exports = {
     },
     //D
     modificarUsuario: async(req, res) => {
-        var id_trabajdor = req.body.idTrabajador;
-        var nombre1 = req.body.nombre1;
-        var nombre2 = req.body.nombre2;
-        var apellido_p = req.body.apellidoP;
-        var apellido_m = req.body.apellidoM;
-        var area_adscripcion = req.body.areaAdscripcion;
-        var codigo_trabajador = req.body.codigoTrabajador;
-        var plaza_laboral = req.body.plazaLaboral;
-
-        var valuesTrabajador = {
-            nombre1: nombre1,
-            nombre2: nombre2,
-            apellido_p: apellido_p,
-            apellido_m: apellido_m,
-            area_adscripcion: area_adscripcion,
-            codigo_trabajador: codigo_trabajador,
-            plaza_laboral: plaza_laboral
-        };
-        var sqlModificarTrabajador = "UPDATE trabajador SET nombre1 =?, nombre2 =?, apellido_p =?, apellido_m =?, area_adscripcion =?, codigo_trabajador =?, plaza_laboral =? WHERE id_trabajador = ?";
-        pool.query(sqlModificarTrabajador, [valuesTrabajador], [id_trabajador], (errorModificarTrabajador, modificarTrabajador) => {
-            if (errorModificarTrabajador) return res.json(errorModificarTrabajador);
-            res.json(modificarTrabajador);
-        });
-
-
-
-
         try {
-            var valuesTrabajador = {
-                nombre1: nombre1,
-                nombre2: nombre2,
-                apellido_p: apellido_p,
-                apellido_m: apellido_m,
-                area_adscripcion: area_adscripcion,
-                codigo_trabajador: codigo_trabajador,
-                plaza_laboral: plaza_laboral
-            };
-
-            const resp = await pool.query(sqlCuenta, [valuesTrabajador]);
-            console.log("Trabajador Creado");
-            console.log(resp.insertId);
-            var id_trabajador = resp.insertId;
+            var codigo = req.body.codigo;
+            var nombres = req.body.nombres;
+            var apellidos = req.body.apellidos;
+            var areaAdscripcion = req.body.area_adscripcion;
+            var plazaLaboral = req.body.plaza_laboral;
+            var numeroSocial = req.body.numeroSocial;
             var valuesUsuario = {
-                username: username,
-                password: password,
-                tipo_user: tipo_user = 1,
-                id_trabajador: id_trabajador
+                nombres: nombres,
+                apellidos: apellidos,
+                area_adscripcion: areaAdscripcion,
+                plaza_laboral: plazaLaboral,
+                numero_social: numeroSocial,
+                fecha_modificacion: new Date()
             };
-            console.log(valuesUsuario);
-            console.log("Usuario Creado");
+            var sqlModificarUsuario = "UPDATE usuario SET nombres = ?, apellidos =?, area_adscripcion =?, plaza_laboral =?, numero_social = ? WHERE codigo = ?";
+            pool.query(sqlModificarUsuario, [valuesUsuario], [codigo], (errorModificar, modificarUsuario) => {
+                if (errorModificar) return res.json(errorModificar);
 
+            });
         } catch (e) {
             return res.json({ ok: false, mensaje: e });
         }
+        res.json({ ok: true, mensaje: "Cuenta modificada" });
 
-        pool.query(sqlUsuario, [valuesUsuario], (error, results) => {
-            if (error) return res.json(error);
-            res.json(results);
-        });
     }
 }

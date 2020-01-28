@@ -5,10 +5,9 @@ const router = express.Router();
 
 const guard = require('../../config/config').validador;
 
-router.post('/', solicitud_comisionCtl.guardar_solicitud_comision);
+router.post('/', solicitud_comisionCtl.crearSolicitudComision);
 router.get('/:id', solicitud_comisionCtl.select_solicitud_comision);
 router.put('/', solicitud_comisionCtl.update);
-router.delete('/', solicitud_comisionCtl.delete);
 
 
 // Rutas extras del controlador como archivos, etc.

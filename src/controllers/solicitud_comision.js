@@ -7,100 +7,52 @@ const pool = require('../database');
  */
 module.exports = {
 
-    guardar_solicitud_comision: async(req, res) => {
-        //utilities.validarParametros([req.body.folio, req.body.fechaCreacion, req.body.fechaEnvio, req.body.fechaAprobacion, req.body.estatus, req.body.codigoTrabajador, req.body.nombreSolicitante, req.body.areaAdscripcion, req.body.tipo, req.body.destino, req.body.plazaLaboral, req.body.justificacion, req.body.programaTrabajo, req.body.objetivoTrabajo, req.body.evento, req.body.dia, req.body.fecha, req.body.lugar, req.body.tareas, req.body.invitacionEvento, req.body.programaEvento]).then(comision(){
+    crearSolicitudComision: async(req, res) => {
         //Define variables locales:
-
-
-        var codigo_trabajador = req.body.codigoTrabajador;
-        var nombre1 = req.body.nombreSolicitante;
-        var area_adscripcion = req.body.areaAdscripcion;
-        var tipo_comision = req.body.tipo;
-        var comision_lugar = req.body.destino;
-        var fechaArrivo = req.body.arrivo;
-        var fechaSalida = req.body.salida;
-        var plaza_laboral = req.body.plazaLaboral;
-        var justificacion = req.body.justificacion;
-        var programaTrabajo = req.body.programaTrabajo;
-        var objetivo_trabajo = req.body.objetivoTrabajo;
-        var nombre_comision = req.body.evento;
-        var tipo_estatus = req.body.estatus;
-        //  var numero_dia = req.body.programa.dia;
-        //  var dia = req.body.programa.fecha;
-        var programa = req.body.programa;
-        //  var lugar_estancia = req.body.programa.lugar;
-        // var tareas = req.body.programa.tareas;
-        var invitacionEvento = req.body.invitacionEvento;
-        var programaEvento = req.body.programaEvento;
-
         //console.log(req.body);
-        var sqlExisteTrabajador = "SELECT id_trabajador FROM trabajador WHERE codigo_trabajador = ?";
-        var sqlComision = "INSERT INTO comision SET ?";
-        var sqlPrograma = "INSERT INTO programa_trabajo SET ?";
-        var sqlLugarNac = "INSERT INTO comision_lugarnac SET ?";
-
+        var codigoUsuario = req.body.codigo;
+        var tipo_comision = req.body.tipo_comision;
+        var comisionLugar = req.body.id_destino;
+        var fechaInicio = req.body.fecha_inicio;
+        var fechaFin = req.body.fecha_fin;
+        var justificacion = req.body.justificacion;
+        var estatus_comision = req.body.status;
+        var objetivo_trabajo = req.body.objetivo_trabajo;
+        var nombre_comision = req.body.nombre_comision;
+        var urlProgramaEvento = req.body.programa_evento;
+        var urlInvitacion = req.body.invitacion_evento;
+       // console.log(req.body);
+        var pais = null;
+        var municipio = null;
+        var sqlComision = "INSERT INTO solicitud_comision SET ?";
         try {
 
-            const existe = await pool.query(sqlExisteTrabajador, [codigo_trabajador]);
-            if (existe.leangth == 0) {
-                return res.json({ ok: false, mensaje: 'No existe este trabajador' });
-            }
-            const id_estatus = await pool.query('SELECT idestatus FROM estatus WHERE tipo_estatus = ?', [tipo_estatus]);
+            if(tipo_comision ==0){ pais = comisionLugar;}
+            else { municipio = comisionLugar;}
 
             var valuesComision = {
-                id_trabajador: existe[0]['id_trabajador'],
+                id_usuario: codigoUsuario,
                 nombre_comision: nombre_comision,
                 tipo_comision: tipo_comision,
-                objetivo_trabajo: objetivo_trabajo,
-                fecha_creacion: new Date(),
-                invitacionEvento: invitacionEvento,
-                programaEvento: programaEvento,
+                fecha_inicio: fechaInicio,
+                fecha_fin: fechaFin,
+                id_pais: pais,
+                id_municipio: municipio,
                 justificacion: justificacion,
-                idestatus: id_estatus[0].idestatus
+                status: estatus_comision,
+                objetivo_trabajo: objetivo_trabajo,
+                programa_evento:urlProgramaEvento,
+                invitacion_Evento: urlInvitacion,
+                fecha_creacion: new Date(),
+                fecha_solicitud: new Date()
             };
-
+           // console.log(valuesComision);
             const resp = await pool.query(sqlComision, [valuesComision]);
-            console.log("comision creada");
-
-            var id_comision = resp.insertId;
-
-            if (tipo_comision == 0) {
-                var valuesDestino = {
-                    fechaArrivo: fechaArrivo,
-                    fechaPartida: fechaSalida,
-                    id_comision: id_comision,
-                    id_pais: comision_lugar
-
-                };
-                console.log(valuesDestino);
-                pool.query('INSERT INTO comision_lugarext SET ?', [valuesDestino]);
-            } else if (tipo_comision == 1) {
-                console.log("Comision Nacional");
-                var valuesDestinoNacional = {
-                    fechaArrivo: fechaArrivo,
-                    fechaPartida: fechaSalida,
-                    id_comision: id_comision,
-                    id_municipio: comision_lugar
-                };
-                console.log(valuesDestinoNacional);
-                pool.query(sqlLugarNac, [valuesDestinoNacional]);
-                //console.log(nacional);
-            };
-            programa.forEach((item, i) => {
-                console.log("Iterando programa");
-                console.log(item);
-                var valuesPrograma = {
-                    dia: item.fecha,
-                    numero_dia: item.dia,
-                    lugar_estancia: item.lugar,
-                    tareas: item.tareas,
-                    id_comision: id_comision
-                };
-                pool.query(sqlPrograma, [valuesPrograma]);
-            });
-
+            //console.log(resp);
         } catch (e) {
+            //console.log(e);
             return res.json({ ok: false, mensaje: e });
+
         }
         res.json({ ok: true, mensaje: "Comision creada" });
     },

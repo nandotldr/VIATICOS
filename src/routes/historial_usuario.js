@@ -1,9 +1,9 @@
 const express = require('express');
-const historialComisionCt1 = require('../controllers/historialComision');
+const historial_usuarioCt1 = require('../controllers/historial_usuario');
 var app = express();
 
 const router = express.Router();
 
-router.get('/:id', historialComisionCt1.selecthistorial);
+router.get('/:id', historial_usuarioCt1.selecthistorial);
 
 module.exports = router;

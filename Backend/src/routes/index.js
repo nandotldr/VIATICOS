@@ -3,7 +3,7 @@ const router = express.Router();
 
 const auth = require('../middlewares/credentials');
 
-router.get('/', (req, res) => {
+router.get('/', auth(), (req, res) => {
     res.send('Viaticos API');
 });
 

@@ -62,7 +62,7 @@ module.exports = {
                 plaza_laboral: usuario[0].plaza_laboral,
                 numero_social: usuario[0].numero_social
             };
-            console.log(json);
+
             res.json(json);
         });
 
@@ -85,7 +85,8 @@ module.exports = {
                 numero_social: numeroSocial,
                 fecha_modificacion: new Date()
             };
-            var sqlModificarUsuario = "UPDATE usuario SET nombres = ?, apellidos =?, area_adscripcion =?, plaza_laboral =?, numero_social = ? WHERE codigo = ?";
+            console.log(valuesUsuario);
+            var sqlModificarUsuario = "UPDATE usuario SET nombres = ?, apellidos =?, area_adscripcion =?, plaza_laboral =?, numero_social = ?, fecha_modificacion = ?' WHERE codigo = ?";
             pool.query(sqlModificarUsuario, [valuesUsuario], [codigo], (errorModificar, modificarUsuario) => {
                 if (errorModificar) return res.json(errorModificar);
 

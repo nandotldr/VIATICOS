@@ -57,7 +57,7 @@ module.exports = {
         res.json({ ok: true, mensaje: "Comision creada" });
     },
 
-    select_solicitud_comision: (req, res) => {
+    cosultarSolicitudComison: (req, res) => {
         const { id } = req.params;
         pool.query('SELECT * FROM comision WHERE id_comision = ?', [id], (errorComision, comision) => {
             if (errorComision) return res.json(errorComision);

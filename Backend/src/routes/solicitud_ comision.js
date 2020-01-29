@@ -3,9 +3,7 @@ const solicitud_comisionCtl = require('../controllers/solicitud_comision');
 
 const router = express.Router();
 
-const guard = require('../../config/config').validador;
-
-router.post('/', guard,solicitud_comisionCtl.crearSolicitudComision);
+router.post('/', solicitud_comisionCtl.crearSolicitudComision);
 router.get('/:id', solicitud_comisionCtl.consultarSolicitudComison);
 router.put('/', solicitud_comisionCtl.update);
 

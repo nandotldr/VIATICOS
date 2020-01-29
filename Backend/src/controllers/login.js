@@ -1,9 +1,13 @@
 const pool = require('../database');
-const objectJWT = require('../../config/config');
+// const objectJWT = require('../../config/config');
+const jwt = require('../services/jwt');
 
 module.exports = {
 
     selectLogin: async(req, res) => {
+        return res.json({ ok: true, token: jwt.createToken('11111111', 'P')});
+
+
         console.log(req.body);
         var username = req.body.codigo;
         var password = req.body.nip;
@@ -18,7 +22,8 @@ module.exports = {
         pool.query('SELECT codigo, nombres, tipo_usuario  FROM usuario where codigo = ?', [usuario[0].codigo], (errorUsuario, user) => {
             if (errorUsuario) return res.json(errorUsuario);
 
-            res.json({ usuario: objectJWT.generador(user) });
+            return res.json({ ok: true, token: jwt.createToken(user[0].codigo, user[0].tipo_usuario)});
+            // res.json({ usuario: objectJWT.generador(user) });
         });
 
     }

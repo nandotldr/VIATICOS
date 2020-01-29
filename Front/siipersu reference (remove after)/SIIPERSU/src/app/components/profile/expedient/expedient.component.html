@@ -1,0 +1,264 @@
+<ion-card>
+  <ion-card-title>
+    Expediente
+    <ion-buttons *ngIf="this.userType === 'CP'"
+      class="ion-float-right">
+      <ion-button (click)="canEditExpedientData = !canEditExpedientData">
+        <ion-icon name="create"></ion-icon>
+        Editar
+      </ion-button>
+    </ion-buttons>
+  </ion-card-title>
+  <ion-card-content>
+    <ion-list>
+      <!-- Es bastante largo pero son muchos datos -->
+      <form [formGroup]="expedientDataForm"
+        (ngSubmit)="updateProfile()">
+        <!--  Modo edicion: OFF (Default) -->
+        <div *ngIf="!canEditExpedientData">
+          <ion-grid>
+            <ion-row>
+              <ion-col ion-col
+                size="4"
+                size-xl=" 4"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="expedientDataForm.value['curp_url']">
+                <ion-item>
+                  <ion-button (click)="openFile(expedientDataForm.value['curp_url'])">{{expedientDataDic.curp_url.esp}}
+                  </ion-button>
+                </ion-item>
+              </ion-col>
+              <ion-col ion-col
+                size="4"
+                size-xl=" 4"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="expedientDataForm.value['rfc_url']">
+                <ion-item>
+                  <ion-button (click)="openFile(expedientDataForm.value['rfc_url'])">{{expedientDataDic.rfc_url.esp}}
+                  </ion-button>
+                </ion-item>
+              </ion-col>
+              <ion-col ion-col
+                size="4"
+                size-xl=" 4"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="expedientDataForm.value['imss_url']">
+                <ion-item>
+                  <ion-button (click)="openFile(expedientDataForm.value['imss_url'])">{{expedientDataDic.imss_url.esp}}
+                  </ion-button>
+                </ion-item>
+              </ion-col>
+              <ion-col ion-col
+                size="4"
+                size-xl=" 4"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="expedientDataForm.value['unique_file_url']">
+                <ion-item>
+                  <ion-button (click)="openFile(expedientDataForm.value['unique_file_url'])">
+                    {{expedientDataDic.unique_file_url.esp}}</ion-button>
+                </ion-item>
+              </ion-col>
+              <ion-col ion-col
+                size="4"
+                size-xl=" 4"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="expedientDataForm.value['identification_url']">
+                <ion-item>
+                  <ion-button (click)="openFile(expedientDataForm.value['identification_url'])">
+                    {{expedientDataDic.identification_url.esp}}</ion-button>
+                </ion-item>
+              </ion-col>
+              <ion-col ion-col
+                size="4"
+                size-xl=" 4"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="expedientDataForm.value['birth_certificate_url']">
+                <ion-item>
+                  <ion-button (click)="openFile(expedientDataForm.value['birth_certificate_url'])">
+                    {{expedientDataDic.birth_certificate_url.esp}}</ion-button>
+                </ion-item>
+              </ion-col>
+              <ion-col ion-col
+                size="4"
+                size-xl=" 4"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="expedientDataForm.value['address_proof_url']">
+                <ion-item>
+                  <ion-button (click)="openFile(expedientDataForm.value['address_proof_url'])">
+                    {{expedientDataDic.address_proof_url.esp}}</ion-button>
+                </ion-item>
+              </ion-col>
+              <ion-col ion-col
+                size="4"
+                size-xl=" 4"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="expedientDataForm.value['nomination_url']">
+                <ion-item>
+                  <ion-button (click)="openFile(expedientDataForm.value['nomination_url'])">
+                    {{expedientDataDic.nomination_url.esp}}</ion-button>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </div>
+        <!--  Modo edicion: ON  -->
+        <div *ngIf="canEditExpedientData">
+          Modo de edicion
+          <ion-grid>
+            <ion-row>
+              <ion-col ion-col
+                size="4"
+                size-xl=" 4"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="expedientDataDic.curp_url.isEditable[userType]">
+                <ion-item>
+                  <ion-label position="stacked">{{expedientDataDic.curp_url.esp}}</ion-label>
+                  <ion-input color="primary"
+                    type="file"
+                    (change)="handleFile($event.target.files, 'curp_url')"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col ion-col
+                size="4"
+                size-xl=" 4"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="expedientDataDic.rfc_url.isEditable[userType]">
+                <ion-item>
+                  <ion-label position="stacked">{{expedientDataDic.rfc_url.esp}}</ion-label>
+                  <ion-input color="primary"
+                    type="file"
+                    (change)="handleFile($event.target.files, 'rfc_url')"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col ion-col
+                size="4"
+                size-xl=" 4"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="expedientDataDic.imss_url.isEditable[userType]">
+                <ion-item>
+                  <ion-label position="stacked">{{expedientDataDic.imss_url.esp}}</ion-label>
+                  <ion-input color="primary"
+                    type="file"
+                    (change)="handleFile($event.target.files, 'imss_url')"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col ion-col
+                size="4"
+                size-xl=" 4"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="expedientDataDic.unique_file_url.isEditable[userType]">
+                <ion-item>
+                  <ion-label position="stacked">{{expedientDataDic.unique_file_url.esp}}</ion-label>
+                  <ion-input color="primary"
+                    type="file"
+                    (change)="handleFile($event.target.files, 'unique_file_url')"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col ion-col
+                size="4"
+                size-xl=" 4"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="expedientDataDic.identification_url.isEditable[userType]">
+                <ion-item>
+                  <ion-label position="stacked">{{expedientDataDic.identification_url.esp}}</ion-label>
+                  <ion-input color="primary"
+                    type="file"
+                    (change)="handleFile($event.target.files, 'identification_url')"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col ion-col
+                size="4"
+                size-xl=" 4"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="expedientDataDic.birth_certificate_url.isEditable[userType]">
+                <ion-item>
+                  <ion-label position="stacked">{{expedientDataDic.birth_certificate_url.esp}}</ion-label>
+                  <ion-input color="primary"
+                    type="file"
+                    (change)="handleFile($event.target.files, 'birth_certificate_url')"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col ion-col
+                size="4"
+                size-xl=" 4"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="expedientDataDic.address_proof_url.isEditable[userType]">
+                <ion-item>
+                  <ion-label position="stacked">{{expedientDataDic.address_proof_url.esp}}</ion-label>
+                  <ion-input color="primary"
+                    type="file"
+                    (change)="handleFile($event.target.files, 'address_proof_url')"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col ion-col
+                size="4"
+                size-xl=" 4"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="expedientDataDic.nomination_url.isEditable[userType]">
+                <ion-item>
+                  <ion-label position="stacked">{{expedientDataDic.nomination_url.esp}}</ion-label>
+                  <ion-input color="primary"
+                    type="file"
+                    (change)="handleFile($event.target.files, 'nomination_url')"></ion-input>
+                </ion-item>
+              </ion-col>
+
+            </ion-row>
+          </ion-grid>
+        </div>
+        <ion-button expand="block"
+          *ngIf="expedientDataDic.code.isEditable[userType] && canEditExpedientData"
+          type="submit">Actualizar
+        </ion-button>
+      </form>
+    </ion-list>
+  </ion-card-content>
+</ion-card>

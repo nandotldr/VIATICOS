@@ -1,0 +1,212 @@
+<ion-card>
+  <ion-card-title>
+    Productos
+    <ion-buttons class="ion-float-right">
+      <ion-button (click)="canEditProducts = !canEditProducts">
+        <ion-icon name="create"></ion-icon>
+        Editar
+      </ion-button>
+    </ion-buttons>
+  </ion-card-title>
+  <ion-card-content>
+
+    <!--    <ion-button *ngIf="canEditProducts" color="light"-->
+    <!--                (click)="addProductToGroup()">-->
+    <!--      <ion-icon color="success" name="add-circle-outline"></ion-icon>-->
+    <!--      Agregar producto-->
+    <!--    </ion-button>-->
+    <!--  Lista de elementos de los datos academices-->
+    <form [formGroup]="productDataForm">
+      <!--  Modo de edicion: OFF (default)  -->
+
+      <div *ngIf="!canEditProducts">
+        <ion-card>
+          <ion-card-title class="title-card"> Mis datos</ion-card-title>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="12" size-xl=" 3" size-lg="4" size-md="4" size-sm="6" size-xs="12">
+                <ion-item *ngIf="productDataForm.value['books']">
+                  <ion-label class="ion-number-capitalize" position="floating">Libros</ion-label>
+                  <ion-input type="number" readonly
+                             formControlName="books"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="12" size-xl=" 3" size-lg="4" size-md="4" size-sm="6" size-xs="12">
+                <ion-item *ngIf="productDataForm.value['class_notes']">
+                  <ion-label class="ion-number-capitalize" position="floating">Notas de clase</ion-label>
+                  <ion-input type="number" readonly
+                             formControlName="class_notes"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="12" size-xl=" 3" size-lg="4" size-md="4" size-sm="6" size-xs="12">
+                <ion-item *ngIf="productDataForm.value['didactic_material']">
+                  <ion-label class="ion-number-capitalize" position="floating">Material didactico</ion-label>
+                  <ion-input type="number" readonly
+                             formControlName="didactic_material"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="12" size-xl=" 3" size-lg="4" size-md="4" size-sm="6" size-xs="12">
+                <ion-item *ngIf="productDataForm.value['practice_manual']">
+                  <ion-label class="ion-number-capitalize" position="floating">Manual de practicas</ion-label>
+                  <ion-input type="number" readonly
+                             formControlName="practice_manual"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="12" size-xl=" 3" size-lg="4" size-md="4" size-sm="6" size-xs="12">
+                <ion-item *ngIf="productDataForm.value['articles']">
+                  <ion-label class="ion-number-capitalize" position="floating">Articulos</ion-label>
+                  <ion-input type="number" readonly
+                             formControlName="articles"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="12" size-xl=" 3" size-lg="4" size-md="4" size-sm="6" size-xs="12">
+                <ion-item *ngIf="productDataForm.value['congress_memories']">
+                  <ion-label class="ion-number-capitalize" position="floating">Memorias del congreso</ion-label>
+                  <ion-input type="number" readonly
+                             formControlName="congress_memories"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="12" size-xl=" 3" size-lg="4" size-md="4" size-sm="6" size-xs="12">
+                <ion-item *ngIf="productDataForm.value['patents']">
+                  <ion-label class="ion-number-capitalize" position="floating">Patentes</ion-label>
+                  <ion-input type="number" readonly
+                             formControlName="patents"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="12" size-xl=" 3" size-lg="4" size-md="4" size-sm="6" size-xs="12">
+                <ion-item *ngIf="productDataForm.value['outreach_articles']">
+                  <ion-label class="ion-number-capitalize" position="floating">Articulos de divulgacion</ion-label>
+                  <ion-input type="number" readonly
+                             formControlName="outreach_articles"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="12" size-xl=" 3" size-lg="4" size-md="4" size-sm="6" size-xs="12">
+                <ion-item *ngIf="productDataForm.value['forum_participations']">
+                  <ion-label class="ion-number-capitalize" position="floating">Participacion en foros</ion-label>
+                  <ion-input type="number" readonly
+                             formControlName="forum_participations"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="12" size-xl=" 3" size-lg="4" size-md="4" size-sm="6" size-xs="12">
+                <ion-item *ngIf="productDataForm.value['industry_services']">
+                  <ion-label class="ion-number-capitalize" position="floating">Servicios a la industria</ion-label>
+                  <ion-input type="number" readonly
+                             formControlName="industry_services"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="12" size-xl=" 3" size-lg="4" size-md="4" size-sm="6" size-xs="12">
+                <ion-item *ngIf="productDataForm.value['industry_agreements']">
+                  <ion-label class="ion-number-capitalize" position="floating">Convenios con la industria</ion-label>
+                  <ion-input type="number" readonly
+                             formControlName="industry_agreements"></ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card>
+      </div>
+
+      <!--  Modo de edicion: ON  -->
+      <ion-row>
+        <div *ngIf="canEditProducts">
+          Modo de edicion.
+          <!--          <ion-card class="animated bounceInUp">-->
+          <ion-card>
+            <!--              <ion-buttons>-->
+            <!--                <ion-button (click)="removeProduct(i)">-->
+            <!--                  <ion-icon color="danger" name="trash"></ion-icon>-->
+            <!--                </ion-button>-->
+            <!--              </ion-buttons>-->
+
+            <ion-card-title class="title-card"> Mis datos</ion-card-title>
+            <ion-grid>
+              <ion-row>
+                <ion-col size="12" size-xl=" 3" size-lg="4" size-md="4" size-sm="6" size-xs="12">
+                  <ion-item>
+                    <ion-label class="ion-number-capitalize" position="floating">Libros</ion-label>
+                    <ion-input type="number" color="primary"
+                               formControlName="books"></ion-input>
+                  </ion-item>
+                </ion-col>
+                <ion-col size="12" size-xl=" 3" size-lg="4" size-md="4" size-sm="6" size-xs="12">
+                  <ion-item>
+                    <ion-label class="ion-number-capitalize" position="floating">Notas de clase</ion-label>
+                    <ion-input type="number" color="primary"
+                               formControlName="class_notes"></ion-input>
+                  </ion-item>
+                </ion-col>
+                <ion-col size="12" size-xl=" 3" size-lg="4" size-md="4" size-sm="6" size-xs="12">
+                  <ion-item>
+                    <ion-label class="ion-number-capitalize" position="floating">Material didactico</ion-label>
+                    <ion-input type="number" color="primary"
+                               formControlName="didactic_material"></ion-input>
+                  </ion-item>
+                </ion-col>
+                <ion-col size="12" size-xl=" 3" size-lg="4" size-md="4" size-sm="6" size-xs="12">
+                  <ion-item>
+                    <ion-label class="ion-number-capitalize" position="floating">Manual de practicas</ion-label>
+                    <ion-input type="number" color="primary"
+                               formControlName="practice_manual"></ion-input>
+                  </ion-item>
+                </ion-col>
+                <ion-col size="12" size-xl=" 3" size-lg="4" size-md="4" size-sm="6" size-xs="12">
+                  <ion-item>
+                    <ion-label class="ion-number-capitalize" position="floating">Articulos</ion-label>
+                    <ion-input type="number" color="primary"
+                               formControlName="articles"></ion-input>
+                  </ion-item>
+                </ion-col>
+                <ion-col size="12" size-xl=" 3" size-lg="4" size-md="4" size-sm="6" size-xs="12">
+                  <ion-item>
+                    <ion-label class="ion-number-capitalize" position="floating">Memorias del congreso</ion-label>
+                    <ion-input type="number" color="primary"
+                               formControlName="congress_memories"></ion-input>
+                  </ion-item>
+                </ion-col>
+                <ion-col size="12" size-xl=" 3" size-lg="4" size-md="4" size-sm="6" size-xs="12">
+                  <ion-item>
+                    <ion-label class="ion-number-capitalize" position="floating">Patentes</ion-label>
+                    <ion-input type="number" color="primary"
+                               formControlName="patents"></ion-input>
+                  </ion-item>
+                </ion-col>
+                <ion-col size="12" size-xl=" 3" size-lg="4" size-md="4" size-sm="6" size-xs="12">
+                  <ion-item>
+                    <ion-label class="ion-number-capitalize" position="floating">Articulos de divulgacion</ion-label>
+                    <ion-input type="number" color="primary"
+                               formControlName="outreach_articles"></ion-input>
+                  </ion-item>
+                </ion-col>
+                <ion-col size="12" size-xl=" 3" size-lg="4" size-md="4" size-sm="6" size-xs="12">
+                  <ion-item>
+                    <ion-label class="ion-number-capitalize" position="floating">Participacion en foros</ion-label>
+                    <ion-input type="number" color="primary"
+                               formControlName="forum_participations"></ion-input>
+                  </ion-item>
+                </ion-col>
+                <ion-col size="12" size-xl=" 3" size-lg="4" size-md="4" size-sm="6" size-xs="12">
+                  <ion-item>
+                    <ion-label class="ion-number-capitalize" position="floating">Servicios a la industria</ion-label>
+                    <ion-input type="number" color="primary"
+                               formControlName="industry_services"></ion-input>
+                  </ion-item>
+                </ion-col>
+                <ion-col size="12" size-xl=" 3" size-lg="4" size-md="4" size-sm="6" size-xs="12">
+                  <ion-item>
+                    <ion-label class="ion-number-capitalize" position="floating">Convenios con la industria</ion-label>
+                    <ion-input type="number" color="primary"
+                               formControlName="industry_agreements"></ion-input>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+            <ion-button expand="block" [disabled]="productDataForm.invalid"
+                        (click)="updateProduct()">
+              Actualizar producto
+            </ion-button>
+          </ion-card>
+        </div>
+      </ion-row>
+    </form>
+  </ion-card-content>
+</ion-card>

@@ -1,0 +1,87 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button color="primary" menu="menu"></ion-menu-button> <!--  este puto se esconde-->
+    </ion-buttons>
+    <ion-title class="ion-text-capitalize">Perfil</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content id="principal-content">
+  <div class="container">
+    <ion-grid fixed>
+      <!--  Cartas de informacion  -->
+      <ion-row>
+        <ion-col size="3" size-xl=" 3" size-lg="4" size-md="4" size-sm="6" size-xs="6">
+          <ion-card (click)="scrollTo(personalDataId)" [ngClass]="animation[0]"
+                    (mouseover)="animation[0]='animated pulse faster'" (mouseout)="animation[0]=''">
+            <ion-card-title>Datos Personales</ion-card-title>
+            <ion-card-content>
+              Informacion acerca de tus datos personales.
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+        <ion-col size="3" size-xl="3" size-lg="4" size-md="4" size-sm="6" size-xs="6">
+          <ion-card (click)="scrollTo(laboralDataId)" [ngClass]="animation[1]"
+                    (mouseover)="animation[1]='animated pulse faster'" (mouseout)="animation[1]=''">
+            <ion-card-title>Datos Laborales</ion-card-title>
+            <ion-card-content>
+              Informacion acerca de tus datos laborales, asi como tus contratos.
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+        <ion-col size="3" size-xl="3" size-lg="4" size-md="4" size-sm="6" size-xs="6">
+          <ion-card (click)="scrollTo(academicDataId)" [ngClass]="animation[2]"
+                    (mouseover)="animation[2]='animated pulse faster'" (mouseout)="animation[2]=''">
+            <ion-card-title>Datos Academicos</ion-card-title>
+            <ion-card-content>
+              Informacion acerca de formacion academica.
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+        <ion-col size="3" size-xl="3" size-lg="4" size-md="4" size-sm="6" size-xs="6">
+          <ion-card (click)="scrollTo(expedientId)" [ngClass]="animation[3]"
+                    (mouseover)="animation[3]='animated pulse faster'" (mouseout)="animation[3]=''">
+            <ion-card-title>Expediente</ion-card-title>
+            <ion-card-content>
+              Informacion acerca de tus datos digitalizados.
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+        <ion-col size="3" size-xl="3" size-lg="4" size-md="4" size-sm="6" size-xs="6">
+          <ion-card (click)="scrollTo(skillsId)" [ngClass]="animation[4]"
+                    (mouseover)="animation[4]='animated pulse faster'" (mouseout)="animation[4]=''">
+            <ion-card-title>Mis Habilidades</ion-card-title>
+            <ion-card-content>
+              Dominio de idiomas y uso de programas.
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+      <!--  div contenedor de los formularios  -->
+      <ion-row>
+        <ion-col size="12" size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
+          <!--  Carta de Datos personales  -->
+          <div #personalDataId></div>
+          <app-personal-data [codeUrl]="codeUrl"></app-personal-data>
+        </ion-col>
+        <ion-col size="12" size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
+          <div #laboralDataId></div>
+          <app-laboral-data [codeUrl]="codeUrl"></app-laboral-data>
+        </ion-col>
+        <ion-col size="12" size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
+          <div #academicDataId></div>
+          <app-academic-data [codeUrl]="codeUrl"></app-academic-data>
+        </ion-col>
+        <ion-col size="12" size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
+          <div #expedientId></div>
+          <app-expedient [codeUrl]="codeUrl"></app-expedient>
+        </ion-col>
+        <ion-col size="12" size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
+          <div #skillsId></div>
+          <app-skills [codeUrl]="codeUrl"></app-skills>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>

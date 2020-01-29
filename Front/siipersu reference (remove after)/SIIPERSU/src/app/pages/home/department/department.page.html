@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Departamento</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content id="principal-content">
+  <div class="container">
+    <ion-grid fixed>
+      <ion-row>
+        <ion-col size="3" size-xl=" 3" size-lg="4" size-md="4" size-sm="6" size-xs="6">
+          <ion-card (click)="page = 'anual-work'" [ngClass]="animation[0]"
+                    (mouseover)="animation[0]='animated pulse faster'" (mouseout)="animation[0]=''">
+            <ion-card-title>Planes de trabajo anuales</ion-card-title>
+            <ion-card-content>
+              Informacion acerca de los planes de trabajo anuales e informes semestrales de tu plantilla academica.
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+        <ion-col size="3" size-xl=" 3" size-lg="4" size-md="4" size-sm="6" size-xs="6">
+          <ion-card (click)="page = 'academies'" [ngClass]="animation[1]"
+                    (mouseover)="animation[1]='animated pulse faster'" (mouseout)="animation[1]=''">
+            <ion-card-title>Colegio departamental y academias</ion-card-title>
+            <ion-card-content>
+              Informacion acerca de la conformación y miembros del colegio departamental y las academias.
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+        <ion-col size="3" size-xl=" 3" size-lg="4" size-md="4" size-sm="6" size-xs="6">
+          <ion-card (click)="page = 'performance-letters'" [ngClass]="animation[2]"
+                    (mouseover)="animation[2]='animated pulse faster'" (mouseout)="animation[2]=''">
+            <ion-card-title>Cartas de desempeño docente</ion-card-title>
+            <ion-card-content>
+              Informacion acerca del desempeño de la plantilla academica, asi como la evaluacion de la misma.
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+        <ion-col size="3" size-xl=" 3" size-lg="4" size-md="4" size-sm="6" size-xs="6">
+          <ion-card (click)="page = 'academic-staff'" [ngClass]="animation[3]"
+                    (mouseover)="animation[3]='animated pulse faster'" (mouseout)="animation[3]=''">
+            <ion-card-title>Plantilla académica del departamento</ion-card-title>
+            <ion-card-content>
+              Informacion acerca de todos los integrantes de tu departamento.
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12" size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12"
+                 *ngIf="page === undefined">
+          <ion-card>
+            <ion-card-title class="title-card">Por favor seleccione un menu</ion-card-title>
+          </ion-card>
+        </ion-col>
+        <ion-col size="12" size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12"
+                 *ngIf="page === 'anual-work'">
+          <app-annual-work-plans></app-annual-work-plans>
+        </ion-col>
+        <ion-col size="12" size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12"
+                 *ngIf="page === 'academies'">
+          <app-colleges-and-academies></app-colleges-and-academies>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>

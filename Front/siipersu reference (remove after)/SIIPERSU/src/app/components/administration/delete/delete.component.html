@@ -1,0 +1,25 @@
+<ion-card>
+  <ion-card-title> Dar de baja a un usuario </ion-card-title>
+  <ion-card-content>
+    <ion-list>
+
+      <!--  Lista de elementos de los datos academices-->
+      <form [formGroup]="userDataForm">
+        <ion-card>
+          <ion-item>
+            <ion-label class="ion-text-capitalize" position="floating">Codigo</ion-label>
+            <ion-input type="number" color="primary" pattern="[0-9]{8}" max="99999999"
+                       formControlName="code"></ion-input>
+          </ion-item>
+          <ion-button expand="block" *ngIf="userDataForm.valid"
+                      (click)="deleteUser(userDataForm)"
+                      [disabled]="this.userDataForm.invalid">
+            Dar de baja a usuario
+          </ion-button>
+
+        </ion-card>
+
+      </form>
+    </ion-list>
+  </ion-card-content>
+</ion-card>

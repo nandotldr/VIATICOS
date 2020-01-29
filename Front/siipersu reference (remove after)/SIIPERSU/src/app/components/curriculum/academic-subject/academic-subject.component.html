@@ -1,0 +1,101 @@
+<ion-card>
+  <ion-card-title>
+    Materias impartidas
+    <ion-buttons class="ion-float-right">
+      <ion-button (click)="canEditSubjects = !canEditSubjects">
+        <ion-icon name="create"></ion-icon>
+        Editar
+      </ion-button>
+    </ion-buttons>
+  </ion-card-title>
+  <ion-card-content>
+
+    <ion-button *ngIf="canEditSubjects" color="light"
+                (click)="addSubjectToGroup()">
+      <ion-icon color="success" name="add-circle-outline"></ion-icon>
+      Agregar nueva materia
+    </ion-button>
+    <ion-list>
+
+      <!--  Lista de elementos de los datos academices-->
+      <form [formGroup]="subjectDataForm">
+        <div formArrayName="subjects">
+          <!--  Modo de edicion: OFF (default)  -->
+          <div *ngIf="!canEditSubjects">
+            <ion-grid>
+              <ion-row>
+                <ion-col size="12" size-xl=" 6" size-lg="6" size-md="6" size-sm="12" size-xs="12"
+                         *ngFor="let academy of subjectDataForm.get('subjects')['controls']; let i = index"
+                         [formGroupName]="i">
+                  <div *ngIf="subjectDataForm.get('subjects')['controls'].length > 0">
+                    <ion-card *ngIf="subjectDataForm.value.subjects[i]['id']">
+                      <ion-card-title class="title-card">
+                        Materia:  {{subjectDataForm.value.subjects[i]['subject']}} </ion-card-title>
+                      <ion-item *ngIf="subjectDataForm.value.subjects[i]['subject']">
+                        <ion-label class="ion-text-capitalize" position="floating">Materia</ion-label>
+                        <ion-input type="text" readonly
+                                   formControlName="subject"></ion-input>
+                      </ion-item>
+                      <ion-item *ngIf="subjectDataForm.value.subjects[i]['number_sections']">
+                        <ion-label class="ion-text-capitalize" position="floating">Numero de secciones</ion-label>
+                        <ion-input type="text" readonly
+                                   formControlName="number_sections"></ion-input>
+                      </ion-item>
+                      <ion-item *ngIf="subjectDataForm.value.subjects[i]['period']">
+                        <ion-label class="ion-text-capitalize" position="floating">Periodo</ion-label>
+                        <ion-input type="text" readonly
+                                   formControlName="period"></ion-input>
+                      </ion-item>
+                    </ion-card>
+                  </div>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </div>
+
+          <!--  Modo de edicion: ON  -->
+          <div *ngIf="canEditSubjects">
+            <ion-grid>
+              <ion-row>
+                <ion-col size="12" size-xl=" 6" size-lg="6" size-md="6" size-sm="12" size-xs="12"
+                         *ngFor="let academy of subjectDataForm.get('subjects')['controls']; let i = index"
+                         [formGroupName]="i">
+                  <ion-card class="animated bounceInUp">
+
+                    <ion-card-title class="title-card">Materia:  {{subjectDataForm.value.subjects[i]['subject']}}
+                      <ion-buttons class="ion-float-right">
+                        <ion-button (click)="removeSubject(i)">
+                          <ion-icon color="danger" name="trash"></ion-icon>
+                          Borrar
+                        </ion-button>
+                      </ion-buttons>
+                    </ion-card-title>
+                    <ion-item>
+                      <ion-label class="ion-text-capitalize" position="floating">Materia</ion-label>
+                      <ion-input type="text" color="primary"
+                                 formControlName="subject"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                      <ion-label class="ion-text-capitalize" position="floating">Numero de secciones</ion-label>
+                      <ion-input type="text" color="primary"
+                                 formControlName="number_sections"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                      <ion-label class="ion-text-capitalize" position="floating">Periodo</ion-label>
+                      <ion-input type="text" color="primary"
+                                 formControlName="period"></ion-input>
+                    </ion-item>
+                    <ion-button expand="block" [disabled]="subjectDataForm.controls.subjects.controls[i].invalid"
+                                (click)="updateSubject(i)">
+                      Actualizar materia
+                    </ion-button>
+                  </ion-card>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </div>
+        </div>
+      </form>
+    </ion-list>
+  </ion-card-content>
+</ion-card>

@@ -1,0 +1,51 @@
+<div class="container">
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col size="12" size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
+        <ion-card>
+          <ion-card-title>
+            Planes de trabajo anuales
+          </ion-card-title>
+          <ion-card-content>
+            <ion-item>
+              <ion-label>Selecciona el año</ion-label>
+              <ion-select placeholder="Año" interface="popover"
+                          (ionChange)="canShowCards = true; selectedYear = $event.detail.value">
+                <!--  Años  -->
+                <div *ngFor="let year of getYears()">
+                  <ion-select-option value="{{year}}">{{year}}</ion-select-option>
+                </div>
+              </ion-select>
+            </ion-item>
+            <!--  semestres  -->
+            <div class="semester-container" *ngIf="canShowCards">
+              <ion-grid>
+                <ion-row>
+                  <ion-col size="12" size-xl="4" size-lg="4" size-md="4" size-sm="12" size-xs="12">
+                    <ion-button expand="block" (click)="canShowPlans = true; selectedSemester = 'AB'">Plan anual</ion-button>
+                  </ion-col>
+                  <ion-col size="12" size-xl="4" size-lg="4" size-md="4" size-sm="12" size-xs="12"
+                           *ngIf="canShowSemester('A')">
+                    <ion-button expand="block" (click)="canShowPlans = true; selectedSemester = 'A'">Informe Semestral A</ion-button>
+                  </ion-col>
+                  <ion-col size="12" size-xl="4" size-lg="4" size-md="4" size-sm="12" size-xs="12"
+                           *ngIf="canShowSemester('B')">
+                    <ion-button expand="block" (click)="canShowPlans = true; selectedSemester = 'B'">Informe Semestral B</ion-button>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12" size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
+        <!--informe-->
+        <div *ngIf="canShowPlans && canLoadPage">
+          <app-staff-work-plans [year]="selectedYear" [semester]="selectedSemester" [dependency]="academyAdscriptionDependency"></app-staff-work-plans>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</div>

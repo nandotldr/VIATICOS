@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button color="primary" menu="menu"></ion-menu-button> <!--  este puto se esconde-->
+    </ion-buttons>
+    <ion-title class="ion-text-capitalize">Noticias</ion-title>
+    <ion-buttons slot="end" *ngIf="canAddNews()">
+      <ion-button (click)="addNew($event)">
+        <ion-icon slot="icon-only" name="add"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content id="principal-content">
+  <div class="container">
+    <ion-grid fixed>
+      <ion-row>
+        <ion-col >
+          <ion-list>
+            <ion-card *ngFor="let new of news; let i = index" >
+              <ion-card-header no-padding>
+                <ion-card-title>
+                  {{new.title}}
+                  <!--            <div class="ion-float-end">-->
+                  <!--              <ion-button *ngIf="canAddNews()" (click)="modifyNew(i, $event)" color="medium">Modificar</ion-button>-->
+                  <!--              <ion-button *ngIf="canAddNews()" (click)="deleteNew(i, $event)" color="danger">Eliminar</ion-button>-->
+                  <!--            </div>-->
+                  <ion-buttons class="ion-float-right">
+                    <ion-button *ngIf="canAddNews()" (click)="modifyNew(i, $event)">
+                      <ion-icon name="create"></ion-icon>
+                      Editar
+                    </ion-button>
+                    <ion-button *ngIf="canAddNews()" (click)="deleteNew(i, $event)">
+                      <ion-icon color="danger" name="trash"></ion-icon>
+                      Borrar
+                    </ion-button>
+                  </ion-buttons>
+                </ion-card-title>
+                <ion-card-subtitle padding>
+                  {{new.date | date:"medium"}}
+                </ion-card-subtitle>
+              </ion-card-header>
+              <ion-card-content>
+                {{new.description}}
+              </ion-card-content>
+              <ion-button *ngIf="new.file_url" (click)="abrirArchivo(new.id, new.file_url)" color="primary">Archivo
+              </ion-button>
+            </ion-card>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>

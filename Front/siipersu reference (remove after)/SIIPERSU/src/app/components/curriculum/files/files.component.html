@@ -1,0 +1,80 @@
+<ion-card>
+  <ion-card-title>
+    Fichas bibliograficas
+    <ion-buttons class="ion-float-right">
+      <ion-button (click)="canEditFiles = !canEditFiles">
+        <ion-icon name="create"></ion-icon>
+        Editar
+      </ion-button>
+    </ion-buttons>
+  </ion-card-title>
+  <ion-card-content>
+
+    <ion-button *ngIf="canEditFiles" color="light"
+                (click)="addFileToGroup()">
+      <ion-icon color="success" name="add-circle-outline"></ion-icon>
+      Agregar nueva ficha
+    </ion-button>
+    <ion-list>
+
+      <!--  Lista de elementos de los datos academices-->
+      <form [formGroup]="fileDataForm">
+        <div formArrayName="files">
+          <!--  Modo de edicion: OFF (default)  -->
+
+          <div *ngIf="!canEditFiles">
+            <ion-grid>
+              <ion-row>
+                <ion-col size="12" size-xl=" 4" size-lg="6" size-md="6" size-sm="12" size-xs="12"
+                         *ngFor="let academy of fileDataForm.get('files')['controls']; let i = index"
+                         [formGroupName]="i">
+                  <ion-card *ngIf="fileDataForm.value.files[i]['id']">
+                    <ion-card-title class="title-card">Ficha</ion-card-title>
+                    <ion-item *ngIf="fileDataForm.value.files[i]['record']">
+                      <ion-label class="ion-text-capitalize" position="floating">Ficha</ion-label>
+                      <ion-textarea type="text" readonly
+                                    formControlName="record"></ion-textarea>
+                    </ion-item>
+                  </ion-card>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </div>
+
+          <!--  Modo de edicion: ON  -->
+          <div *ngIf="canEditFiles">
+            <ion-grid>
+              <ion-row>
+                <ion-col size="12" size-xl=" 4" size-lg="6" size-md="6" size-sm="12" size-xs="12"
+                         *ngFor="let academy of fileDataForm.get('files')['controls']; let i = index"
+                         [formGroupName]="i">
+                  <ion-card class="animated bounceInUp">
+
+                    <ion-card-title class="title-card"> ficha
+                      <ion-buttons class="ion-float-right">
+                        <ion-button (click)="removeFile(i)">
+                          <ion-icon color="danger" name="trash"></ion-icon>Borrar
+                        </ion-button>
+                      </ion-buttons>
+                    </ion-card-title>
+                    <ion-item>
+                      <ion-label class="ion-text-capitalize" position="floating">Ficha</ion-label>
+                      <ion-textarea type="text" color="primary"
+                                    formControlName="record"></ion-textarea>
+                    </ion-item>
+                    <ion-button expand="block" [disabled]="fileDataForm.controls.files.controls[i].invalid"
+                                (click)="updateFile(i)">
+                      Actualizar Ficha
+                    </ion-button>
+                  </ion-card>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </div>
+
+        </div>
+      </form>
+    </ion-list>
+
+  </ion-card-content>
+</ion-card>

@@ -1,0 +1,256 @@
+<ion-card>
+  <ion-card-title>
+    Mis habilidades
+    <ion-buttons class="ion-float-right">
+      <ion-button (click)="canEditSkills = !canEditSkills">
+        <ion-icon name="create"></ion-icon>
+        Editar
+      </ion-button>
+    </ion-buttons>
+  </ion-card-title>
+  <ion-card-content>
+    <ion-list>
+
+      <!--  Lista de elementos de los datos academices-->
+      <form [formGroup]=" skillForm">
+
+        <!--  Modo de edicion: OFF (default)  -->
+        <div #languagesId>
+          <!--  Apartado de lenguajes  -->
+          <ion-card-title>Lenguajes</ion-card-title>
+          <span *ngIf="canEditSkills && !canAddLanguage">Modo de edicion</span><br>
+          <ion-button *ngIf="canEditSkills && !canAddLanguage" color="light"
+                      (click)="addLanguageToGroup()">
+            <ion-icon color="success" name="add-circle-outline"></ion-icon>
+            Agregar nuevo idioma
+          </ion-button>
+          <div formArrayName="languages">
+            <div *ngFor="let skills of skillForm.get('languages')['controls']; let i = index"
+                 [formGroupName]="i">
+
+              <div *ngIf="!canAddLanguage">
+                <ion-card>
+                  <ion-card-title class="title-card">Idioma: {{skillForm.value.languages[i]['language']}}
+                    <ion-buttons *ngIf="canEditSkills" class="ion-float-right">
+                      <ion-button (click)="removeLanguage(i)">
+                        <ion-icon color="danger" name="trash"></ion-icon>
+                        Borrar
+                      </ion-button>
+                    </ion-buttons>
+                  </ion-card-title>
+                  <ion-grid>
+                    <ion-row>
+
+                      <ion-col ion-col size="4" size-xl=" 4" size-lg="4" size-md="4" size-sm="6" size-xs="6"
+                               *ngIf="null !== skillForm.value.languages[i]['language']">
+                        <ion-item>
+                          <ion-label position="floating">Lenguaje</ion-label>
+                          <ion-input type="text" readonly
+                                     formControlName="language"></ion-input>
+                        </ion-item>
+                      </ion-col>
+                      <ion-col ion-col size="4" size-xl=" 4" size-lg="4" size-md="4" size-sm="6" size-xs="6"
+                               *ngIf="null !== skillForm.value.languages[i]['spoken']">
+                        <ion-item>
+                          <ion-label position="floating">Habla</ion-label>
+                          <ion-input type="text" readonly
+                                     formControlName="spoken"></ion-input>
+                        </ion-item>
+                      </ion-col>
+                      <ion-col ion-col size="4" size-xl=" 4" size-lg="4" size-md="4" size-sm="6" size-xs="6"
+                               *ngIf="null !== skillForm.value.languages[i]['comprehension']">
+                        <ion-item>
+                          <ion-label position="floating">Comprension</ion-label>
+                          <ion-input type="text" readonly
+                                     formControlName="comprehension"></ion-input>
+                        </ion-item>
+                      </ion-col>
+                      <ion-col ion-col size="4" size-xl=" 4" size-lg="4" size-md="4" size-sm="6" size-xs="6"
+                               *ngIf="null !== skillForm.value.languages[i]['reading']">
+                        <ion-item>
+                          <ion-label position="floating">Lectura</ion-label>
+                          <ion-input type="text" readonly
+                                     formControlName="reading"></ion-input>
+                        </ion-item>
+                      </ion-col>
+                      <ion-col ion-col size="4" size-xl=" 4" size-lg="4" size-md="4" size-sm="6" size-xs="6"
+                               *ngIf="null !== skillForm.value.languages[i]['written']">
+                        <ion-item>
+                          <ion-label position="floating">Escritura</ion-label>
+                          <ion-input type="text" readonly
+                                     formControlName="written"></ion-input>
+                        </ion-item>
+                      </ion-col>
+                    </ion-row>
+                  </ion-grid>
+                </ion-card>
+              </div>
+
+
+              <div *ngIf="canAddLanguage">
+                <div *ngIf="i === 0">
+                  <ion-card class="animated bounceInUp">
+                    <ion-card-title class="title-card">
+                      Idioma: {{skillForm.value.languages[i]['language']}}</ion-card-title>
+                    <ion-grid>
+                      <ion-row>
+
+                        <ion-col ion-col size="12" size-xl=" 12" size-lg="12" size-md="12" size-sm="12" size-xs="12"
+                                 *ngIf="null !== skillForm.value.languages[i]['language']">
+                          <ion-item>
+                            <ion-label>Lenguaje</ion-label>
+                            <ion-input type="text" color="primary"
+                                       formControlName="language"></ion-input>
+                          </ion-item>
+                        </ion-col>
+                        <ion-col ion-col size="12" size-xl=" 6" size-lg="6" size-md="6" size-sm="6" size-xs="6"
+                                 *ngIf="null !== skillForm.value.languages[i]['spoken']">
+                          <h1>Habla</h1>
+                        </ion-col>
+                        <ion-col ion-col size="12" size-xl=" 6" size-lg="6" size-md="6" size-sm="6" size-xs="6"
+                                 *ngIf="null !== skillForm.value.languages[i]['spoken']">
+                          <ion-item>
+                            <ion-range formControlName="spoken" ticks="true" step="5" snaps="true" min="0" max="100"
+                                       color="primary" pin="true">
+                              <ion-label slot="start">0</ion-label>
+                              <ion-label slot="end">100</ion-label>
+                            </ion-range>
+                          </ion-item>
+                        </ion-col>
+                        <ion-col ion-col size="12" size-xl=" 6" size-lg="6" size-md="6" size-sm="6" size-xs="6"
+                                 *ngIf="null !== skillForm.value.languages[i]['comprehension']">
+                          <h1>Comprension</h1>
+                        </ion-col>
+                        <ion-col ion-col size="6" size-xl=" 6" size-lg="6" size-md="6" size-sm="6" size-xs="6"
+                                 *ngIf="null !== skillForm.value.languages[i]['comprehension']">
+                          <ion-item>
+                            <ion-range formControlName="comprehension" ticks="true" step="5" snaps="true" min="0"
+                                       max="100"
+                                       color="primary" pin="true">
+                              <ion-label slot="start">0</ion-label>
+                              <ion-label slot="end">100</ion-label>
+                            </ion-range>
+                          </ion-item>
+                        </ion-col>
+                        <ion-col ion-col size="12" size-xl=" 6" size-lg="6" size-md="6" size-sm="6" size-xs="6"
+                                 *ngIf="null !== skillForm.value.languages[i]['reading']">
+                          <h1>Lectura</h1>
+                        </ion-col>
+                        <ion-col ion-col size="6" size-xl=" 6" size-lg="6" size-md="6" size-sm="6" size-xs="6"
+                                 *ngIf="null !== skillForm.value.languages[i]['reading']">
+                          <ion-item>
+                            <ion-range formControlName="reading" ticks="true" step="5" snaps="true" min="0"
+                                       max="100"
+                                       color="primary" pin="true">
+                              <ion-label slot="start">0</ion-label>
+                              <ion-label slot="end">100</ion-label>
+                            </ion-range>
+                          </ion-item>
+                        </ion-col>
+                        <ion-col ion-col size="12" size-xl=" 6" size-lg="6" size-md="6" size-sm="6" size-xs="6"
+                                 *ngIf="null !== skillForm.value.languages[i]['written']">
+                          <h1>Escritura</h1>
+                        </ion-col>
+                        <ion-col ion-col size="12" size-xl=" 6" size-lg="6" size-md="6" size-sm="6" size-xs="6"
+                                 *ngIf="null !== skillForm.value.languages[i]['written']">
+                          <ion-item>
+                            <ion-range formControlName="written" ticks="true" step="5" snaps="true" min="0"
+                                       max="100"
+                                       color="primary" pin="true">
+                              <ion-label slot="start">0</ion-label>
+                              <ion-label slot="end">100</ion-label>
+                            </ion-range>
+                          </ion-item>
+                        </ion-col>
+                        <ion-button expand="block"
+                                    (click)="createLanguage()">
+                          Agregar lenguaje
+                        </ion-button>
+                      </ion-row>
+                    </ion-grid>
+                  </ion-card>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <!--  Apartado de programas  -->
+          <div #programsId>
+            <div formArrayName="programs">
+              <ion-card-title>Programas</ion-card-title>
+              <ion-button *ngIf="canEditSkills && !canAddProgram" color="light"
+                          (click)="addProgramToGroup()">
+                <ion-icon color="success" name="add-circle-outline"></ion-icon>
+                Agregar nuevo programa
+              </ion-button>
+              <ion-grid>
+                <ion-row>
+                  <div *ngFor="let skills of skillForm.get('programs')['controls']; let i = index"
+                       [formGroupName]="i">
+                    <div *ngIf="!canAddProgram">
+
+                      <ion-col ion-col size="12" size-xl=" 4" size-lg="4" size-md="4" size-sm="6" size-xs="6">
+                        <ion-card>
+                          <ion-card-title class="title-card">Uso de: {{skillForm.value.programs[i]['program']}}
+                            <ion-buttons *ngIf="canEditSkills" class="ion-float-right">
+                              <ion-button (click)="removeProgram(i)">
+                                <ion-icon color="danger" name="trash"></ion-icon>
+                                Borrar
+                              </ion-button>
+                            </ion-buttons>
+                          </ion-card-title>
+                          <ion-item *ngIf="null !== skillForm.value.programs[i]['program']">
+                            <ion-label position="floating">Programa</ion-label>
+                            <ion-input type="text" readonly
+                                       formControlName="program"></ion-input>
+                          </ion-item>
+                          <ion-item *ngIf="null !== skillForm.value.programs[i]['usage']">
+                            <ion-label position="floating">Capacidad de uso</ion-label>
+                            <ion-input type="text" readonly
+                                       formControlName="usage"></ion-input>
+                          </ion-item>
+                        </ion-card>
+                      </ion-col>
+                    </div>
+
+                    <div *ngIf="canAddProgram">
+                      <div *ngIf="i === 0">
+                        <ion-col ion-col size="12" size-xl=" 4" size-lg="4" size-md="4" size-sm="6" size-xs="6">
+                          <ion-card class="animated bounceInUp" class="title-card">
+                            <!--  Apartado de botones superior -->
+                            <ion-card-title>Uso
+                              de: {{skillForm.value.programs[i]['program']}}</ion-card-title>
+
+                            <ion-item *ngIf="null !== skillForm.value.programs[i]['program']">
+                              <ion-label position="floating">Programa</ion-label>
+                              <ion-input type="text" color="primary"
+                                         formControlName="program"></ion-input>
+                            </ion-item>
+                            <ion-item *ngIf="null !== skillForm.value.programs[i]['usage']">
+                              <h2>Uso</h2>
+                              <ion-range formControlName="usage" ticks="true" step="5" snaps="true" min="0" max="100"
+                                         color="primary" pin="true">
+                                <ion-label slot="start">0</ion-label>
+                                <ion-label slot="end">100</ion-label>
+                              </ion-range>
+                            </ion-item>
+                            <ion-button expand="block"
+                                        (click)="createProgram()">
+                              Agregar programa
+                            </ion-button>
+                          </ion-card>
+                        </ion-col>
+
+                      </div>
+                    </div>
+                  </div>
+                </ion-row>
+              </ion-grid>
+            </div>
+          </div>
+        </div>
+      </form>
+    </ion-list>
+  </ion-card-content>
+
+</ion-card>

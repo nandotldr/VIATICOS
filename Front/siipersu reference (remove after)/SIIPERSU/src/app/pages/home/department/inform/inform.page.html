@@ -1,0 +1,331 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Informe Semestral</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content id="principal-content">
+  <div class="container">
+    <ion-grid fixed>
+      <ion-row>
+        <ion-col size="12" size-xl="4" size-lg="4" size-md="4" size-sm="12" size-xs="12">
+          <ion-card>
+            <ion-card-title class="title-card">Codigo</ion-card-title>
+            <ion-card-content class="ion-text-center">
+              <div *ngIf="userData">{{userData.code}}</div>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+        <ion-col size="12" size-xl="4" size-lg="4" size-md="4" size-sm="12" size-xs="12">
+          <ion-card>
+            <ion-card-title class="title-card">Nombre</ion-card-title>
+            <ion-card-content class="ion-text-center">
+              <div *ngIf="userData">{{userData.names}} {{userData.last_name}} {{userData.second_last_name}}</div>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+        <ion-col size="12" size-xl="4" size-lg="4" size-md="4" size-sm="12" size-xs="12">
+          <ion-card>
+            <ion-card-title class="title-card">Departamento</ion-card-title>
+            <ion-card-content class="ion-text-center">
+              <div *ngIf="userData">{{userData.academy_ascription_dependency}}</div>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12" size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
+          <ion-card>
+            <ion-card-title class="title-card">I.- Docencia</ion-card-title>
+            <ion-card-subtitle class="ion-padding">A) FRENTE A GRUPOS</ion-card-subtitle>
+            <div class="ion-padding" *ngIf="informData">
+              Calendario {{getCalendar(informData.type)}}
+            </div>
+            <ion-grid fixed>
+              <ion-row>
+                <ion-col size="12" size-xl="4" size-lg="4" size-md="4" size-sm="12" size-xs="12">
+                  <ion-card class="ion-">
+                    <ion-card-title>PROGRAMAS</ion-card-title>
+                    <ion-card-content class="ion-text-center">
+                      <div *ngIf="informData">
+                        {{informData.program}}
+                      </div>
+                    </ion-card-content>
+                  </ion-card>
+                </ion-col>
+                <ion-col size="12" size-xl="4" size-lg="4" size-md="4" size-sm="12" size-xs="12">
+                  <ion-card>
+                    <ion-card-title>MATERIAS</ion-card-title>
+                    <ion-card-content class="ion-text-center">
+                      <div *ngIf="informData">
+                        {{informData.subject}}
+                      </div>
+                    </ion-card-content>
+                  </ion-card>
+                </ion-col>
+                <ion-col size="12" size-xl="4" size-lg="4" size-md="4" size-sm="12" size-xs="12">
+                  <ion-card>
+                    <ion-card-title>NUMERO DE GRUPOS</ion-card-title>
+                    <ion-card-content class="ion-text-center">
+                      <div *ngIf="informData">
+                        {{informData.group_number}}
+                      </div>
+                    </ion-card-content>
+                  </ion-card>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+            <ion-card-subtitle class="ion-padding">B) Otras actividades de apoyo a la docencia</ion-card-subtitle>
+            <div class="ion-padding" *ngIf="informData">
+              {{informData.activities_support}}
+            </div>
+            <ion-card-subtitle class="ion-padding">C) Formación con fines docentes</ion-card-subtitle>
+            <div class="ion-padding" *ngIf="informData">
+              {{informData.docent_formation}}
+            </div>
+            <ion-card-title class="title-card">II.- LÍNEA DE GENERACIÓN Y APLICACIÓN DEL CONOCIMIENTO</ion-card-title>
+            <ion-card-subtitle class="ion-padding">Nombre de la línea</ion-card-subtitle>
+            <div class="ion-padding" *ngIf="informData">
+              {{informData.line_number}}
+            </div>
+            <ion-card-subtitle class="ion-padding">Nombre del proyecto</ion-card-subtitle>
+            <div class="ion-padding" *ngIf="informData">
+              {{informData.project_name}}
+            </div>
+            <ion-card-subtitle class="ion-padding">Grado de avance al inicar el año (%)</ion-card-subtitle>
+            <div class="ion-padding" *ngIf="informData">
+              {{informData.actual_year_progress}}
+            </div>
+            <ion-card-subtitle class="ion-padding"> Grado de avance que se pretende al finalizar el año (%)
+            </ion-card-subtitle>
+            <div class="ion-padding" *ngIf="informData">
+              {{informData.expected_year_progress}}
+            </div>
+            <ion-card-subtitle class="ion-padding"> Descripción de las principales actividades a realizar durante el año
+              (planeación y realización de los proyectos de investigación: publicación de informes, artículos y libros,
+              productos de investigación; obtención de patentes, conferencias, seminarios, congresos de investigación,
+              reuniones científicas o técnicas sobre los proyectos de investigación, estancias posdoctorales)
+            </ion-card-subtitle>
+            <div class="ion-padding" *ngIf="informData">
+              {{informData.activities_description}}
+            </div>
+            <ion-card-title class="title-card">III.- ACTIVIDADES DE TUTELAJE</ion-card-title>
+            <ion-card-subtitle class="ion-padding">A) Tutoría a estudiantes (individuales y grupales)
+            </ion-card-subtitle>
+            <div class="ion-padding" *ngIf="informData">
+              {{informData.student_tutorship}}
+            </div>
+            <ion-card-subtitle class="ion-padding">B) Asesoría a estudiantes Dirección y revisón de tesis o trabajos de
+              titulación y jurado en exámenes recepcionales
+            </ion-card-subtitle>
+            <div class="ion-padding" *ngIf="informData">
+              {{informData.student_help}}
+            </div>
+            <ion-card-subtitle class="ion-padding">Preparación de alumnos para competencias académicas, supervisión a
+              estudiantes de servicio social y prácticas profesionales, coordinador de círculos de estudio y organizador
+              de viajes de estudio
+            </ion-card-subtitle>
+            <div class="ion-padding" *ngIf="informData">
+              {{informData.student_formation}}
+            </div>
+            <ion-card-subtitle class="ion-padding">Participacón como profesor en cursos, seminarios, talleres extra
+              curriculares
+            </ion-card-subtitle>
+            <div class="ion-padding" *ngIf="informData">
+              {{informData.participation}}
+            </div>
+            <ion-card-title class="title-card">IV.- ACTIVIDADES DE GESTIÓN ACADÉMICA</ion-card-title>
+            <ion-card-subtitle class="ion-padding">A) Gestión académica colegiada (participación en consejos, colegios,
+              comisiones dictaminadoras, comisiones editoriales y/o evaluadoras de carrera docente, fomes, promep,
+              elaboración de reglamento, etc.)
+            </ion-card-subtitle>
+            <div class="ion-padding" *ngIf="informData">
+              {{informData.academic_management}}
+            </div>
+            <ion-card-subtitle class="ion-padding">B) Gestión colectiva de docencia
+              (comisiones de análisis, diseño y evaluación de planes de estudio y programas educativos; comisiones de
+              apoyo a la docencia, seguimiento de egresados, estudios de factibilidad y pertinencia, indicadores de
+              calidad, viajes de estudio, encargado de talleres y laboratorios, etc.)
+            </ion-card-subtitle>
+            <div class="ion-padding" *ngIf="informData">
+              {{informData.collective_management}}
+            </div>
+            <ion-card-subtitle class="ion-padding">C) Gestión colectiva de generación y aplicación del conocimiento
+              (comisiones para evaluar proyectos de investigación o vinculación, etc.)
+            </ion-card-subtitle>
+            <div class="ion-padding" *ngIf="informData">
+              {{informData.collective_knowledge}}
+            </div>
+            <ion-card-subtitle class="ion-padding">D) Gestión académica personal
+              (dirección, coordinación o supervisión de programas educativos, de investigación, de vinculación;
+              organización de eventos académicos, vinculación con el sector social y productivo, responsable de servicio
+              social y prácticas profesionales, etc.)
+            </ion-card-subtitle>
+            <div class="ion-padding" *ngIf="informData">
+              {{informData.personal_management}}
+            </div>
+            <ion-card-title class="title-card">V.- DIFUSIÓN</ion-card-title>
+            <ion-card-subtitle class="ion-padding">(conferencias, seminarios, conciertos, cursos, talleres dirigidos a
+              grupos sociales extra universitarios, asesorías externas y preparación de material para difusión)
+            </ion-card-subtitle>
+            <div class="ion-padding" *ngIf="informData">
+              {{informData.diffusion}}
+            </div>
+            <ion-card-title class="title-card">VI.- FORMACIÓN DE POSGRADO</ion-card-title>
+            <ion-card-subtitle class="ion-padding">Formación propia en programas de posgrado
+            </ion-card-subtitle>
+            <div class="ion-padding" *ngIf="informData">
+              {{informData.post_formation}}
+            </div>
+            <ion-card-title class="title-card">COMENTARIOS ADICIONALES</ion-card-title>
+            <ion-card-subtitle class="ion-padding">Si no cumplió algun objetivo de su plan de trabajo, ¿cuál considera
+              que haya sido el obstaculo?
+            </ion-card-subtitle>
+            <div class="ion-padding" *ngIf="informData">
+              {{informData.additional_comment}}
+            </div>
+            <ion-card-title class="title-card">DISTRIBUCIÓN DEL TIEMPO QUE PLANEA INVERTIR EN LAS SIGUIENTES ACTIVIDADES
+              (HORAS POR SEMANA)
+            </ion-card-title>
+            <ion-grid fixed>
+              <ion-row>
+                <ion-col size="12" size-xl="3" size-lg="3" size-md="4" size-sm="6" size-xs="6">
+                  <ion-card class="ion-">
+                    <ion-card-title>Docencia</ion-card-title>
+                    <ion-card-content class="ion-text-center">
+                      <div *ngIf="informData">
+                        {{informData.teacher}}
+                      </div>
+                    </ion-card-content>
+                  </ion-card>
+                </ion-col>
+                <ion-col size="12" size-xl="3" size-lg="3" size-md="4" size-sm="6" size-xs="6">
+                  <ion-card>
+                    <ion-card-title>L.G.A.C.</ion-card-title>
+                    <ion-card-content class="ion-text-center">
+                      <div *ngIf="informData">
+                        {{informData.lgac}}
+                      </div>
+                    </ion-card-content>
+                  </ion-card>
+                </ion-col>
+                <ion-col size="12" size-xl="3" size-lg="3" size-md="4" size-sm="6" size-xs="6">
+                  <ion-card>
+                    <ion-card-title>Asesorías</ion-card-title>
+                    <ion-card-content class="ion-text-center">
+                      <div *ngIf="informData">
+                        {{informData.helps}}
+                      </div>
+                    </ion-card-content>
+                  </ion-card>
+                </ion-col>
+                <ion-col size="12" size-xl="3" size-lg="3" size-md="4" size-sm="6" size-xs="6">
+                  <ion-card>
+                    <ion-card-title>Tutorías</ion-card-title>
+                    <ion-card-content class="ion-text-center">
+                      <div *ngIf="informData">
+                        {{informData.tutories}}
+                      </div>
+                    </ion-card-content>
+                  </ion-card>
+                </ion-col>
+                <ion-col size="12" size-xl="3" size-lg="3" size-md="4" size-sm="6" size-xs="6">
+                  <ion-card>
+                    <ion-card-title>Gestión</ion-card-title>
+                    <ion-card-content class="ion-text-center">
+                      <div *ngIf="informData">
+                        {{informData.management}}
+                      </div>
+                    </ion-card-content>
+                  </ion-card>
+                </ion-col>
+                <ion-col size="12" size-xl="3" size-lg="3" size-md="4" size-sm="6" size-xs="6">
+                  <ion-card>
+                    <ion-card-title>Difusión</ion-card-title>
+                    <ion-card-content class="ion-text-center">
+                      <div *ngIf="informData">
+                        {{informData.diffusion_time}}
+                      </div>
+                    </ion-card-content>
+                  </ion-card>
+                </ion-col>
+                <ion-col size="12" size-xl="3" size-lg="3" size-md="4" size-sm="6" size-xs="6">
+                  <ion-card>
+                    <ion-card-title>Formación posgrado</ion-card-title>
+                    <ion-card-content class="ion-text-center">
+                      <div *ngIf="informData">
+                        {{informData.formation}}
+                      </div>
+                    </ion-card-content>
+                  </ion-card>
+                </ion-col>
+                <ion-col size="12" size-xl="3" size-lg="3" size-md="4" size-sm="6" size-xs="6">
+                  <ion-card>
+                    <ion-card-title>Total</ion-card-title>
+                    <ion-card-content class="ion-text-center">
+                      <div *ngIf="informData">
+                        {{getTotalTimeDistribution()}}
+                      </div>
+                    </ion-card-content>
+                  </ion-card>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+            <ion-card-title class="title-card">Acciones</ion-card-title>
+            <form [formGroup]="adminDataForm">
+              <ion-grid fixed>
+                <ion-row>
+                  <ion-col size="12" size-xl="6" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+                    No. De acta y/o oficio del colegio departamental (obligatorio, aparecería en la
+                    impresión)
+                  </ion-col>
+                  <ion-col size="12" size-xl="6" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+                    <ion-item>
+                      <ion-input placeholder="No." type="number" formControlName="act_number"></ion-input>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col size="12" size-xl="6" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+                    Fecha en que se celebro la sesion del colegio departamental (obligatorio, aparecería en la
+                    impresión)
+                  </ion-col>
+                  <ion-col size="12" size-xl="6" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+                    <ion-item>
+                      <ion-input placeholder="Fecha" type="date" formControlName="celebration_date"></ion-input>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col size="12" size-xl="6" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+                    <ion-button expand="block" (click)="returnLastPage()">Revisar otro informe</ion-button>
+                  </ion-col>
+                  <ion-col size="12" size-xl="6" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+                    <ion-button expand="block" (click)="approveInform()" [disabled]="this.adminDataForm.invalid">Aprobar informe</ion-button>
+                  </ion-col>
+                  <ion-col size="12" size-xl="6" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+                    Razones por las cuales no se aprueba el informe semestral (se le mostrarán al académico en su portal
+                    personal)
+                  </ion-col>
+                  <ion-col size="12" size-xl="6" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+                    <ion-item>
+                      <ion-input placeholder="Razones" type="text"
+                                 formControlName="comment"></ion-input>
+                    </ion-item>
+                  </ion-col>
+                  <ion-col size="12" size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
+                    <ion-button expand="block" (click)="disapproveInform()">No aprobar informe</ion-button>
+                  </ion-col>
+                </ion-row>
+
+              </ion-grid>
+            </form>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>

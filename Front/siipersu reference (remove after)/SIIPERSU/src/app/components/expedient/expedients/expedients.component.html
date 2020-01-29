@@ -1,0 +1,292 @@
+<div>
+  <ion-card>
+    <ion-card-title>
+      <ion-buttons class="ion-float-left">
+        <ion-button (click)="this.refresh()">
+          <ion-icon color="light"
+            name="refresh"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      Expedientes
+      <ion-buttons class="ion-float-right">
+        <ion-button routerLink="/home/profile/{{auth.codeUser}}">
+          <ion-icon color="light"
+            name="document"></ion-icon> Mi Expediente
+        </ion-button>
+      </ion-buttons>
+    </ion-card-title>
+    <ion-item>
+      <ion-item>
+        <ion-label position="floating">Codigo:</ion-label>
+        <ion-input type="text"
+          placeholder="Filtra por Codigo"
+          (keyup)="updateFilter($event)"></ion-input>
+      </ion-item>
+
+    </ion-item>
+    <!--  https://swimlane.github.io/ngx-datatable/#filter   -->
+
+    <ngx-datatable *ngIf="expedientsData"
+      [ngClass]="'material'"
+      [rows]="copyExpedientsData"
+      [headerHeight]="'auto'"
+      [rowHeight]="'auto'"
+      [columnMode]="'standard'"
+      [scrollbarH]="true">
+      <!--  Estos son las definiciones de columnas  -->
+
+      <ngx-datatable-column prop="code"
+        name=""
+        width="50">
+        <ng-template let-row="row"
+          let-value="value"
+          ngx-datatable-cell-template>
+          <ion-buttons>
+            <ion-button routerLink="/home/profile/{{value}}">
+              <ion-icon name="information-circle-outline"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column prop="code"
+        name="Codigo"
+        width="120">
+        <ng-template let-row="row"
+          let-value="value"
+          ngx-datatable-cell-template>
+          {{value}}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column prop="names"
+        name="Nombre">
+        <ng-template let-row="row"
+          let-value="value"
+          ngx-datatable-cell-template>
+          {{value}}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column prop="last_name"
+        name="Apellido Paterno">
+        <ng-template let-row="row"
+          let-value="value"
+          ngx-datatable-cell-template>
+          {{value}}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column prop="second_last_name"
+        name="Apellido Materno">
+        <ng-template let-row="row"
+          let-value="value"
+          ngx-datatable-cell-template>
+          {{value}}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column prop="academy_ascription_dependency"
+        name="Academia de adscripcion">
+        <ng-template let-row="row"
+          let-value="value"
+          ngx-datatable-cell-template>
+          {{value}}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column prop="curp_url"
+        name="Curp"
+        width="75">
+        <ng-template let-row="row"
+          let-value="value"
+          ngx-datatable-cell-template>
+          <ion-buttons>
+            <ion-button color="medium"
+              *ngIf="value"
+              (click)="openFile(value, row)">
+              <ion-icon color="primary"
+                name="paper"></ion-icon>
+            </ion-button>
+            <ion-button color="medium"
+              *ngIf="!value"
+              (click)="presentToast('Sin digitalizar')">
+              <ion-icon color="danger"
+                name="close-circle"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column prop="rfc_url"
+        name="RFC"
+        width="75">
+        <ng-template let-row="row"
+          let-value="value"
+          ngx-datatable-cell-template>
+          <ion-buttons>
+            <ion-button color="medium"
+              *ngIf="value"
+              (click)="openFile(value)">
+              <ion-icon color="primary"
+                name="paper"></ion-icon>
+            </ion-button>
+            <ion-button color="medium"
+              *ngIf="!value"
+              (click)="presentToast('Sin digitalizar')">
+              <ion-icon color="danger"
+                name="close-circle"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column prop="imss_url"
+        name="IMMS"
+        width="75">
+        <ng-template let-row="row"
+          let-value="value"
+          ngx-datatable-cell-template>
+          <ion-buttons>
+            <ion-button color="medium"
+              *ngIf="value"
+              (click)="openFile(value)">
+              <ion-icon color="primary"
+                name="paper"></ion-icon>
+            </ion-button>
+            <ion-button color="medium"
+              *ngIf="!value"
+              (click)="presentToast('Sin digitalizar')">
+              <ion-icon color="danger"
+                name="close-circle"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column prop="unique_file_url"
+        name="Ficha unica"
+        width="90">
+        <ng-template let-row="row"
+          let-value="value"
+          ngx-datatable-cell-template>
+          <ion-buttons>
+            <ion-button color="medium"
+              *ngIf="value"
+              (click)="openFile(value)">
+              <ion-icon color="primary"
+                name="paper"></ion-icon>
+            </ion-button>
+            <ion-button color="medium"
+              *ngIf="!value"
+              (click)="presentToast('Sin digitalizar')">
+              <ion-icon color="danger"
+                name="close-circle"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column prop="identification_url"
+        name="Identificacion"
+        width="90">
+        <ng-template let-row="row"
+          let-value="value"
+          ngx-datatable-cell-template>
+          <ion-buttons>
+            <ion-button color="medium"
+              *ngIf="value"
+              (click)="openFile(value)">
+              <ion-icon color="primary"
+                name="paper"></ion-icon>
+            </ion-button>
+            <ion-button color="medium"
+              *ngIf="!value"
+              (click)="presentToast('Sin digitalizar')">
+              <ion-icon color="danger"
+                name="close-circle"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column prop="birth_certificate_url"
+        name="Acta de nacimiento"
+        width="100">
+        <ng-template let-row="row"
+          let-value="value"
+          ngx-datatable-cell-template>
+          <ion-buttons>
+            <ion-button color="medium"
+              *ngIf="value"
+              (click)="openFile(value)">
+              <ion-icon color="primary"
+                name="paper"></ion-icon>
+            </ion-button>
+            <ion-button color="medium"
+              *ngIf="!value"
+              (click)="presentToast('Sin digitalizar')">
+              <ion-icon color="danger"
+                name="close-circle"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column prop="address_proof_url"
+        name="Domicilio"
+        width="90">
+        <ng-template let-row="row"
+          let-value="value"
+          ngx-datatable-cell-template>
+          <ion-buttons>
+            <ion-button color="medium"
+              *ngIf="value"
+              (click)="openFile(value)">
+              <ion-icon color="primary"
+                name="paper"></ion-icon>
+            </ion-button>
+            <ion-button color="medium"
+              *ngIf="!value"
+              (click)="presentToast('Sin digitalizar')">
+              <ion-icon color="danger"
+                name="close-circle"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column prop="nomination_url"
+        name="Nombramiento"
+        width="100">
+        <ng-template let-row="row"
+          let-value="value"
+          ngx-datatable-cell-template>
+          <ion-buttons>
+            <ion-button color="medium"
+              *ngIf="value"
+              (click)="openFile(value)">
+              <ion-icon color="primary"
+                name="paper"></ion-icon>
+            </ion-button>
+            <ion-button color="medium"
+              *ngIf="!value"
+              (click)="presentToast('Sin digitalizar')">
+              <ion-icon color="danger"
+                name="close-circle"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column prop="curriculum_url"
+        name="Curriculum"
+        width="100">
+        <ng-template let-row="row"
+          let-value="value"
+          ngx-datatable-cell-template>
+          <ion-buttons>
+            <ion-button color="medium"
+              *ngIf="value"
+              (click)="openFile(value)">
+              <ion-icon color="primary"
+                name="paper"></ion-icon>
+            </ion-button>
+            <ion-button color="medium"
+              *ngIf="!value"
+              (click)="presentToast('Sin digitalizar')">
+              <ion-icon color="danger"
+                name="close-circle"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ng-template>
+      </ngx-datatable-column>
+    </ngx-datatable>
+  </ion-card>
+</div>

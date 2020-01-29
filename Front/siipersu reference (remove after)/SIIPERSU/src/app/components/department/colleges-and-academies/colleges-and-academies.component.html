@@ -1,0 +1,57 @@
+<div class="container">
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col size="12" size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
+        <ion-card>
+          <ion-card-title>
+            Colegio departamental y academias
+          </ion-card-title>
+          <ion-card-content>
+            <ion-item>
+              <ion-label>Selecciona el año</ion-label>
+              <ion-select placeholder="Año" interface="popover"
+                          (ionChange)="canShowCards = true; selectedYear = $event.detail.value">
+                <!--  Años  -->
+                <div *ngFor="let year of getYears()">
+                  <ion-select-option value="{{year}}">{{year}}</ion-select-option>
+                </div>
+              </ion-select>
+            </ion-item>
+            <!--  semestres  -->
+            <div class="semester-container" *ngIf="canShowCards">
+              <ion-grid>
+                <ion-row>
+                  <ion-col size="12" size-xl="6" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+                    <ion-button expand="block" (click)="canShowOptions = true; selectedOption = 'colleges'">Colegio
+                      Departamental
+                    </ion-button>
+                  </ion-col>
+                  <ion-col size="12" size-xl="6" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+                    <ion-button expand="block" (click)="canShowOptions = true; selectedOption = 'academies'">Academias
+                    </ion-button>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12" size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12"
+               *ngIf="canShowOptions">
+        <!--informe-->
+        <div *ngIf="selectedOption === 'colleges'">
+          <app-college [year]="selectedYear"></app-college>
+        </div>
+      </ion-col>
+      <ion-col size="12" size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12"
+               *ngIf="canShowOptions">
+        <!--informe-->
+        <div *ngIf="selectedOption === 'academies'">
+          <app-academy [year]="selectedYear"></app-academy>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</div>

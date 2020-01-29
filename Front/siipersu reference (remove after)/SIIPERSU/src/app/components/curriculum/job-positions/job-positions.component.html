@@ -1,0 +1,99 @@
+<ion-card>
+  <ion-card-title>
+    Puestos de trabajo
+    <ion-buttons class="ion-float-right">
+      <ion-button (click)="canEditJobs = !canEditJobs">
+        <ion-icon name="create"></ion-icon>
+        Editar
+      </ion-button>
+    </ion-buttons>
+  </ion-card-title>
+  <ion-card-content>
+    <ion-button *ngIf="canEditJobs" color="light"
+                (click)="addJobToGroup()">
+      <ion-icon color="success" name="add-circle-outline"></ion-icon>
+      Agregar nuevo trabajo
+    </ion-button>
+    <ion-list>
+
+      <!--  Lista de elementos de los datos academices-->
+      <form [formGroup]="jobDataForm">
+        <div formArrayName="jobs">
+          <!--  Modo de edicion: OFF (default)  -->
+          <div *ngIf="!canEditJobs">
+            <ion-grid>
+              <ion-row>
+                <ion-col size="12" size-xl=" 6" size-lg="6" size-md="6" size-sm="12" size-xs="12"
+                         *ngFor="let academy of jobDataForm.get('jobs')['controls']; let i = index"
+                         [formGroupName]="i">
+                  <ion-card *ngIf="jobDataForm.value.jobs[i]['id']">
+                    <ion-card-title class="title-card">Puesto
+                      en {{jobDataForm.value.jobs[i]['institution']}} </ion-card-title>
+                    <ion-item *ngIf="jobDataForm.value.jobs[i]['position']">
+                      <ion-label class="ion-text-capitalize" position="floating">ACTIVIDAD O PUESTO</ion-label>
+                      <ion-input type="text" readonly
+                                 formControlName="position"></ion-input>
+                    </ion-item>
+                    <ion-item *ngIf="jobDataForm.value.jobs[i]['institution']">
+                      <ion-label class="ion-text-capitalize" position="floating">INSTITUCION</ion-label>
+                      <ion-input type="text" readonly
+                                 formControlName="institution"></ion-input>
+                    </ion-item>
+                    <ion-item *ngIf="jobDataForm.value.jobs[i]['period']">
+                      <ion-label class="ion-text-capitalize" position="floating">PERIODO</ion-label>
+                      <ion-input type="text" readonly
+                                 formControlName="period"></ion-input>
+                    </ion-item>
+                  </ion-card>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </div>
+          <!--  Modo de edicion: ON  -->
+          <div *ngIf="canEditJobs">
+            <ion-grid>
+              <ion-row>
+                <ion-col size="12" size-xl=" 6" size-lg="6" size-md="6" size-sm="12" size-xs="12"
+                         *ngFor="let academy of jobDataForm.get('jobs')['controls']; let i = index"
+                         [formGroupName]="i">
+                  <div *ngIf="jobDataForm.get('jobs')['controls'].length > 0">
+
+                    <ion-card class="animated bounceInUp">
+                      <ion-card-title class="title-card">Puesto en {{jobDataForm.value.jobs[i]['institution']}}
+                        <ion-buttons class="ion-float-right">
+                          <ion-button (click)="removeJob(i)">
+                            <ion-icon color="danger" name="trash"></ion-icon>
+                            Borrar
+                          </ion-button>
+                        </ion-buttons>
+                      </ion-card-title>
+                      <ion-item>
+                        <ion-label class="ion-text-capitalize" position="floating">ACTIVIDAD O PUESTO</ion-label>
+                        <ion-input type="text" color="primary"
+                                   formControlName="position"></ion-input>
+                      </ion-item>
+                      <ion-item>
+                        <ion-label class="ion-text-capitalize" position="floating">INSTITUCION</ion-label>
+                        <ion-input type="text" color="primary"
+                                   formControlName="institution"></ion-input>
+                      </ion-item>
+                      <ion-item>
+                        <ion-label class="ion-text-capitalize" position="floating">PERIODO</ion-label>
+                        <ion-input type="text" color="primary"
+                                   formControlName="period"></ion-input>
+                      </ion-item>
+                      <ion-button expand="block" [disabled]="jobDataForm.controls.jobs.controls[i].invalid"
+                                  (click)="updateJob(i)">
+                        Actualizar trabajo
+                      </ion-button>
+                    </ion-card>
+                  </div>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </div>
+        </div>
+      </form>
+    </ion-list>
+  </ion-card-content>
+</ion-card>

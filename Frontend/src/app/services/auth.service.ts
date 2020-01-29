@@ -28,7 +28,7 @@ export class AuthService {
   }
 
   async login(user: { code: string, password: string }) {
-    return await this.http.post(`${this.API_URL}/signin`, {
+    return await this.http.post(`${this.API_URL}/login`, {
       code: user.code,
       password: user.password
     }).pipe(

@@ -1,0 +1,645 @@
+<div class="container">
+  <form [formGroup]="plansForm"
+        (submit)="saveDocument()">
+    <ion-grid fixed>
+      <ion-row>
+        <ion-col size="12" size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
+          <ion-card>
+            <ion-card-title *ngIf="semester === 'AB'">PLAN DE TRABAJO ANUAL {{year}}</ion-card-title>
+            <ion-card-title *ngIf="semester === 'A'">INFORME SEMESTRAL CALENDARIO {{year}}{{semester}}</ion-card-title>
+            <ion-card-title *ngIf="semester === 'B'">INFORME SEMESTRAL CALENDARIO {{year}}{{semester}}</ion-card-title>
+          </ion-card>
+        </ion-col>
+        <ion-col size="12" size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
+          <ion-card>
+            <ion-card-title class="title-card">Estatus</ion-card-title>
+            <ion-card-content class="ion-text-center">
+              <div *ngIf="plansForm">{{STATUS[plansForm.value.status]}}</div>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+        <ion-col size="12" size-xl="4" size-lg="4" size-md="4" size-sm="12" size-xs="12">
+          <ion-card>
+            <ion-card-title class="title-card">Codigo</ion-card-title>
+            <ion-card-content class="ion-text-center">
+              <div *ngIf="userInfoForm">{{userInfoForm.code}}</div>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+        <ion-col size="12" size-xl="4" size-lg="4" size-md="4" size-sm="12" size-xs="12">
+          <ion-card>
+            <ion-card-title class="title-card">Nombre</ion-card-title>
+            <ion-card-content class="ion-text-center">
+              <div
+                  *ngIf="userInfoForm">{{userInfoForm.names}} {{userInfoForm.last_name}} {{userInfoForm.second_last_name}}</div>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+        <ion-col size="12" size-xl="4" size-lg="4" size-md="4" size-sm="12" size-xs="12">
+          <ion-card>
+            <ion-card-title class="title-card">Departamento</ion-card-title>
+            <ion-card-content class="ion-text-center">
+              <div *ngIf="userInfoForm">{{userInfoForm.academy_ascription_dependency}}</div>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12" size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
+          <ion-card>
+            <ion-card-title class="title-card">I.- Docencia</ion-card-title>
+            <ion-card-subtitle class="ion-padding">
+              A) DOCENCIA FRENTE A GRUPO: PRESENCIA ANTE GRUPOS DE ALUMNOS EN CLASES TEÓRICAS, PRÁCTICAS, CLÍNICAS,
+              TALLERES Y LABORATORIOS, QUE ESTÉN DENTRO DE ALGÚN PROGRAMA EDUCATIVO DE LA INSTITUCIÓN. SE EXCLUYEN
+              CÁTEDRAS,
+              PLÁTICAS, SEMINARIOS Y CURSILLOS CORTOS (MENORES DE 3 MESES).
+            </ion-card-subtitle>
+            <ion-card-subtitle class="ion-padding">
+              B) DOCENCIA INDIVIDUALIZADA: ASESORÍA ESPECIALIZADA SOBRE LOS CURSOS QUE SE IMPARTAN.
+            </ion-card-subtitle>
+            <ion-card-subtitle class="ion-padding">
+              C) OTRAS ACTIVIDADE DOCENTES: PREPARACIÓN DE CLASES, CORRECIÓN DE EXÁMENES, REDACCIÓN Y PREPARACIÓN DE
+              MATERIAL DE
+              APOYO A LA DOCENCIA; CONFERENCIAS, PRESENTACIONES O EXPOSICIONES ARTÍSTICAS PARA ALUMNOS; PARTICIPACIÓN EN
+              REUNIONES
+              SOBRE LA PROBLEMÁTICA DE DOCENCIA, PRESENTACIÓN DE CONFERENCIAS Y SEMINARIOS SOBRE DOCENCIA, TRABAJO CON
+              ORGANIZACIONES CULTURALES ESTUDIANTILES, FORMACIÓN PROPIA CON FINES DOCENTES.
+            </ion-card-subtitle>
+            <ion-card-subtitle class="ion-padding">
+              A) FRENTE A GRUPOS
+            </ion-card-subtitle>
+            <ion-grid fixed>
+              <ion-row>
+                <ion-col size="12" size-xl="4" size-lg="4" size-md="4" size-sm="12" size-xs="12">
+                  <ion-card class="ion-">
+                    <ion-card-title>PROGRAMAS</ion-card-title>
+                    <ion-card-content class="ion-text-center">
+                      <ion-item>
+                        <ion-textarea type="text"
+                                      color="primary"
+                                      formControlName="program"></ion-textarea>
+                      </ion-item>
+                    </ion-card-content>
+                  </ion-card>
+                </ion-col>
+                <ion-col size="12" size-xl="4" size-lg="4" size-md="4" size-sm="12" size-xs="12">
+                  <ion-card>
+                    <ion-card-title>MATERIAS</ion-card-title>
+                    <ion-card-content class="ion-text-center">
+                      <ion-item>
+                        <ion-textarea type="text"
+                                      color="primary"
+                                      formControlName="subject"></ion-textarea>
+                      </ion-item>
+                    </ion-card-content>
+                  </ion-card>
+                </ion-col>
+                <ion-col size="12" size-xl="4" size-lg="4" size-md="4" size-sm="12" size-xs="12">
+                  <ion-card>
+                    <ion-card-title>NUMERO DE GRUPOS</ion-card-title>
+                    <ion-card-content class="ion-text-center">
+                      <ion-item>
+                        <ion-textarea type="text"
+                                      color="primary"
+                                      formControlName="group_number"></ion-textarea>
+                      </ion-item>
+                    </ion-card-content>
+                  </ion-card>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+            <ion-card-subtitle class="ion-padding">
+              B) Otras actividades de apoyo a la docencia
+            </ion-card-subtitle>
+            <ion-card-subtitle class="ion-padding">
+              MATERIAL DE APOYO A LA DOCENCIA Y ANTOLOGÍAS, CONFERENCIAS A ALUMNOS, CONFERENCIAS Y SEMINARIOS SOBRE
+              EDUCACIÓN Y
+              PUBLICACIÓN DE LIBROS O CAPÍTULOS DE LIBROS REFERENTES A LA DOCENCIA, MOVILIDAD ACADÉMICA.
+            </ion-card-subtitle>
+            <ion-grid fixed>
+              <ion-row>
+                <ion-col size="12" size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
+                  <ion-card>
+                    <ion-card-title>Actividades</ion-card-title>
+                    <ion-card-content class="ion-text-center">
+                      <ion-item>
+                        <ion-input type="text"
+                                   color="primary"
+                                   formControlName="support_activities"></ion-input>
+                      </ion-item>
+                    </ion-card-content>
+                  </ion-card>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+            <ion-card-subtitle class="ion-padding">
+              C) Formación con fines docentes
+            </ion-card-subtitle>
+            <ion-card-subtitle class="ion-padding">
+              CURSOS DE ACTUALIZACIÓN DISCIPLINARIA, CURSOS DE FORMACIÓN DOCENTE.
+            </ion-card-subtitle>
+            <ion-grid fixed>
+              <ion-row>
+                <ion-col size="12" size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
+                  <ion-card>
+                    <ion-card-title>Formacion</ion-card-title>
+                    <ion-card-content class="ion-text-center">
+                      <ion-item>
+                        <ion-input type="text"
+                                   color="primary"
+                                   formControlName="docent_formation"></ion-input>
+                      </ion-item>
+                    </ion-card-content>
+                  </ion-card>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+            <ion-card-title class="title-card">II.- LÍNEA DE GENERACIÓN Y APLICACIÓN DEL CONOCIMIENTO</ion-card-title>
+            <ion-card-subtitle class="ion-padding">
+              EL DESARROLLO PROFESIONAL DE UN PROFESOR DE TIEMPO COMPLETO SE REALIZA NECESARIAMENTE EN UNA CARRERA DE
+              CARÁCTER
+              ACADÉMICO. LO DISTINTIVO DE ÉSTA, FRENTE A LAS PROFESIONES EXTRA-ACADÉMICAS, ES QUE SU EJERCICIO CONSISTE
+              EN
+              AMPLIAR LAS FRONTERAS DEL CONOCIMIENTO Y EN BUSCAR NUEVAS APLICACIONES DE ÉSTE. EN EL EJERCICIO DE SU
+              CARRERA
+              ACADÉMICA, EL PROFESOR DE TIEMPO COMPLETO DEBE GENERAR NUEVO CONOCIMIENTO O BIEN ENCONTRAR FORMAS
+              INNOVADORAS DE
+              APLICAR LOS CONOCIMIENTOS DE FRONTERA A LA RESOLUCIÓN DE PROBLEMAS PRÁCTICOS.<br>
+              <br>
+              SI BIEN LA INVESTIGACIÓN PROVEE DE UN MÉTODO PARA GENERAR NUEVO CONOCIMIENTO, EL DESARROLLO DE LAS
+              CARRERAS
+              ACADÉMICAS COMPRENDE OTRAS MANERAS DE GENERAR CONOCIMIENTO O APLICARLO, POR LO CUAL EN EL MARCO DEL PROMEP
+              SE USA
+              EL TÉRMINO DE LA GENERACIÓN Y APLICACIÓN DEL CONOCIMIENTO, GAC PARA HACER UNA REFERENCIA MÁS AMPLIA Y
+              APROPIADA DE
+              DICHAS ACTIVIDADES.<br>
+              <br>
+              LA GENERACIÓN DEL CONOCIMIENTO Y DE SUS APLICACIONES INNOVADORAS SON LA FORMA EN QUE LOS PROFESORES DE
+              TIEMPO
+              COMPLETO EJERCEN LA PROFESIÓN ACADÉMICA. LAS ACTIVIDADES DE GAC DEBEN REALIZARSE DENTRO DE LAS LÍNEAS
+              ESTABLECIDAS
+              POR LA CONJUNCIÓN DEL INTERÉS Y CAPACIDAD INDIVIDUAL DEL PROFESOR CON LOS PLANES INSTITUCIONALES.<br>
+              <br>
+              <ul>
+                <li>
+                  A) REALIZACIÓN DIRECTA DE PROYECTOS DE INVESTIGACIÓN O DE APLICACIÓN INNOVADORA DEL CONOCIMIENTO;
+                  PLANIFICACIÓN DE
+                  LOS PROYECTOS; PREPARACIÓN, REDACCIÓN Y PUBLICACIÓN DE LOS INFORMES Y ARTÍCULOS CONSECUENTES.<br>
+                </li>
+                <li>
+                  B) REALIZACIÓN DIRECTA DE PROYECTOS DE SÍNTESIS DEL CONOCIMIENTO, REDACCIÓN Y PUBLICACIÓN DE LOS
+                  LIBROS Y
+                  ARTÍCULOS RESULTANTES.
+                  <br>
+                </li>
+                <li>
+                  C) REALIZACIÓN DIRECTA DE PROYECTOS DE CREACIÓN ARTÍSTICA; PLANIFICACIÓN DE LOS PROYECTOS;
+                  PREPARACIÓN,
+                  REDACCIÓN,
+                  PUBLICACIÓN O MONTAJE DE LAS PUBLICACIONES, EXPOSICIONES O PRESENTACIONES CONSECUENTES.<br>
+                </li>
+                <li>
+                  D) REALIZACIÓN DIRECTA DE PROYECTOS DE APLICACIÓN CONVENCIONAL O RUTINARIA DEL CONOCIMIENTO.<br>
+                </li>
+                <li>
+                  E) OTRAS TAREAS RELACIONADAS CON LA GAC: IMPARTICIÓN DE CONFERENCIAS Y SEMINARIOS SOBRE LOS PROYECTOS
+                  DE GAC O
+                  SUS
+                  TEMAS; PARTICIPACIÓN ACTIVA EN REUNIONES CIENTÍFICAS, ARTÍSTICAS, TÉCNICAS O CON USUARIOS DE LAS
+                  APLICACIONES.
+                  <br>
+                </li>
+              </ul>
+            </ion-card-subtitle>
+            <ion-grid fixed>
+              <ion-row>
+                <ion-col size="12" size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
+                  <ion-card>
+                    <ion-card-title>NOMBRE DE LA LÍNEA</ion-card-title>
+                    <ion-card-content class="ion-text-center">
+                      <ion-item>
+                        <ion-input type="text"
+                                   color="primary"
+                                   formControlName="line_number"></ion-input>
+                      </ion-item>
+                    </ion-card-content>
+                  </ion-card>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+            <ion-grid fixed>
+              <ion-row>
+                <ion-col size="12" size-xl="6" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+                  <ion-card>
+                    <ion-card-title>GRADO DE AVANCE AL INICAR EL AÑO (%)</ion-card-title>
+                    <ion-card-content class="ion-text-center">
+                      <ion-item>
+                        <ion-input type="text"
+                                   color="primary"
+                                   formControlName="actual_year_progress"></ion-input>
+                      </ion-item>
+                    </ion-card-content>
+                  </ion-card>
+                </ion-col>
+                <ion-col size="12" size-xl="6" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+                  <ion-card>
+                    <ion-card-title>GRADO DE AVANCE QUE SE PRETENDE AL FINALIZAR EL AÑO (%)</ion-card-title>
+                    <ion-card-content class="ion-text-center">
+                      <ion-item>
+                        <ion-input type="text"
+                                   color="primary"
+                                   formControlName="expected_year_progress"></ion-input>
+                      </ion-item>
+                    </ion-card-content>
+                  </ion-card>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+            <ion-card-subtitle class="ion-padding">
+              DESCRIPCIÓN DE LAS PRINCIPALES ACTIVIDADES A REALIZAR DURANTE EL AÑO:
+              (PLANEACIÓN Y REALIZACIÓN DE LOS PROYECTOS DE INVESTIGACIÓN: PUBLICACIÓN DE INFORMES, ARTÍCULOS Y LIBROS,
+              PRODUCTOS DE INVESTIGACIÓN; OBTENCIÓN DE PATENTES, CONFERENCIAS, SEMINARIOS, CONGRESOS DE INVESTIGACIÓN,
+              REUNIONES
+              CIENTÍFICAS O TÉCNICAS SOBRE LOS PROYECTOS DE INVESTIGACIÓN, ESTANCIAS POSDOCTORALES):
+            </ion-card-subtitle>
+            <ion-grid fixed>
+              <ion-row>
+                <ion-col size="12" size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
+                  <ion-card>
+                    <ion-card-title>Descripcion</ion-card-title>
+                    <ion-card-content class="ion-text-center">
+                      <ion-item>
+                        <ion-input type="text"
+                                   color="primary"
+                                   formControlName="activities_description"></ion-input>
+                      </ion-item>
+                    </ion-card-content>
+                  </ion-card>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+            <ion-card-title class="title-card">III.- ACTIVIDADES DE TUTELAJE</ion-card-title>
+            <ion-card-subtitle class="ion-padding">
+              A) TUTORÍA A ESTUDIANTES (INDIVIDUALES Y GRUPALES)
+            </ion-card-subtitle>
+            <ion-grid fixed>
+              <ion-row>
+                <ion-col size="12" size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
+                  <ion-card>
+                    <ion-card-title>Tutoria</ion-card-title>
+                    <ion-card-content class="ion-text-center">
+                      <ion-item>
+                        <ion-input type="text"
+                                   color="primary"
+                                   formControlName="student_tutorship"></ion-input>
+                      </ion-item>
+                    </ion-card-content>
+                  </ion-card>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+            <ion-card-subtitle class="ion-padding">
+              B) ASESORÍA A ESTUDIANTES<br>
+              DIRECCIÓN Y REVISÓN DE TESIS O TRABAJOS DE TITULACIÓN Y JURADO EN EXÁMENES RECEPCIONALES
+            </ion-card-subtitle>
+            <ion-grid fixed>
+              <ion-row>
+                <ion-col size="12" size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
+                  <ion-card>
+                    <ion-card-title>Ayuda</ion-card-title>
+                    <ion-card-content class="ion-text-center">
+                      <ion-item>
+                        <ion-input type="text"
+                                   color="primary"
+                                   formControlName="student_help"></ion-input>
+                      </ion-item>
+                    </ion-card-content>
+                  </ion-card>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+            <ion-card-subtitle class="ion-padding">
+              PREPARACIÓN DE ALUMNOS PARA COMPETENCIAS ACADÉMICAS, SUPERVISIÓN A ESTUDIANTES DE SERVICIO SOCIAL Y
+              PRÁCTICAS
+              PROFESIONALES, COORDINADOR DE CÍRCULOS DE ESTUDIO Y ORGANIZADOR DE VIAJES DE ESTUDIO:
+            </ion-card-subtitle>
+            <ion-grid fixed>
+              <ion-row>
+                <ion-col size="12" size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
+                  <ion-card>
+                    <ion-card-title>Preparacion</ion-card-title>
+                    <ion-card-content class="ion-text-center">
+                      <ion-item>
+                        <ion-input type="text"
+                                   color="primary"
+                                   formControlName="student_formation"></ion-input>
+                      </ion-item>
+                    </ion-card-content>
+                  </ion-card>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+            <ion-card-subtitle class="ion-padding">
+              PARTICIPACÓN COMO PROFESOR EN CURSOS, SEMINARIOS, TALLERES EXTRA CURRICULARES:
+            </ion-card-subtitle>
+            <ion-grid fixed>
+              <ion-row>
+                <ion-col size="12" size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
+                  <ion-card>
+                    <ion-card-title>Participacion</ion-card-title>
+                    <ion-card-content class="ion-text-center">
+                      <ion-item>
+                        <ion-input type="text"
+                                   color="primary"
+                                   formControlName="participation"></ion-input>
+                      </ion-item>
+                    </ion-card-content>
+                  </ion-card>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+            <ion-card-title class="title-card">IV.- ACTIVIDADES DE GESTIÓN ACADÉMICA</ion-card-title>
+            <ion-card-subtitle class="ion-padding">
+              A) GESTIÓN ACADÉMICA COLEGIADA:
+              (PARTICIPACIÓN EN CONSEJOS, COLEGIOS, COMISIONES DICTAMINADORAS, COMISIONES EDITORIALES Y/O EVALUADORAS DE
+              CARRERA
+              DOCENTE, FOMES, PROMEP, ELABORACIÓN DE REGLAMENTO, ETC.):
+            </ion-card-subtitle>
+            <ion-grid fixed>
+              <ion-row>
+                <ion-col size="12" size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
+                  <ion-card>
+                    <ion-card-title>Participacion academica</ion-card-title>
+                    <ion-card-content class="ion-text-center">
+                      <ion-item>
+                        <ion-input type="text"
+                                   color="primary"
+                                   formControlName="academic_management"></ion-input>
+                      </ion-item>
+                    </ion-card-content>
+                  </ion-card>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+            <ion-card-subtitle class="ion-padding">
+              B) GESTIÓN COLECTIVA DE DOCENCIA <br>
+              (COMISIONES DE ANÁLISIS, DISEÑO Y EVALUACIÓN DE PLANES DE ESTUDIO Y PROGRAMAS EDUCATIVOS; COMISIONES DE
+              APOYO A LA
+              DOCENCIA, SEGUIMIENTO DE EGRESADOS, ESTUDIOS DE FACTIBILIDAD Y PERTINENCIA, INDICADORES DE CALIDAD, VIAJES
+              DE
+              ESTUDIO, ENCARGADO DE TALLERES Y LABORATORIOS, ETC.):
+            </ion-card-subtitle>
+            <ion-grid fixed>
+              <ion-row>
+                <ion-col size="12" size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
+                  <ion-card>
+                    <ion-card-title>Gestion colectiva</ion-card-title>
+                    <ion-card-content class="ion-text-center">
+                      <ion-item>
+                        <ion-input type="text"
+                                   color="primary"
+                                   formControlName="collective_management"></ion-input>
+                      </ion-item>
+                    </ion-card-content>
+                  </ion-card>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+            <ion-card-subtitle class="ion-padding">
+              C) GESTIÓN COLECTIVA DE GENERACIÓN Y APLICACIÓN DEL CONOCIMIENTO <br>
+              (PARTICIPACIÓN ACTIVA EN COMISIONES PARA LA EVALUACIÓN DE PROYECTOS DE INVESTIGACIÓN, VINCULACIÓN O
+              DIFUSIÓN, ETC.)
+            </ion-card-subtitle>
+            <ion-grid fixed>
+              <ion-row>
+                <ion-col size="12" size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
+                  <ion-card>
+                    <ion-card-title>Gestion academica</ion-card-title>
+                    <ion-card-content class="ion-text-center">
+                      <ion-item>
+                        <ion-input type="text"
+                                   color="primary"
+                                   formControlName="collective_knowledge"></ion-input>
+                      </ion-item>
+                    </ion-card-content>
+                  </ion-card>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+            <ion-card-subtitle class="ion-padding">
+              D) GESTIÓN ACADÉMICA PERSONAL <br>
+              (DIRECCIÓN, COORDINACIÓN O SUPERVISIÓN DE PROGRAMAS EDUCATIVOS, DE INVESTIGACIÓN, DE VINCULACIÓN;
+              ORGANIZACIÓN DE
+              EVENTOS ACADÉMICOS, VINCULACIÓN CON EL SECTOR SOCIAL Y PRODUCTIVO, RESPONSABLE DE SERVICIO SOCIAL Y
+              PRÁCTICAS
+              PROFESIONALES, ETC.)
+            </ion-card-subtitle>
+            <ion-grid fixed>
+              <ion-row>
+                <ion-col size="12" size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
+                  <ion-card>
+                    <ion-card-title>Gestion academica personal</ion-card-title>
+                    <ion-card-content class="ion-text-center">
+                      <ion-item>
+                        <ion-input type="text"
+                                   color="primary"
+                                   formControlName="personal_management"></ion-input>
+                      </ion-item>
+                    </ion-card-content>
+                  </ion-card>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+            <ion-card-title class="title-card">V.- DIFUSIÓN</ion-card-title>
+            <ion-card-subtitle class="ion-padding">
+              <ul>
+                <li>
+                  A) DIFUSIÓN CULTURAL: REALIZACIÓN DIRECTA DE PROYECTOS DE DIFUSIÓN CULTURAL INTRA O EXTRAMUROS;
+                  PREPARACIÓN DE
+                  MATERIAL PARA LA DIFUSIÓN CULTURAL; IMPARTICIÓN DE CONFERENCIAS DE DIFUSIÓN AL PÚBLICO NO
+                  UNIVERSITARIO.
+                </li>
+                <li>
+                  B) DESARROLLO PERSONAL EN LA INSTITUCIÓN: ASISTENCIA A SEMINARIOS Y CURSOS DE DESARROLLO PROFESIONAL
+                  NO
+                  DISCIPLINARIO.
+                </li>
+              </ul>
+            </ion-card-subtitle>
+            <ion-card-subtitle class="ion-padding">
+              (CONFERENCIAS, SEMINARIOS, CONCIERTOS, CURSOS, TALLERES DIRIGIDOS A GRUPOS SOCIALES EXTRA UNIVERSITARIOS,
+              ASESORÍAS
+              EXTERNAS Y PREPARACIÓN DE MATERIAL PARA DIFUSIÓN):
+            </ion-card-subtitle>
+            <ion-grid fixed>
+              <ion-row>
+                <ion-col size="12" size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
+                  <ion-card>
+                    <ion-card-title>Difusion</ion-card-title>
+                    <ion-card-content class="ion-text-center">
+                      <ion-item>
+                        <ion-input type="text"
+                                   color="primary"
+                                   formControlName="diffusion"></ion-input>
+                      </ion-item>
+                    </ion-card-content>
+                  </ion-card>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+            <ion-card-title class="title-card">VI.- FORMACIÓN DE POSGRADO</ion-card-title>
+            <ion-card-subtitle class="ion-padding">
+              FORMACIÓN PROPIA DEL PROFESOR EN PROGRAMAS DE POSGRADO
+            </ion-card-subtitle>
+            <ion-grid fixed>
+              <ion-row>
+                <ion-col size="12" size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
+                  <ion-card>
+                    <ion-card-title>Formacion</ion-card-title>
+                    <ion-card-content class="ion-text-center">
+                      <ion-item>
+                        <ion-input type="text"
+                                   color="primary"
+                                   formControlName="post_formation"></ion-input>
+                      </ion-item>
+                    </ion-card-content>
+                  </ion-card>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+            <ion-card-title class="title-card">COMENTARIOS ADICIONALES</ion-card-title>
+            <ion-card-subtitle class="ion-padding">
+              Si no cumplió algun objetivo de su plan de trabajo, ¿cuál considera
+              que haya sido el obstaculo?
+            </ion-card-subtitle>
+            <ion-grid fixed>
+              <ion-row>
+                <ion-col size="12" size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
+                  <ion-card>
+                    <ion-card-title>Comentarios</ion-card-title>
+                    <ion-card-content class="ion-text-center">
+                      <ion-item>
+                        <ion-input type="text"
+                                   color="primary"
+                                   formControlName="additional_comment"></ion-input>
+                      </ion-item>
+                    </ion-card-content>
+                  </ion-card>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+            <ion-card-title class="title-card">DISTRIBUCIÓN DEL TIEMPO QUE PLANEA INVERTIR EN LAS SIGUIENTES ACTIVIDADES
+              (HORAS POR SEMANA)
+            </ion-card-title>
+            <ion-grid fixed>
+              <ion-row>
+                <ion-col size="12" size-xl="3" size-lg="3" size-md="4" size-sm="6" size-xs="6">
+                  <ion-card class="ion-">
+                    <ion-card-title>Docencia</ion-card-title>
+                    <ion-card-content class="ion-text-center">
+                      <ion-input type="text"
+                                 color="primary"
+                                 formControlName="teacher"></ion-input>
+                    </ion-card-content>
+                  </ion-card>
+                </ion-col>
+                <ion-col size="12" size-xl="3" size-lg="3" size-md="4" size-sm="6" size-xs="6">
+                  <ion-card>
+                    <ion-card-title>L.G.A.C.</ion-card-title>
+                    <ion-card-content class="ion-text-center">
+                      <ion-input type="text"
+                                 color="primary"
+                                 formControlName="lgac"></ion-input>
+                    </ion-card-content>
+                  </ion-card>
+                </ion-col>
+                <ion-col size="12" size-xl="3" size-lg="3" size-md="4" size-sm="6" size-xs="6">
+                  <ion-card>
+                    <ion-card-title>Asesorías</ion-card-title>
+                    <ion-card-content class="ion-text-center">
+                      <ion-input type="text"
+                                 color="primary"
+                                 formControlName="helps"></ion-input>
+                    </ion-card-content>
+                  </ion-card>
+                </ion-col>
+                <ion-col size="12" size-xl="3" size-lg="3" size-md="4" size-sm="6" size-xs="6">
+                  <ion-card>
+                    <ion-card-title>Tutorías</ion-card-title>
+                    <ion-card-content class="ion-text-center">
+                      <ion-input type="text"
+                                 color="primary"
+                                 formControlName="tutories"></ion-input>
+                    </ion-card-content>
+                  </ion-card>
+                </ion-col>
+                <ion-col size="12" size-xl="3" size-lg="3" size-md="4" size-sm="6" size-xs="6">
+                  <ion-card>
+                    <ion-card-title>Gestión</ion-card-title>
+                    <ion-card-content class="ion-text-center">
+                      <ion-input type="text"
+                                 color="primary"
+                                 formControlName="management"></ion-input>
+                    </ion-card-content>
+                  </ion-card>
+                </ion-col>
+                <ion-col size="12" size-xl="3" size-lg="3" size-md="4" size-sm="6" size-xs="6">
+                  <ion-card>
+                    <ion-card-title>Difusión</ion-card-title>
+                    <ion-card-content class="ion-text-center">
+                      <ion-input type="text"
+                                 color="primary"
+                                 formControlName="diffusion_hours"></ion-input>
+                    </ion-card-content>
+                  </ion-card>
+                </ion-col>
+                <ion-col size="12" size-xl="3" size-lg="3" size-md="4" size-sm="6" size-xs="6">
+                  <ion-card>
+                    <ion-card-title>Formación posgrado</ion-card-title>
+                    <ion-card-content class="ion-text-center">
+                      <ion-input type="text"
+                                 color="primary"
+                                 formControlName="formation"></ion-input>
+                    </ion-card-content>
+                  </ion-card>
+                </ion-col>
+                <ion-col size="12" size-xl="3" size-lg="3" size-md="4" size-sm="6" size-xs="6">
+                  <ion-card>
+                    <ion-card-title>Total</ion-card-title>
+                    <ion-card-content class="ion-text-center">
+                      <div *ngIf="plansForm.value">
+                        {{getTotalTimeDistribution()}}
+                      </div>
+                    </ion-card-content>
+                  </ion-card>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+            <ion-grid fixed>
+              <ion-row>
+                <ion-col size="12" size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
+                  <ion-card>
+                    <ion-card-title>Comentario del supervisor</ion-card-title>
+                    <ion-card-content class="ion-text-center">
+                      <ion-item>
+                        <ion-input type="text"
+                                   readonly
+                                   color="primary"
+                                   formControlName="comment"></ion-input>
+                      </ion-item>
+                    </ion-card-content>
+                  </ion-card>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+            <ion-button
+                [disabled]="plansForm.invalid"
+                expand="block"
+                        type="submit">Guardar
+            </ion-button>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</div>

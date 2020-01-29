@@ -1,0 +1,42 @@
+[
+  {
+    "icon": "home",
+    "name": "Principal",
+    "redirectTo": "/home/dashboard"
+  },
+  {
+    "icon": "contact",
+    "name": "Perfil",
+    "redirectTo": "/home/profile"
+  },
+  {
+    "icon": "document",
+    "name": "Curriculum",
+    "redirectTo": "/home/curriculum"
+  },
+  {
+    "icon": "book",
+    "name": "Expedientes",
+    "redirectTo": "/home/expedients"
+  },
+  {
+    "icon": "filing",
+    "name": "Administracion",
+    "redirectTo": "/home/administration"
+  },
+  {
+    "icon": "share-alt",
+    "name": "Proesde",
+    "redirectTo": "/home"
+  },
+  {
+    "icon": "desktop",
+    "name": "Plan e informes",
+    "redirectTo": "/home/plan-and-reports"
+  },
+  {
+    "icon": "people",
+    "name": "Departamento",
+    "redirectTo": "/home/department"
+  }
+]

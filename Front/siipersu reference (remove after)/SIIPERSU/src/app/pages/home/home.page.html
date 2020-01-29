@@ -1,0 +1,29 @@
+<ion-split-pane contentId="principal-content">
+  <ion-menu side="start" menuId="menu" contentId="principal-content" lines="none" class="color">
+    <ion-header class="ion-no-border">
+      <ion-toolbar class="color">
+        <ion-title>SIIPERSU</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="color">
+      <ion-list class="color" class="ion-no-padding">
+
+        <ion-menu-toggle auto-hide="false" *ngFor="let item of menuItems">
+          <ion-item routerDirection="root" [routerLink]="item.redirectTo" lines="none" class="color">
+            <ion-icon [name]="item.icon" slot="start" class="color"></ion-icon>
+            <ion-label> {{item.name}} </ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+
+        <ion-menu-toggle auto-hide="false">
+          <ion-item (click)="logout()" lines="none" class="color" routerDirection="root" [routerLink]="">
+            <ion-icon name="exit" slot="start" class="color"></ion-icon>
+            <ion-label> Cerrar Sesión </ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+  <ion-router-outlet id="principal-content" main></ion-router-outlet>
+</ion-split-pane>

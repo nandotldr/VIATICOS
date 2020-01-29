@@ -1,0 +1,26 @@
+
+.container {
+  // margin-top: 50px;
+  position: relative;
+  background-color: #D3D5D9;
+}
+
+ion-card {
+  background: white;
+}
+
+ion-card-title {
+  text-align: center;
+  background-color: #607D8B;
+  padding: 10px;
+  color: white;
+}
+
+ion-toolbar {
+  color: white;
+  --background: #607D8B;
+}
+
+.animated {
+  cursor: pointer;
+}

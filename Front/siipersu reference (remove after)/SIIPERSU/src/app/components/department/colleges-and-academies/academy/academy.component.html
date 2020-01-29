@@ -1,0 +1,59 @@
+<ion-card>
+  <ion-card-title> Academias {{year}}
+  </ion-card-title>
+  <ion-item>
+    <ion-item>
+      <ion-label position="floating">Codigo:</ion-label>
+      <ion-input
+          type="text"
+          placeholder="Filtra por Codigo"
+          (keyup)="updateFilter($event)"
+      ></ion-input>
+    </ion-item>
+
+  </ion-item>
+  <!--  https://swimlane.github.io/ngx-datatable/#filter   -->
+
+  <ngx-datatable *ngIf="academyList"
+                 [ngClass]="'material'"
+                 [rows]="academyListCopy"
+                 [headerHeight]="'auto'"
+                 [rowHeight]="'auto'"
+                 [columnMode]="'standard'"
+                 [scrollbarH]="true"
+  >
+    <!--  Estos son las definiciones de columnas  -->
+
+    <!--      <ngx-datatable-column prop="code" name="" width="50">-->
+    <!--        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>-->
+    <!--          <ion-buttons>-->
+    <!--            <ion-button routerLink="/home/profile/{{value}}">-->
+    <!--              <ion-icon name="information-circle-outline"></ion-icon>-->
+    <!--            </ion-button>-->
+    <!--          </ion-buttons>-->
+    <!--        </ng-template>-->
+    <!--      </ngx-datatable-column>-->
+
+    <ngx-datatable-column prop="name" name="Nombre">
+      <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+        {{value}}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column prop="id" name="Acciones" width="400">
+      <ng-template let-row="row" let-rowIndex="rowIndex" let-value="value" ngx-datatable-cell-template>
+        <!--TODO: ocultar los botones dependiendo el status del reporte-->
+        <ion-buttons>
+          <ion-button (click)="modifyAcademy()">
+            Modificar
+          </ion-button>
+          <ion-button (click)="removeAcademy()">
+            Eliminar
+          </ion-button>
+          <ion-button routerLink="/home/department/academy-staff/{{getUrlLink(rowIndex)}}">
+            Ver informe
+          </ion-button>
+        </ion-buttons>
+      </ng-template>
+    </ngx-datatable-column>
+  </ngx-datatable>
+</ion-card>

@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{titleModal}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <form [formGroup]="this.fgNew">
+    <ion-list>
+      <ion-item>
+        <ion-label position="floating">Titulo</ion-label>
+        <ion-input placeholder="Titulo"
+          type="text"
+          formControlName="title"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Noticia</ion-label>
+        <ion-textarea placeholder="Informacion"
+          type="text"
+          formControlName="information"
+          rows="5"></ion-textarea>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Archivo</ion-label>
+        <ion-input type="file"
+          formControlName="file_url"
+          (change)="this.handleFile($event.target.files)"></ion-input>
+      </ion-item>
+      <ion-button (click)="cancel()"
+        color="medium"
+        expand="block">Cancelar
+      </ion-button>
+      <ion-button (click)="accept()"
+        color="primary"
+        expand="block"
+        [disabled]="this.fgNew.invalid">Aceptar
+      </ion-button>
+    </ion-list>
+  </form>
+</ion-content>

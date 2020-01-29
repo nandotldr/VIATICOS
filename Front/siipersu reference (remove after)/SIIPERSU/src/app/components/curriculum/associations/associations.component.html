@@ -1,0 +1,98 @@
+<ion-card>
+  <ion-card-title>
+    Asociaciones Profesionales
+    <ion-buttons class="ion-float-right">
+      <ion-button (click)="canEditAssociations = !canEditAssociations">
+        <ion-icon name="create"></ion-icon>
+        Editar
+      </ion-button>
+    </ion-buttons>
+  </ion-card-title>
+  <ion-card-content>
+    <ion-button *ngIf="canEditAssociations" color="light"
+                (click)="addAssociationToGroup()">
+      <ion-icon color="success" name="add-circle-outline"></ion-icon>
+      Agregar nueva asociacion
+    </ion-button>
+    <ion-list>
+
+      <!--  Lista de elementos de los datos academices-->
+      <form [formGroup]="associationDataForm">
+        <div formArrayName="associations">
+          <!--  Modo de edicion: OFF (default)  -->
+          <div *ngIf="!canEditAssociations">
+            <ion-grid>
+              <ion-row>
+                <ion-col size="12" size-xl=" 6" size-lg="6" size-md="6" size-sm="12" size-xs="12"
+                         *ngFor="let academy of associationDataForm.get('associations')['controls']; let i = index"
+                         [formGroupName]="i">
+                  <ion-card  class="title-card" *ngIf="associationDataForm.value.associations[i]['id']">
+                    <ion-card-title class="title-card">
+                      Asociación:  {{associationDataForm.value.associations[i]['association_name']}} </ion-card-title>
+                    <ion-item *ngIf="associationDataForm.value.associations[i]['association_name']">
+                      <ion-label class="ion-text-capitalize" position="floating">Nombre de la asociacion</ion-label>
+                      <ion-input type="text" readonly
+                                 formControlName="association_name"></ion-input>
+                    </ion-item>
+                    <ion-item *ngIf="associationDataForm.value.associations[i]['membership_type']">
+                      <ion-label class="ion-text-capitalize" position="floating">Tipo de membresia</ion-label>
+                      <ion-input type="text" readonly
+                                 formControlName="membership_type"></ion-input>
+                    </ion-item>
+                    <ion-item *ngIf="associationDataForm.value.associations[i]['period']">
+                      <ion-label class="ion-text-capitalize" position="floating">Periodo</ion-label>
+                      <ion-input type="text" readonly
+                                 formControlName="period"></ion-input>
+                    </ion-item>
+                  </ion-card>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </div>
+
+          <!--  Modo de edicion: ON  -->
+          <div *ngIf="canEditAssociations">
+            <ion-grid>
+              <ion-row>
+                <ion-col size="12" size-xl=" 6" size-lg="6" size-md="6" size-sm="12" size-xs="12"
+                         *ngFor="let academy of associationDataForm.get('associations')['controls']; let i = index"
+                         [formGroupName]="i">
+                  <ion-card class="animated bounceInUp">
+
+                    <ion-card-title class="title-card"> Asociación: {{associationDataForm.value.associations[i]['association_name']}}
+                      <ion-buttons class="ion-float-right">
+                        <ion-button (click)="removeAssociation(i)">
+                          <ion-icon color="danger" name="trash"></ion-icon>Borrar
+                        </ion-button>
+                      </ion-buttons>
+                    </ion-card-title>
+                    <ion-item>
+                      <ion-label class="ion-text-capitalize" position="floating">Nombre de la asociacion</ion-label>
+                      <ion-input type="text" color="primary"
+                                 formControlName="association_name"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                      <ion-label class="ion-text-capitalize" position="floating">Tipo de membresia</ion-label>
+                      <ion-input type="text" color="primary"
+                                 formControlName="membership_type"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                      <ion-label class="ion-text-capitalize" position="floating">Periodo</ion-label>
+                      <ion-input type="text" color="primary"
+                                 formControlName="period"></ion-input>
+                    </ion-item>
+                    <ion-button expand="block" [disabled]="associationDataForm.controls.associations.controls[i].invalid"
+                                (click)="updateAssociation(i)">
+                      Actualizar asociacion
+                    </ion-button>
+                  </ion-card>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </div>
+
+        </div>
+      </form>
+    </ion-list>
+  </ion-card-content>
+</ion-card>

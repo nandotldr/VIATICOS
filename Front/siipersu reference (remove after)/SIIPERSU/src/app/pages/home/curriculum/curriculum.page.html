@@ -1,0 +1,136 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button color="primary" menu="menu"></ion-menu-button> <!--  este puto se esconde-->
+    </ion-buttons>
+    <ion-title class="ion-text-capitalize">
+      <!--  Menu flotante superior  -->
+        Curriculum
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content id="principal-content">
+  <div class="container">
+    <!--  div contenedor de los formularios  -->
+    <ion-grid fixed>
+      <ion-row>
+        <ion-col size="3" size-xl=" 3" size-lg="4" size-md="4" size-sm="6" size-xs="6">
+          <ion-card (click)="scrollTo(jobPositionId)" [ngClass]="animation[0]"
+                    (mouseover)="animation[0]='animated pulse faster'" (mouseout)="animation[0]=''">
+            <ion-card-title>Puestos de trabajo</ion-card-title>
+            <ion-card-content>
+              Carrera académica actividades y puestos desempeñados.
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+        <ion-col size="3" size-xl=" 3" size-lg="4" size-md="4" size-sm="6" size-xs="6">
+          <ion-card (click)="scrollTo(subjectsId)" [ngClass]="animation[1]"
+                    (mouseover)="animation[1]='animated pulse faster'" (mouseout)="animation[1]=''">
+            <ion-card-title>Materias impartidas</ion-card-title>
+            <ion-card-content>
+              Carrera académica materias impartidas.
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+        <ion-col size="3" size-xl=" 3" size-lg="4" size-md="4" size-sm="6" size-xs="6">
+          <ion-card (click)="scrollTo(professionalExperiences)" [ngClass]="animation[2]"
+                    (mouseover)="animation[2]='animated pulse faster'" (mouseout)="animation[2]=''">
+            <ion-card-title>Experiencias profesionales</ion-card-title>
+            <ion-card-content>
+              Experiencias profesionales.
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+        <ion-col size="3" size-xl=" 3" size-lg="4" size-md="4" size-sm="6" size-xs="6">
+          <ion-card (click)="scrollTo(productsId)" [ngClass]="animation[3]"
+                    (mouseover)="animation[3]='animated pulse faster'" (mouseout)="animation[3]=''">
+            <ion-card-title>Productos</ion-card-title>
+            <ion-card-content>
+              Productos del quehacer universitario.
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+        <ion-col size="3" size-xl=" 3" size-lg="4" size-md="4" size-sm="6" size-xs="6">
+          <ion-card (click)="scrollTo(filesId)" [ngClass]="animation[4]"
+                    (mouseover)="animation[4]='animated pulse faster'" (mouseout)="animation[4]=''">
+            <ion-card-title>Fichas bibliograficas</ion-card-title>
+            <ion-card-content>
+              Fichas bibliográficas de los trabajos mas importantes.
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+        <ion-col size="3" size-xl=" 3" size-lg="4" size-md="4" size-sm="6" size-xs="6">
+          <ion-card (click)="scrollTo(associationsId)" [ngClass]="animation[5]"
+                    (mouseover)="animation[5]='animated pulse faster'" (mouseout)="animation[5]=''">
+            <ion-card-title>Asociaciones</ion-card-title>
+            <ion-card-content>
+              Asociaciones profesionales.
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+        <ion-col size="3" size-xl=" 3" size-lg="4" size-md="4" size-sm="6" size-xs="6">
+          <ion-card (click)="scrollTo(awardsId)" [ngClass]="animation[6]"
+                    (mouseover)="animation[6]='animated pulse faster'" (mouseout)="animation[6]=''">
+            <ion-card-title>Premios</ion-card-title>
+            <ion-card-content>
+              Premios y/o distinciones.
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+        <ion-col size="3" size-xl=" 3" size-lg="4" size-md="4" size-sm="6" size-xs="6">
+          <ion-card (click)="scrollTo(achievementId)" [ngClass]="animation[7]"
+                    (mouseover)="animation[7]='animated pulse faster'" (mouseout)="animation[7]=''">
+            <ion-card-title>Logros</ion-card-title>
+            <ion-card-content>
+              Logros académicos y/o profesionales.
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12" size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
+          <!--  Carta de Puestos de trabajo  -->
+          <div #jobPositionId></div>
+          <app-job-positions></app-job-positions>
+        </ion-col>
+        <ion-col size="12" size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
+          <!--  Carta de Materias impartidas  -->
+          <div #subjectsId></div>
+          <app-academic-subject></app-academic-subject>
+        </ion-col>
+        <ion-col size="12" size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
+          <!--  Carta de Datos personales  -->
+          <div #professionalExperiences></div>
+          <app-professional-experiences></app-professional-experiences>
+        </ion-col>
+        <ion-col size="12" size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
+          <!--  Carta de Productos  -->
+          <div #productsId></div>
+          <app-products></app-products>
+        </ion-col>
+        <ion-col size="12" size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
+          <!--  Carta de Fichas bibliograficas  -->
+          <div #filesId></div>
+          <app-files></app-files>
+        </ion-col>
+        <ion-col size="12" size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
+          <!--  Carta de Asociaciones  -->
+          <div #associationsId></div>
+          <app-associations></app-associations>
+        </ion-col>
+        <ion-col size="12" size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
+          <!--  Carta de Asociaciones  -->
+          <div #awardsId></div>
+          <app-awards></app-awards>
+        </ion-col>
+        <ion-col size="12" size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
+          <!--  Carta de Asociaciones  -->
+          <div #achievementId></div>
+          <app-achievements></app-achievements>
+        </ion-col>
+
+      </ion-row>
+    </ion-grid>
+
+  </div>
+</ion-content>

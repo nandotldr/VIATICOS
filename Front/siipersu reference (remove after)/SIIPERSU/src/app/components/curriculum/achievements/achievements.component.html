@@ -1,0 +1,77 @@
+<ion-card>
+  <ion-card-title>
+    Logros
+    <ion-buttons class="ion-float-right">
+      <ion-button (click)="canEditAchievements = !canEditAchievements">
+        <ion-icon name="create"></ion-icon>Editar
+      </ion-button>
+    </ion-buttons>
+  </ion-card-title>
+  <ion-card-content>
+
+    <ion-button *ngIf="canEditAchievements" color="light"
+                (click)="addAchievementToGroup()">
+      <ion-icon color="success" name="add-circle-outline"></ion-icon>
+      Agregar nuevo logro
+    </ion-button>
+    <ion-list>
+
+      <!--  Lista de elementos de los datos academices-->
+      <form [formGroup]="achievementDataForm">
+        <div formArrayName="achievements">
+          <!--  Modo de edicion: OFF (default)  -->
+          <div *ngIf="!canEditAchievements">
+            <ion-grid>
+              <ion-row>
+                <ion-col size="12" size-xl=" 6" size-lg="6" size-md="6" size-sm="12" size-xs="12"
+                         *ngFor="let academy of achievementDataForm.get('achievements')['controls']; let i = index"
+                         [formGroupName]="i">
+                  <ion-card *ngIf="achievementDataForm.value.achievements[i]['id']">
+                    <ion-card-title class="title-card"> Logro</ion-card-title>
+                    <ion-item *ngIf="achievementDataForm.value.achievements[i]['achievement']">
+                      <ion-label class="ion-text-capitalize" position="floating">Logro</ion-label>
+                      <ion-textarea type="text" readonly
+                                    formControlName="achievement"></ion-textarea>
+                    </ion-item>
+                  </ion-card>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </div>
+
+          <!--  Modo de edicion: ON  -->
+          <div *ngIf="canEditAchievements">
+            <ion-grid>
+              <ion-row>
+                <ion-col size="12" size-xl=" 6" size-lg="6" size-md="6" size-sm="12" size-xs="12"
+                         *ngFor="let academy of achievementDataForm.get('achievements')['controls']; let i = index"
+                         [formGroupName]="i">
+                  <ion-card class="animated bounceInUp">
+
+                    <ion-card-title class="title-card">Logro
+                      <ion-buttons class="ion-float-right">
+                        <ion-button (click)="removeAchievement(i)">
+                          <ion-icon color="danger" name="trash"></ion-icon>Borrar
+                        </ion-button>
+                      </ion-buttons>
+                    </ion-card-title>
+                    <ion-item>
+                      <ion-label class="ion-text-capitalize" position="floating">Logro</ion-label>
+                      <ion-textarea type="text" color="primary"
+                                    formControlName="achievement"></ion-textarea>
+                    </ion-item>
+                    <ion-button expand="block" [disabled]="achievementDataForm.controls.achievements.controls[i].invalid"
+                                (click)="updateAchievement(i)">
+                      Actualizar Logro
+                    </ion-button>
+                  </ion-card>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </div>
+
+        </div>
+      </form>
+    </ion-list>
+  </ion-card-content>
+</ion-card>

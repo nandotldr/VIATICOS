@@ -1,0 +1,87 @@
+<ion-card>
+  <ion-card-title> Dar de alta a nuevo usuario </ion-card-title>
+  <ion-card-content>
+    <ion-list>
+
+      <form [formGroup]="userDataForm">
+        <ion-card>
+          <ion-item>
+            <ion-label class="ion-text-capitalize"
+              position="floating">Codigo</ion-label>
+            <ion-input type="number"
+              color="primary"
+              pattern="[0-9]{8}"
+              max="99999999"
+              formControlName="code"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label class="ion-text-capitalize"
+              position="floating">Contraseña</ion-label>
+            <ion-input type="text"
+              color="primary"
+              required
+              formControlName="password"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-radio-group formControlName="gender"
+              required>
+              Genero
+              <ion-item>
+                <ion-label>Masculino</ion-label>
+                <ion-radio slot="start"
+                  value="H"
+                  checked></ion-radio>
+              </ion-item>
+              <ion-item>
+                <ion-label>Femenino</ion-label>
+                <ion-radio slot="start"
+                  value="M"></ion-radio>
+              </ion-item>
+
+            </ion-radio-group>
+          </ion-item>
+          <ion-item>
+            <ion-label class="ion-text-capitalize"
+              position="floating">Nombre(s)</ion-label>
+            <ion-input type="text"
+              color="primary"
+              required
+              formControlName="names"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label class="ion-text-capitalize"
+              position="floating">Apellido paterno</ion-label>
+            <ion-input type="text"
+              color="primary"
+              required
+              formControlName="last_name"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label class="ion-text-capitalize"
+              position="floating">Apellido materno</ion-label>
+            <ion-input type="text"
+              color="primary"
+              required
+              formControlName="second_last_name"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label class="ion-text-capitalize"
+              position="floating">Dependencia de adscripcion</ion-label>
+            <ion-input type="text"
+              color="primary"
+              required
+              formControlName="ascription_dependency"></ion-input>
+          </ion-item>
+          <ion-button expand="block"
+            *ngIf="userDataForm.valid"
+            (click)="addUser(userDataForm)"
+            [disabled]="this.userDataForm.invalid">
+            Crear usuario
+          </ion-button>
+
+        </ion-card>
+
+      </form>
+    </ion-list>
+  </ion-card-content>
+</ion-card>

@@ -1,0 +1,1011 @@
+<ion-card>
+  <ion-card-title>
+    Datos personales
+    <ion-buttons class="ion-float-right">
+      <ion-button (click)="canEditPersonalData = !canEditPersonalData">
+        <ion-icon name="create"></ion-icon>
+        Editar
+      </ion-button>
+    </ion-buttons>
+  </ion-card-title>
+  <ion-card-content>
+    <ion-list>
+      <!-- Es bastante largo pero son muchos datos -->
+      <form [formGroup]="personalDataForm"
+        (ngSubmit)="updateProfile()">
+        <!--  Modo edicion: OFF (Default) -->
+        <div *ngIf="!isInEditionMode()">
+          <ion-grid>
+            <ion-row>
+              <ion-col *ngIf="personalDataForm.value['picture_url']">
+                <ion-img src="{{FILE_URL+personalDataForm.value['picture_url']}}"
+                  alt="{{FILE_URL+personalDataForm.value['picture_url']}}"></ion-img>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="3"
+                size-xl=" 3"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="personalDataForm.value['code']">
+                <ion-item>
+                  <ion-label position="stacked">{{personalDataDic.code.esp}}</ion-label>
+                  <ion-input type="text"
+                    readonly
+                    formControlName="code"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="3"
+                size-xl=" 3"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="personalDataForm.value['userType']">
+                <ion-item>
+                  <ion-label position="stacked">{{personalDataDic.userType.esp}}</ion-label>
+                  <ion-select disabled="true" color="primary" okText="Aceptar" cancelText="Cancelar" formControlName="userType">
+                    <ion-select-option value="MT">Maestro</ion-select-option>
+                    <ion-select-option value="JP">Jefe de Departamento</ion-select-option>
+                    <ion-select-option value="CP">Coordinador de Personal</ion-select-option>
+                    <ion-select-option value="CA">Coordinador de Servicios Académicos</ion-select-option>
+                  </ion-select>
+                </ion-item>
+              </ion-col>
+              <ion-col size="3"
+                size-xl=" 3"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="personalDataForm.value['position']">
+                <ion-item>
+                  <ion-label position="stacked">{{personalDataDic.position.esp}}</ion-label>
+                  <ion-input type="text"
+                    readonly
+                    formControlName="position"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="3"
+                size-xl=" 3"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="personalDataForm.value['hire_date']">
+                <ion-item>
+                  <ion-label position="stacked">{{personalDataDic.hire_date.esp}}</ion-label>
+                  <ion-datetime readonly formControlName="hire_date" displayFormat="MM DD YYYY" placeholder="Fecha (MM DD YY)"></ion-datetime>
+                </ion-item>
+              </ion-col>
+              <ion-col size="3"
+                size-xl=" 3"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="personalDataForm.value['names']">
+                <ion-item>
+                  <ion-label position="stacked">{{personalDataDic.names.esp}}</ion-label>
+                  <ion-input type="text"
+                    readonly
+                    formControlName="names"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="3"
+                size-xl=" 3"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="personalDataForm.value['last_name']">
+                <ion-item>
+                  <ion-label position="stacked">{{personalDataDic.last_name.esp}}</ion-label>
+                  <ion-input type="text"
+                    readonly
+                    formControlName="last_name"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="3"
+                size-xl=" 3"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="personalDataForm.value['second_last_name']">
+                <ion-item>
+                  <ion-label position="stacked">{{personalDataDic.second_last_name.esp}}</ion-label>
+                  <ion-input type="text"
+                    readonly
+                    formControlName="second_last_name"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="3"
+                size-xl=" 3"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="personalDataForm.value['alias_degree']">
+                <ion-item>
+                  <ion-label position="stacked">{{personalDataDic.alias_degree.esp}}</ion-label>
+                  <ion-input type="text"
+                    readonly
+                    formControlName="alias_degree"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="3"
+                size-xl=" 3"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="personalDataForm.value['personal_email']">
+                <ion-item>
+                  <ion-label position="stacked">{{personalDataDic.personal_email.esp}}</ion-label>
+                  <ion-input type="email"
+                    readonly
+                    formControlName="personal_email"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="3"
+                size-xl=" 3"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="personalDataForm.value['institutional_email']">
+                <ion-item>
+                  <ion-label position="stacked">{{personalDataDic.institutional_email.esp}}</ion-label>
+                  <ion-input type="email"
+                    readonly
+                    formControlName="institutional_email"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="3"
+                size-xl=" 3"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="personalDataForm.value['home_phone']">
+                <ion-item>
+                  <ion-label position="stacked">{{personalDataDic.home_phone.esp}}</ion-label>
+                  <ion-input type="text"
+                    readonly
+                    formControlName="home_phone"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="3"
+                size-xl=" 3"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="personalDataForm.value['cellphone']">
+                <ion-item>
+                  <ion-label position="stacked">{{personalDataDic.cellphone.esp}}</ion-label>
+                  <ion-input type="text"
+                    readonly
+                    formControlName="cellphone"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="3"
+                size-xl=" 3"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="personalDataForm.value['office_phone']">
+                <ion-item>
+                  <ion-label position="stacked">{{personalDataDic.office_phone.esp}}</ion-label>
+                  <ion-input type="text"
+                    readonly
+                    formControlName="office_phone"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="3"
+                size-xl=" 3"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="personalDataForm.value['extension_office_phone']">
+                <ion-item>
+                  <ion-label position="stacked">{{personalDataDic.extension_office_phone.esp}}</ion-label>
+                  <ion-input type="text"
+                    readonly
+                    formControlName="extension_office_phone"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="3"
+                size-xl=" 3"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="personalDataForm.value['birthday']">
+                <ion-item>
+                  <ion-label position="stacked">{{personalDataDic.birthday.esp}}</ion-label>
+                  <ion-datetime readonly formControlName="birthday" displayFormat="MM DD YYYY" placeholder="Fecha (MM DD YY)"></ion-datetime>
+                </ion-item>
+              </ion-col>
+              <ion-col size="3"
+                size-xl=" 3"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="personalDataForm.value['birth_city']">
+                <ion-item>
+                  <ion-label position="stacked">{{personalDataDic.birth_city.esp}}</ion-label>
+                  <ion-input type="text"
+                    readonly
+                    formControlName="birth_city"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="3"
+                size-xl=" 3"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="personalDataForm.value['birth_state']">
+                <ion-item>
+                  <ion-label position="stacked">{{personalDataDic.birth_state.esp}}</ion-label>
+                  <ion-input type="text"
+                    readonly
+                    formControlName="birth_state"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="3"
+                size-xl=" 3"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="personalDataForm.value['birth_country']">
+                <ion-item>
+                  <ion-label position="stacked">{{personalDataDic.birth_country.esp}}</ion-label>
+                  <ion-input type="text"
+                    readonly
+                    formControlName="birth_country"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="3"
+                size-xl=" 3"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="personalDataForm.value['gender']">
+                <ion-item>
+                  <ion-label position="stacked">{{personalDataDic.gender.esp}}</ion-label>
+                  <ion-select disabled="true" color="primary" okText="Aceptar" cancelText="Cancelar" formControlName="gender">
+                    <ion-select-option value="H">Hombre</ion-select-option>
+                    <ion-select-option value="M">Mujer</ion-select-option>
+                  </ion-select>
+                </ion-item>
+              </ion-col>
+              <ion-col size="3"
+                size-xl=" 3"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="personalDataForm.value['marital_status']">
+                <ion-item>
+                  <ion-label position="stacked">{{personalDataDic.marital_status.esp}}</ion-label>
+                  <ion-input type="text"
+                    readonly
+                    formControlName="marital_status"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="3"
+                size-xl=" 3"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="personalDataForm.value['living_state']">
+                <ion-item>
+                  <ion-label position="stacked">{{personalDataDic.living_state.esp}}</ion-label>
+                  <ion-input type="text"
+                    readonly
+                    formControlName="living_state"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="3"
+                size-xl=" 3"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="personalDataForm.value['living_country']">
+                <ion-item>
+                  <ion-label position="stacked">{{personalDataDic.living_country.esp}}</ion-label>
+                  <ion-input type="text"
+                    readonly
+                    formControlName="living_country"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="3"
+                size-xl=" 3"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="personalDataForm.value['address_colony']">
+                <ion-item>
+                  <ion-label position="stacked">{{personalDataDic.address_colony.esp}}</ion-label>
+                  <ion-input type="text"
+                    readonly
+                    formControlName="address_colony"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="3"
+                size-xl=" 3"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="personalDataForm.value['address_street']">
+                <ion-item>
+                  <ion-label position="stacked">{{personalDataDic.address_street.esp}}</ion-label>
+                  <ion-input type="text"
+                    readonly
+                    formControlName="address_street"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="3"
+                size-xl=" 3"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="personalDataForm.value['address_postal_code']">
+                <ion-item>
+                  <ion-label position="stacked">{{personalDataDic.address_postal_code.esp}}</ion-label>
+                  <ion-input type="text"
+                    readonly
+                    formControlName="address_postal_code"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="3"
+                size-xl=" 3"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="personalDataForm.value['address_exterior_number']">
+                <ion-item>
+                  <ion-label position="stacked">{{personalDataDic.address_exterior_number.esp}}</ion-label>
+                  <ion-input type="text"
+                    readonly
+                    formControlName="address_exterior_number"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="3"
+                size-xl=" 3"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="personalDataForm.value['address_interior_number']">
+                <ion-item>
+                  <ion-label position="stacked">{{personalDataDic.address_interior_number.esp}}</ion-label>
+                  <ion-input type="text"
+                    readonly
+                    formControlName="address_interior_number"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="3"
+                size-xl=" 3"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="personalDataForm.value['curp']">
+                <ion-item>
+                  <ion-label position="stacked">{{personalDataDic.curp.esp}}</ion-label>
+                  <ion-input type="text"
+                    readonly
+                    formControlName="curp"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="3"
+                size-xl=" 3"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="personalDataForm.value['curp_url']">
+                <ion-item>
+                  <ion-button (click)="openFile(personalDataForm.value['curp_url'])">{{personalDataDic.curp_url.esp}}
+                  </ion-button>
+                </ion-item>
+              </ion-col>
+              <ion-col size="3"
+                size-xl=" 3"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="personalDataForm.value['imss']">
+                <ion-item>
+                  <ion-label position="stacked">{{personalDataDic.imss.esp}}</ion-label>
+                  <ion-input type="text"
+                    readonly
+                    formControlName="imss"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="3"
+                size-xl=" 3"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="personalDataForm.value['imss_url']">
+                <ion-item>
+                  <ion-button (click)="openFile(personalDataForm.value['imss_url'])">{{personalDataDic.imss_url.esp}}
+                  </ion-button>
+                </ion-item>
+              </ion-col>
+              <ion-col size="3"
+                size-xl=" 3"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="personalDataForm.value['rfc']">
+                <ion-item>
+                  <ion-label position="stacked">{{personalDataDic.rfc.esp}}</ion-label>
+                  <ion-input type="text"
+                    readonly
+                    formControlName="rfc"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="3"
+                size-xl=" 3"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="personalDataForm.value['rfc_url']">
+                <ion-item>
+                  <ion-button (click)="openFile(personalDataForm.value['rfc_url'])">{{personalDataDic.rfc_url.esp}}
+                  </ion-button>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </div>
+        <!--  Modo edicion: ON  -->
+        <div *ngIf="isInEditionMode()">
+          Modo de edicion
+          <ion-grid>
+            <ion-row>
+              <ion-col ion-col
+                size="3"
+                size-xl=" 3"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="personalDataDic.picture_url.isEditable[userType]">
+                <ion-item>
+                  <ion-label position="stacked">Foto de Perfil</ion-label>
+                  <ion-input type="file"
+                    formControlName="picture_url"
+                    (change)="submitImage($event.target.files, 'picture_url')"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col ion-col
+                size="3"
+                size-xl=" 3"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="personalDataDic.code.isEditable[userType]">
+                <ion-item>
+                  <ion-label position="floating">{{personalDataDic.code.esp}}</ion-label>
+                  <ion-input color="primary"
+                    type="text"
+                    formControlName="code"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col ion-col
+                size="3"
+                size-xl=" 3"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="personalDataDic.userType.isEditable[userType]">
+                <ion-item>
+                  <ion-label position="floating">{{personalDataDic.userType.esp}}</ion-label>
+                    <ion-select color="primary" okText="Aceptar" cancelText="Cancelar" formControlName="userType">
+                      <ion-select-option value="MT">Maestro</ion-select-option>
+                      <ion-select-option value="JP">Jefe de Departamento</ion-select-option>
+                      <ion-select-option value="CP">Coordinador de Personal</ion-select-option>
+                      <ion-select-option value="CA">Coordinador de Servicios Académicos</ion-select-option>
+                    </ion-select>
+                </ion-item>
+              </ion-col>
+              <ion-col ion-col
+                size="3"
+                size-xl=" 3"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="personalDataDic.position.isEditable[userType]">
+                <ion-item>
+                  <ion-label position="floating">{{personalDataDic.position.esp}}</ion-label>
+                  <ion-input color="primary"
+                    type="text"
+                    formControlName="position"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col ion-col
+                size="3"
+                size-xl=" 3"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="personalDataDic.hire_date.isEditable[userType]">
+                <ion-item>
+                  <ion-label position="floating">{{personalDataDic.hire_date.esp}}</ion-label>
+                  <ion-datetime formControlName="hire_date" displayFormat="MM DD YYYY" placeholder="Fecha (MM DD YY)"></ion-datetime>
+                </ion-item>
+              </ion-col>
+              <ion-col ion-col
+                size="3"
+                size-xl=" 3"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="personalDataDic.names.isEditable[userType]">
+                <ion-item>
+                  <ion-label position="floating">{{personalDataDic.names.esp}}</ion-label>
+                  <ion-input color="primary"
+                    type="text"
+                    formControlName="names"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col ion-col
+                size="3"
+                size-xl=" 3"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="personalDataDic.last_name.isEditable[userType]">
+                <ion-item>
+                  <ion-label position="floating">{{personalDataDic.last_name.esp}}</ion-label>
+                  <ion-input color="primary"
+                    type="text"
+                    formControlName="last_name"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col ion-col
+                size="3"
+                size-xl=" 3"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="personalDataDic.second_last_name.isEditable[userType]">
+                <ion-item>
+                  <ion-label position="floating">{{personalDataDic.second_last_name.esp}}</ion-label>
+                  <ion-input color="primary"
+                    type="text"
+                    formControlName="second_last_name"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col ion-col
+                size="3"
+                size-xl=" 3"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="personalDataDic.alias_degree.isEditable[userType]">
+                <ion-item>
+                  <ion-label position="floating">{{personalDataDic.alias_degree.esp}}</ion-label>
+                  <ion-input color="primary"
+                    type="text"
+                    formControlName="alias_degree"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col ion-col
+                size="3"
+                size-xl=" 3"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="personalDataDic.personal_email.isEditable[userType]">
+                <ion-item>
+                  <ion-label position="floating">{{personalDataDic.personal_email.esp}}</ion-label>
+                  <ion-input color="primary"
+                    type="email"
+                    formControlName="personal_email"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col ion-col
+                size="3"
+                size-xl=" 3"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="personalDataDic.institutional_email.isEditable[userType]">
+                <ion-item>
+                  <ion-label position="floating">{{personalDataDic.institutional_email.esp}}</ion-label>
+                  <ion-input color="primary"
+                    type="email"
+                    formControlName="institutional_email"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col ion-col
+                size="3"
+                size-xl=" 3"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="personalDataDic.home_phone.isEditable[userType]">
+                <ion-item>
+                  <ion-label position="floating">{{personalDataDic.home_phone.esp}}</ion-label>
+                  <ion-input color="primary"
+                    type="text"
+                    formControlName="home_phone"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col ion-col
+                size="3"
+                size-xl=" 3"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="personalDataDic.cellphone.isEditable[userType]">
+                <ion-item>
+                  <ion-label position="floating">{{personalDataDic.cellphone.esp}}</ion-label>
+                  <ion-input color="primary"
+                    type="text"
+                    formControlName="cellphone"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col ion-col
+                size="3"
+                size-xl=" 3"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="personalDataDic.office_phone.isEditable[userType]">
+                <ion-item>
+                  <ion-label position="floating">{{personalDataDic.office_phone.esp}}</ion-label>
+                  <ion-input color="primary"
+                    type="text"
+                    formControlName="office_phone"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col ion-col
+                size="3"
+                size-xl=" 3"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="personalDataDic.extension_office_phone.isEditable[userType]">
+                <ion-item>
+                  <ion-label position="floating">{{personalDataDic.extension_office_phone.esp}}</ion-label>
+                  <ion-input color="primary"
+                    type="text"
+                    formControlName="extension_office_phone"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col ion-col
+                size="3"
+                size-xl=" 3"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="personalDataDic.birthday.isEditable[userType]">
+                <ion-item>
+                  <ion-label position="floating">{{personalDataDic.birthday.esp}}</ion-label>
+                  <ion-datetime formControlName="birthday" displayFormat="MM DD YYYY" placeholder="Fecha (MM DD YY)"></ion-datetime>
+                </ion-item>
+              </ion-col>
+              <ion-col ion-col
+                size="3"
+                size-xl=" 3"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="personalDataDic.birth_city.isEditable[userType]">
+                <ion-item>
+                  <ion-label position="floating">{{personalDataDic.birth_city.esp}}</ion-label>
+                  <ion-input color="primary"
+                    type="text"
+                    formControlName="birth_city"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col ion-col
+                size="3"
+                size-xl=" 3"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="personalDataDic.birth_state.isEditable[userType]">
+                <ion-item>
+                  <ion-label position="floating">{{personalDataDic.birth_state.esp}}</ion-label>
+                  <ion-input color="primary"
+                    type="text"
+                    formControlName="birth_state"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col ion-col
+                size="3"
+                size-xl=" 3"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="personalDataDic.birth_country.isEditable[userType]">
+                <ion-item>
+                  <ion-label position="floating">{{personalDataDic.birth_country.esp}}</ion-label>
+                  <ion-input color="primary"
+                    type="text"
+                    formControlName="birth_country"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col ion-col
+                size="3"
+                size-xl=" 3"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="personalDataDic.gender.isEditable[userType]">
+                <ion-item>
+                  <ion-label position="floating">{{personalDataDic.gender.esp}}</ion-label>
+                  <ion-select color="primary" okText="Aceptar" cancelText="Cancelar" formControlName="gender">
+                    <ion-select-option value="H">Hombre</ion-select-option>
+                    <ion-select-option value="M">Mujer</ion-select-option>
+                  </ion-select>
+                </ion-item>
+              </ion-col>
+              <ion-col ion-col
+                size="3"
+                size-xl=" 3"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="personalDataDic.marital_status.isEditable[userType]">
+                <ion-item>
+                  <ion-label position="floating">{{personalDataDic.marital_status.esp}}</ion-label>
+                  <ion-input color="primary"
+                    type="text"
+                    formControlName="marital_status"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col ion-col
+                size="3"
+                size-xl=" 3"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="personalDataDic.living_state.isEditable[userType]">
+                <ion-item>
+                  <ion-label position="floating">{{personalDataDic.living_state.esp}}</ion-label>
+                  <ion-input color="primary"
+                    type="text"
+                    formControlName="living_state"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col ion-col
+                size="3"
+                size-xl=" 3"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="personalDataDic.living_country.isEditable[userType]">
+                <ion-item>
+                  <ion-label position="floating">{{personalDataDic.living_country.esp}}</ion-label>
+                  <ion-input color="primary"
+                    type="text"
+                    formControlName="living_country"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col ion-col
+                size="3"
+                size-xl=" 3"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="personalDataDic.address_colony.isEditable[userType]">
+                <ion-item>
+                  <ion-label position="floating">{{personalDataDic.address_colony.esp}}</ion-label>
+                  <ion-input color="primary"
+                    type="text"
+                    formControlName="address_colony"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col ion-col
+                size="3"
+                size-xl=" 3"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="personalDataDic.address_street.isEditable[userType]">
+                <ion-item>
+                  <ion-label position="floating">{{personalDataDic.address_street.esp}}</ion-label>
+                  <ion-input color="primary"
+                    type="text"
+                    formControlName="address_street"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col ion-col
+                size="3"
+                size-xl=" 3"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="personalDataDic.address_postal_code.isEditable[userType]">
+                <ion-item>
+                  <ion-label position="floating">{{personalDataDic.address_postal_code.esp}}</ion-label>
+                  <ion-input color="primary"
+                    type="text"
+                    formControlName="address_postal_code"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col ion-col
+                size="3"
+                size-xl=" 3"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="personalDataDic.address_exterior_number.isEditable[userType]">
+                <ion-item>
+                  <ion-label position="floating">{{personalDataDic.address_exterior_number.esp}}</ion-label>
+                  <ion-input color="primary"
+                    type="text"
+                    formControlName="address_exterior_number"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col ion-col
+                size="3"
+                size-xl=" 3"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="personalDataDic.address_interior_number.isEditable[userType]">
+                <ion-item>
+                  <ion-label position="floating">{{personalDataDic.address_interior_number.esp}}</ion-label>
+                  <ion-input color="primary"
+                    type="text"
+                    formControlName="address_interior_number"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col ion-col
+                size="3"
+                size-xl=" 3"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="personalDataDic.curp.isEditable[userType]">
+                <ion-item>
+                  <ion-label position="floating">{{personalDataDic.curp.esp}}</ion-label>
+                  <ion-input color="primary"
+                    type="text"
+                    formControlName="curp"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col ion-col
+                size="3"
+                size-xl=" 3"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="personalDataDic.curp_url.isEditable[userType]">
+                <ion-item>
+                  <ion-label position="stacked">Curp digitalizada</ion-label><br>
+                  <ion-input color="primary"
+                    type="file"
+                    (change)="submitImage($event.target.files, 'curp_url')"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col ion-col
+                size="3"
+                size-xl=" 3"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="personalDataDic.imss.isEditable[userType]">
+                <ion-item>
+                  <ion-label position="floating">{{personalDataDic.imss.esp}}</ion-label>
+                  <ion-input color="primary"
+                    color="primary"
+                    type="text"
+                    formControlName="imss"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col ion-col
+                size="3"
+                size-xl=" 3"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="personalDataDic.imss_url.isEditable[userType]">
+                <ion-item>
+                  <ion-label position="stacked">IMMS digitalizada</ion-label><br>
+                  <ion-input color="primary"
+                    type="file"
+                    (change)="submitImage($event.target.files, 'imss_url')"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col ion-col
+                size="3"
+                size-xl=" 3"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="personalDataDic.rfc.isEditable[userType]">
+                <ion-item>
+                  <ion-label position="floating">{{personalDataDic.rfc.esp}}</ion-label>
+                  <ion-input color="primary"
+                    type="text"
+                    formControlName="rfc"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col ion-col
+                size="3"
+                size-xl=" 3"
+                size-lg="4"
+                size-md="4"
+                size-sm="6"
+                size-xs="6"
+                *ngIf="personalDataDic.rfc_url.isEditable[userType]">
+                <ion-item>
+                  <ion-label position="stacked">RFC digitalizada</ion-label><br>
+                  <ion-input color="primary"
+                    type="file"
+                    (change)="submitImage($event.target.files, 'rfc_url')"></ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </div>
+        <ion-button expand="block"
+          *ngIf="canEditPersonalData"
+          type="submit"
+          [disabled]="this.personalDataForm.invalid">Actualizar</ion-button>
+      </form>
+    </ion-list>
+  </ion-card-content>
+</ion-card>

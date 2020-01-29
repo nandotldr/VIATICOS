@@ -1,0 +1,187 @@
+<ion-card>
+  <ion-card-title>
+    Datos Academicos
+    <ion-buttons class="ion-float-right" *ngIf="userType === 'CP'">
+      <ion-button (click)="canEditAcademicData = !canEditAcademicData">
+        <ion-icon name="create"></ion-icon>
+        Editar
+      </ion-button>
+    </ion-buttons>
+  </ion-card-title>
+  <ion-card-content>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-button *ngIf="canEditAcademicData" color="light"
+                      (click)="addAcademicToGroup()">
+            <ion-icon color="success" name="add-circle-outline"></ion-icon>
+            Agregar nuevo contrato
+          </ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-list>
+
+          <!--  Lista de elementos de los datos academices-->
+          <form [formGroup]="academicDataForm">
+            <div formArrayName="academics">
+              <!--  Modo de edicion: OFF (default)  -->
+              <div *ngIf="!canEditAcademicData">
+                <div *ngFor="let academy of academicDataForm.get('academics')['controls']; let i = index"
+                     [formGroupName]="i">
+
+                  <ion-card *ngIf="academicDataForm.value.academics[i]['active']">
+                    <ion-card-title class="title-contract">Grado de
+                      Estudios {{academicDataForm.value.academics[i]['degree']}} </ion-card-title>
+                    <ion-grid>
+                      <ion-row>
+                        <ion-col ion-col size="4" size-xl=" 4" size-lg="4" size-md="4" size-sm="6" size-xs="6"
+                                 *ngIf="null !== academicDataForm.value.academics[i]['degree']">
+                          <ion-item>
+                            <ion-label position="floating">{{academicDataDic.degree.esp}}</ion-label>
+                            <ion-input type="text" readonly
+                                       formControlName="degree"></ion-input>
+                          </ion-item>
+                        </ion-col>
+                        <ion-col ion-col size="4" size-xl=" 4" size-lg="4" size-md="4" size-sm="6" size-xs="6"
+                                 *ngIf="null !== academicDataForm.value.academics[i]['degree_url']">
+                          <ion-item>
+                            <ion-label position="stacked">{{academicDataDic.degree_url.esp}}</ion-label>
+                            <ion-button
+                                (click)="openFile(academicDataForm.value.academics[i]['degree_url'])">Archivo</ion-button>
+                          </ion-item>
+                        </ion-col>
+                        <ion-col ion-col size="4" size-xl=" 4" size-lg="4" size-md="4" size-sm="6" size-xs="6"
+                                 *ngIf="null !== academicDataForm.value.academics[i]['start_degree']">
+                          <ion-item>
+                            <ion-label position="stacked">{{academicDataDic.start_degree.esp}}</ion-label>
+                            <ion-input readonly
+                                    type="text">{{academicDataForm.value.academics[i]['start_degree'] | date:'MMMM d, y'}}</ion-input>
+                          </ion-item>
+                        </ion-col>
+                        <ion-col ion-col size="4" size-xl=" 4" size-lg="4" size-md="4" size-sm="6" size-xs="6"
+                                 *ngIf="null !== academicDataForm.value.academics[i]['finish_degree']">
+                          <ion-item>
+                            <ion-label position="stacked">{{academicDataDic.finish_degree.esp}}</ion-label>
+                            <ion-input readonly
+                                    type="text">{{academicDataForm.value.academics[i]['finish_degree'] | date:'MMMM d, y'}}</ion-input>
+                          </ion-item>
+                        </ion-col>
+                        <ion-col ion-col size="4" size-xl=" 4" size-lg="4" size-md="4" size-sm="6" size-xs="6"
+                                 *ngIf="null !== academicDataForm.value.academics[i]['university_given_degree']">
+                          <ion-item>
+                            <ion-label position="floating">{{academicDataDic.university_given_degree.esp}}</ion-label>
+                            <ion-input type="text" readonly
+                                       formControlName="university_given_degree"></ion-input>
+                          </ion-item>
+                        </ion-col>
+                        <ion-col ion-col size="4" size-xl=" 4" size-lg="4" size-md="4" size-sm="6" size-xs="6"
+                                 *ngIf="null !== academicDataForm.value.academics[i]['laboral_type_degree']">
+                          <ion-item>
+                            <ion-label position="floating">{{academicDataDic.laboral_type_degree.esp}}</ion-label>
+                            <ion-input type="text" readonly
+                                       formControlName="laboral_type_degree"></ion-input>
+                          </ion-item>
+                        </ion-col>
+                      </ion-row>
+                    </ion-grid>
+                  </ion-card>
+                </div>
+              </div>
+
+              <!--  Modo de edicion: ON  -->
+              <div *ngIf="canEditAcademicData">
+                Modo de edicion
+                <div *ngFor="let academy of academicDataForm.get('academics')['controls']; let i = index"
+                     [formGroupName]="i">
+                  <ion-card class="animated bounceInUp">
+                    <ion-card-title class="title-contract">Grado de
+                      Estudios {{academicDataForm.value.academics[i]['degree']}}
+                      <ion-buttons class="ion-float-right">
+                        <ion-button (click)="removeAcademic(i)">
+                          <ion-icon color="danger" name="trash"></ion-icon>
+                          Borrar
+                        </ion-button>
+                      </ion-buttons>
+                    </ion-card-title>
+                    <ion-grid>
+                      <ion-row>
+                        <ion-col ion-col size="4" size-xl=" 4" size-lg="4" size-md="4" size-sm="6" size-xs="6">
+                          <ion-item>
+                            <ion-label position="floating">{{academicDataDic.degree.esp}}</ion-label>
+                            <ion-input type="text" color="primary"
+                                       formControlName="degree"></ion-input>
+                          </ion-item>
+                        </ion-col>
+                        <ion-col ion-col size="4" size-xl=" 4" size-lg="4" size-md="4" size-sm="6" size-xs="6">
+                          <ion-item>
+                            <!--                  <ion-button-->
+                            <!--                      (click)="openFile(academicDataForm.value['id'])">{{academicDataDic.degree_url.esp}}</ion-button>-->
+                            <ion-label position="stacked">{{academicDataDic.degree_url.esp}}</ion-label>
+                            <ion-input color="primary" type="file" formControlName="degree_url"
+                            (change)="this.handleFile($event.target.files, academy)"></ion-input>
+                          </ion-item>
+                        </ion-col>
+                        <ion-col ion-col size="4" size-xl=" 4" size-lg="4" size-md="4" size-sm="6" size-xs="6">
+                          <ion-item>
+                            <ion-label position="floating">{{academicDataDic.start_degree.esp}}</ion-label>
+                            <ion-datetime formControlName="start_degree"
+                                displayFormat="MM DD YYYY"
+                                placeholder="Fecha (MM DD YY)"></ion-datetime>
+                          </ion-item>
+                        </ion-col>
+                        <ion-col ion-col size="4" size-xl=" 4" size-lg="4" size-md="4" size-sm="6" size-xs="6">
+                          <ion-item>
+                            <ion-label position="floating">{{academicDataDic.finish_degree.esp}}</ion-label>
+                            <ion-datetime formControlName="finish_degree"
+                                displayFormat="MM DD YYYY"
+                                placeholder="Fecha (MM DD YY)"></ion-datetime>
+                          </ion-item>
+                        </ion-col>
+                        <ion-col ion-col size="4" size-xl=" 4" size-lg="4" size-md="4" size-sm="6" size-xs="6">
+                          <ion-item>
+                            <ion-label
+                                position="floating">{{academicDataDic.university_given_degree.esp}}</ion-label>
+                            <ion-input type="text" color="primary"
+                                       formControlName="university_given_degree"></ion-input>
+                          </ion-item>
+                        </ion-col>
+                        <ion-col ion-col size="4" size-xl=" 4" size-lg="4" size-md="4" size-sm="6"
+                                 size-xs="6">
+                          <ion-item>
+                            <ion-label
+                                position="floating">{{academicDataDic.laboral_type_degree.esp}}</ion-label>
+                            <ion-input type="text" color="primary"
+                                       formControlName="laboral_type_degree"></ion-input>
+                          </ion-item>
+                        </ion-col>
+                        <ion-col ion-col size="4" size-xl=" 4" size-lg="4" size-md="4" size-sm="6"
+                                 size-xs="6">
+                          <ion-item>
+                            <ion-label>{{academicDataDic.active.esp}}</ion-label>
+                            <ion-checkbox slot="start" checked color="primary"
+                                          formControlName="active"></ion-checkbox>
+                          </ion-item>
+                        </ion-col>
+                      </ion-row>
+                      <ion-row>
+                        <ion-col ion-col size="12" size-xl=" 12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
+                          <ion-button expand="block"
+                                      (click)="updateAcademic(i)"
+                                      [disabled]="academicDataForm.controls.academics.controls[i].invalid">
+                            Actualizar Contrato
+                          </ion-button>
+                        </ion-col>
+                      </ion-row>
+                    </ion-grid>
+                  </ion-card>
+                </div>
+              </div>
+            </div>
+          </form>
+        </ion-list>
+      </ion-row>
+    </ion-grid>
+  </ion-card-content>
+</ion-card>

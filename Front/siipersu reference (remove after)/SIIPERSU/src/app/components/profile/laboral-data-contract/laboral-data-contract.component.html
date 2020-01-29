@@ -1,0 +1,303 @@
+<ion-card>
+  <!-- Modo vista -->
+  <ion-card-title>
+    Contrato
+    <ion-buttons class="ion-float-right"
+      *ngIf="userType === 'CP'">
+      <ion-button (click)="changeEditMode()">
+        <ion-icon name="create"></ion-icon>
+        Editar
+      </ion-button>
+      <ion-button *ngIf="!this.editMode"
+        (click)="deleteContract()">
+        <ion-icon name="trash"></ion-icon>
+        Eliminar
+      </ion-button>
+    </ion-buttons>
+  </ion-card-title>
+
+  <section *ngIf="!this.editMode">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="3"
+          size-xl=" 3"
+          size-lg="4"
+          size-md="4"
+          size-sm="6"
+          size-xs="6"
+          *ngIf="contract.type">
+          <ion-item>
+            <ion-label position="stacked">{{laboralDataDic.contracts.type.esp}}</ion-label>
+            <ion-input readonly
+              type="text">{{contract.type}}</ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="3"
+          size-xl=" 3"
+          size-lg="4"
+          size-md="4"
+          size-sm="6"
+          size-xs="6"
+          *ngIf="contract.educational_contract">
+          <ion-item>
+            <ion-label position="stacked">{{laboralDataDic.contracts.educational_contract.esp}}</ion-label>
+            <ion-input readonly
+              type="text">{{contract.educational_contract}}</ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="3"
+          size-xl=" 3"
+          size-lg="4"
+          size-md="4"
+          size-sm="6"
+          size-xs="6"
+          *ngIf="contract.digitized_url">
+          <ion-item>
+            <ion-label position="stacked">{{laboralDataDic.contracts.digitized_url.esp}}</ion-label>
+            <ion-button (click)="this.openFile(contract.digitized_url);">
+              Digitalizado
+            </ion-button>
+          </ion-item>
+        </ion-col>
+        <ion-col size="3"
+          size-xl=" 3"
+          size-lg="4"
+          size-md="4"
+          size-sm="6"
+          size-xs="6"
+          *ngIf="contract.temporarily">
+          <ion-item>
+            <ion-label position="stacked">{{laboralDataDic.contracts.temporarily.esp}}</ion-label>
+            <ion-input readonly
+              type="text">{{contract.temporarily}}</ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="3"
+          size-xl=" 3"
+          size-lg="4"
+          size-md="4"
+          size-sm="6"
+          size-xs="6"
+          *ngIf="contract.start_date">
+          <ion-item>
+            <ion-label position="stacked">{{laboralDataDic.contracts.start_date.esp}}</ion-label>
+            <ion-input readonly
+              type="text">{{contract.start_date | date:'MMMM d, y'}}</ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="3"
+          size-xl=" 3"
+          size-lg="4"
+          size-md="4"
+          size-sm="6"
+          size-xs="6"
+          *ngIf="contract.end_date">
+          <ion-item>
+            <ion-label position="stacked">{{laboralDataDic.contracts.end_date.esp}}</ion-label>
+            <ion-input readonly
+              type="text">{{contract.end_date | date:'MMMM d, y'}}</ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="3"
+          size-xl=" 3"
+          size-lg="4"
+          size-md="4"
+          size-sm="6"
+          size-xs="6"
+          *ngIf="contract.work_shift">
+          <ion-item>
+            <ion-label position="stacked">{{laboralDataDic.contracts.work_shift.esp}}</ion-label>
+            <ion-input readonly
+              type="text">{{contract.work_shift}}</ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="3"
+          size-xl=" 3"
+          size-lg="4"
+          size-md="4"
+          size-sm="6"
+          size-xs="6"
+          *ngIf="contract.semanal_work">
+          <ion-item>
+            <ion-label position="stacked">{{laboralDataDic.contracts.semanal_work.esp}}</ion-label>
+            <ion-input readonly
+              type="text">{{contract.semanal_work}}</ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="3"
+          size-xl=" 3"
+          size-lg="4"
+          size-md="4"
+          size-sm="6"
+          size-xs="6"
+          *ngIf="contract.ascription">
+          <ion-item>
+            <ion-label position="stacked">{{laboralDataDic.contracts.ascription.esp}}</ion-label>
+            <ion-input readonly
+              type="text">{{contract.ascription}}</ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="3"
+          size-xl=" 3"
+          size-lg="4"
+          size-md="4"
+          size-sm="6"
+          size-xs="6"
+          *ngIf="contract.status">
+          <ion-item>
+            <ion-label position="stacked">{{laboralDataDic.contracts.status.esp}}</ion-label>
+            <ion-input readonly
+              type="text">{{ contract.status == 1 ? 'Activo': 'No Activo'}}</ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </section>
+  <section *ngIf="this.editMode">
+    <form [formGroup]="this.contractDataForm">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="3"
+            size-xl=" 3"
+            size-lg="4"
+            size-md="4"
+            size-sm="6"
+            size-xs="6">
+            <ion-item>
+              <ion-label position="stacked">{{laboralDataDic.contracts.type.esp}}</ion-label>
+              <ion-select placeholder="Seleccionar"
+                formControlName="type">
+                <ion-select-option value="Docente">Docente</ion-select-option>
+                <ion-select-option value="Adinistrativo">Adinistrativo</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+          <ion-col size="3"
+            size-xl=" 3"
+            size-lg="4"
+            size-md="4"
+            size-sm="6"
+            size-xs="6">
+            <ion-item>
+              <ion-label position="stacked">{{laboralDataDic.contracts.educational_contract.esp}}</ion-label>
+              <ion-input type="text"
+                formControlName="educational_contract"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="3"
+            size-xl=" 3"
+            size-lg="4"
+            size-md="4"
+            size-sm="6"
+            size-xs="6">
+            <ion-item>
+              <ion-label position="stacked">Digitalizado</ion-label>
+              <ion-input type="file"
+                formControlName="digitized_url"
+                (change)="this.handleFileLaboralData($event.target.files)"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="3"
+            size-xl=" 3"
+            size-lg="4"
+            size-md="4"
+            size-sm="6"
+            size-xs="6">
+            <ion-item>
+              <ion-label position="stacked">{{laboralDataDic.contracts.temporarily.esp}}</ion-label>
+              <ion-input type="text"
+                formControlName="temporarily"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="3"
+            size-xl=" 3"
+            size-lg="4"
+            size-md="4"
+            size-sm="6"
+            size-xs="6">
+            <ion-item>
+              <ion-label position="stacked">{{laboralDataDic.contracts.start_date.esp}}</ion-label>
+              <ion-datetime formControlName="start_date"
+                displayFormat="MM DD YYYY"
+                placeholder="Fecha (MM DD YY)"></ion-datetime>
+            </ion-item>
+          </ion-col>
+          <ion-col size="3"
+            size-xl=" 3"
+            size-lg="4"
+            size-md="4"
+            size-sm="6"
+            size-xs="6">
+            <ion-item>
+              <ion-label position="stacked">{{laboralDataDic.contracts.end_date.esp}}</ion-label>
+              <ion-datetime formControlName="end_date"
+                displayFormat="MM DD YYYY"
+                placeholder="Fecha (MM DD YY)"></ion-datetime>
+            </ion-item>
+          </ion-col>
+          <ion-col size="3"
+            size-xl=" 3"
+            size-lg="4"
+            size-md="4"
+            size-sm="6"
+            size-xs="6">
+            <ion-item>
+              <ion-label position="stacked">{{laboralDataDic.contracts.work_shift.esp}}</ion-label>
+              <ion-input type="text"
+                formControlName="work_shift"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="3"
+            size-xl=" 3"
+            size-lg="4"
+            size-md="4"
+            size-sm="6"
+            size-xs="6">
+            <ion-item>
+              <ion-label position="stacked">{{laboralDataDic.contracts.semanal_work.esp}}</ion-label>
+              <ion-input type="number"
+                formControlName="semanal_work"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="3"
+            size-xl=" 3"
+            size-lg="4"
+            size-md="4"
+            size-sm="6"
+            size-xs="6">
+            <ion-item>
+              <ion-label position="stacked">{{laboralDataDic.contracts.ascription.esp}}</ion-label>
+              <ion-input type="text"
+                formControlName="ascription"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="3"
+            size-xl=" 3"
+            size-lg="4"
+            size-md="4"
+            size-sm="6"
+            size-xs="6">
+            <ion-item>
+              <ion-label position="stacked">{{laboralDataDic.contracts.status.esp}}</ion-label>
+              <ion-select placeholder="status"
+                formControlName="status">
+                <ion-select-option value="1">Activo</ion-select-option>
+                <ion-select-option value="0">No Activo</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="12">
+            <ion-button expand="full"
+              (click)="this.updateContract()"
+              [disabled]="this.contractDataForm.invalid">
+              Actualizar
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </form>
+  </section>
+
+</ion-card>

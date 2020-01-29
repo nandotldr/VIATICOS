@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button color="primary" menu="menu"></ion-menu-button> <!--  este puto se esconde-->
+    </ion-buttons>
+    <ion-title class="ion-text-capitalize">
+      Administracion
+      <!--  Menu flotante superior  -->
+<!--      <div class="overflow">-->
+<!--        Administracion-->
+<!--        <ion-chip (click)="scrollTo(personalDataId)">-->
+<!--          <ion-label>Altas</ion-label>-->
+<!--        </ion-chip>-->
+<!--        <ion-chip (click)="scrollTo(laboralDataId)">-->
+<!--          <ion-label>Bajas</ion-label>-->
+<!--        </ion-chip>-->
+<!--        <ion-chip (click)="scrollTo(academicDataId)">-->
+<!--          <ion-label>Busquedas</ion-label>-->
+<!--        </ion-chip>-->
+
+<!--      </div>-->
+    </ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content id="principal-content">
+  <div class="container">
+    <!--  div contenedor de los formularios  -->
+    <div>
+      <ion-grid fixed>
+        <ion-row>
+          <ion-col size="12" size-xl="6" size-lg="6" size-md="12" size-sm="12" size-xs="12">
+            <!--  Carta de Datos personales  -->
+            <div #createId></div>
+            <app-create></app-create>
+          </ion-col>
+          <ion-col size="12" size-xl="6" size-lg="6" size-md="12" size-sm="12" size-xs="12">
+            <div #deleteId></div>
+            <app-delete></app-delete>
+          </ion-col>
+          <ion-col size="12" size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
+            <div #searchId></div>
+<!--            <app-academic-data [codeUrl]="codeUrl"></app-academic-data>-->
+            pendiente busquedas
+          </ion-col>
+
+        </ion-row>
+      </ion-grid>
+
+    </div>
+  </div>
+</ion-content>

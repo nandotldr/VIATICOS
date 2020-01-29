@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Plan e informes</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="container">
+    <ion-grid fixed>
+      <ion-row>
+        <ion-col size="12" size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
+          <ion-card>
+            <ion-card-title>
+              Planes e informes
+            </ion-card-title>
+            <ion-card-content>
+              <ion-item>
+                <ion-label>Selecciona el año</ion-label>
+                <ion-select placeholder="Año" interface="popover"
+                            (ionChange)="canShowCards = true; selectedYear = $event.detail.value">
+                  <!--  Años  -->
+                  <div *ngFor="let year of getYears()">
+                    <ion-select-option value="{{year}}">{{year}}</ion-select-option>
+                  </div>
+                </ion-select>
+              </ion-item>
+              <!--  semestres  -->
+              <div class="semester-container" *ngIf="canShowCards">
+                <ion-card>
+                  <ion-button (click)="canShowReport = true; selectedSemester = 'AB'">Plan anual</ion-button>
+                </ion-card>
+                <ion-card *ngIf="canShowSemester('A')">
+                  <ion-button (click)="canShowReport = true; selectedSemester = 'A'">Informe Semestral A</ion-button>
+                </ion-card>
+                <ion-card *ngIf="canShowSemester('B')">
+                  <ion-button (click)="canShowReport = true; selectedSemester = 'B'">Informe Semestral B</ion-button>
+                </ion-card>
+              </div>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12" size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
+          <!--informe-->
+          <div *ngIf="canShowReport">
+            <app-report [year]="selectedYear" [semester]="selectedSemester"></app-report>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>

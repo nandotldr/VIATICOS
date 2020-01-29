@@ -9,6 +9,8 @@ const pool = require('../database');
 module.exports = {
 
     insert: (req, res) => {
+        //req.decoded.codigo
+        //req.decoded.tipo_usuario
         pool.query('SELECT NOW()', (error, results) => {
             if(error) return res.json(error);
             res.json({ ok: true, results, controller: 'facturas insert'});

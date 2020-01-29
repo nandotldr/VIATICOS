@@ -11,7 +11,7 @@ module.exports = {
 
     crearUsuario: async (req, res) => {
         try {
-            const existeUsuario = await pool.query('SELECT codigo FROM usuario WHERE codigo= ?', [req.body.codigo]);
+            const existeUsuario = await pool.query('SELECT codigo FROM usuario WHERE codigo=?', [req.body.codigo]);
             if (existeUsuario.length > 0) {
                 return res.json({ ok: false, mensaje: "Este usuario ya existe" });
             }
@@ -28,7 +28,6 @@ module.exports = {
                     numero_social: req.body.numero_social
                 }
             ]);
-            console.log("Cuenta Creada");
             res.json({ ok: true, mensaje: 'Cuenta creada' });
         } catch (error) {
             return res.json({ ok: false, mensaje: error });

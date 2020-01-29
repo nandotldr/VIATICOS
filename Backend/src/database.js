@@ -10,13 +10,13 @@ pool.getConnection((error, conn) => {
     // Manejo de errores
     if(error) {
         if(error.code === 'PROTOCOL_CONNECTION_LOST') {
-            console.error('LA CONCEXIÓN A MYSQL FUE CERRADA!');
+            console.error('LA CONCEXIÓN A MYSQL FUE CERRADA!', error);
         }
         if(error.code === 'ER_CON_COUNT_ERROR') {
-            console.error('MYSQL TIENE MUCHAS CONEXIONES!');
+            console.error('MYSQL TIENE MUCHAS CONEXIONES!', error);
         }
         if(error.code === 'ECONNREFUSED') {
-            console.error('LA CONEXIÓN FUE RECHAZADA!');
+            console.error('LA CONEXIÓN FUE RECHAZADA!', error);
         }
     }
     // Asignar la conexion

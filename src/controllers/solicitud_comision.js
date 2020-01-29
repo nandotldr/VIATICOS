@@ -53,44 +53,50 @@ module.exports = {
         res.json({ ok: true, mensaje: "Comision creada" });
     },
 
-    cosultarSolicitudComison: (req, res) => {
+    consultarSolicitudComison: (req, res) => {
         const { id } = req.params;
-        pool.query('SELECT * FROM comision WHERE id_comision = ?', [id], (errorComision, comision) => {
-            if (errorComision) return res.json(errorComision);
-            if (comision.lenght < 1) return res.json(comision);
+        pool.query('SELECT * FROM solicitud_comision WHERE id = ? ', [id], (errorComision, comision) => {
 
-            pool.query('SELECT * FROM programa_trabajo WHERE id_comision = ?', [comision[0].id_comision], (errorPrograma, programa, fields) => {
-                if (errorPrograma) return res.json(errorPrograma);
-                pool.query('SELECT * FROM trabajador WHERE id_trabajador = ?', [comision[0].id_trabajador], (errorTrabajador, trabajador) => {
-                    if (errorTrabajador) return res.json(errorTrabajador);
+            if (errorComision) return res.json(errorComision);
+            if (comision.length < 1) res.json({ ok: false, mensaje: "Comision no encontrada" });
+            pool.query('SELECT * FROM usuario WHERE codigo = ?',[comision[0].id_usuario],(errorUsuario,usuario)=>{
+                if (errorUsuario) return res.json(errorUsuario);
+                if (usuario.length < 1) res.json({ ok: false, mensaje: "Usuario no encontrado" });
+
+                pool.query('SELECT * FROM programa_trabajo WHERE id_solicitud_comision = ?', [comision[0].id],(errorPrograma,programa,fields)=>{
+                    if(errorPrograma) return res.json(errorPrograma);
 
                     let json = {
-
-                        folio: comision[0].id_comision,
-                        fechaCreacion: comision[0].fecha_creacion,
-                        fechaEnvio: comision[0].fecha_envio,
-                        estatus: comision[0].idestatus,
-                        codigoTrabajador: trabajador[0].codigoTrabajador,
-                        nombreSolicitante: trabajador[0].nombre1,
-                        area_adscripcion: trabajador[0].area_adscripcion,
-                        tipo: comision[0].tipo_comision,
-                        fecha_envio: comision[0].fecha_envio,
-                        destino: programa[0].lugar_estancia,
-                        plazaLaboral: trabajador[0].plaza_laboral,
+                        folio: comision[0].id,
+                        codigo: usuario[0].codigo,
+                        area_adscripcion: usuario[0].area_adscripcion,
+                        plaza_laboral: usuario[0].plaza_laboral,
+                        tipo_comision: comision[0].tipo_comision,
+                        nombre_comision: comision[0].nombre_comision,
+                        id_pais: comision[0].id_pais,
+                        id_municipio: comision[0].id_municipio,
+                        fecha_solicitud: comision[0].fecha_solicitud,
+                        fecha_inicio: comision[0].fecha_inicio,
+                        fecha_fin: comision[0].fecha_fin,
+                        status: comision[0].status,
                         justificacion: comision[0].justificacion,
-                        programaTrabajo: programa[0].id_programa,
-                        objetivoTrabajo: comision[0].objetivo_trabajo,
-                        evento: comision[0].nombre_comision,
-                        programa: programa,
-                        invitacionEvento: comision[0].invitacionEvento,
-                        programaEvento: comision[0].programaEvento
+                        objetivo_trabajo: comision[0].objetivo_trabajo,
+                        programa_evento: comision[0].programa_evento,
+                        invitacion_evento: comision[0].invitacion_evento,
+                        fecha_revisado: comision[0].fecha_revisado,
+                        fecha_aceptado: comision[0].fecha_aceptado,
+                        nombre_revisado: comision[0].nombre_revisado,
+                        nombre_aceptado: comision[0].nombre_aceptado,
+                        programa_trabajo: programa
                     }
 
                     res.json(json);
                     //res.json(programa);
+
+
+                  });
                 });
             });
-        });
     },
 
 

@@ -5,8 +5,8 @@ const router = express.Router();
 
 const guard = require('../../config/config').validador;
 
-router.post('/', solicitud_comisionCtl.crearSolicitudComision);
-router.get('/:id', solicitud_comisionCtl.cosultarSolicitudComison);
+router.post('/', guard,solicitud_comisionCtl.crearSolicitudComision);
+router.get('/:id', solicitud_comisionCtl.consultarSolicitudComison);
 router.put('/', solicitud_comisionCtl.update);
 
 

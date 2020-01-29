@@ -73,7 +73,7 @@ module.exports = {
                 fecha_solicitud : new Date(),
                 fecha_modificacion : new Date()
             };
-            pool.query(actualizarSolicitudV, [valuesSolicitud], (error, results) => {
+            pool.query(actualizarSolicitudV, [valuesSolicitud, idSolViatico], (error, results) => {
             if(error) return res.json(error);
             res.json({ ok: true, results, controller: 'solicitudViatico actualizado', mensaje: 'ok'});
             });

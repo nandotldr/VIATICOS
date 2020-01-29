@@ -39,8 +39,7 @@ module.exports = {
                 fecha_revisado : new Date(),
                 //nombre_revisado : nombre,
                 comentarios_rechazo : comentarios,
-              	fecha_modificacion : new Date(),
-                id_solicitud : existe[0]
+              	fecha_modificacion : new Date()
            	    };
             }
             else
@@ -49,11 +48,10 @@ module.exports = {
                 estado : status,
                 fecha_aceptado : new Date(),
                 //nombre_aceptado : nombre,
-                fecha_modificacion : new Date(),
-                id : existe[0]
+                fecha_modificacion : new Date()
                 };
             }
-           	pool.query(actualizarSolicitudV, [valuesSolicitud], (error, results) => {
+           	pool.query(actualizarSolicitudV, [valuesSolicitud, idSolViatico], (error, results) => {
             if(error) return res.json(error);
             res.json({ ok: true, results, controller: 'solicitudViatico actualizado', mensaje: 'ok'});
         	});

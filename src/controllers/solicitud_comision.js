@@ -19,8 +19,6 @@ module.exports = {
         var estatus_comision = req.body.status;
         var objetivo_trabajo = req.body.objetivo_trabajo;
         var nombre_comision = req.body.nombre_comision;
-        var urlProgramaEvento = req.body.programa_evento;
-        var urlInvitacion = req.body.invitacion_evento;
        // console.log(req.body);
         var pais = null;
         var municipio = null;
@@ -41,8 +39,6 @@ module.exports = {
                 justificacion: justificacion,
                 status: estatus_comision,
                 objetivo_trabajo: objetivo_trabajo,
-                programa_evento:urlProgramaEvento,
-                invitacion_Evento: urlInvitacion,
                 fecha_creacion: new Date(),
                 fecha_solicitud: new Date()
             };

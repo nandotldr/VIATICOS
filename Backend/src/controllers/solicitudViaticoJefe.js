@@ -39,7 +39,8 @@ module.exports = {
               	fecha_revisado : new Date(),
                 //nombre_revisado : nombre,
                 comentarios_rechazo : comentarios,
-              	fecha_modificacion : new Date()
+              	fecha_modificacion : new Date(),
+                id : existe[0]
            	};
             }
             else
@@ -48,7 +49,8 @@ module.exports = {
                 estado : status,
                 fecha_revisado : new Date(),
                 //nombre_revisado : nombre,
-                fecha_modificacion : new Date()
+                fecha_modificacion : new Date(),
+                id : existe[0]
             };
             }
            	pool.query(actualizarSolicitudV, [valuesSolicitud], (error, results) => {

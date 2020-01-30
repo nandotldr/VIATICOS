@@ -1,4 +1,3 @@
-
 module.exports = {
 
     // Configuracion de mysql
@@ -9,5 +8,4 @@ module.exports = {
         database: 'mydb',
         port: 3306
     }
-
 };

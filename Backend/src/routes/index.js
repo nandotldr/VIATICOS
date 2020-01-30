@@ -20,7 +20,7 @@ router.use('/solicitud_comision', require('./solicitud_ comision'));
 router.use('/solicitud_viatico', require('./solicitud_viatico'));
 router.use('/usuario', require('./usuario'));
 router.use('/viatico_proyecto', require('./viatico_proyecto'));
-
+router.use('/password_recovery', require('./password_recovery'));
 
 
 

@@ -48,16 +48,11 @@ module.exports = {
     },
 
     selectAll: (req, res) => {
-        var usuario = req.decoded.codigo;
-        if(usuario == 'F')
-        {
             pool.query('SELECT * FROM gasto', (error, results) => {
                 if(error) return res.json(error);
                     res.json({ ok: true, results, controller: 'conceptoGasto selectAll'});
             });
-        }
-        else
-            return res.json({ok: false, mensaje: 'No autorizado'});
+        
     },
 
     select: (req, res) => {

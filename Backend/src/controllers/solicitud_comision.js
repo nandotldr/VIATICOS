@@ -94,13 +94,6 @@ module.exports = {
             res.json({ ok: true, results, controller: 'comision update' });
         });
     },
-
-    delete: (req, res) => {
-        pool.query('SELECT NOW()', (error, results) => {
-            if (error) return res.json(error);
-            res.json({ ok: true, results, controller: 'comision delete' });
-        });
-    },
     // Cosas extra como subir archivos etc
     subirInvitacion: async(req, res) => {
         try {

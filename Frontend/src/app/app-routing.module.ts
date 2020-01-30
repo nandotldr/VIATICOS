@@ -16,12 +16,14 @@ const routes: Routes = [
     loadChildren: () => import('./pages/forgot-password/forgot-password.module').then( m => m.ForgotPasswordPageModule)
   },
   {
-    path: '**',
-    redirectTo: 'login'
-  },  {
     path: 'create-user',
     loadChildren: () => import('./pages/create-user/create-user.module').then( m => m.CreateUserPageModule)
   },
+  {
+    path: '**',
+    redirectTo: 'login'
+  },
+  
 
 ];
 

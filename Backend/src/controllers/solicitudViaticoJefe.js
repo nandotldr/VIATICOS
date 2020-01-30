@@ -19,12 +19,10 @@ module.exports = {
 
     update: async(req, res) => {
         var idSolViatico = req.body.id_solicitudV;
-        //var idusuario = token.usuario; Este es el tipo de usuario
-        //var nombre = token.nombre; Este es el nombre de usuario
         var status = req.body.estado;
         var comentarios = req.body.comentariosRechazo;
 
-        var buscarSolicitudV = 'SELECT id FROM solicitud_viatico WHERE id = ? INNER JOIN gasto ON solicitud_viatico.id = gasto.id_solicitud_viatico';
+        var buscarSolicitudV = 'SELECT id FROM solicitud_viatico INNER JOIN gasto ON solicitud_viatico.id = gasto.id_solicitud_viatico WHERE id = ?';
         var actualizarSolicitudV = 'UPDATE solicitud_viatico SET ? WHERE id_solicitud = ?';
 
         try 

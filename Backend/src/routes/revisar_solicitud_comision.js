@@ -4,7 +4,7 @@ const revisar_solicitud_comisionCtl = require('../controllers/revisar_solicitud_
 const router = express.Router();
 const auth = require('../middlewares/credentials');
 
-router.get('/:id',revisar_solicitud_comisionCtl.consultarSolicitudComison);
+router.get('/',revisar_solicitud_comisionCtl.consultarSolicitudesComison);
 router.put('/', revisar_solicitud_comisionCtl.modificarComision);
 
 

@@ -1,0 +1,116 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button href="/home">
+        <img src="../../../assets/images/logo.png" width="25px" style="display:inline-block" height="25px"/>
+        <!-- <ion-icon slot="icon-only" name="filing"></ion-icon> -->
+        <ion-title>SIV CUCEI</ion-title>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <img class="background-image"/>
+  <ion-card >
+    <div class="center-content" >
+      <ion-card-header class="title">
+        <ion-card-title>Solicitud de comisión nueva</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-header class="subtitle">
+        <ion-card-title>Datos personales</ion-card-title>
+      </ion-card-header>
+
+      <form [formGroup]="fgRestore" (ngSubmit)="createComision()">
+        <ion-item>
+          <ion-label position="fixed">Código</ion-label>
+          <ion-input placeholder="Código" type="number" formControlName="code"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="fixed">Nombre(s)</ion-label>
+          <ion-input placeholder="Nombre(s)" type="text" formControlName="name"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="fixed">Apellidos</ion-label>
+          <ion-input placeholder="Apellidos" type="text" formControlName="area"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="fixed">NIP</ion-label>
+          <ion-input placeholder="NIP" type="password" formControlName="plaza"></ion-input>
+        </ion-item>
+
+        <ion-card-header class="subtitle">
+          <ion-card-title>Información de la comisión</ion-card-title>
+        </ion-card-header>
+
+        <ion-list>
+          <ion-item>
+            <ion-label >Tipo de comisión</ion-label>
+            <ion-select  formControlName="tipo_com">
+              <ion-select-option value="viaticos">Viaticos</ion-select-option>
+              <ion-select-option value="comision">Comisión</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <ion-item>
+            <ion-label >Destino de la comisión</ion-label>
+            <ion-select formControlName="destino_com">
+              <ion-select-option value="JAL">Jalisco</ion-select-option>
+              <ion-select-option value="MEX">México</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+      </ion-list>
+
+        <ion-item>
+          <ion-label position="fixed">Evento de la comisión</ion-label>
+          <ion-input placeholder="Evento" type="text" formControlName="area"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="fixed">Objetivo del trabajo</ion-label>
+          <ion-input placeholder="Objetivo" type="text" formControlName="plaza"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="fixed">Justificación</ion-label>
+          <ion-input placeholder="Describa detalladamente porqué se solicita la comisión" size="400" type="text" formControlName="plaza"></ion-input>
+        </ion-item>
+
+        <ion-card-header class="subtitle">
+          <ion-card-title>Actividades y programa</ion-card-title>
+        </ion-card-header>
+
+        <ion-item>
+          <ion-label >Programa de trabajo</ion-label>
+          <ion-input placeholder="Programa" type="text" formControlName="plaza"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Fecha de programa</ion-label>
+          <ion-datetime displayFormat="MM/DD/YYYY" min="1994-03-14" max="3000-12-09" value="1994-03-14" formControlName="plaza"></ion-datetime>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Invitacion al evento</ion-label>
+          <ion-input placeholder="Programa" type="file" formControlName="plaza"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Programa de el evento</ion-label>
+          <ion-input placeholder="Programa" type="file" formControlName="plaza"></ion-input>
+        </ion-item>
+
+        <ion-button type="submit" color="light" [disabled]="this.fgRestore.invalid">Enviar solicitud</ion-button>
+        <ion-button (click)="saveSol()">Guardar solicitud</ion-button>
+        <ion-button routerLink="/home" >Regresar</ion-button>
+
+      </form>
+    </div>
+  </ion-card>
+  
+</ion-content>

@@ -18,7 +18,11 @@ const routes: Routes = [
   {
     path: '**',
     redirectTo: 'login'
+  },  {
+    path: 'create-user',
+    loadChildren: () => import('./pages/create-user/create-user.module').then( m => m.CreateUserPageModule)
   },
+
 ];
 
 @NgModule({

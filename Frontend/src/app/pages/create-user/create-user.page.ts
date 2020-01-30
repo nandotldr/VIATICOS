@@ -11,13 +11,30 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateUserPage implements OnInit {
 
-  fgRestore: FormGroup;
-  restoreStep = 0;
+  fgCreate: FormGroup;
+  
 
 
-  constructor() { }
+  constructor(private formBuilder: FormBuilder,
+              private toastController: ToastController,
+              private router: Router) 
+  { 
+    this.fgCreate = this.formBuilder.group({
+      code: new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(11)]),
+      name: new FormControl('', [Validators.required]),
+      lastname: new FormControl('', [Validators.required]),
+      nip: new FormControl('', [Validators.required]),
+      area_adscripcion: new FormControl('', [Validators.required]),
+      plaza_laboral: new FormControl('', [Validators.required]),
+      numero_social: new FormControl('', [Validators.required])
+    });
+  }
 
   ngOnInit() {
+  }
+
+  async createUser(){
+    //Crear usuario en la BD con la API
   }
 
 }

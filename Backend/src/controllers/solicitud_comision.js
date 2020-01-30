@@ -18,7 +18,6 @@ module.exports = {
             var municipio = null;
             if(req.body.tipo_comision ==0){ pais = req.body.id_destino;}
             else { municipio = req.body.id_destino;}
-            console.log(req.body);
             const resp = await pool.query('INSERT INTO solicitud_comision SET ?', [{
                 id_usuario: req.decoded.codigo,
                 nombre_comision: req.body.nombre_comision,
@@ -88,11 +87,47 @@ module.exports = {
     },
 
 
-    update: (req, res) => {
-        pool.query('SELECT NOW()', (error, results) => {
-            if (error) return res.json(error);
-            res.json({ ok: true, results, controller: 'comision update' });
-        });
+    modificarComision: async(req, res) => {
+        //verificar que no este en status cancelado =-1, revision = 1, aceptado por J =3, aceptado por A= 5 o finalizado
+        
+        try {
+            
+            var sqlSolComision ='SELECT c.id, c.status, u.codigo, c.fecha_solicitud FROM solicitud_comision AS c INNER JOIN usuario as u ON u.codigo = c.id_usuario WHERE c.id = ? AND c.id_usuario = ? AND (c.status =0 OR c.status=2 OR c.status=4)';
+            const verificarComision = await pool.query(sqlSolComision, [req.body.id,req.body.codigo]);
+            console.log(verificarComision);
+            if (verificarComision.length < 1) {
+                return res.json({ ok: false, mensaje: "No se puede modificar comison" });
+            }  
+            
+            //si estatus =0 modificar fecha solicitud
+            //si status =2 no modificar fecha solicitud or status 4
+            if(verificarComision[0].status==0)
+               verificarComision[0].fecha_solicitud= new Date();
+            var pais = null;
+            var municipio = null;
+            if(req.body.tipo_comision ==0){ pais = req.body.id_destino;}
+            else { municipio = req.body.id_destino;}
+            pool.query('UPDATE solicitud_comision SET ? WHERE id = ?', [{
+                fecha_modificacion: new Date(),
+                fecha_solicitud:verificarComision[0].fecha_solicitud,
+                nombre_comision: req.body.nombre_comision,
+                tipo_comision: req.body.tipo_comision,
+                fecha_inicio: req.body.fecha_inicio,
+                fecha_fin: req.body.fecha_fin,
+                id_pais: pais,
+                id_municipio: municipio,
+                justificacion: req.body.justificacion,
+                status: req.body.status,
+                objetivo_trabajo: req.body.objetivo_trabajo,
+            },req.body.id], (errorModificar, modificarComision) => {
+            if (errorModificar) return res.json({ok: false, mensaje:errorModificar});
+            console.log(errorModificar);
+                res.json({ ok: true, mensaje: "Comision modificada" });
+            });
+            
+        } catch (error) {
+            return res.json({ ok: false, mensaje: e });
+        }
     },
     // Cosas extra como subir archivos etc
     subirInvitacion: async(req, res) => {

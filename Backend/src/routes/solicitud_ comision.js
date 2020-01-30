@@ -6,7 +6,7 @@ const auth = require('../middlewares/credentials');
 
 router.post('/',auth(),solicitud_comisionCtl.crearSolicitudComision);
 router.get('/:id', auth(),solicitud_comisionCtl.consultarSolicitudComison);
-router.put('/', solicitud_comisionCtl.update);
+router.put('/', solicitud_comisionCtl.modificarComision);
 
 
 // Rutas extras del controlador como archivos, etc.

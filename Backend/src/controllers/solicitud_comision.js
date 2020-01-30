@@ -40,7 +40,7 @@ module.exports = {
             };
             res.json({ok:true, mensaje:"Comision creada correctamente", body:json});
         } catch (e) {
-            console.log(e);
+            
             return res.json({ ok: false, mensaje: e });
 
         }
@@ -48,22 +48,17 @@ module.exports = {
 
     consultarSolicitudComison: (req, res) => {
         const { id } = req.params;
-        pool.query('SELECT * FROM solicitud_comision WHERE id = ? ', [id], (errorComision, comision) => {
-
-            if (errorComision) return res.json(errorComision);
-            if (comision.length < 1) res.json({ ok: false, mensaje: "Comision no encontrada" });
-            pool.query('SELECT * FROM usuario WHERE codigo = ?',[comision[0].id_usuario],(errorUsuario,usuario)=>{
-                if (errorUsuario) return res.json(errorUsuario);
-                if (usuario.length < 1) res.json({ ok: false, mensaje: "Usuario no encontrado" });
-
+        try {
+            pool.query('SELECT * FROM solicitud_comision as c INNER JOIN  usuario as us ON  c.id_usuario = ? AND c.id=? ', [req.decoded.codigo, id],(errorComision, comision) => {
+                if (errorComision) return res.json({ok:false, mensaje: errorComision});
+                if (comision.length < 1) res.json({ ok: false, mensaje: "Comision no encontrada" });
                 pool.query('SELECT * FROM programa_trabajo WHERE id_solicitud_comision = ?', [comision[0].id],(errorPrograma,programa,fields)=>{
-                    if(errorPrograma) return res.json(errorPrograma);
-
+                    if(errorPrograma) return res.json({ok:false, mensaje: errorPrograma});
                     let json = {
                         folio: comision[0].id,
-                        codigo: usuario[0].codigo,
-                        area_adscripcion: usuario[0].area_adscripcion,
-                        plaza_laboral: usuario[0].plaza_laboral,
+                        codigo: comision[0].codigo,
+                        area_adscripcion: comision[0].area_adscripcion,
+                        plaza_laboral: comision[0].plaza_laboral,
                         tipo_comision: comision[0].tipo_comision,
                         nombre_comision: comision[0].nombre_comision,
                         id_pais: comision[0].id_pais,
@@ -82,14 +77,14 @@ module.exports = {
                         nombre_aceptado: comision[0].nombre_aceptado,
                         programa_trabajo: programa
                     }
-
-                    res.json(json);
-                    //res.json(programa);
-
-
-                  });
+                    res.json({ok:true, body:json});
                 });
             });
+            
+        } catch (error) {
+            return res.json({ ok: false, mensaje: e });
+        }
+
     },
 
 

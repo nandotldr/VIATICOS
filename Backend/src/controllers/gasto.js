@@ -33,7 +33,8 @@ module.exports = {
                 transporte_local : transporteLocal,
                 transporte_foraneo : transporteForaneo,
                 combustible : combustible_viaje,
-                otros_conceptos : otros
+                otros_conceptos : otros,
+                id_solicitud_viatico : id_viatico
             };
             pool.query(insertarGasto, [valuesSolicitud], (error, results) => {
             if(error) return res.json(error);
@@ -47,11 +48,11 @@ module.exports = {
     },
 
     selectAll: (req, res) => {
-        //Checar la credencial para verificar si puede o no realizar esta consulta
-        pool.query('SELECT * FROM gasto', (error, results) => {
-            if(error) return res.json(error);
-            res.json({ ok: true, results, controller: 'conceptoGasto selectAll'});
-        });
+            pool.query('SELECT * FROM gasto', (error, results) => {
+                if(error) return res.json(error);
+                    res.json({ ok: true, results, controller: 'conceptoGasto selectAll'});
+            });
+        
     },
 
     select: (req, res) => {

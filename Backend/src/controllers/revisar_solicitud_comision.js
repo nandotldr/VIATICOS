@@ -9,43 +9,40 @@ module.exports = {
 
    
 
-    consultarSolicitudComison: (req, res) => {
-        const { id } = req.params;
+    consultarSolicitudesComison:async (req, res) => {
+        
         try {
-            pool.query('SELECT * FROM solicitud_comision as c INNER JOIN  usuario as us ON  c.id_usuario = ? AND c.id=? ', [req.decoded.codigo, id],(errorComision, comision) => {
-                if (errorComision) return res.json({ok:false, mensaje: errorComision});
-                if (comision.length < 1) res.json({ ok: false, mensaje: "Comision no encontrada" });
-                pool.query('SELECT * FROM programa_trabajo WHERE id_solicitud_comision = ?', [comision[0].id],(errorPrograma,programa,fields)=>{
-                    if(errorPrograma) return res.json({ok:false, mensaje: errorPrograma});
-                    let json = {
-                        folio: comision[0].id,
-                        codigo: comision[0].codigo,
-                        area_adscripcion: comision[0].area_adscripcion,
-                        plaza_laboral: comision[0].plaza_laboral,
-                        tipo_comision: comision[0].tipo_comision,
-                        nombre_comision: comision[0].nombre_comision,
-                        id_pais: comision[0].id_pais,
-                        id_municipio: comision[0].id_municipio,
-                        fecha_solicitud: comision[0].fecha_solicitud,
-                        fecha_inicio: comision[0].fecha_inicio,
-                        fecha_fin: comision[0].fecha_fin,
-                        status: comision[0].status,
-                        justificacion: comision[0].justificacion,
-                        objetivo_trabajo: comision[0].objetivo_trabajo,
-                        programa_evento: comision[0].programa_evento,
-                        invitacion_evento: comision[0].invitacion_evento,
-                        fecha_revisado: comision[0].fecha_revisado,
-                        fecha_aceptado: comision[0].fecha_aceptado,
-                        nombre_revisado: comision[0].nombre_revisado,
-                        nombre_aceptado: comision[0].nombre_aceptado,
-                        programa_trabajo: programa
-                    }
-                    res.json({ok:true, body:json});
-                });
-            });
+            //Verificar tipo de usuario
+            const existeUsuario = await pool.query('SELECT codigo, tipo_usuario,area_adscripcion FROM usuario WHERE codigo=?', [req.body.codigo]);
+            if (existeUsuario.length < 0) {
+                return res.json({ ok: false, mensaje: "Este usuario no existe" });
+            }
+            console.log(existeUsuario);
+            //si usuario es A mostrar todas las solocitudes de comison en status 3
+            if(existeUsuario[0].tipo_usuario =='A')
+            {
+                console.log("TIPO USUARIO a");
+                const comision = await pool.query('SELECT c.id, c.status, u.codigo, u.area_adscripcion,c.fecha_solicitud , c.nombre_comision,concat(u.nombres," ",u.apellidos) as nombre  FROM solicitud_comision AS c INNER JOIN usuario as u ON u.codigo=c.id_usuario WHERE c.status =3');
+                    if (comision.length < 1) res.json({ ok: false, mensaje: "No hay comisiones por aceptar" });
+                    
+                return res.json({ok:true, body: comision});
+
+            }
+            else if(existeUsuario[0].tipo_usuario =='J')
+            {
+                const comision = await pool.query('SELECT c.id, c.status, u.codigo, u.area_adscripcion,c.fecha_solicitud , c.nombre_comision,concat(u.nombres," ",u.apellidos) as nombre  FROM solicitud_comision AS c INNER JOIN usuario as u ON u.codigo=c.id_usuario WHERE c.status =1 AND u.area_adscripcion = ? group by c.id',[existeUsuario[0].area_adscripcion]);
+                    if (comision.length < 1) res.json({ ok: false, mensaje: "No hay comisiones por aceptar" });
+                    
+                return res.json({ok:true, body: comision});
+            }
+
+            res.json({ok: false, mensaje: "Funcion no disponible para tu usuario"})
+            //si usuario es J mostrar las solicitudes de su dependencia
+            
             
         } catch (error) {
-            return res.json({ ok: false, mensaje: e });
+            console.log(error);
+            return res.json({ ok: false, mensaje: error });
         }
 
     },

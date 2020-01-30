@@ -23,9 +23,10 @@ export class ForgotPasswordPage implements OnInit {
   ) {
     this.fgRestore = this.formBuilder.group({
       code: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(8)]),
-      rfc: new FormControl('', [Validators.required]),
+      name: new FormControl('', [Validators.required]),
+      lastname: new FormControl('', [Validators.required]),
       imss: new FormControl('', [Validators.required]),
-      birthday: new FormControl('', [Validators.required]),
+      newpassword: new FormControl('', [Validators.required]),
     });
     this.fgRestoreToken = this.formBuilder.group({
       password: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(75)]),

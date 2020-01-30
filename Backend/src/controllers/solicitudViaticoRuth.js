@@ -10,7 +10,7 @@ module.exports = {
 
     select: (req, res) => {
         const { id } = req.params;
-        var verSolicitud = 'SELECT * FROM solicitud_viatico WHERE id = ? AND estado == 1 INNER JOIN gasto ON solicitud_viatico.id = gasto.id_solicitud_viatico';
+        var verSolicitud = 'SELECT * FROM solicitud_viatico INNER JOIN gasto ON solicitud_viatico.id = gasto.id_solicitud_viatico WHERE id = ? AND estado == 1 ';
         pool.query(verSolicitud, id, (error, results) => {
             if(error) return res.json(error);
             res.json({ ok: true, results, controller: 'solicitudViatico buscado'});
@@ -24,7 +24,7 @@ module.exports = {
         var status = req.body.estado;
         var comentarios = req.body.comentariosRechazo;
 
-        var buscarSolicitudV = 'SELECT id FROM solicitud_viatico WHERE id = ? INNER JOIN gasto ON solicitud_viatico.id = gasto.id_solicitud_viatico';
+        var buscarSolicitudV = 'SELECT id FROM solicitud_viatico INNER JOIN gasto ON solicitud_viatico.id = gasto.id_solicitud_viatico WHERE id = ?';
         var actualizarSolicitudV = 'UPDATE solicitud_viatico SET ? WHERE id_solicitud = ?';
 
         try 

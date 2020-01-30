@@ -8,49 +8,42 @@ const pool = require('../database');
 module.exports = {
 
     crearSolicitudComision: async(req, res) => {
-        //Define variables locales:
-        //console.log(req.body);
-        var codigoUsuario = req.body.codigo;
-        var tipo_comision = req.body.tipo_comision;
-        var comisionLugar = req.body.id_destino;
-        var fechaInicio = req.body.fecha_inicio;
-        var fechaFin = req.body.fecha_fin;
-        var justificacion = req.body.justificacion;
-        var estatus_comision = req.body.status;
-        var objetivo_trabajo = req.body.objetivo_trabajo;
-        var nombre_comision = req.body.nombre_comision;
-       // console.log(req.body);
-        var pais = null;
-        var municipio = null;
-        var sqlComision = "INSERT INTO solicitud_comision SET ?";
+    
         try {
-
-            if(tipo_comision ==0){ pais = comisionLugar;}
-            else { municipio = comisionLugar;}
-
-            var valuesComision = {
-                id_usuario: codigoUsuario,
-                nombre_comision: nombre_comision,
-                tipo_comision: tipo_comision,
-                fecha_inicio: fechaInicio,
-                fecha_fin: fechaFin,
+            const existeUsuario = await pool.query('SELECT codigo FROM usuario WHERE codigo=?', [req.body.codigo]);
+            if (existeUsuario.length < 1) {
+                return res.json({ ok: false, mensaje: "Este usuario no existe" });
+            }
+            var pais = null;
+            var municipio = null;
+            if(req.body.tipo_comision ==0){ pais = req.body.id_destino;}
+            else { municipio = req.body.id_destino;}
+            console.log(req.body);
+            const resp = await pool.query('INSERT INTO solicitud_comision SET ?', [{
+                id_usuario: req.body.codigo,
+                nombre_comision: req.body.nombre_comision,
+                tipo_comision: req.body.tipo_comision,
+                fecha_inicio: req.body.fecha_inicio,
+                fecha_fin: req.body.fecha_fin,
                 id_pais: pais,
                 id_municipio: municipio,
-                justificacion: justificacion,
-                status: estatus_comision,
-                objetivo_trabajo: objetivo_trabajo,
+                justificacion: req.body.justificacion,
+                status: req.body.status,
+                objetivo_trabajo: req.body.objetivo_trabajo,
                 fecha_creacion: new Date(),
                 fecha_solicitud: new Date()
+            }
+        ]);
+            console.log(resp);
+            let json = {
+                "id_comision": resp.insertId
             };
-           // console.log(valuesComision);
-            const resp = await pool.query(sqlComision, [valuesComision]);
-            //console.log(resp);
+            res.json({ok:true, mensaje:"Comision creada correctamente", body:json});
         } catch (e) {
-            //console.log(e);
+            console.log(e);
             return res.json({ ok: false, mensaje: e });
 
         }
-        res.json({ ok: true, mensaje: "Comision creada" });
     },
 
     consultarSolicitudComison: (req, res) => {

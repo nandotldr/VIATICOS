@@ -6,7 +6,7 @@ const auth = require('../middlewares/credentials');
 
 router.post('/', usuarioCtl.crearUsuario);
 router.put('/', auth('P','J','A','S'),usuarioCtl.modificarUsuario);
-router.get('/:codigo', usuarioCtl.selectUsuario);
+router.get('/:codigo', auth('P','J','A','S'),usuarioCtl.selectUsuario);
 
 // Rutas extras del controlador como archivos, etc.
 

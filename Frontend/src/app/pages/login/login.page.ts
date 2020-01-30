@@ -18,7 +18,7 @@ export class LoginPage implements OnInit {
     public toastController: ToastController,
     private router: Router) {
     this.fgLogin = this.formBuilder.group({
-      code: ['', [Validators.required, Validators.maxLength(8), Validators.minLength(8)]],
+      code: ['', [Validators.required, Validators.maxLength(11), Validators.minLength(1)]],
       password: ['', Validators.required]
     });
   }

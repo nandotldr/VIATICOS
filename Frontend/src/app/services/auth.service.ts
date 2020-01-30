@@ -28,11 +28,12 @@ export class AuthService {
   }
 
   async login(user: { code: string, password: string }) {
-    return await this.http.post(`${this.API_URL}/login`, {
+    return await this.http.post(`${environment.API}/login`, {
       code: user.code,
       password: user.password
     }).pipe(
       tap(token => {
+        console.log(token);
         if (token['ok']) {
           this.saveCredentials(user.code, token['data']['token']);
         }

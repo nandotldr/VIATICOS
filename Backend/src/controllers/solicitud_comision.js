@@ -129,6 +129,22 @@ module.exports = {
             return res.json({ ok: false, mensaje: e });
         }
     },
+    historialComisones: async(req, res) =>{
+        try {
+            pool.query('SELECT c.id as folio, c.status,c.fecha_solicitud , c.nombre_comision, c.tipo_comision  FROM solicitud_comision AS c INNER JOIN usuario as u on u.codigo=c.id_usuario WHERE c.id_usuario=?', [req.body.codigo],(errorComision, comisiones,fields) => {
+                if (errorComision) return res.json({ok:false, mensaje: errorComision});
+                if (comisiones.length < 1) res.json({ ok: false, mensaje: "No tienes comisiones" });
+                
+                    
+                    res.json({ok:true, body:comisiones});
+                
+            });
+            
+        } catch (error) {
+            return res.json({ ok: false, mensaje: e });
+        }
+
+    },
     // Cosas extra como subir archivos etc
     subirInvitacion: async(req, res) => {
         try {

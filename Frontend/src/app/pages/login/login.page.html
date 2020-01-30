@@ -1,16 +1,39 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-buttons slot="start">  
+    <ion-buttons slot="start">
       <ion-button href="/home">
-        <ion-icon slot="icon-only" name="filing"></ion-icon>
+        <img src="../../../assets/images/logo.png" width="25px" style="display:inline-block" height="25px"/>
+        <!-- <ion-icon slot="icon-only" name="filing"></ion-icon> -->
+        <ion-title>SIV CUCEI</ion-title>
       </ion-button>
     </ion-buttons>
-    <ion-title>
-      SIV CUCEI
-    </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
 
+<ion-content>
+  <img class="background-image"/>
+  <ion-card class="log-card">
+    <div class="center-content" >
+      <ion-card-header>
+        <ion-card-title color="primary">INICIAR SESIÓN</ion-card-title>
+        
+      </ion-card-header>
+      <form [formGroup]="fgLogin">
+        <ion-item>
+          <ion-label position="fixed">Código</ion-label>
+          <ion-input placeholder="codigo" type="text" pattern="[0-9]{8}" formControlName="code"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="fixed">Contraseña</ion-label>
+          <ion-input placeholder="*****" type="password" formControlName="password"></ion-input>
+        </ion-item>
+        <!-- <ion-button (click)="login()" type="submit" color="light" [disabled]="!fgLogin.valid">Iniciar Sesion</ion-button> -->
+        <ion-button routerLink="/home" type="submit" color="light" >Iniciar Sesion</ion-button>
+        <a routerLink="/forgot-password" >Olvide mi contraseña</a>
+      </form>
+
+        
+    </div>
+  </ion-card>
 </ion-content>

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
-import { RestorePasswordModel } from 'siipersu reference (remove after)/SIIPERSU/src/app/interfaces/interfaces';
+import { RestorePasswordModel } from 'siipersu reference (remove after)/SIIPERSU/src/app/interfaces/interfaces'; //ACORDAR CAMBIAR
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -22,7 +22,7 @@ export class ForgotPasswordPage implements OnInit {
               private router: Router
   ) {
     this.fgRestore = this.formBuilder.group({
-      code: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(8)]),
+      code: new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(11)]),
       name: new FormControl('', [Validators.required]),
       lastname: new FormControl('', [Validators.required]),
       imss: new FormControl('', [Validators.required]),

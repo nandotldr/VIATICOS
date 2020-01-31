@@ -5,7 +5,7 @@ const auth = require('../middlewares/credentials');
 const router = express.Router();
 
 router.post('/',auth('P','J','A','S'),solicitud_comisionCtl.crearSolicitudComision);
-router.get('/:id', auth(),solicitud_comisionCtl.consultarSolicitudComison);
+router.get('/:id', auth('P','J','A','S'),solicitud_comisionCtl.consultarSolicitudComison);
 router.get('/',solicitud_comisionCtl.historialComisones);
 router.put('/', solicitud_comisionCtl.modificarComision);
 

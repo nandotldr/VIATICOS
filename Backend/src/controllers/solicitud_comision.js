@@ -51,7 +51,7 @@ module.exports = {
     consultarSolicitudComison: (req, res) => {
         const { id } = req.params;
         try {
-            pool.query('SELECT * FROM solicitud_comision as c INNER JOIN  usuario as us ON  c.id_usuario = ? AND c.id=? ', [req.decoded.codigo, id],(errorComision, comision) => {
+            pool.query('SELECT * FROM solicitud_comision as c INNER JOIN  usuario as us ON  c.id_usuario = ? AND c.id=? ', [req.user.codigo, id],(errorComision, comision) => {
                 if (errorComision) return res.json({ok:false, mensaje: errorComision});
                 if (comision.length < 1) res.json({ ok: false, mensaje: "Comision no encontrada" });
                 pool.query('SELECT * FROM programa_trabajo WHERE id_solicitud_comision = ?', [comision[0].id],(errorPrograma,programa,fields)=>{
@@ -84,7 +84,7 @@ module.exports = {
             });
             
         } catch (error) {
-            return res.json({ ok: false, mensaje: e });
+            return res.json({ ok: false, mensaje: error });
         }
 
     },

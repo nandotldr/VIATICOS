@@ -1,8 +1,8 @@
 const express = require('express');
 const solicitud_comisionCtl = require('../controllers/solicitud_comision');
+const auth = require('../middlewares/credentials');
 
 const router = express.Router();
-const auth = require('../middlewares/credentials');
 
 router.post('/',auth('P','J','A','S'),solicitud_comisionCtl.crearSolicitudComision);
 router.get('/:id', auth(),solicitud_comisionCtl.consultarSolicitudComison);

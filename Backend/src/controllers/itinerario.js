@@ -56,8 +56,7 @@ module.exports = {
         }
     },
     eliminaritinerario: (req, res) => {
-        var id = req.body.id_itinerario;
-        pool.query('DELETE * FROM itinerario WHERE id_comision = ?', [id], (error, results) => {
+        pool.query('DELETE FROM itinerario WHERE id = ?', [req.body.id], (error, results) => {
             if (error) return res.json({ ok: false, mensaje: error });
             res.json({ ok: true, results, mensaje: 'Itinerario eliminado' });
         });

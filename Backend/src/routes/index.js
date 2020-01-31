@@ -24,6 +24,6 @@ router.use('/viatico_proyecto', require('./viatico_proyecto'));
 router.use('/password_recovery', require('./password_recovery'));
 router.use('/asignar_recursos', require('./asignar_recursos'));
 router.use('/itinerario', require('./itinerario'));
-
+router.use('/agenda', require('./agenda'));
 
 module.exports = router;

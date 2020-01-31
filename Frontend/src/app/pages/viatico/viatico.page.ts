@@ -9,7 +9,7 @@ import {Router} from '@angular/router';
 export class ViaticoPage implements OnInit {
 
   logout() {
-    this.router.navigate('/login');
+    this.router.navigateByUrl('/login');
   }
 
   profile() {

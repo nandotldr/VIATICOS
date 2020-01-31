@@ -24,10 +24,21 @@ const routes: Routes = [
     loadChildren: () => import('./pages/create-comision/create-comision.module').then( m => m.CreateComisionPageModule)
   },
   {
+    path: 'profile',
+    loadChildren: () => import('./pages/profile/profile.module').then(m => m.ProfilePageModule)
+  },
+  {
+    path: 'history',
+    loadChildren: () => import('./pages/history/history.module').then(m => m.HistoryPageModule)
+  },
+  {
+    path: 'viatico',
+    loadChildren: () => import('./pages/viatico/viatico.module').then(m => m.ViaticoPageModule)
+  },
+  {
     path: '**',
     redirectTo: 'login'
   },
-
 ];
 
 @NgModule({

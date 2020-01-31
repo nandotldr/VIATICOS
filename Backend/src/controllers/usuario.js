@@ -33,27 +33,34 @@ module.exports = {
     },
 
     selectUsuario: (req, res) => {
-        pool.query('SELECT * FROM usuario WHERE codigo = ?', [req.user.codigo], (errorUsuario, usuario) => {
-            if (errorUsuario) return res.json({ ok: false, mensaje: errorUsuario });
-            if (usuario.length < 1) return res.json({ ok: false, mensaje: "No existe usuario" });
-            let json = {
-                codigo: usuario[0].codigo,
-                nombres: usuario[0].nombres,
-                apellidos: usuario[0].apellidos,
-                area_adscripcion: usuario[0].area_adscripcion,
-                plaza_laboral: usuario[0].plaza_laboral,
-                numero_social: usuario[0].numero_social
-            };
-
-            res.json({ ok: true, body: json });
-        });
+        try {
+            pool.query('SELECT * FROM usuario WHERE codigo = ?', [req.user.codigo], (errorUsuario, usuario) => {
+                if (errorUsuario) return res.json({ ok: false, mensaje: errorUsuario });
+                if (usuario.length < 1) return res.json({ ok: false, mensaje: "No existe usuario" });
+                let json = {
+                    codigo: usuario[0].codigo,
+                    nombres: usuario[0].nombres,
+                    apellidos: usuario[0].apellidos,
+                    area_adscripcion: usuario[0].area_adscripcion,
+                    plaza_laboral: usuario[0].plaza_laboral,
+                    numero_social: usuario[0].numero_social
+                };
+    
+                res.json({ ok: true, body: json });
+            });
+            
+        } catch (error) {
+            console.log(error);
+            return res.json({ ok: false, mensaje: error });
+        }
+        
 
 
     },
     //D
     modificarUsuario: async(req, res) => {
         try {
-            const existeUsuario = await pool.query('SELECT codigo FROM usuario WHERE codigo=?', [req.body.codigo]);
+            const existeUsuario = await pool.query('SELECT codigo FROM usuario WHERE codigo=?', [req.user.codigo]);
             if (existeUsuario.length < 1) {
                 return res.json({ ok: false, mensaje: "Este usuario no existe" });
             }

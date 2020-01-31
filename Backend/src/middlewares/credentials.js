@@ -6,7 +6,7 @@ const jwt = require('../services/jwt');
  */
 module.exports = (...args) => {
     return async (req, res, next) => {
-            let decoded = await jwt.checkToken(req.get('access-token'));
+            let decoded = await jwt.checkToken(req.get('Authorization'));
             // Token no es valido o ha expirado
             if(!decoded) {
                 return res.json({

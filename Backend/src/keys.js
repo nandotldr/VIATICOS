@@ -1,4 +1,3 @@
-
 module.exports = {
 
     // Configuracion de mysql
@@ -6,7 +5,7 @@ module.exports = {
         host: 'localhost',
         user: 'root',
         password: '',
-        database: 'viaticos'
+        database: 'mydb',
+        port: 3306
     }
-
 };

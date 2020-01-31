@@ -1,30 +1,29 @@
 const pool = require('../database');
 // const objectJWT = require('../../config/config');
 const jwt = require('../services/jwt');
+const bcrypt = require('bcryptjs');
 
 module.exports = {
 
-    selectLogin: async(req, res) => {
-        return res.json({ ok: true, token: jwt.createToken('11111111', 'P')});
+    selectLogin: async (req, res) => {
+        try {
+            // seleccionar todos los usuarios con el codigo ?
+            const usuarios = await pool.query('SELECT codigo, nip, tipo_usuario FROM usuario WHERE codigo=?', [req.body.codigo]);
+            // Si no hay no existe el usuario regresar error
 
-
-        console.log(req.body);
-        var username = req.body.codigo;
-        var password = req.body.nip;
-        //Se selecciona el solo el ID y el tipo de usuario para saber a que vista mandarlo
-        const usuario = await pool.query('SELECT codigo, tipo_usuario, nombres FROM usuario WHERE codigo = ? AND nip = ?', [
-            username, password
-        ]);
-        console.log(usuario);
-        if (usuario.length == 0) {
-            return res.json({ ok: false, mensaje: 'Usuario o Contraseña incorrectos' });
+            if (usuarios.length < 1) {
+                return res.json({ ok: false, mensaje: 'No se controntro el usuario' });
+            }
+            console.log(usuarios[0]);
+            // Comparar contraseña de bd con el hash(contraseña en el body)
+            // Si da error no coincide la contraseña
+            if (!bcrypt.compareSync(req.body.nip, usuarios[0].nip)) { // bcrypt.compareSync(req.body.nip, ususarios[0].nip)
+                return res.json({ ok: false, mensaje: 'No se controntro el usuario contra' });
+            }
+            // regresar token con jwt.createToken('11111111', 'P')}
+            return res.json({ ok: true, token: jwt.createToken(usuarios[0].codigo, usuarios[0].tipo_usuario) });
+        } catch (error) {
+            return res.json({ ok: false, mensaje: 'Error inesperado.', error });
         }
-        pool.query('SELECT codigo, nombres, tipo_usuario  FROM usuario where codigo = ?', [usuario[0].codigo], (errorUsuario, user) => {
-            if (errorUsuario) return res.json(errorUsuario);
-
-            return res.json({ ok: true, token: jwt.createToken(user[0].codigo, user[0].tipo_usuario)});
-            // res.json({ usuario: objectJWT.generador(user) });
-        });
-
     }
 }

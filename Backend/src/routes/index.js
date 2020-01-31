@@ -1,7 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
-router.get('/', (req, res) => {
+const auth = require('../middlewares/credentials');
+
+router.get('/', auth(), (req, res) => {
     res.send('Viaticos API');
 });
 
@@ -16,9 +18,10 @@ router.use('/pais', require('./pais'));
 router.use('/programa_trabajo', require('./programa_trabajo'));
 router.use('/solicitud_comision', require('./solicitud_ comision'));
 router.use('/solicitud_viatico', require('./solicitud_viatico'));
+router.use('/revisar_solicitud_comision', require('./revisar_solicitud_comision'));
 router.use('/usuario', require('./usuario'));
 router.use('/viatico_proyecto', require('./viatico_proyecto'));
-
+router.use('/password_recovery', require('./password_recovery'));
 
 
 

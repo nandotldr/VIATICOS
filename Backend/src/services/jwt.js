@@ -21,9 +21,9 @@ module.exports = {
     checkToken: async (token) => {
         // Get token
         try {
-            // let cleanToken = token.split(' ')[1];
+            let cleanToken = token.split(' ')[1];
             // let decoded = jwt.verify(cleanToken, process.env.JWT_SECRET);
-            let decoded = jwt.verify(token, 'viaticos123*');
+            let decoded = jwt.verify(cleanToken, 'viaticos123*');
             return decoded;
         } catch (error) {
             return null;

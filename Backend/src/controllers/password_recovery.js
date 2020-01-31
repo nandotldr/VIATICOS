@@ -1,5 +1,5 @@
 const pool = require('../database');
-
+const bcrypt = require('bcryptjs');
 /*
  * La información se puede sacar de 
  * req.body, req.get, req.params
@@ -23,7 +23,7 @@ module.exports = {
             if (existe.length == 0)
                 return res.json({ ok: false, mensaje: 'Datos Incorrectos' });
 
-            pool.query(actualizarContraseña, [nueva_contraseña, codigo], (error, results) => {
+            pool.query(actualizarContraseña, [bcrypt.hashSync(nueva_contraseña, 9), codigo], (error, results) => {
                 if (error) return res.json(error);
                 res.json({ ok: true, controller: 'Contraseña actualizada ', mensaje: 'ok' });
             });

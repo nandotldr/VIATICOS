@@ -25,5 +25,6 @@ router.use('/password_recovery', require('./password_recovery'));
 router.use('/asignar_recursos', require('./asignar_recursos'));
 router.use('/itinerario', require('./itinerario'));
 router.use('/agenda', require('./agenda'));
+router.use('/validate', require('./validate'));
 
 module.exports = router;

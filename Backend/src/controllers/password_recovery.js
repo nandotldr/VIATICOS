@@ -9,7 +9,6 @@ const pool = require('../database');
 module.exports = {
 
     update: async(req, res) => {
-        const id = req.decoded.codigo;
         var codigo = req.body.codigo;
         var nombres = req.body.nombres;
         var apellidos = req.body.apellidos;
@@ -26,7 +25,7 @@ module.exports = {
 
             pool.query(actualizarContraseña, [nueva_contraseña, codigo], (error, results) => {
                 if (error) return res.json(error);
-                res.json({ ok: true, results, controller: 'Contraseña actualizada ', mensaje: 'ok' });
+                res.json({ ok: true, controller: 'Contraseña actualizada ', mensaje: 'ok' });
             });
         } catch (e) {
             return res.json({ ok: false, mensaje: e });

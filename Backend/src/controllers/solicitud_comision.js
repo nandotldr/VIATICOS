@@ -17,7 +17,6 @@ module.exports = {
             const existeSolicitud = await pool.query('SELECT * FROM solicitud_comision WHERE id_usuario= ? AND (status= 0 OR status=1 OR status=2 OR status=3 OR status=4 OR status=5)',[req.body.codigo]);
             if(existeSolicitud.length > 0)
             {
-                console.log(existeSolicitud)
                 return res.json({ ok: false, mensaje: "No puedes crear otra comision tienes una en proceso" });
             }
             var pais = null;

@@ -18,14 +18,14 @@ module.exports = {
         var combustible_viaje = req.body.combustible;
         var otros = req.body.otros;
 
-        var buscarSolicitudV = 'SELECT id FROM solicitud_viatico WHERE id = ?';
+        var buscarSolicitudV = 'SELECT id FROM solicitud_viatico WHERE id = ? AND (status = 0 OR status = 2 OR status = 4)';
         var insertarGasto = 'INSERT INTO gasto SET ?';
         console.log(id_viatico);
         try 
         {
             const existe = await pool.query(buscarSolicitudV, [id_viatico]);
             if(existe.length == 0)
-                return res.json({ok: false, mensaje: 'no existe el viatico'});
+                return res.json({ok: false, mensaje: 'no existe el viatico o no se puede crear con el estatus actual'});
             var valuesSolicitud = {
                 dia : dias,
                 alimentacion : aliment,

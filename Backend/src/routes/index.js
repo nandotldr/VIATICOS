@@ -10,7 +10,6 @@ router.get('/', auth(), (req, res) => {
 
 router.use('/factura', require('./factura'));
 router.use('/gasto', require('./gasto'));
-
 router.use('/informe_actividades', require('./informe_actividades'));
 router.use('/login', require('./login'));
 router.use('/municipio', require('./municipio'));

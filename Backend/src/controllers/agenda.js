@@ -53,10 +53,11 @@ module.exports = {
 
                 res.json({ ok: true, modificaragenda, mensaje: "Agenda modificada" });
             });
-        } catch (e) {
-            return res.json({ ok: false, mensaje: e });
+        } catch (error) {
+            return res.json({ ok: false, mensaje: error });
         }
     },
+
     eliminaragenda: (req, res) => {
         pool.query('DELETE FROM agenda WHERE id = ?', [req.body.id], (error, results) => {
             if (error) return res.json({ ok: false, mensaje: error });

@@ -16,7 +16,7 @@ module.exports = {
         var nueva_contraseña = req.body.nueva_contraseña;
 
         var buscarUsuario = 'SELECT codigo FROM usuario WHERE codigo = ? AND numero_social = ?';
-        var actualizarContraseña = 'UPDATE usuario SET ? WHERE codigo = ?';
+        var actualizarContraseña = 'UPDATE usuario SET nip = ? WHERE codigo = ?';
 
         try {
             const existe = await pool.query(buscarUsuario, [codigo, numero_social]);
@@ -25,7 +25,7 @@ module.exports = {
 
             pool.query(actualizarContraseña, [nueva_contraseña, codigo], (error, results) => {
                 if (error) return res.json(error);
-                res.json({ ok: true, results, controller: 'Contraseña actualizada ', mensaje: 'ok' });
+                res.json({ ok: true, controller: 'Contraseña actualizada ', mensaje: 'ok' });
             });
         } catch (e) {
             return res.json({ ok: false, mensaje: e });

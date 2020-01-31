@@ -22,7 +22,7 @@
         </ion-menu-toggle>
 
         <ion-menu-toggle auto-hide="false">
-          <ion-item (click)="profile()" lines="full" class="color" routerDirection="root" [routerLink]="">
+          <ion-item (click)="profile()" color="primary" lines="full" class="color" routerDirection="root" [routerLink]="">
             <ion-icon name="person" slot="start" class="color"></ion-icon>
             <ion-label>Perfil</ion-label>
           </ion-item>
@@ -43,9 +43,9 @@
             <ion-label> Cerrar Sesión </ion-label>
           </ion-item>
         </ion-menu-toggle>
-        
       </ion-list>
     </ion-content>
   </ion-menu>
+
   <ion-router-outlet id="principal-content" main></ion-router-outlet>
 </ion-split-pane>

@@ -22,28 +22,28 @@
         </ion-menu-toggle>
 
         <ion-menu-toggle auto-hide="false">
-          <ion-item (click)="profile()" lines="full" class="color" routerDirection="root" [routerLink]="">
+          <ion-item (click)="profile()" lines="full" class="color" routerDirection="root">
             <ion-icon name="person" slot="start" class="color"></ion-icon>
             <ion-label>Perfil</ion-label>
           </ion-item>
-          <ion-item (click)="comision()" lines="full" class="color" router-direction="root" [routerLink]="">
+          <ion-item (click)="comision()" lines="full" class="color" router-direction="root">
             <ion-icon name="document" slot="start" class="color"></ion-icon>
             <ion-label>Comisión</ion-label>
           </ion-item>
-          <ion-item (click)="history()" lines="full" class="color" router-direction="root" [routerLink]="">
+          <ion-item (click)="history()" lines="full" class="color" router-direction="root">
             <ion-icon name="clipboard" slot="start" class="color"></ion-icon>
             <ion-label>Historial</ion-label>
           </ion-item>
-          <ion-item (click)="viatico()" lines="full" class="color" router-direction="root" [routerLink]="">
+          <ion-item (click)="viatico()" color="primary" class="color" router-direction="root">
             <ion-icon name="airplane" slot="start" class="color"></ion-icon>
             <ion-label>Viático</ion-label>
           </ion-item>
-          <ion-item (click)="logout()" lines="none" class="color" routerDirection="root" [routerLink]="">
+          <ion-item (click)="logout()" lines="none" class="color" routerDirection="root">
             <ion-icon name="exit" slot="start" class="color"></ion-icon>
             <ion-label> Cerrar Sesión </ion-label>
           </ion-item>
         </ion-menu-toggle>
-        
+
       </ion-list>
     </ion-content>
   </ion-menu>

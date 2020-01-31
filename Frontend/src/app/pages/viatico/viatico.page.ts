@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import {Router} from '@angular/router';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.page.html',
-  styleUrls: ['./home.page.scss'],
+  selector: 'app-viatico',
+  templateUrl: './viatico.page.html',
+  styleUrls: ['./viatico.page.scss'],
 })
-export class HomePage implements OnInit {
+export class ViaticoPage implements OnInit {
 
   logout() {
     this.router.navigateByUrl('/login');

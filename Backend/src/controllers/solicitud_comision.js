@@ -10,16 +10,21 @@ module.exports = {
     crearSolicitudComision: async(req, res) => {
     
         try {
-            const existeUsuario = await pool.query('SELECT codigo FROM usuario WHERE codigo=?', [req.decoded.codigo]);
+            const existeUsuario = await pool.query('SELECT codigo FROM usuario WHERE codigo=?', [req.user.codigo]);
             if (existeUsuario.length < 1) {
                 return res.json({ ok: false, mensaje: "Este usuario no existe" });
+            }
+            const existeSolicitud = await pool.query('SELECT * FROM solicitud_comision WHERE id_usuario= ? AND (status= 0 OR status=1 OR status=2 OR status=3 OR status=4 OR status=5)',[req.user.codigo]);
+            if(existeSolicitud.length > 0)
+            {
+                return res.json({ ok: false, mensaje: "No puedes crear otra comision tienes una en proceso" });
             }
             var pais = null;
             var municipio = null;
             if(req.body.tipo_comision ==0){ pais = req.body.id_destino;}
             else { municipio = req.body.id_destino;}
             const resp = await pool.query('INSERT INTO solicitud_comision SET ?', [{
-                id_usuario: req.decoded.codigo,
+                id_usuario: req.user.codigo,
                 nombre_comision: req.body.nombre_comision,
                 tipo_comision: req.body.tipo_comision,
                 fecha_inicio: req.body.fecha_inicio,
@@ -33,13 +38,11 @@ module.exports = {
                 fecha_solicitud: new Date()
             }
         ]);
-            console.log(resp);
             let json = {
                 "id_comision": resp.insertId
             };
             res.json({ok:true, mensaje:"Comision creada correctamente", body:json});
         } catch (e) {
-            
             return res.json({ ok: false, mensaje: e });
 
         }
@@ -48,7 +51,7 @@ module.exports = {
     consultarSolicitudComison: (req, res) => {
         const { id } = req.params;
         try {
-            pool.query('SELECT * FROM solicitud_comision as c INNER JOIN  usuario as us ON  c.id_usuario = ? AND c.id=? ', [req.decoded.codigo, id],(errorComision, comision) => {
+            pool.query('SELECT * FROM solicitud_comision as c INNER JOIN  usuario as us ON  c.id_usuario = ? AND c.id=? ', [req.user.codigo, id],(errorComision, comision) => {
                 if (errorComision) return res.json({ok:false, mensaje: errorComision});
                 if (comision.length < 1) res.json({ ok: false, mensaje: "Comision no encontrada" });
                 pool.query('SELECT * FROM programa_trabajo WHERE id_solicitud_comision = ?', [comision[0].id],(errorPrograma,programa,fields)=>{
@@ -81,7 +84,7 @@ module.exports = {
             });
             
         } catch (error) {
-            return res.json({ ok: false, mensaje: e });
+            return res.json({ ok: false, mensaje: error });
         }
 
     },
@@ -89,11 +92,9 @@ module.exports = {
 
     modificarComision: async(req, res) => {
         //verificar que no este en status cancelado =-1, revision = 1, aceptado por J =3, aceptado por A= 5 o finalizado
-        
         try {
-            
             var sqlSolComision ='SELECT c.id, c.status, u.codigo, c.fecha_solicitud FROM solicitud_comision AS c INNER JOIN usuario as u ON u.codigo = c.id_usuario WHERE c.id = ? AND c.id_usuario = ? AND (c.status =0 OR c.status=2 OR c.status=4)';
-            const verificarComision = await pool.query(sqlSolComision, [req.body.id,req.body.codigo]);
+            const verificarComision = await pool.query(sqlSolComision, [req.body.id,req.user.codigo]);
             console.log(verificarComision);
             if (verificarComision.length < 1) {
                 return res.json({ ok: false, mensaje: "No se puede modificar comison" });
@@ -131,7 +132,7 @@ module.exports = {
     },
     historialComisones: async(req, res) =>{
         try {
-            pool.query('SELECT c.id as folio, c.status,c.fecha_solicitud , c.nombre_comision, c.tipo_comision  FROM solicitud_comision AS c INNER JOIN usuario as u on u.codigo=c.id_usuario WHERE c.id_usuario=?', [req.body.codigo],(errorComision, comisiones,fields) => {
+            pool.query('SELECT c.id as folio, c.status,c.fecha_solicitud , c.nombre_comision, c.tipo_comision  FROM solicitud_comision AS c INNER JOIN usuario as u on u.codigo=c.id_usuario WHERE c.id_usuario=?', [req.user.codigo],(errorComision, comisiones,fields) => {
                 if (errorComision) return res.json({ok:false, mensaje: errorComision});
                 if (comisiones.length < 1) res.json({ ok: false, mensaje: "No tienes comisiones" });
                 

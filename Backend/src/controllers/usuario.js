@@ -17,12 +17,12 @@ module.exports = {
             }
             await pool.query('INSERT INTO usuario SET ?', [{
                 codigo: req.body.codigo,
-                nombres: req.body.nombres,
-                apellidos: req.body.apellidos,
+                nombres: req.body.nombres.toUpperCase(),
+                apellidos: req.body.apellidos.toUpperCase(),
                 tipo_usuario: req.body.tipo_usuario,
                 nip: bcrypt.hashSync(req.body.nip, 9),
-                area_adscripcion: req.body.area_adscripcion,
-                plaza_laboral: req.body.plaza_laboral,
+                area_adscripcion: req.body.area_adscripcion.toUpperCase(),
+                plaza_laboral: req.body.plaza_laboral.toUpperCase(),
                 fecha_creacion: new Date(),
                 numero_social: req.body.numero_social
             }]);
@@ -34,7 +34,6 @@ module.exports = {
 
     selectUsuario: (req, res) => {
         pool.query('SELECT * FROM usuario WHERE codigo = ?', [req.user.codigo], (errorUsuario, usuario) => {
-            console.log(errorUsuario);
             if (errorUsuario) return res.json({ ok: false, mensaje: errorUsuario });
             if (usuario.length < 1) return res.json({ ok: false, mensaje: "No existe usuario" });
             let json = {
@@ -59,10 +58,10 @@ module.exports = {
                 return res.json({ ok: false, mensaje: "Este usuario no existe" });
             }
             pool.query('UPDATE usuario SET ? WHERE codigo = ?', [{
-                nombres: req.body.nombres,
-                apellidos: req.body.apellidos,
-                area_adscripcion: req.body.area_adscripcion,
-                plaza_laboral: req.body.plaza_laboral,
+                nombres: req.body.nombres.toUpperCase(),
+                apellidos: req.body.apellidos.toUpperCase(),
+                area_adscripcion: req.body.area_adscripcion.toUpperCase(),
+                plaza_laboral: req.body.plaza_laboral.toUpperCase(),
                 numero_social: req.body.numero_social,
                 fecha_modificacion: new Date()
             }, req.body.codigo], (errorModificar, modificarUsuario) => {
@@ -71,8 +70,8 @@ module.exports = {
 
                 res.json({ ok: true, mensaje: "Cuenta modificada" });
             });
-        } catch (e) {
-            return res.json({ ok: false, mensaje: e });
+        } catch (error) {
+            return res.json({ ok: false, mensaje: error });
         }
 
 

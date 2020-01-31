@@ -17,12 +17,18 @@ module.exports = {
         var buscarSolicitudC = 'SELECT * FROM solicitud_comision WHERE id = ?';
         var insertarSolicitud = 'INSERT INTO solicitud_viatico SET ?';
 
+
         try 
         {
             const existe = await pool.query(buscarSolicitudC, [id_comision]);
             console.log(invitado_n);
             if(existe.length == 0)
                 return res.json({ok: false, mensaje: 'no existe la comision'});
+            const existeSolicitud = await pool.query('SELECT * FROM solicitud_viatico WHERE id_usuario= ? AND (status= 0 OR status=1 OR status=2 OR status=3 OR status=4 OR status=5)',[req.user.codigo]);
+            if(existeSolicitud.length > 0)
+            {
+                return res.json({ ok: false, mensaje: "No puedes crear otro viatico tienes uno en proceso" });
+            }
             var valuesSolicitud = {
                 invitado_nombre : invitado_n,
                 id_solicitud_comision : id_comision,

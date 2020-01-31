@@ -16,6 +16,7 @@ module.exports = (...args) => {
             }
             // Si no tiene args regresa correcto
             if(args.length === 0) {
+                req.user = decoded;
                 return next();
             }
             // Ver si tiene las credenciales correctas

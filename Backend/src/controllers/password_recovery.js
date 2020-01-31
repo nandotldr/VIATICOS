@@ -9,6 +9,7 @@ const pool = require('../database');
 module.exports = {
 
     update: async(req, res) => {
+        const id = req.decoded.codigo;
         var codigo = req.body.codigo;
         var nombres = req.body.nombres;
         var apellidos = req.body.apellidos;
@@ -16,7 +17,7 @@ module.exports = {
         var nueva_contraseña = req.body.nueva_contraseña;
 
         var buscarUsuario = 'SELECT codigo FROM usuario WHERE codigo = ? AND numero_social = ?';
-        var actualizarContraseña = 'UPDATE usuario SET ? WHERE codigo = ?';
+        var actualizarContraseña = 'UPDATE usuario SET nip = ? WHERE codigo = ?';
 
         try {
             const existe = await pool.query(buscarUsuario, [codigo, numero_social]);

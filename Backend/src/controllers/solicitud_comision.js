@@ -10,11 +10,12 @@ module.exports = {
     crearSolicitudComision: async(req, res) => {
     
         try {
-            const existeUsuario = await pool.query('SELECT codigo FROM usuario WHERE codigo=?', [req.body.codigo]);
+            console.log(req.decoded);
+            const existeUsuario = await pool.query('SELECT codigo FROM usuario WHERE codigo=?', [req.decoded.codigo]);
             if (existeUsuario.length < 1) {
                 return res.json({ ok: false, mensaje: "Este usuario no existe" });
             }
-            const existeSolicitud = await pool.query('SELECT * FROM solicitud_comision WHERE id_usuario= ? AND (status= 0 OR status=1 OR status=2 OR status=3 OR status=4 OR status=5)',[req.body.codigo]);
+            const existeSolicitud = await pool.query('SELECT * FROM solicitud_comision WHERE id_usuario= ? AND (status= 0 OR status=1 OR status=2 OR status=3 OR status=4 OR status=5)',[req.decoded.codigo]);
             if(existeSolicitud.length > 0)
             {
                 return res.json({ ok: false, mensaje: "No puedes crear otra comision tienes una en proceso" });
@@ -24,7 +25,7 @@ module.exports = {
             if(req.body.tipo_comision ==0){ pais = req.body.id_destino;}
             else { municipio = req.body.id_destino;}
             const resp = await pool.query('INSERT INTO solicitud_comision SET ?', [{
-                id_usuario: req.body.codigo,
+                id_usuario: req.decoded.codigo,
                 nombre_comision: req.body.nombre_comision,
                 tipo_comision: req.body.tipo_comision,
                 fecha_inicio: req.body.fecha_inicio,

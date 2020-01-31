@@ -10,7 +10,7 @@ module.exports = {
             // seleccionar todos los usuarios con el codigo ?
             const usuarios = await pool.query('SELECT codigo, nip, tipo_usuario FROM usuario WHERE codigo=?', [req.body.codigo]);
             // Si no hay no existe el usuario regresar error
-
+			console.log(req.body);
             if (usuarios.length < 1) {
                 return res.json({ ok: false, mensaje: 'Usuario o contraseña incorrectos' });
             }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { map, tap } from 'rxjs/operators';
 import { NavController } from '@ionic/angular';
@@ -8,7 +8,7 @@ import { NavController } from '@ionic/angular';
   providedIn: 'root'
 })
 export class AuthService {
-  private readonly API_URL = `${environment.API}/OAuth`;
+  private readonly API_URL = `${environment.API}`;
   private readonly TOKEN = 'token';
   public codeUser: string;
   public userType: string;
@@ -28,14 +28,14 @@ export class AuthService {
   }
 
   async login(user: { code: string, password: string }) {
-    return await this.http.post(`${environment.API}/login`, {
-      code: user.code,
-      password: user.password
+    return await this.http.post(`${this.API_URL}/login`, {
+      codigo: +user.code,
+      nip: user.password
     }).pipe(
       tap(token => {
         console.log(token);
         if (token['ok']) {
-          this.saveCredentials(user.code, token['data']['token']);
+          this.saveCredentials(user.code, token['token']);
         }
       }),
       map(response => {
@@ -45,7 +45,7 @@ export class AuthService {
   }
 
   async validateToken() {
-    return await this.http.post(`${this.API_URL}/validateToken`, null).pipe(
+    return await this.http.post(`${this.API_URL}/validate`, null).pipe(
       map(response => {
         if (response['ok']) {
           this.codeUser = response['data']['code'];

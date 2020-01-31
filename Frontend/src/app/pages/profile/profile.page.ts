@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.page.html',
-  styleUrls: ['./home.page.scss'],
+  selector: 'app-profile',
+  templateUrl: './profile.page.html',
+  styleUrls: ['./profile.page.scss'],
 })
-export class HomePage implements OnInit {
+export class ProfilePage implements OnInit {
 
   logout() {
     this.router.navigateByUrl('/login');
@@ -27,7 +27,8 @@ export class HomePage implements OnInit {
   viatico() {
     this.router.navigateByUrl('/viatico');
   }
-  constructor(private router: Router) {}
+
+  constructor(private router:Router) { }
 
   ngOnInit() {
   }

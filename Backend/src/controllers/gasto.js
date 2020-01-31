@@ -5,7 +5,7 @@ const pool = require('../database');
 * req.body, req.get, req.params
 * respectivamente.
 */
-
+    
 module.exports = {
 
     insert: async(req, res) => {
@@ -20,10 +20,10 @@ module.exports = {
 
         var buscarSolicitudV = 'SELECT id FROM solicitud_viatico WHERE id = ?';
         var insertarGasto = 'INSERT INTO gasto SET ?';
-
+        console.log(id_viatico);
         try 
         {
-            const existe = await pool.query(buscarSolicitudV, id_viatico);
+            const existe = await pool.query(buscarSolicitudV, [id_viatico]);
             if(existe.length == 0)
                 return res.json({ok: false, mensaje: 'no existe el viatico'});
             var valuesSolicitud = {
@@ -47,13 +47,13 @@ module.exports = {
         
     },
 
-    selectAll: (req, res) => {
+    /*selectAll: (req, res) => {
             pool.query('SELECT * FROM gasto', (error, results) => {
                 if(error) return res.json(error);
                     res.json({ ok: true, results, controller: 'conceptoGasto selectAll'});
             });
         
-    },
+    },*/
 
     select: (req, res) => {
         const { id } = req.params;
@@ -79,7 +79,7 @@ module.exports = {
 
         try 
         {
-            const existe = await pool.query(buscarSolicitudG, idGasto);
+            const existe = await pool.query(buscarSolicitudG, [idGasto]);
             if(existe.length == 0)
                 return res.json({ ok: false, mensaje: 'No existe el gasto' });
             var valuesGasto = {

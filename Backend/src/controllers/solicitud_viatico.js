@@ -10,7 +10,7 @@ module.exports = {
 
     insert: async(req, res) => {
         var id_comision = req.body.id;
-        var id_usuario = req.decoded.codigo;
+        var id_usuario = req.user.codigo;
         var invitado_n = req.body.invitado;
         var comentarios = req.body.comentarios;
         var status = req.body.estado;
@@ -40,7 +40,7 @@ module.exports = {
             };
             pool.query(insertarSolicitud, [valuesSolicitud], (error, results) => {
             if(error) return res.json(error);
-            res.json({ ok: true, results, controller: 'solicitudViatico insertado', mensaje: 'ok'});
+            res.json({ ok: true, results, controller: 'solicitudViatico insertado', mensaje: 'ok', ultimaid: results.insertId});
             });
         } catch(e) {
             return res.json({ ok: false, mensaje: e });
@@ -62,26 +62,28 @@ module.exports = {
     update: async(req, res) => {
         var idSolViatico = req.body.id_solicitudV;
         var status = req.body.estado;
-        var id_usuario = req.decoded.codigo;
+        var comentarios = req.body.comentario;
+        var id_usuario = req.user.codigo;
         var buscarSolicitudV = 'SELECT * FROM solicitud_viatico as sv INNER JOIN gasto as g ON sv.id = g.id_solicitud_viatico WHERE sv.id = ?';
         var actualizarSolicitudV = 'UPDATE solicitud_viatico SET ? WHERE id_solicitud_comision = ?';
-
+        
         try 
         {
             const existe = await pool.query(buscarSolicitudV, [idSolViatico]);
             if(existe.length == 0)
                 return res.json({ ok: false, mensaje: 'No existe la solicitud' });
             var valuesSolicitud = {
-                estado : status,
-                fecha_solicitud : new Date(),
-                fecha_modificacion : new Date()
+                    status : status,
+                    fecha_solicitud : new Date(),
+                    fecha_modificacion : new Date(),
+                    comentarios : comentarios
             };
             pool.query(actualizarSolicitudV, [valuesSolicitud, idSolViatico], (error, results) => {
             if(error) return res.json(error);
             res.json({ ok: true, results, controller: 'solicitudViatico actualizado', mensaje: 'ok'});
             });
         } catch(e) {
-            return res.json({ ok: false, mensaje: e });
+            return res.json({ ok: false, mensaje: "Error al realizar la query" });
         }
     }
 

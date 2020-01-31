@@ -8,7 +8,7 @@ router.post('/', oauth('P', 'J', 'A', 'S'), gastoCtl.insert);
 //router.get('/', oauth('F'), gastoCtl.selectAll);
 router.get('/:id', oauth('P', 'J', 'A', 'S'), gastoCtl.select);
 router.put('/', oauth('P', 'J', 'A', 'S'), gastoCtl.update);
-router.delete('/', oauth('P', 'J', 'A', 'S'), gastoCtl.delete);
+router.delete('/:id/:idV', oauth('P', 'J', 'A', 'S'), gastoCtl.delete);
 
 // Rutas extras del controlador como archivos, etc.
 

@@ -1,53 +1,52 @@
 export const environment = {
   production: true,
-  API:'http://localhost:9000',
-  usuario: 
-  {
+  API: 'http://localhost:9000',
+
+  usuario: {
     login: '/OAuth/login',
     validate: '/OAuth/validate',
     password_recovery: '/OAuth/password_recovery',
     url: '/usuario',
   },
-  comision: 
-  {
+  comision: {
     url: '/solicitud_comision',
     pendientes: '/revisar_solicitud_comision',
     terminar: '/terminar_comision'
   },
-  programa_trabajo: 
-  {
+  programa_trabajo: {
     url: '/programa_trabajo'
   },
-  solicitud_viatico: 
-  {
+  solicitud_viatico: {
     url: '/solicitud_viatico',
-    revisar_sol: '/revisar_solicitud_comision',
-    aceptar_sol: '/aceptar_solicitud_viatico',
-    rechazar_sol: '/rechazar_solicitud_viatico'
+    aceptar_solicitud_viatico: '/aceptar_solicitud_viatico',
+    rechazar_solicitud_viatico: '/rechazar_solicitud_viatico',
+    revisar_solicitud_viatico: '/rechazar_solicitud_viatico'
   },
-  viatico_proyecto: 
-  {
+  viatico_proyecto: {
     url: '/viatico_proyecto',
-    aceptar_sol: '/aceptar_viaticoProyecto',
-    rechazar_sol: '/rechazar_viaticoProyecto',
-    asignar_recurso: '/asignar_recursos'
+    aceptar_viaticoProyecto: '/aceptar_viaticoProyecto',
+    rechazar_viaticoProyecto: '/rechazar_viaticoProyecto',
+    asignar_recursos: '/asignar_recursos'
   },
-  gastos: 
-  {
+  gasto: {
     url: '/gasto',
   },
-  informe_actividades:
-  {
+  informe_actividades: {
     url: '/informe_actividades'
   },
-  agenda:
-  {
-    url:'/agenda'
+  agenda: {
+    url: '/agenda'
+  },
+  itinerario: {
+    url: '/itinerario'
+  },
+  factura: {
+    url: '/factura'
+  },
+  pais: {
+    url: '/pais'
+  },
+  municipios: {
+    url: '/municipios'
   }
-
-  
-
-
-
-
 };

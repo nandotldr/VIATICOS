@@ -91,8 +91,13 @@
         </ion-item>
 
         <ion-item>
-          <ion-label position="floating">Fecha de programa</ion-label>
-          <ion-datetime displayFormat="MM/DD/YYYY" min="1994-03-14" max="3000-12-09" value="1994-03-14" formControlName="plaza"></ion-datetime>
+          <ion-label position="floating">Fecha inicio de programa</ion-label>
+          <ion-datetime displayFormat="MM/DD/YYYY" max="3000-12-09" value="{{myDate}}" formControlName="fecha_inicio"></ion-datetime>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Fecha fin de programa</ion-label>
+          <ion-datetime displayFormat="MM/DD/YYYY" max="3000-12-09" value="{{myDate}}" formControlName="fecha_fin"></ion-datetime>
         </ion-item>
 
         <ion-item>

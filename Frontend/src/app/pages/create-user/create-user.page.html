@@ -18,7 +18,7 @@
         <ion-card-title>CREAR USUARIO</ion-card-title>
         
       </ion-card-header>
-      <form [formGroup]="fgRestore" (ngSubmit)="restorePassword()">
+      <form [formGroup]="fgCreate" (ngSubmit)="createUser()">
         <ion-item>
           <ion-label position="fixed">Código</ion-label>
           <ion-input placeholder="Código" type="number" formControlName="code"></ion-input>
@@ -36,8 +36,8 @@
           <ion-input placeholder="NIP" type="password" formControlName="nip"></ion-input>
         </ion-item>
         <ion-item>
-            <ion-label position="fixed">Area de adscripción</ion-label>
-            <ion-input placeholder="IMSS" type="text" formControlName="area_adscripcion"></ion-input>
+            <ion-label position="fixed">Área de adscripción</ion-label>
+            <ion-input placeholder="Área de adscripción" type="text" formControlName="area_adscripcion"></ion-input>
         </ion-item>
         <ion-item>
         <ion-label position="fixed">Plaza Laboral</ion-label>
@@ -47,8 +47,8 @@
           <ion-label position="fixed">IMSS</ion-label>
           <ion-input placeholder="IMSS" type="text" formControlName="numero_social"></ion-input>
         </ion-item>        
-        <ion-button type="submit" color="light" [disabled]="this.fgRestore.invalid">Restaurar</ion-button>
-        <a routerLink="/login" >Recorde mi contraseña</a>
+        <ion-button type="submit" color="light" [disabled]="this.fgCreate.invalid">Crear Cuenta</ion-button>
+        <a routerLink="/login" >Ya tengo una cuenta</a>
       </form>
     </div>
   </ion-card>

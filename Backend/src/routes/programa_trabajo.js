@@ -1,13 +1,14 @@
 const express = require('express');
 const programa_trabajoCtl = require('../controllers/programa_trabajo');
-
+const auth = require('../middlewares/credentials');
 const router = express.Router();
 
-router.post('/', programa_trabajoCtl.insert);
-router.get('/', programa_trabajoCtl.selectAll);
-router.get('/:id', programa_trabajoCtl.select);
-router.put('/', programa_trabajoCtl.update);
-router.delete('/', programa_trabajoCtl.delete);
+router.post('/', auth(), programa_trabajoCtl.crearPrograma);
+router.get('/:id', auth(), programa_trabajoCtl.verPrograma);
+router.put('/', programa_trabajoCtl.modificarPrograma);
+router.delete('/', auth(), programa_trabajoCtl.eliminarPrograma);
+
+
 
 // Rutas extras del controlador como archivos, etc.
 

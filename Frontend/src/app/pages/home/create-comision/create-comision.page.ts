@@ -4,6 +4,8 @@ import { ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { formatDate } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+import { environment } from "../../../../environments/environment.prod";
 
 @Component({
   selector: 'app-create-comision',
@@ -23,7 +25,8 @@ export class CreateComisionPage implements OnInit {
       private formBuilder: FormBuilder,
       private auth: AuthService,
       public toastController: ToastController,
-      private router: Router
+      private router: Router,
+      private http: HttpClient
       ) 
       { 
         this.fgRestore = this.formBuilder.group({
@@ -35,13 +38,17 @@ export class CreateComisionPage implements OnInit {
         destino_com: new FormControl('', [Validators.required]),
         fecha_inicio: new FormControl('', [Validators.required]),
         fecha_fin: new FormControl('', [Validators.required]),
+        invitacion_evento: new FormControl(null, []),
+        programa_evento: new FormControl(null, []),
         });
       }
 
   ngOnInit() {
-    console.log(this.myDate);
-    console.log(this.fecha_inicio);
-    console.log(this.fecha_fin);
+
+  }
+
+  async createComision(){
+    
   }
 
 }

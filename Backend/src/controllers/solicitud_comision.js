@@ -42,8 +42,8 @@ module.exports = {
                 "id_comision": resp.insertId
             };
             res.json({ok:true, mensaje:"Comision creada correctamente", body:json});
-        } catch (e) {
-            return res.json({ ok: false, mensaje: e });
+        } catch (error) {
+            return res.json({ ok: false, mensaje: error });
 
         }
     },
@@ -127,7 +127,7 @@ module.exports = {
             });
             
         } catch (error) {
-            return res.json({ ok: false, mensaje: e });
+            return res.json({ ok: false, mensaje: error });
         }
     },
     historialComisones: async(req, res) =>{
@@ -142,7 +142,7 @@ module.exports = {
             });
             
         } catch (error) {
-            return res.json({ ok: false, mensaje: e });
+            return res.json({ ok: false, mensaje: error });
         }
 
     },

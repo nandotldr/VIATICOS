@@ -6,18 +6,13 @@ const pool = require('../database');
  * respectivamente.
  */
 module.exports = {
-
-   
-
-    consultarSolicitudesComison:async (req, res) => {
-        
+    consultarSolicitudesComison:async (req, res) => {     
         try {
             //Verificar tipo de usuario
             const existeUsuario = await pool.query('SELECT codigo, tipo_usuario,area_adscripcion FROM usuario WHERE codigo=?', [req.body.codigo]);
             if (existeUsuario.length < 0) {
                 return res.json({ ok: false, mensaje: "Este usuario no existe" });
             }
-            console.log(existeUsuario);
             //si usuario es A mostrar todas las solocitudes de comison en status 3
             if(existeUsuario[0].tipo_usuario =='A')
             {
@@ -35,11 +30,8 @@ module.exports = {
                     
                 return res.json({ok:true, body: comision});
             }
-
             res.json({ok: false, mensaje: "Funcion no disponible para tu usuario"})
             //si usuario es J mostrar las solicitudes de su dependencia
-            
-            
         } catch (error) {
             console.log(error);
             return res.json({ ok: false, mensaje: error });
@@ -47,11 +39,9 @@ module.exports = {
 
     },
 
-
     modificarComision: async(req, res) => {
         //verificar que no este en status cancelado =-1, revision = 1, aceptado por J =3, aceptado por A= 5 o finalizado
-        try {
-            
+        try {            
             var sqlSolComision ='SELECT c.id, c.status, u.codigo, c.fecha_solicitud , concat(u.nombres," ",u.apellidos) as nombre, u.tipo_usuario FROM solicitud_comision AS c INNER JOIN usuario as u ON u.codigo = ? WHERE c.id = ? AND (c.status =1 OR c.status=3)';
             const verificarComision = await pool.query(sqlSolComision, [req.body.codigo,req.body.id]);
             console.log(req.body);
@@ -94,13 +84,9 @@ module.exports = {
             }
             
             res.json({ok:false, mensaje:"No se hizo la revision correcta"});
-
-            
         } catch (error) {
             console.log(error);
             return res.json({ ok: false, mensaje: error});
         }
     },
-    
-    
 }

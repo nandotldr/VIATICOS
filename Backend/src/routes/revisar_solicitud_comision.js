@@ -4,10 +4,8 @@ const revisar_solicitud_comisionCtl = require('../controllers/revisar_solicitud_
 const router = express.Router();
 const auth = require('../middlewares/credentials');
 
-router.get('/',revisar_solicitud_comisionCtl.consultarSolicitudesComison);
-router.put('/', revisar_solicitud_comisionCtl.modificarComision);
-
-
+router.get('/',auth('J','A'),revisar_solicitud_comisionCtl.consultarSolicitudesComison);
+router.put('/', auth('J','A'),revisar_solicitud_comisionCtl.modificarComision);
 // Rutas extras del controlador como archivos, etc.
 
 module.exports = router;

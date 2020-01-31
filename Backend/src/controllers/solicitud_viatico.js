@@ -52,7 +52,7 @@ module.exports = {
     
     select: (req, res) => {
         const { id } = req.params;
-        var verSolicitud = 'SELECT * FROM solicitud_viatico as sv INNER JOIN gasto as g ON sv.id = g.id_solicitud_viatico WHERE sv.id = ? AND status = 1';
+        var verSolicitud = 'SELECT * FROM solicitud_viatico as sv INNER JOIN gasto as g ON sv.id = g.id_solicitud_viatico WHERE sv.id = ?';
         pool.query(verSolicitud, [id], (error, results) => {
             if(error) return res.json(error);
             res.json({ ok: true, results, controller: 'solicitudViatico buscado'});

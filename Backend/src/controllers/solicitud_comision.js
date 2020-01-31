@@ -10,16 +10,22 @@ module.exports = {
     crearSolicitudComision: async(req, res) => {
     
         try {
-            const existeUsuario = await pool.query('SELECT codigo FROM usuario WHERE codigo=?', [req.decoded.codigo]);
+            const existeUsuario = await pool.query('SELECT codigo FROM usuario WHERE codigo=?', [req.body.codigo]);
             if (existeUsuario.length < 1) {
                 return res.json({ ok: false, mensaje: "Este usuario no existe" });
+            }
+            const existeSolicitud = await pool.query('SELECT * FROM solicitud_comision WHERE id_usuario= ? AND (status= 0 OR status=1 OR status=2 OR status=3 OR status=4 OR status=5)',[req.body.codigo]);
+            if(existeSolicitud.length > 0)
+            {
+                console.log(existeSolicitud)
+                return res.json({ ok: false, mensaje: "No puedes crear otra comision tienes una en proceso" });
             }
             var pais = null;
             var municipio = null;
             if(req.body.tipo_comision ==0){ pais = req.body.id_destino;}
             else { municipio = req.body.id_destino;}
             const resp = await pool.query('INSERT INTO solicitud_comision SET ?', [{
-                id_usuario: req.decoded.codigo,
+                id_usuario: req.body.codigo,
                 nombre_comision: req.body.nombre_comision,
                 tipo_comision: req.body.tipo_comision,
                 fecha_inicio: req.body.fecha_inicio,
@@ -39,7 +45,7 @@ module.exports = {
             };
             res.json({ok:true, mensaje:"Comision creada correctamente", body:json});
         } catch (e) {
-            
+            console.log(e);
             return res.json({ ok: false, mensaje: e });
 
         }

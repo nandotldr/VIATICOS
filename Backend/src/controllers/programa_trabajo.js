@@ -30,18 +30,14 @@ module.exports = {
     },
 
     verPrograma: (req, res) => {
-      const {codigo} = req.params;
+      const {id} = req.params;
       try{
-        pool.query('SELECT * FROM programa_trabajo WHERE id_solicitud_comision = ?', [codigo], (errorPrograma, programa) => {
+        pool.query('SELECT * FROM programa_trabajo WHERE id_solicitud_comision = ?', [id], (errorPrograma, programa) => {
+            console.log(errorPrograma);
             if (errorPrograma) return res.json({ok:false, mensaje: errorPrograma});
             if (programa.length < 1) return res.json({ok:false, mensaje: "no existe programa"});
-            let json = {
-                id_solicitud_comision: programa[0].id_solicitud_comision,
-                dia: programa[0].dia,
-                lugar_estancia: programa[0].lugar_estancia,
-                tareas_realizar: programa[0].tareas_realizar
-            };
-            res.json({ ok: true, body: json});
+
+            res.json({ ok: true, body: programa});
         });
       }catch(e){
         return res.json({ ok: false, mensaje: e});

@@ -9,9 +9,8 @@ import { Router } from '@angular/router';
 export class HomePage implements OnInit {
 
   logout() {
-    this.router.navigateByUrl('/login')
+    this.router.navigateByUrl('/login');
   }
-
   constructor(private router: Router) {}
 
   ngOnInit() {

@@ -10,7 +10,7 @@ router.get('/', auth(), (req, res) => {
 
 router.use('/factura', require('./factura'));
 router.use('/gasto', require('./gasto'));
-router.use('/historial_usuario', require('./historial_usuario'));
+
 router.use('/informe_actividades', require('./informe_actividades'));
 router.use('/login', require('./login'));
 router.use('/municipio', require('./municipio'));
@@ -22,7 +22,8 @@ router.use('/revisar_solicitud_comision', require('./revisar_solicitud_comision'
 router.use('/usuario', require('./usuario'));
 router.use('/viatico_proyecto', require('./viatico_proyecto'));
 router.use('/password_recovery', require('./password_recovery'));
-
-
+router.use('/asignar_recursos', require('./asignar_recursos'));
+router.use('/itinerario', require('./itinerario'));
+router.use('/agenda', require('./agenda'));
 
 module.exports = router;

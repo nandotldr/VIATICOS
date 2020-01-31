@@ -14,35 +14,39 @@
     <ion-content class="color">
       <ion-list class="color" class="ion-no-padding">
 
-        <ion-menu-toggle auto-hide="false" *ngFor="let item of menuItems">
+        <!-- <ion-menu-toggle auto-hide="false" *ngFor="let item of menuItems">
           <ion-item routerDirection="root" [routerLink]="item.redirectTo" lines="none" class="color">
             <ion-icon [name]="item.icon" slot="start" class="color"></ion-icon>
             <ion-label> {{item.name}} </ion-label>
           </ion-item>
-        </ion-menu-toggle>
+        </ion-menu-toggle> -->
 
         <ion-menu-toggle auto-hide="false">
-          <ion-item (click)="perfil()" lines="full" class="color" routerDirection="root" [routerLink]="">
+          <ion-item lines="full" class="color" routerDirection="root" [routerLink]="'/home/profile'">
             <ion-icon name="person" slot="start" class="color"></ion-icon>
             <ion-label>Perfil</ion-label>
           </ion-item>
-          <ion-item (click)="comision()" lines="full" class="color" router-direction="root" [routerLink]="">
+          </ion-menu-toggle>
+          <ion-menu-toggle auto-hide="false">
+          <ion-item lines="full" class="color" router-direction="root" [routerLink]="'/home/create-comision'">
             <ion-icon name="document" slot="start" class="color"></ion-icon>
             <ion-label>Comisión</ion-label>
           </ion-item>
-          <ion-item (click)="historial()" lines="full" class="color" router-direction="root" [routerLink]="">
+          </ion-menu-toggle>
+          <ion-menu-toggle auto-hide="false">
+          <ion-item lines="full" class="color" router-direction="root" [routerLink]="'/home/history'">
             <ion-icon name="clipboard" slot="start" class="color"></ion-icon>
             <ion-label>Historial</ion-label>
           </ion-item>
-          <ion-item (click)="programa()" lines="full" class="color" router-direction="root" [routerLink]="">
-            <ion-icon name="paper" slot="start" class="color"></ion-icon>
-            <ion-label>Programa</ion-label>
-          </ion-item>
-          <ion-item (click)="viatico()" lines="full" class="color" router-direction="root" [routerLink]="">
+          </ion-menu-toggle>
+          <ion-menu-toggle auto-hide="false">
+          <ion-item lines="full" class="color" router-direction="root" [routerLink]="'/home/viatico'">
             <ion-icon name="airplane" slot="start" class="color"></ion-icon>
             <ion-label>Viático</ion-label>
           </ion-item>
-          <ion-item (click)="logout()" lines="none" class="color" routerDirection="root" [routerLink]="">
+          </ion-menu-toggle>
+          <ion-menu-toggle auto-hide="false">
+          <ion-item (click)="logout()" lines="none" class="color" routerDirection="root" [routerLink]="''">
             <ion-icon name="exit" slot="start" class="color"></ion-icon>
             <ion-label> Cerrar Sesión </ion-label>
           </ion-item>

@@ -8,11 +8,6 @@ router.get('/:id', viatico_proyectoCtl.verViaticoProyecto);
 router.put('/', viatico_proyectoCtl.modificarViaticoProyecto);
 router.delete('/', viatico_proyectoCtl.eliminarProyecto);
 
-router.post('/', viatico_proyectoCtl.insert);
-router.get('/', viatico_proyectoCtl.selectAll);
-router.get('/:id', viatico_proyectoCtl.select);
-router.put('/', viatico_proyectoCtl.update);
-router.delete('/', viatico_proyectoCtl.delete);
 
 // Rutas extras del controlador como archivos, etc.
 

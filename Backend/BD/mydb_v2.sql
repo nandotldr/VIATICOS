@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 29-01-2020 a las 23:31:18
+-- Tiempo de generación: 31-01-2020 a las 01:10:33
 -- Versión del servidor: 10.1.36-MariaDB
 -- Versión de PHP: 7.2.11
 
@@ -194,14 +194,19 @@ CREATE TABLE `solicitud_comision` (
 --
 
 INSERT INTO `solicitud_comision` (`id`, `fecha_solicitud`, `fecha_inicio`, `fecha_fin`, `tipo_comision`, `id_pais`, `id_municipio`, `id_usuario`, `justificacion`, `status`, `objetivo_trabajo`, `area_adscripcion`, `nombre_comision`, `comentario_rechazo`, `fecha_revisado`, `fecha_aceptado`, `nombre_revisado`, `nombre_aceptado`, `programa_evento`, `invitacion_evento`, `fecha_creacion`, `fecha_modificacion`) VALUES
-(2, '2020-01-28 16:35:29', '2020-02-12', '2020-02-15', 1, NULL, 1, 210545544, 'necesito saber', 2020, 'saber it', NULL, 'tecnologias', NULL, NULL, NULL, NULL, NULL, 'programatecno', 'intacioneve', '2020-01-28 16:35:29', NULL),
-(3, '2020-01-28 16:40:03', '2020-02-12', '2020-02-15', 1, NULL, 1, 210545544, 'necesito saber', 2020, 'saber it', NULL, 'tecnologias', NULL, NULL, NULL, NULL, NULL, 'programatecno', 'intacioneve', '2020-01-28 16:40:03', NULL),
-(4, '2020-01-28 16:41:05', '2020-02-12', '2020-02-15', 1, NULL, 1, 210545544, 'necesito saber', 2020, 'saber it', NULL, 'tecnologias', NULL, NULL, NULL, NULL, NULL, 'programatecno', 'intacioneve', '2020-01-28 16:41:05', NULL),
-(5, '2020-01-28 16:42:35', '2020-02-12', '2020-02-15', 1, NULL, 1, 2828001, 'necesito saber', 2020, 'saber it', NULL, 'tecnologias', NULL, NULL, NULL, NULL, NULL, 'programatecno', 'intacioneve', '2020-01-28 16:42:35', NULL),
-(6, '2020-01-28 16:43:58', '2020-02-12', '2020-02-15', 1, NULL, 1, 2828001, 'necesito saber', 2020, 'saber it', NULL, 'tecnologias', NULL, NULL, NULL, NULL, NULL, 'programatecno', 'intacioneve', '2020-01-28 16:43:58', NULL),
-(8, '2020-01-28 17:19:24', '2020-02-12', '2020-02-15', 0, 1, NULL, 2828001, 'necesito saber', 1, 'saber it', NULL, 'tecnologias', NULL, NULL, NULL, NULL, NULL, 'programatecno', 'intacioneve', '2020-01-28 17:19:24', NULL),
-(9, '2020-01-28 17:20:25', '2020-02-12', '2020-02-15', 1, NULL, 1, 2828001, 'necesito saber', 1, 'saber it', NULL, 'tecnologias', NULL, NULL, NULL, NULL, NULL, 'programatecno', 'intacioneve', '2020-01-28 17:20:25', NULL),
-(10, '2020-01-28 22:30:27', '2020-03-12', '2020-03-25', 0, 1, NULL, 2828001, 'necesito ', 0, 'saber ang', NULL, 'tecnologia', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-01-28 22:30:27', NULL);
+(2, '2020-01-28 16:35:29', '2020-02-12', '2020-02-15', 1, NULL, 1, 210545544, 'necesito saber', 5, 'saber it', NULL, 'tecnologias', '', NULL, '2020-01-30 03:22:47', NULL, 'Jairo Jahaziel Gonzalez Casillas', 'programatecno', 'intacioneve', '2020-01-28 16:35:29', '2020-01-30 03:22:47'),
+(3, '2020-01-28 16:40:03', '2020-02-12', '2020-02-15', 1, NULL, 1, 210545544, 'necesito saber', 5, 'saber it', NULL, 'tecnologias', NULL, NULL, NULL, NULL, NULL, 'programatecno', 'intacioneve', '2020-01-28 16:40:03', NULL),
+(4, '2020-01-28 16:41:05', '2020-02-12', '2020-02-15', 1, NULL, 1, 210545544, 'necesito saber', -1, 'saber it', NULL, 'tecnologias', NULL, NULL, NULL, NULL, NULL, 'programatecno', 'intacioneve', '2020-01-28 16:41:05', NULL),
+(5, '2020-01-28 16:42:35', '2020-02-12', '2020-02-15', 1, NULL, 1, 2828001, 'necesito saber', 1, 'saber it', NULL, 'tecnologias', NULL, NULL, NULL, NULL, NULL, 'programatecno', 'intacioneve', '2020-01-28 16:42:35', NULL),
+(6, '2020-01-28 16:43:58', '2020-02-12', '2020-02-15', 1, NULL, 1, 2828001, 'necesito saber', 4, 'saber it', NULL, 'tecnologias', NULL, NULL, NULL, NULL, NULL, 'programatecno', 'intacioneve', '2020-01-28 16:43:58', NULL),
+(8, '2020-01-28 17:19:24', '2020-02-12', '2020-02-15', 0, 1, NULL, 2828001, 'necesito saber', 1, 'saber it', NULL, 'tecnologias', '', '2020-01-30 03:02:36', '2020-01-30 03:04:04', NULL, NULL, 'programatecno', 'intacioneve', '2020-01-28 17:19:24', '2020-01-30 03:04:04'),
+(9, '2020-01-28 17:20:25', '2020-02-12', '2020-02-15', 1, NULL, 1, 2828001, 'necesito saber', 5, 'saber it', NULL, 'tecnologias', '', '2020-01-30 03:24:09', '2020-01-30 03:24:55', 'Octavio Romo Romo', 'Jairo Jahaziel Gonzalez Casillas', 'programatecno', 'intacioneve', '2020-01-28 17:20:25', '2020-01-30 03:24:55'),
+(10, '2020-01-28 22:30:27', '2020-03-12', '2020-03-25', 0, 1, NULL, 2828001, 'necesito ', 3, 'saber ang', NULL, 'tecnologia', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-01-28 22:30:27', NULL),
+(12, '2020-01-29 23:16:40', '2020-02-29', '0000-00-00', 0, 1, NULL, 210545544, 'Quiero ir a una conferencia.', 1, 'Aprender cosas y traer regalos.', NULL, 'Comic-Con Estambul 2019', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-01-29 23:16:40', NULL),
+(13, '2020-01-30 01:50:48', '2020-03-04', '2020-03-07', 1, NULL, 1, 210545544, 'Quiero ir a una .', 3, 'Aprender cosas y  regalos.', NULL, ' Estambul 2019', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-01-29 23:20:18', '2020-01-30 01:50:48'),
+(14, '2020-01-29 23:22:37', '2020-03-04', '2020-03-07', 1, NULL, 1, 210545544, 'Quiero ir a una conferencia.', 1, 'Aprender cosas y traer regalos.', NULL, 'Comic-Con Estambul 2019', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-01-29 23:22:37', NULL),
+(15, '2020-01-29 23:27:42', '2020-03-04', '2020-03-07', 1, NULL, 1, 210545544, 'Quiero ir a una conferencia.', 1, 'Aprender cosas y traer regalos.', NULL, 'Comic-Con Estambul 2019', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-01-29 23:27:42', NULL),
+(16, '2020-01-29 23:28:12', '2020-03-04', '2020-03-07', 1, NULL, 1, 210545544, 'Quiero ir a una conferencia.', 1, 'Aprender cosas y traer regalos.', NULL, 'Comic-Con Estambul 2019', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-01-29 23:28:12', NULL);
 
 -- --------------------------------------------------------
 
@@ -251,10 +256,11 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`codigo`, `nombres`, `apellidos`, `tipo_usuario`, `nip`, `area_adscripcion`, `plaza_laboral`, `fecha_creacion`, `fecha_modificacion`, `numero_social`, `area_adcripcion_revisa`) VALUES
-(2828001, 'Jario ', 'Gonzalez', '1', '1234', 'informatica', 'Investigador', '2020-01-28 12:13:47', NULL, '99939392993', NULL),
-(210545544, 'monserrat elizabeth', 'guerrero', '1', '1234', 'informatica', 'academico', '2020-01-28 11:49:00', NULL, '3880180198872', NULL),
-(211693760, 'Octavio Romo', 'Romo', '1', '1234', 'electronica', 'Investigador', '2020-01-28 11:58:27', NULL, '877289010', NULL),
-(211707262, 'Jairo Jahaziel', 'Gonzalez Casillas', 'P', '123', 'Informatica', 'Maestro', '2020-01-29 01:50:35', NULL, '1234', NULL);
+(3, 'jose', 'ramirez', 'J', '$12$OTK/E10mpkjrs/78j7w3Ie6XLlW44OnuGeqEJMyy8E9v1nfnxY2vq', 'Quimica', 'Investigador', '2020-01-30 03:43:00', NULL, '9288282828', NULL),
+(2828001, 'Jario ', 'Gonzalez', 'P', '\r\n$2y$12$OTK/E10mpkjrs/78j7w3Ie6XLlW44OnuGeqEJMyy8E9v1nfnxY2vq\r\n', 'INFORMATICA', 'Investigador', '2020-01-28 12:13:47', NULL, '99939392993', NULL),
+(210545544, 'Monserrat Elizabeth', 'Guerrero Garcia', 'P', '$2y$12$pb.nwfTsME7POgW5SVz5jev0nVFY7nqhgm96aIemqPS2gmvjAkGn6', 'Quimica', 'Estudiante', '2020-01-28 11:49:00', '2020-01-30 01:52:55', '8837020188839', NULL),
+(211693760, 'Octavio Romo', 'Romo', 'J', '\r\n$2y$12$OTK/E10mpkjrs/78j7w3Ie6XLlW44OnuGeqEJMyy8E9v1nfnxY2vq\r\n', 'INFORMATICA', 'Investigador', '2020-01-28 11:58:27', NULL, '877289010', NULL),
+(211707262, 'Jairo Jahaziel', 'Gonzalez Casillas', 'A', '\r\n$2y$12$OTK/E10mpkjrs/78j7w3Ie6XLlW44OnuGeqEJMyy8E9v1nfnxY2vq\r\n', 'INFORMATICA', 'Maestro', '2020-01-29 01:50:35', NULL, '1234', NULL);
 
 -- --------------------------------------------------------
 
@@ -418,7 +424,7 @@ ALTER TABLE `programa_trabajo`
 -- AUTO_INCREMENT de la tabla `solicitud_comision`
 --
 ALTER TABLE `solicitud_comision`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `solicitud_viatico`

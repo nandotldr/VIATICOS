@@ -92,11 +92,9 @@ module.exports = {
 
     modificarComision: async(req, res) => {
         //verificar que no este en status cancelado =-1, revision = 1, aceptado por J =3, aceptado por A= 5 o finalizado
-        
         try {
-            
             var sqlSolComision ='SELECT c.id, c.status, u.codigo, c.fecha_solicitud FROM solicitud_comision AS c INNER JOIN usuario as u ON u.codigo = c.id_usuario WHERE c.id = ? AND c.id_usuario = ? AND (c.status =0 OR c.status=2 OR c.status=4)';
-            const verificarComision = await pool.query(sqlSolComision, [req.body.id,req.body.codigo]);
+            const verificarComision = await pool.query(sqlSolComision, [req.body.id,req.user.codigo]);
             console.log(verificarComision);
             if (verificarComision.length < 1) {
                 return res.json({ ok: false, mensaje: "No se puede modificar comison" });

@@ -2,8 +2,7 @@
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
       <ion-button href="/home">
-        <img src="../../../assets/images/logo.png" width="25px" style="display:inline-block" height="25px"/>
-        <!-- <ion-icon slot="icon-only" name="filing"></ion-icon> -->
+        <img src="../../../assets/images/logo.png" width="25px" style="display:inline-block" height="25px" />
         <ion-title>SIV CUCEI</ion-title>
       </ion-button>
     </ion-buttons>
@@ -11,12 +10,11 @@
 </ion-header>
 
 <ion-content>
-  <img class="background-image"/>
-  <ion-card >
-    <div class="center-content" >
+  <img class="background-image" />
+  <ion-card>
+    <div class="center-content">
       <ion-card-header>
-        <ion-card-title>CREAR USUARIO</ion-card-title>
-        
+        <ion-card-title color="primary">CREAR USUARIO</ion-card-title>
       </ion-card-header>
       <form [formGroup]="fgCreate" (ngSubmit)="createUser()">
         <ion-item>
@@ -36,19 +34,19 @@
           <ion-input placeholder="NIP" type="password" formControlName="nip"></ion-input>
         </ion-item>
         <ion-item>
-            <ion-label position="fixed">Área de adscripción</ion-label>
-            <ion-input placeholder="Área de adscripción" type="text" formControlName="area_adscripcion"></ion-input>
+          <ion-label position="fixed">Área de adscripción</ion-label>
+          <ion-input placeholder="Área de adscripción" type="text" formControlName="area_adscripcion"></ion-input>
         </ion-item>
         <ion-item>
-        <ion-label position="fixed">Plaza Laboral</ion-label>
+          <ion-label position="fixed">Plaza Laboral</ion-label>
           <ion-input placeholder="Plaza laboral" type="text" formControlName="plaza_laboral"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label position="fixed">IMSS</ion-label>
           <ion-input placeholder="IMSS" type="text" formControlName="numero_social"></ion-input>
-        </ion-item>        
+        </ion-item>
         <ion-button type="submit" color="light" [disabled]="this.fgCreate.invalid">Crear Cuenta</ion-button>
-        <a routerLink="/login" >Ya tengo una cuenta</a>
+        <a routerLink="/login">Ya tengo una cuenta</a>
       </form>
     </div>
   </ion-card>

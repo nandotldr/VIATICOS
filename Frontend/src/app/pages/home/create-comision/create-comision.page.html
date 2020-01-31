@@ -2,9 +2,11 @@
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
       <ion-button href="/home">
-        <img src="../../../assets/images/logo.png" width="25px" style="display:inline-block" height="25px"/>
+        <!-- <img src="../../../assets/images/logo.png" width="25px" style="display:inline-block" height="25px"/> -->
         <!-- <ion-icon slot="icon-only" name="filing"></ion-icon> -->
-        <ion-title>SIV CUCEI</ion-title>
+        <ion-title>
+          SOLICITUD DE COMISIÓN
+        </ion-title>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -50,9 +52,9 @@
         <ion-list>
           <ion-item>
             <ion-label >Tipo de comisión</ion-label>
-            <ion-select  formControlName="tipo_com">
-              <ion-select-option value="viaticos">Viaticos</ion-select-option>
-              <ion-select-option value="comision">Comisión</ion-select-option>
+            <ion-select  formControlName="tipo_comision">
+              <ion-select-option value="1">Nacional</ion-select-option>
+              <ion-select-option value="0">Extranjera</ion-select-option>
             </ion-select>
           </ion-item>
 
@@ -117,5 +119,5 @@
       </form>
     </div>
   </ion-card>
-  
+
 </ion-content>

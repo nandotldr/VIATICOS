@@ -52,8 +52,6 @@ module.exports = {
         try {            
             var sqlSolViatico ='SELECT c.id, c.status, u.codigo, c.fecha_solicitud , concat(u.nombres," ",u.apellidos) as nombre, u.tipo_usuario FROM solicitud_viatico AS c INNER JOIN usuario as u ON u.codigo = ? WHERE c.id = ? AND (c.status =1 OR c.status=3)';
             const verificarViatico = await pool.query(sqlSolViatico, [req.user.codigo,req.body.id]);
-            console.log(req.body);
-            console.log(verificarViatico);
             if (verificarViatico.length < 1) {
                 return res.json({ ok: false, mensaje: "No se puede modificar solicitud de viatico" });
             }  

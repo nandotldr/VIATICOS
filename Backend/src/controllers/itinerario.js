@@ -51,8 +51,8 @@ module.exports = {
 
                 res.json({ ok: true, modificaritinerario, mensaje: "Itinerario modificado" });
             });
-        } catch (e) {
-            return res.json({ ok: false, mensaje: e });
+        } catch (error) {
+            return res.json({ ok: false, mensaje: error });
         }
     },
     eliminaritinerario: (req, res) => {

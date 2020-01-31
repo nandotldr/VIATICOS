@@ -8,21 +8,19 @@ const pool = require('../database');
 module.exports = {
 
     crearSolicitudComision: async(req, res) => {
-    
+
         try {
             const existeUsuario = await pool.query('SELECT codigo FROM usuario WHERE codigo=?', [req.user.codigo]);
             if (existeUsuario.length < 1) {
                 return res.json({ ok: false, mensaje: "Este usuario no existe" });
             }
-            const existeSolicitud = await pool.query('SELECT * FROM solicitud_comision WHERE id_usuario= ? AND (status= 0 OR status=1 OR status=2 OR status=3 OR status=4 OR status=5)',[req.user.codigo]);
-            if(existeSolicitud.length > 0)
-            {
+            const existeSolicitud = await pool.query('SELECT * FROM solicitud_comision WHERE id_usuario= ? AND (status= 0 OR status=1 OR status=2 OR status=3 OR status=4 OR status=5)', [req.user.codigo]);
+            if (existeSolicitud.length > 0) {
                 return res.json({ ok: false, mensaje: "No puedes crear otra comision tienes una en proceso" });
             }
             var pais = null;
             var municipio = null;
-            if(req.body.tipo_comision ==0){ pais = req.body.id_destino;}
-            else { municipio = req.body.id_destino;}
+            if (req.body.tipo_comision == 0) { pais = req.body.id_destino; } else { municipio = req.body.id_destino; }
             const resp = await pool.query('INSERT INTO solicitud_comision SET ?', [{
                 id_usuario: req.user.codigo,
                 nombre_comision: req.body.nombre_comision,
@@ -36,12 +34,11 @@ module.exports = {
                 objetivo_trabajo: req.body.objetivo_trabajo,
                 fecha_creacion: new Date(),
                 fecha_solicitud: new Date()
-            }
-        ]);
+            }]);
             let json = {
                 "id_comision": resp.insertId
             };
-            res.json({ok:true, mensaje:"Comision creada correctamente", body:json});
+            res.json({ ok: true, mensaje: "Comision creada correctamente", body: json });
         } catch (error) {
             return res.json({ ok: false, mensaje: error });
 
@@ -51,11 +48,11 @@ module.exports = {
     consultarSolicitudComison: (req, res) => {
         const { id } = req.params;
         try {
-            pool.query('SELECT * FROM solicitud_comision as c INNER JOIN  usuario as us ON  c.id_usuario = ? AND c.id=? ', [req.user.codigo, id],(errorComision, comision) => {
-                if (errorComision) return res.json({ok:false, mensaje: errorComision});
+            pool.query('SELECT * FROM solicitud_comision as c INNER JOIN  usuario as us ON  c.id_usuario = ? AND c.id=? ', [req.user.codigo, id], (errorComision, comision) => {
+                if (errorComision) return res.json({ ok: false, mensaje: errorComision });
                 if (comision.length < 1) res.json({ ok: false, mensaje: "Comision no encontrada" });
-                pool.query('SELECT * FROM programa_trabajo WHERE id_solicitud_comision = ?', [comision[0].id],(errorPrograma,programa,fields)=>{
-                    if(errorPrograma) return res.json({ok:false, mensaje: errorPrograma});
+                pool.query('SELECT * FROM programa_trabajo WHERE id_solicitud_comision = ?', [comision[0].id], (errorPrograma, programa, fields) => {
+                    if (errorPrograma) return res.json({ ok: false, mensaje: errorPrograma });
                     let json = {
                         folio: comision[0].id,
                         codigo: comision[0].codigo,
@@ -79,10 +76,10 @@ module.exports = {
                         nombre_aceptado: comision[0].nombre_aceptado,
                         programa_trabajo: programa
                     }
-                    res.json({ok:true, body:json});
+                    res.json({ ok: true, body: json });
                 });
             });
-            
+
         } catch (error) {
             return res.json({ ok: false, mensaje: error });
         }
@@ -93,24 +90,23 @@ module.exports = {
     modificarComision: async(req, res) => {
         //verificar que no este en status cancelado =-1, revision = 1, aceptado por J =3, aceptado por A= 5 o finalizado
         try {
-            var sqlSolComision ='SELECT c.id, c.status, u.codigo, c.fecha_solicitud FROM solicitud_comision AS c INNER JOIN usuario as u ON u.codigo = c.id_usuario WHERE c.id = ? AND c.id_usuario = ? AND (c.status =0 OR c.status=2 OR c.status=4)';
-            const verificarComision = await pool.query(sqlSolComision, [req.body.id,req.user.codigo]);
+            var sqlSolComision = 'SELECT c.id, c.status, u.codigo, c.fecha_solicitud FROM solicitud_comision AS c INNER JOIN usuario as u ON u.codigo = c.id_usuario WHERE c.id = ? AND c.id_usuario = ? AND (c.status =0 OR c.status=2 OR c.status=4)';
+            const verificarComision = await pool.query(sqlSolComision, [req.body.id, req.user.codigo]);
             console.log(verificarComision);
             if (verificarComision.length < 1) {
                 return res.json({ ok: false, mensaje: "No se puede modificar comison" });
-            }  
-            
+            }
+
             //si estatus =0 modificar fecha solicitud
             //si status =2 no modificar fecha solicitud or status 4
-            if(verificarComision[0].status==0)
-               verificarComision[0].fecha_solicitud= new Date();
+            if (verificarComision[0].status == 0)
+                verificarComision[0].fecha_solicitud = new Date();
             var pais = null;
             var municipio = null;
-            if(req.body.tipo_comision ==0){ pais = req.body.id_destino;}
-            else { municipio = req.body.id_destino;}
+            if (req.body.tipo_comision == 0) { pais = req.body.id_destino; } else { municipio = req.body.id_destino; }
             pool.query('UPDATE solicitud_comision SET ? WHERE id = ?', [{
                 fecha_modificacion: new Date(),
-                fecha_solicitud:verificarComision[0].fecha_solicitud,
+                fecha_solicitud: verificarComision[0].fecha_solicitud,
                 nombre_comision: req.body.nombre_comision,
                 tipo_comision: req.body.tipo_comision,
                 fecha_inicio: req.body.fecha_inicio,
@@ -120,27 +116,27 @@ module.exports = {
                 justificacion: req.body.justificacion,
                 status: req.body.status,
                 objetivo_trabajo: req.body.objetivo_trabajo,
-            },req.body.id], (errorModificar, modificarComision) => {
-            if (errorModificar) return res.json({ok: false, mensaje:errorModificar});
-            console.log(errorModificar);
+            }, req.body.id], (errorModificar, modificarComision) => {
+                if (errorModificar) return res.json({ ok: false, mensaje: errorModificar });
+                console.log(errorModificar);
                 res.json({ ok: true, mensaje: "Comision modificada" });
             });
-            
+
         } catch (error) {
             return res.json({ ok: false, mensaje: error });
         }
     },
-    historialComisones: async(req, res) =>{
+    historialComisones: async(req, res) => {
         try {
-            pool.query('SELECT c.id as folio, c.status,c.fecha_solicitud , c.nombre_comision, c.tipo_comision  FROM solicitud_comision AS c INNER JOIN usuario as u on u.codigo=c.id_usuario WHERE c.id_usuario=?', [req.user.codigo],(errorComision, comisiones,fields) => {
-                if (errorComision) return res.json({ok:false, mensaje: errorComision});
+            pool.query('SELECT c.id as folio, c.status,c.fecha_solicitud , c.nombre_comision, c.tipo_comision  FROM solicitud_comision AS c INNER JOIN usuario as u on u.codigo=c.id_usuario WHERE c.id_usuario=?', [req.user.codigo], (errorComision, comisiones, fields) => {
+                if (errorComision) return res.json({ ok: false, mensaje: errorComision });
                 if (comisiones.length < 1) res.json({ ok: false, mensaje: "No tienes comisiones" });
-                
-                    
-                    res.json({ok:true, body:comisiones});
-                
+
+
+                res.json({ ok: true, body: comisiones });
+
             });
-            
+
         } catch (error) {
             return res.json({ ok: false, mensaje: error });
         }

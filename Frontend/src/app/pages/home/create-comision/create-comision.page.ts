@@ -34,7 +34,7 @@ export class CreateComisionPage implements OnInit {
         name: new FormControl('', [Validators.required]),
         area: new FormControl('', [Validators.required]),
         plaza: new FormControl('', [Validators.required]),
-        tipo_com: new FormControl('', [Validators.required]),
+        tipo_comision: new FormControl('', [Validators.required]),
         destino_com: new FormControl('', [Validators.required]),
         fecha_inicio: new FormControl('', [Validators.required]),
         fecha_fin: new FormControl('', [Validators.required]),

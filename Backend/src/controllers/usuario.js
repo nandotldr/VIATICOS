@@ -58,10 +58,10 @@ module.exports = {
                 return res.json({ ok: false, mensaje: "Este usuario no existe" });
             }
             pool.query('UPDATE usuario SET ? WHERE codigo = ?', [{
-                nombres: req.body.nombres,
-                apellidos: req.body.apellidos,
-                area_adscripcion: req.body.area_adscripcion,
-                plaza_laboral: req.body.plaza_laboral,
+                nombres: req.body.nombres.toUpperCase(),
+                apellidos: req.body.apellidos.toUpperCase(),
+                area_adscripcion: req.body.area_adscripcion.toUpperCase(),
+                plaza_laboral: req.body.plaza_laboral.toUpperCase(),
                 numero_social: req.body.numero_social,
                 fecha_modificacion: new Date()
             }, req.body.codigo], (errorModificar, modificarUsuario) => {

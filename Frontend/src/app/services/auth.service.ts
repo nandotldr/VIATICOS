@@ -58,7 +58,7 @@ export class AuthService {
       codigo: user.code,
       nombres: user.name,
       apellidos: user.lastname,
-      tipo_usuario: 1,
+      tipo_usuario: "P",
       nip: user.nip,
       area_adscripcion: user.area_adscripcion,
       plaza_laboral: user.plaza_laboral,
@@ -82,8 +82,9 @@ export class AuthService {
     return await this.http.post(`${this.API_URL}/validate`, null).pipe(
       map(response => {
         if (response['ok']) {
-          this.codeUser = response['data']['code'];
-          this.userType = response['data']['userType'];
+          console.log(response);
+          this.codeUser = response['body']['code'];
+          this.userType = response['body']['userType'];
         }
         return response['ok'];
       })

@@ -10,7 +10,7 @@ import { environment } from "../../../../environments/environment.prod";
 @Component({
   selector: 'app-create-comision',
   templateUrl: './create-comision.page.html',
-  styleUrls: ['./create-comision.page.scss'],
+  styleUrls: ['./create-comision.page.scss','../../../app.component.scss'],
 })
 export class CreateComisionPage implements OnInit {
   fgRestore: FormGroup;

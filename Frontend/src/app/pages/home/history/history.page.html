@@ -1,3 +1,36 @@
-<ion-content id="principal-content">
-  History works
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button href="/home">
+        <!-- <img src="../../../assets/images/logo.png" width="25px" style="display:inline-block" height="25px"/> -->
+        <!-- <ion-icon slot="icon-only" name="filing"></ion-icon> -->
+        <ion-title>
+          HISTORIAL DE COMISIÓN
+        </ion-title>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+
+<ion-content>
+  <img class="background-image"/>
+  <ion-card >
+    <ion-card-header class="title">
+      <ion-card-title>Historial de comosiones</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-header class="subtitle">
+      <ion-card-title>Comisiones</ion-card-title>
+    </ion-card-header>
+      <ion-list class="centered-list">
+        <ion-button ion-item *ngFor="let comision of comisiones" (click)="itemSelected(comision)">
+          {{ comision.nombre_comision }}
+        </ion-button>  
+        <ion-card *ngIf="comisiones == false" class="primary"> No hay elementos para mostrar</ion-card>
+      </ion-list>
+    
+  </ion-card>
+
 </ion-content>

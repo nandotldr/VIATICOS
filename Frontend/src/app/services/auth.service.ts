@@ -44,6 +44,18 @@ export class AuthService {
     ).toPromise();
   }
 
+  async getAllComisiones() {
+    return await this.http.get(`${this.API_URL}/solicitud_comision`).pipe(
+      map(response => {
+        if(response['ok']){
+          return response['body'];
+        }else{
+          return response['ok'];
+        }
+      })
+    ).toPromise();
+  }
+
   async createUser(user: { 
     code: Number,
     name: string,
@@ -68,7 +80,7 @@ export class AuthService {
       tap(token => {
         console.log(token);
         if (token['ok']) {
-          this.saveCredentials(user.name, token['token']);
+          this.saveCredentials(user.code.toString(), token['token']);
         }
       }),
       map(response => {
@@ -82,7 +94,6 @@ export class AuthService {
     return await this.http.post(`${this.API_URL}/validate`, null).pipe(
       map(response => {
         if (response['ok']) {
-          console.log(response);
           this.codeUser = response['body']['code'];
           this.userType = response['body']['userType'];
         }

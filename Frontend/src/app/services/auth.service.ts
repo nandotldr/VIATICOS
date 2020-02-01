@@ -44,6 +44,40 @@ export class AuthService {
     ).toPromise();
   }
 
+  async createUser(user: { 
+    code: Number,
+    name: string,
+    lastname: string,
+    nip: string,
+    area_adscripcion: string,
+    plaza_laboral: string,
+    numero_social:  Number,
+    date: string
+  }) {
+    return await this.http.post(`${this.API_URL}/usuario`, {
+      codigo: user.code,
+      nombres: user.name,
+      apellidos: user.lastname,
+      tipo_usuario: 1,
+      nip: user.nip,
+      area_adscripcion: user.area_adscripcion,
+      plaza_laboral: user.plaza_laboral,
+      fecha_creacion: user.date,
+      numero_social: user.numero_social
+    }).pipe(
+      tap(token => {
+        console.log(token);
+        if (token['ok']) {
+          this.saveCredentials(user.name, token['token']);
+        }
+      }),
+      map(response => {
+        return response['ok'];
+      })
+    ).toPromise();
+
+  }
+
   async validateToken() {
     return await this.http.post(`${this.API_URL}/validate`, null).pipe(
       map(response => {

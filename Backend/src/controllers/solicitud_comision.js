@@ -130,7 +130,7 @@ module.exports = {
         try {
             pool.query('SELECT c.id as folio, c.status,c.fecha_solicitud , c.nombre_comision, c.tipo_comision  FROM solicitud_comision AS c INNER JOIN usuario as u on u.codigo=c.id_usuario WHERE c.id_usuario=?', [req.user.codigo], (errorComision, comisiones, fields) => {
                 if (errorComision) return res.json({ ok: false, mensaje: errorComision });
-                if (comisiones.length < 1) res.json({ ok: false, mensaje: "No tienes comisiones" });
+                if (comisiones.length < 1) return res.json({ ok: false, mensaje: "No tienes comisiones" });
 
 
                 res.json({ ok: true, body: comisiones });

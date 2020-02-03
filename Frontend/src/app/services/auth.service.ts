@@ -56,7 +56,51 @@ export class AuthService {
     ).toPromise();
   }
 
-  async createUser(user: { 
+  async getUsuario(id_usuario: string) {
+    return await this.http.get(`${this.API_URL}/usuario/?id=${id_usuario}`).pipe(
+      map(response => {
+        if(response['ok']){
+          return response['body'];
+        }else{
+          return response['ok'];
+        }
+      })
+    ).toPromise();
+  }
+
+  async createComision(comision: { 
+    name: Number,
+    programa: string,
+    evento: string,
+    objetivo_trabajo: string,
+    tipo_comision: Number,
+    destino_com: string,
+    fecha_inicio:  string,
+    fecha_fin: string,
+    justificacion: string,
+    invitacion_evento: Number
+  }) {
+    return await this.http.post(`${this.API_URL}/solicitud_comision`,{
+      fecha_inicio: comision.fecha_inicio,
+      fecha_fin: comision.fecha_fin,
+      tipo_comision: comision.tipo_comision,
+      id_destino: comision.destino_com,
+      nombre_comision: comision.name,
+      objetivo_trabajo: comision.fecha_fin,
+      justificacion: comision.fecha_fin,
+      status: 1
+    }).pipe(
+      map(response => {
+        if(response['ok']){
+          return response['body'];
+        }else{
+          return response['ok'];
+        }
+      })
+    ).toPromise();
+  }
+
+  async createUser(user: { programa_evento
     code: Number,
     name: string,
     lastname: string,
@@ -104,6 +148,7 @@ export class AuthService {
 
   private saveCredentials(code: string, token: any) {
     localStorage.setItem(this.TOKEN, token);
+    localStorage.setItem('id_usuario', code);
   }
 
   restorePassword(data) {

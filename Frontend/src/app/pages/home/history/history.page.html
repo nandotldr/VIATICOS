@@ -18,19 +18,47 @@
   <img class="background-image"/>
   <ion-card >
     <ion-card-header class="title">
-      <ion-card-title>Historial de comosiones</ion-card-title>
+      <ion-card-title>Historial de comisiones</ion-card-title>
     </ion-card-header>
-
+on
     <ion-card-header class="subtitle">
       <ion-card-title>Comisiones</ion-card-title>
     </ion-card-header>
-      <ion-list class="centered-list">
-        <ion-button ion-item *ngFor="let comision of comisiones" (click)="itemSelected(comision)">
-          {{ comision.nombre_comision }}
-        </ion-button>  
-        <ion-card *ngIf="comisiones == false" class="primary"> No hay elementos para mostrar</ion-card>
-      </ion-list>
-    
+    <ion-card-content class="background">
+      <ion-grid>
+        <ion-row class="bg-col">
+          <ion-col>
+            ID de la Comisión
+          </ion-col>
+          <ion-col>
+            Nombre de la Comisión
+          </ion-col>
+          <ion-col>
+            Fecha de Solicitud
+          </ion-col>
+          <ion-col>
+            Más información
+          </ion-col>
+        </ion-row>
+        <ion-row *ngFor="let comision of comisiones">
+          <ion-col >
+            <div>
+          {{ comision.folio }}
+            </div>
+          </ion-col>
+          <ion-col>
+            {{comision.nombre_comision}}
+          </ion-col>
+          <ion-col>
+            {{comision.fecha_solicitud}}
+          </ion-col>
+          <ion-col>
+            <ion-button>Mas Información</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+    <ion-card *ngIf="comisiones == false" class="primary"> No hay elementos para mostrar</ion-card>
   </ion-card>
 
 </ion-content>

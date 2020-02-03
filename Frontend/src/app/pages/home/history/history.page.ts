@@ -20,11 +20,12 @@ export class HistoryPage implements OnInit {
 
   ngOnInit() {
     this.getAllComisiones();
+    console.log(this.comisiones);
   }
 
   async getAllComisiones(){
-    const resp = await this.auth.getAllComisiones(); 
-      if (resp) {
+    const resp = await this.auth.getAllComisiones();
+    if (resp) {
         this.comisiones = resp;
       } else {
         this.presentToast();

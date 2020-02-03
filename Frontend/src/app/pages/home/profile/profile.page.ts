@@ -48,7 +48,7 @@ perfil = '';
 
   async presentToastSuccess() {
     const toast = await this.toastController.create({
-      message: 'Solicitud Creada.',
+      message: 'Perfil correctamente cargado.',
       duration: 2000,
       position: 'bottom'
     });

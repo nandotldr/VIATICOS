@@ -184,4 +184,58 @@ export class AuthService {
     window.location.reload();
     this.nav.navigateRoot('/login', { animated: true });
   }
+
+  async saveViatico(viatico: { 
+    id_comision: Number,
+    invitado_nombre: string,
+    comentarios: string,
+    status: Number
+  }) {
+    return await this.http.post(`${this.API_URL}/solicitud_viatico`,{
+      id: viatico.id_comision,
+      invitado: viatico.invitado_nombre,
+      comentarios: viatico.comentarios,
+      estado: 0
+    }).pipe(
+      map(response => {
+        if(response['ok']){
+          return response['body'];
+        }else{
+          return {ok: response['ok'],mensaje: response['mensaje']};
+        }
+      })
+    ).toPromise();
+  }
+
+  async createGasto(gasto: { 
+    id_solicitud_viatico: Number,
+    dia: string,
+    alimentacion: Number,
+    hospedaje: Number,
+    transporteLocal: Number,
+    transporteForaneo: Number,
+    combustible: Number,
+    otros: Number
+  }) {
+    return await this.http.post(`${this.API_URL}/gasto`,{
+      id_solicitud_viatico: gasto.id_solicitud_viatico,
+      dia: gasto.dia,
+      alimentacion: gasto.alimentacion,
+      hospedaje: gasto.hospedaje,
+      transportelocal: gasto.transporteLocal,
+      transporteforaneo: gasto.transporteForaneo,
+      combustible: gasto.combustible,
+      otros: gasto.otros
+    }).pipe(
+      map(response => {
+        if(response['ok']){
+          return response['body'];
+        }else{
+          return {ok: response['ok'],mensaje: response['mensaje']};
+        }
+      })
+    ).toPromise();
+  }
 }
+
+

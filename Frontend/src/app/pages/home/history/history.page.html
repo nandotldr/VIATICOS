@@ -55,6 +55,12 @@ on
           <ion-col>
             <ion-button>Mas Información</ion-button>
           </ion-col>
+          <div >
+          <ion-col>
+            <ion-button *ngIf="comision.status == 3 || comision.status == 5">Crear viático</ion-button>
+          </ion-col>
+          </div>
+          
         </ion-row>
       </ion-grid>
     </ion-card-content>

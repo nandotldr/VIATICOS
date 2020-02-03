@@ -13,7 +13,7 @@ import { environment } from "../../../../environments/environment.prod";
   styleUrls: ['./create-comision.page.scss','../../../app.component.scss'],
 })
 export class CreateComisionPage implements OnInit {
-  perfil = null;
+  perfil = '';
   fgCreate: FormGroup;
   token: string;
   restoreStep = 0;
@@ -52,13 +52,13 @@ export class CreateComisionPage implements OnInit {
   async createComision(){
     if (this.fgCreate.valid) {
       const resp = await this.auth.createComision(this.fgCreate.value);
-      if (resp) {
+      if (resp.ok) {
         this.presentToastSuccess();
       } else {
-        this.presentToast();
+        this.presentToast(resp.mensaje);
       }
     } else {
-      this.presentToast();
+      this.presentToast('Datos no Validos');
     }
     
   }
@@ -67,16 +67,15 @@ export class CreateComisionPage implements OnInit {
       const resp = await this.auth.getUsuario(localStorage.getItem('id_usuario'));
       if (resp) {
         this.perfil = resp;
-        this.presentToastSuccess();
       } else {
-        this.presentToast();
+        this.presentToast('Datos no Validos');
       }
     
   }
 
-  async presentToast() {
+  async presentToast(message) {
     const toast = await this.toastController.create({
-      message: 'Datos no validos.',
+      message: message,
       duration: 2000,
       position: 'bottom'
     });

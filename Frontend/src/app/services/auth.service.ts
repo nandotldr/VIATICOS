@@ -74,11 +74,12 @@ export class AuthService {
     evento: string,
     objetivo_trabajo: string,
     tipo_comision: Number,
-    destino_com: string,
-    fecha_inicio:  string,
+    destino_com: Number,
+    fecha_inicio: string,
     fecha_fin: string,
     justificacion: string,
-    invitacion_evento: Number
+    invitacion_evento: any,
+    programa_evento: any,
   }) {
     return await this.http.post(`${this.API_URL}/solicitud_comision`,{
       fecha_inicio: comision.fecha_inicio,
@@ -94,7 +95,7 @@ export class AuthService {
         if(response['ok']){
           return response['body'];
         }else{
-          return response['ok'];
+          return {ok: response['ok'],mensaje: response['mensaje']};
         }
       })
     ).toPromise();

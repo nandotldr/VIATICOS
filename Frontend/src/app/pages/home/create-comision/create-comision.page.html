@@ -27,7 +27,7 @@
       
         <ion-item>
           <ion-label position="fixed">Código</ion-label>
-          <ion-input placeholder="{{ this.perfil | json }}" type="text"></ion-input>
+          <ion-input placeholder="{{ this.perfil.codigo }}" type="text" disabled></ion-input>
         </ion-item>
 
         <ion-item>
@@ -61,30 +61,30 @@
           <ion-item>
             <ion-label >Destino de la comisión</ion-label>
             <ion-select formControlName="destino_com">
-              <ion-select-option value="JAL">Jalisco</ion-select-option>
-              <ion-select-option value="MEX">México</ion-select-option>
+              <ion-select-option value="2">Jalisco</ion-select-option>
+              <ion-select-option value="1">México</ion-select-option>
             </ion-select>
           </ion-item>
 
       </ion-list>
 
         <ion-item>
-          <ion-label position="fixed">Nombre de la comisión</ion-label>
+          <ion-label >Nombre de la comisión</ion-label>
           <ion-input placeholder="Evento" type="text" formControlName="name"></ion-input>
         </ion-item>
 
         <ion-item>
-          <ion-label position="fixed">Evento de la comisión</ion-label>
+          <ion-label >Evento de la comisión</ion-label>
           <ion-input placeholder="Evento" type="text" formControlName="evento"></ion-input>
         </ion-item>
 
         <ion-item>
-          <ion-label position="fixed">Objetivo del trabajo</ion-label>
+          <ion-label>Objetivo del trabajo</ion-label>
           <ion-input placeholder="Objetivo" type="text" formControlName="objetivo_trabajo"></ion-input>
         </ion-item>
 
         <ion-item>
-          <ion-label position="fixed">Justificación</ion-label>
+          <ion-label >Justificación</ion-label>
           <ion-input placeholder="Describa detalladamente porqué se solicita la comisión" size="400" type="text" formControlName="justificacion"></ion-input>
         </ion-item>
 

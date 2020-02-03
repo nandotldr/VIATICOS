@@ -24,7 +24,7 @@ module.exports = {
         pool.query('SELECT * FROM factura WHERE id_informe_actividades = ?', [req.body.id_informe_actividades], (errorfactura, factura) => {
             console.log(errorfactura);
             if (errorfactura) return res.json({ ok: false, mensaje: errorfactura });
-            if (factura.length < 1) return res.json({ ok: false, mensaje: "No existen facturas" });
+            if (factura.length < 1) return res.json({ ok: false, mensaje: "No existen facturas registradas en este informe" });
 
             res.json({ ok: true, body: factura });
         });
@@ -40,7 +40,6 @@ module.exports = {
             pool.query('UPDATE factura SET ? WHERE id = ?', [{
                 archivo_url: req.body.archivo_url
             }, req.body.id], (errorModificar, modificarfactura) => {
-                console.log(errorModificar);
                 if (errorModificar) return res.json({ ok: false, mensaje: errorModificar });
 
                 res.json({ ok: true, modificarfactura, mensaje: "factura modificada" });

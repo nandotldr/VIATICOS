@@ -10,11 +10,9 @@ module.exports = {
             // seleccionar todos los usuarios con el codigo ?
             const usuarios = await pool.query('SELECT codigo, nip, tipo_usuario FROM usuario WHERE codigo=?', [req.body.codigo]);
             // Si no hay no existe el usuario regresar error
-			console.log(req.body);
             if (usuarios.length < 1) {
                 return res.json({ ok: false, mensaje: 'Usuario o contraseña incorrectos' });
             }
-            console.log(usuarios[0]);
             // Comparar contraseña de bd con el hash(contraseña en el body)
             // Si da error no coincide la contraseña
             if (!bcrypt.compareSync(req.body.nip, usuarios[0].nip)) { // bcrypt.compareSync(req.body.nip, ususarios[0].nip)

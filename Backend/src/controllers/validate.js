@@ -1,5 +1,4 @@
 const pool = require('../database');
-//const Utils = require('node-utils');
 /*
  * La información se puede sacar de
  * req.body, req.get, req.params

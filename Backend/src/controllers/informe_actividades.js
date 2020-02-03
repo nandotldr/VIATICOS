@@ -8,41 +8,89 @@ const pool = require('../database');
 
 module.exports = {
 
-    insert: (req, res) => {
-        pool.query('SELECT NOW()', (error, results) => {
-            if(error) return res.json(error);
-            res.json({ ok: true, results, controller: 'reporte insert'});
-        });
+    crearInforme:async (req, res) => {
+        try {
+            //verificar que la solicitud de viaticos este en status 5
+            const existeUsuario = await pool.query('SELECT codigo FROM usuario WHERE codigo=?', [req.user.codigo]);
+            if (existeUsuario.length < 1) {
+                return res.json({ ok: false, mensaje: "Este usuario no existe" });
+            }
+            const verificarViatico = await pool.query('SELECT C.id FROM solicitud_comision as C INNER JOIN solicitud_viatico AS V ON C.id= V.id_solicitud_comision WHERE   V.status=5 AND C.id= ? ',[req.body.id_solicitud_comison]);
+            if(verificarViatico.length < 1) 
+            {
+                return res.json({ ok: false, mensaje: "No se puede crear el informe, tu solicitud no esta completa"}); 
+            }
+            const existenciaInforme= await pool.query("SELECT * FROM informe_actividades WHERE id_solicitud_comision= ?",[verificarViatico[0].id]);
+            if(existenciaInforme.length > 0) return res.json({ ok: false, mensaje: "Ya tienes un informe creado con esta solicitud" });
+            const resp = await pool.query('INSERT INTO informe_actividades SET ?',[{
+                id_usuario: req.user.codigo,
+                id_solicitud_comision: verificarViatico[0].id,
+                resultados: req.body.resultados,
+                observaciones: req.body.observaciones,
+                fecha_elaboracion: new Date()  
+            }]);
+            let json = {
+                "id_informe": resp.insertId
+            };
+            res.json({ ok: true, mensaje: "Informe creado", body: json });
+            
+            
+        } catch (error) {
+            return res.json({ ok: false, mensaje: error });
+        }
     },
 
-    selectAll: (req, res) => {
-        pool.query('SELECT NOW()', (error, results) => {
-            if(error) return res.json(error);
-            res.json({ ok: true, results, controller: 'reporte selectAll'});
-        });
+    historialInforme: (req, res) => {
+        try {
+            pool.query(' SELECT inf.id as folio, inf.fecha_elaboracion, c.nombre_comision, concat(u.nombres , " " ,u.apellidos) as nombres FROM viaticos.informe_actividades AS inf INNER JOIN viaticos.solicitud_comision as c on c.id = inf.id_solicitud_comision  INNER JOIN viaticos.usuario as u on u.codigo = inf.id_usuario where inf.id_usuario =?', [req.user.codigo], (errorInforme, informes, fields) => {
+                if (errorInforme) return res.json({ ok: false, mensaje: errorInforme });
+                if (informes.length < 1) res.json({ ok: false, mensaje: "No tienes informes creados" });
+                res.json({ ok: true, body: informes });
+            });
+        } catch (error) {
+            return res.json({ ok: false, mensaje: error });
+        }
     },
 
-    select: (req, res) => {
+    verInforme: (req, res) => {
         const { id } = req.params;
-        pool.query('SELECT NOW()', (error, results) => {
-            if(error) return res.json(error);
-            res.json({ ok: true, results, controller: 'reporte select'});
+        try {
+            pool.query('SELECT inf.id, inf.fecha_elaboracion, inf. resultados, inf.observaciones, inf.fecha_aprobacion,inf.nombre_aprobacion,c.nombre_comision,c.objetivo_trabajo, concat(u.nombres , " " ,u.apellidos) as nombres , u.codigo FROM viaticos.informe_actividades AS inf INNER JOIN viaticos.solicitud_comision as c on c.id = inf.id_solicitud_comision INNER JOIN viaticos.usuario as u on u.codigo = inf.id_usuario where inf.id =?', [id], (errorInforme, informe) => {
+                if (errorInforme) return res.json({ ok: false, mensaje: errorInforme });
+                if (informe.length < 1) res.json({ ok: false, mensaje: "Este informe no existe" });
+                pool.query('SELECT * FROM itinerario WHERE id_informe_actividades= ?', [informe[0].id], (errorItinerario, itinerario, fields) => {
+                    if (errorItinerario) return res.json({ ok: false, mensaje: errorItinerario });
+                    pool.query('SELECT * FROM agenda WHERE id_informe_actividades= ?', [informe[0].id], (errorAgenda, agenda, fields) => {
+                        if (errorAgenda) return res.json({ ok: false, mensaje: errorAgenda });
+                        let json = {
+                            folio: informe[0].id,
+                            codigo: informe[0].codigo,
+                            fecha_elaboracion: informe[0].fecha_elaboracion,
+                            fecha_aprobacion: informe[0].fecha_aprobacion,
+                            nombre_aprobacion: informe[0].nombre_aprobacion,
+                            nombre_comision: informe[0].nombre_comision,
+                            objetivo_trabajo: informe[0].objetivo_trabajo,
+                            nombres: informe[0].nombres,
+                            agenda: agenda,
+                            itinerario: itinerario
+                        }
+                        res.json({ ok: true, body: json });
+                }); 
+            });    
         });
+    } catch (error) {
+        return res.json({ ok: false, mensaje: error });
+    }
+},
+
+    modicarInforme: (req, res) => {
+        //para modificar el informe no debe estar cerrada la comision
+        //otro usario puede modificar todos los campos
+
+
+        //si el usuario es  finanzas se pone la fecha de elaboracion  y el nombre
+
+
     },
 
-    update: (req, res) => {
-        pool.query('SELECT NOW()', (error, results) => {
-            if(error) return res.json(error);
-            res.json({ ok: true, results, controller: 'reporte update'});
-        });
-    },
-
-    delete: (req, res) => {
-        pool.query('SELECT NOW()', (error, results) => {
-            if(error) return res.json(error);
-            res.json({ ok: true, results, controller: 'reporte delete'});
-        });
-    },
-
-    // Cosas extra como subir archivos etc
 }

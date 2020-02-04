@@ -53,11 +53,13 @@ module.exports = {
         try {
             const comision = await pool.query('SELECT * FROM solicitud_comision WHERE id=?', [id]);
             if (comision.length < 1) return res.json({ ok: false, mensaje: "Comision no encontrada" });
+            const destino = "";
             if (comision[0].tipo_comision == 0) {
-                destino = await pool.query('SELECT nombre FROM pais WHERE id = ?', [comision[0].id_pais]);
+                const destino = await pool.query('SELECT nombre FROM pais WHERE id = ?', [comision[0].id_pais]);
             } else if (comision[0].tipo_comision == 1) {
-                destino = await pool.query('SELECT nombre FROM municipio WHERE id = ?', [comision[0].id_municipio]);
+                const destino = await pool.query('SELECT nombre FROM municipio WHERE id = ?', [comision[0].id_municipio]);
             };
+            console.log(destino);
             pool.query('SELECT * FROM programa_trabajo WHERE id_solicitud_comision = ?', [comision[0].id], (errorPrograma, programa, fields) => {
                 if (errorPrograma) return res.json({ ok: false, mensaje: errorPrograma });
                 let json = {
@@ -67,7 +69,7 @@ module.exports = {
                     plaza_laboral: comision[0].plaza_laboral,
                     tipo_comision: comision[0].tipo_comision,
                     nombre_comision: comision[0].nombre_comision,
-                    destino: destino[0].nombre,
+                    // destino: destino[0].nombre,
                     fecha_solicitud: comision[0].fecha_solicitud,
                     fecha_inicio: comision[0].fecha_inicio,
                     fecha_fin: comision[0].fecha_fin,

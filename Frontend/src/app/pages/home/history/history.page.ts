@@ -14,7 +14,7 @@ import { ComisionActivaPage } from '../components/comision-activa/comision-activ
   styleUrls: ['./history.page.scss', '../../../app.component.scss'],
 })
 export class HistoryPage implements OnInit {
-
+  comi = '';
   comisiones = null;
 
   constructor(
@@ -26,13 +26,14 @@ export class HistoryPage implements OnInit {
 
   ngOnInit() {
     this.getAllComisiones();
-    console.log(this.comisiones);
+    this.getComision();
   }
 
   async getAllComisiones() {
     const resp = await this.auth.getAllComisiones();
     if (resp) {
         this.comisiones = resp;
+        console.log(this.comisiones);
       } else {
         this.presentToast();
       }
@@ -60,12 +61,23 @@ export class HistoryPage implements OnInit {
       this.presentToast();
     }
   }
+
+  async getComision() {
+    const resp = await this.auth.getComision(18);
+    if (resp) {
+      this.comi = resp;
+    } else {
+      console.log('no jalo')
+    }
+  }
+
   async openModal(id_comision) {
     const modal: HTMLIonModalElement =
         await this.modalController.create({
           component: ComisionActivaPage,
+          cssClass: 'modal-class',
           componentProps: {
-            id_comision: id_comision,
+            comision: id_comision,
           }
         });
 

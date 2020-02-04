@@ -31,13 +31,12 @@ export class CreateComisionPage implements OnInit {
       private router: Router,
       private http: HttpClient,
       private modalController: ModalController
-      ) 
-      { 
+      )
+      {
         this.fgCreate = this.formBuilder.group({
         tipo_comision: new FormControl('', [Validators.required]),
         destino_com: new FormControl('', [Validators.required]),
         name: new FormControl('', [Validators.required]),
-        evento: new FormControl('', [Validators.required]),
         objetivo_trabajo: new FormControl('', [Validators.required]),
         justificacion: new FormControl('', [Validators.required]),
         fecha_inicio: new FormControl('', [Validators.required]),
@@ -46,7 +45,7 @@ export class CreateComisionPage implements OnInit {
       }
 
   ngOnInit() {
-    this.getUsuario();  
+    this.getUsuario();
     console.log(localStorage.getItem('id_usuario'));
   }
 

@@ -52,11 +52,11 @@
             {{comision.fecha_solicitud}}
           </ion-col>
           <ion-col>
-            <ion-button (click)="openModal(comision.folio)" >Más Información</ion-button>
+            <ion-button (click)="openModal(comision)" >Más Información</ion-button>
           </ion-col>
           <div >
           <ion-col>
-            <ion-button *ngIf="comision.status == 5" (click)="viaticos(comision.folio)">Crear viático</ion-button>
+            <ion-button *ngIf="comision.status == 5" (click)="viaticos(comision)">Crear viático</ion-button>
           </ion-col>
           </div>
           

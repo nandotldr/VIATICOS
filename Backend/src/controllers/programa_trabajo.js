@@ -21,8 +21,8 @@ module.exports = {
         }]);
         res.json({ ok: true, mensaje: "Programa creado" });
       
-      }catch (e){
-        return res.json({ ok: false, mensaje: e });
+      }catch (error){
+        return res.json({ ok: false, mensaje: error });
       }
       
     },
@@ -33,36 +33,49 @@ module.exports = {
         pool.query('SELECT * FROM programa_trabajo WHERE id_solicitud_comision = ?', [id], (errorPrograma, programa) => {
             console.log(errorPrograma);
             if (errorPrograma) return res.json({ok:false, mensaje: errorPrograma});
-            if (programa.length < 1) return res.json({ok:false, mensaje: "no existe programa"});
-
+            if (programa.length < 1) return res.json({ok:false, mensaje: "No hay actividades registradas"});
             res.json({ ok: true, body: programa});
         });
-      }catch(e){
-        return res.json({ ok: false, mensaje: e});
+      }catch(error){
+        return res.json({ ok: false, mensaje: error});
       }
     },
 
-    modificarPrograma: (req, res) => {
+    modificarPrograma: async (req, res) => {
       try{
-        pool.query('UPDATE programa_trabajo SET ? WHERE id_solicitud_comision = ?',[{
+        //para modificar programa solicitud comision debe estar en los estados 0,2,4
+        const comision = await pool.query("SELECT id,id_usuario FROM solicitud_comision WHERE id_usuario = ? AND id= ? and (status=0 OR status= 2 and status=4)",[req.user.codigo,req.body.id_solicitud_comision]);
+        if(comision.length < 1) return res.json({ ok: false, mensaje: "No se puede modificar un programa, tu comision esta en revision" });
+        pool.query('UPDATE programa_trabajo SET ? WHERE id=? and id_solicitud_comision=?',[{
            dia: req.body.dia,
            lugar_estancia: req.body.lugar_estancia,
-           tareas_realizar: req.body.tareas_realizar,
-           id_solicitud_comision: req.body.id_comision,
-        },req.body.id_comision],(errorModificar, modificarPrograma) => {
+           tareas_realizar: req.body.tareas_realizar
+        },req.body.id_programa,req.body.id_solicitud_comision],(errorModificar, modificarPrograma) => {
           if(errorModificar) return res.json({ok:false, mensaje: "error al modificar"});
-          res.json({ok:true, mensaje: "programa modificado exitosamente"});
+          if(modificarPrograma.affectedRows < 1) return res.json({ok:false, mensaje: "No se modifico programa"});
+          res.json({ok:true, mensaje: "Programa modificado exitosamente"});
         });
-      }catch(e){
-        return res.json({ ok: false, mensaje: e})
+      }catch(error){
+        return res.json({ ok: false, mensaje: error})
       }
     },
 
-    eliminarPrograma: (req, res) => {
-      var idProgram = req.params;
-        pool.query('DELETE FROM programa_trabajo WHERE id_solicitud_comision = ?', [idProgram], (error, results) => {
-            if(error) return res.json({ok: false, mensaje: error});
-            res.json({ ok: true, results, mensaje: 'Programa eliminado'});
+    eliminarPrograma: async (req, res) => {
+      try{
+        //para eliminar programa solicitud comision debe estar en los estados 0,2,4 y no debe ser el ultimo programa
+        const comision = await pool.query("SELECT id,id_usuario FROM solicitud_comision WHERE id_usuario = ? AND id= ? and (status=0 OR status= 2 and status=4)",[req.user.codigo,req.body.id_solicitud_comision]);
+        if(comision.length < 1) return res.json({ ok: false, mensaje: "No se puede eliminar un programa, tu comision esta en revision" });
+        
+        const numProgramaTrabajo =await pool.query("SELECT id FROM programa_trabajo WHERE id_solicitud_comision= ? ",[req.body.id_solicitud_comision]);
+        if(numProgramaTrabajo.length == 1) return res.json({ok:false, mensaje: "No puedes eliminar el ultimo programa"});
+        pool.query('DELETE FROM programa_trabajo WHERE id=? and id_solicitud_comision=?',[req.body.id_programa,req.body.id_solicitud_comision],(errorEliminar, eliminarPrograma) => {
+          if(errorEliminar) return res.json({ok:false, mensaje: "Error al eliminar"});
+          if(eliminarPrograma.affectedRows < 1) return res.json({ok:false, mensaje: "No se elimino programa"});
+          res.json({ok:true, mensaje: "Programa eliminado exitosamente"});
         });
+      }catch(error){
+        return res.json({ ok: false, mensaje: error})
+      }
+        
     },
 }

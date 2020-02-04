@@ -64,7 +64,6 @@ module.exports = {
         try {
             const viatico = await pool.query('SELECT * FROM solicitud_viatico as v INNER JOIN solicitud_comision as c ON  c.id = v.id_solicitud_comision where c.id=? ', [id]);
             if (viatico.length < 1) return res.json({ ok: false, mensaje: "No se encontro viatico" });
-            var comsision;
             if (viatico[0].tipo_comision == 0) {
                 destino = await pool.query('SELECT nombre FROM pais WHERE id = ?', [viatico[0].id_pais]);
             } else if (viatico[0].tipo_comision == 1) {

@@ -1,7 +1,4 @@
 const pool = require('../database');
-const fs = require('fs');
-const uniqid = require('uniqid');
-const path = require('path');
 //const Utils = require('node-utils');
 /*
  * La información se puede sacar de
@@ -51,6 +48,7 @@ module.exports = {
     consultarSolicitudComison: async(req, res) => {
         const { id } = req.params;
         try {
+<<<<<<< HEAD
             const comision = await pool.query('SELECT * FROM solicitud_comision as c INNER JOIN  usuario as us ON  c.id_usuario = ? AND c.id=? ', [req.user.codigo, id]);
             if (comision.length < 1) return res.json({ ok: false, mensaje: "Comision no encontrada" });
             if (comision[0].tipo_comision == 0) {
@@ -83,6 +81,38 @@ module.exports = {
                     programa_trabajo: programa
                 }
                 res.json({ ok: true, body: json });
+=======
+            pool.query('SELECT * FROM solicitud_comision as c INNER JOIN  usuario as us ON  c.id_usuario = ? AND c.id=? ', [req.user.codigo, id], (errorComision, comision) => {
+                if (errorComision) return res.json({ ok: false, mensaje: errorComision });
+                if (comision.length < 1) res.json({ ok: false, mensaje: "Comision no encontrada" });
+                pool.query('SELECT * FROM programa_trabajo WHERE id_solicitud_comision = ?', [comision[0].id], (errorPrograma, programa, fields) => {
+                    if (errorPrograma) return res.json({ ok: false, mensaje: errorPrograma });
+                    let json = {
+                        folio: comision[0].id,
+                        codigo: comision[0].codigo,
+                        area_adscripcion: comision[0].area_adscripcion,
+                        plaza_laboral: comision[0].plaza_laboral,
+                        tipo_comision: comision[0].tipo_comision,
+                        nombre_comision: comision[0].nombre_comision,
+                        id_pais: comision[0].id_pais,
+                        id_municipio: comision[0].id_municipio,
+                        fecha_solicitud: comision[0].fecha_solicitud,
+                        fecha_inicio: comision[0].fecha_inicio,
+                        fecha_fin: comision[0].fecha_fin,
+                        status: comision[0].status,
+                        justificacion: comision[0].justificacion,
+                        objetivo_trabajo: comision[0].objetivo_trabajo,
+                        programa_evento: comision[0].programa_evento,
+                        invitacion_evento: comision[0].invitacion_evento,
+                        fecha_revisado: comision[0].fecha_revisado,
+                        fecha_aceptado: comision[0].fecha_aceptado,
+                        nombre_revisado: comision[0].nombre_revisado,
+                        nombre_aceptado: comision[0].nombre_aceptado,
+                        programa_trabajo: programa
+                    }
+                    res.json({ ok: true, body: json });
+                });
+>>>>>>> parent of 4e0a54d... rutas subir/pregrama y subir/invitacion
             });
 
         } catch (error) {
@@ -155,23 +185,23 @@ module.exports = {
                 return res.json({ ok: false, mensaje: 'No subiste ningun archivo.' });
             }
             // Existe la comision
-            const comisiones = await pool.query('SELECT invitacion_evento FROM solicitud_comision WHERE id = ?', [req.body.id]);
+            const comisiones = await pool.query('SELECT invitacionEvento FROM comision WHERE id_comision=?', [req.body.id_comision]);
             if (comisiones.length === 0) {
                 return res.json({ ok: false, mensaje: 'No existe la comisión.' });
             }
             // Cual es el archivo 
-            let currentFile = comisiones[0].invitacion_evento;
+            let currentFile = comisiones[0].invitacionEvento;
             // Mover archivo nuevo
             let newFileName = `${uniqid()}.${req.file.originalname.split('.')[1]}`;
-            if (!fs.existsSync(`public/files/${req.body.id}`)) {
-                fs.mkdirSync(`public/files/${req.body.id}`);
+            if (!fs.existsSync(`public/files/${req.body.id_comision}`)) {
+                fs.mkdirSync(`public/files/${req.body.id_comision}`);
             }
-            fs.renameSync(req.file.path, `public/files/${req.body.id}/${newFileName}`);
+            fs.renameSync(req.file.path, `public/files/${req.body.id_comision}/${newFileName}`);
             // Actuvalizar bd
-            await pool.query('UPDATE solicitud_comision SET invitacion_evento = ? WHERE id = ?', [newFileName, req.body.id]);
+            await pool.query('UPDATE comision SET invitacionEvento=? WHERE id_comision=?', [newFileName, req.body.id_comision]);
             // Borrar archivo antiguo si existe
-            if (fs.existsSync(`public/files/${req.body.id}/${currentFile}`)) {
-                fs.unlinkSync(`public/files/${req.body.id}/${currentFile}`);
+            if (fs.existsSync(`public/files/${req.body.id_comision}/${currentFile}`)) {
+                fs.unlinkSync(`public/files/${req.body.id_comision}/${currentFile}`);
             }
             res.json({ ok: true, mensaje: 'Archivo agregado.' })
         } catch (error) {
@@ -186,7 +216,7 @@ module.exports = {
                 return res.json({ ok: false, mensaje: 'No subiste ningun archivo.' });
             }
             // Existe la comision
-            const comisiones = await pool.query('SELECT programa_evento FROM solicitud_comision WHERE id= ? ', [req.body.id]);
+            const comisiones = await pool.query('SELECT programaEvento FROM comision WHERE id_comision=?', [req.body.id_comision]);
             if (comisiones.length === 0) {
                 return res.json({ ok: false, mensaje: 'No existe la comisión.' });
             }
@@ -194,15 +224,15 @@ module.exports = {
             let currentFile = comisiones[0].programaEvento;
             // Mover archivo nuevo
             let newFileName = `${uniqid()}.${req.file.originalname.split('.')[1]}`;
-            if (!fs.existsSync(`public/files/${req.body.id}`)) {
-                fs.mkdirSync(`public/files/${req.body.id}`);
+            if (!fs.existsSync(`public/files/${req.body.id_comision}`)) {
+                fs.mkdirSync(`public/files/${req.body.id_comision}`);
             }
-            fs.renameSync(req.file.path, `public/files/${req.body.id}/${newFileName}`);
-            // Actualizar bd
-            await pool.query('UPDATE solicitud_comision SET programa_evento = ? WHERE id = ?', [newFileName, req.body.id]);
+            fs.renameSync(req.file.path, `public/files/${req.body.id_comision}/${newFileName}`);
+            // Actuvalizar bd
+            await pool.query('UPDATE comision SET programaEvento=? WHERE id_comision=?', [newFileName, req.body.id_comision]);
             // Borrar archivo antiguo si existe
-            if (fs.existsSync(`public/files/${req.body.id}/${currentFile}`)) {
-                fs.unlinkSync(`public/files/${req.body.id}/${currentFile}`);
+            if (fs.existsSync(`public/files/${req.body.id_comision}/${currentFile}`)) {
+                fs.unlinkSync(`public/files/${req.body.id_comision}/${currentFile}`);
             }
             res.json({ ok: true, mensaje: 'Archivo agregado.' })
         } catch (error) {

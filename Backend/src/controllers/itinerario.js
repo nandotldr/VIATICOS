@@ -8,7 +8,7 @@ const pool = require('../database');
 
 module.exports = {
 
-    crearitinerario: async(req, res) => {
+    crearItinerario: async(req, res) => {
         try {
             await pool.query('INSERT INTO itinerario SET ?', [{
                 dia: req.body.dia,
@@ -22,7 +22,7 @@ module.exports = {
         }
     },
 
-    selectitinerario: (req, res) => {
+    selectItinerario: (req, res) => {
         const { id } = req.params;
         pool.query('SELECT * FROM itinerario WHERE id_informe_actividades = ?', [id], (erroritinerario, itinerario) => {
             console.log(erroritinerario);
@@ -35,7 +35,7 @@ module.exports = {
 
     },
     //D
-    modificaritinerario: async(req, res) => {
+    modificarItinerario: async(req, res) => {
         try {
             const existeitinerario = await pool.query('SELECT id FROM itinerario WHERE id=?', [req.body.id]);
             if (existeitinerario.length < 1) {
@@ -55,7 +55,7 @@ module.exports = {
             return res.json({ ok: false, mensaje: error });
         }
     },
-    eliminaritinerario: (req, res) => {
+    eliminarItinerario: (req, res) => {
         pool.query('DELETE FROM itinerario WHERE id = ?', [req.body.id], (error, results) => {
             if (error) return res.json({ ok: false, mensaje: error });
             res.json({ ok: true, results, mensaje: 'Itinerario eliminado' });

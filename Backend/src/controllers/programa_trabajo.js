@@ -9,24 +9,22 @@ const pool = require('../database');
 module.exports = {
 
     crearPrograma: async(req, res) => {
-      var dia = req.body.dia;
-      var lugar_estancia = req.body.lugar_estancia;
-      var tareas_realizar = req.body.tareas_realizar;
-      var id_solicitud_comision = req.body.id_comision;
-
-      var sqlProgram = "INSERT INTO programa_trabajo SET ?";
       try{
-        var valuesProgram = {
-          dia: dia,
-          lugar_estancia: lugar_estancia,
-          tareas_realizar: tareas_realizar,
-          id_solicitud_comision: id_solicitud_comision
-        };
-        const resp = await pool.query(sqlProgram, [valuesProgram]);
+        //para crear programa solicitud comision debe estar en los estados 0,2,4
+        const comision = await pool.query("SELECT id,id_usuario FROM solicitud_comision WHERE id_usuario = ? AND id= ? and (status=0 OR status= 2 and status=4)",[req.user.codigo,req.body.id_solicitud_comision]);
+        if(comision.length < 1) return res.json({ ok: false, mensaje: "No se puede crear un programa, tu comision esta en revision" });
+        const programa = await pool.query("INSERT INTO programa_trabajo SET ?",[{
+          dia: req.body.dia,
+          lugar_estancia: req.body.lugar_estancia,
+          tareas_realizar: req.body.tareas_realizar,
+          id_solicitud_comision: comision[0].id
+        }]);
+        res.json({ ok: true, mensaje: "Programa creado" });
+      
       }catch (e){
         return res.json({ ok: false, mensaje: e });
       }
-      res.json({ ok: true, mensaje: "Programa creado" });
+      
     },
 
     verPrograma: (req, res) => {

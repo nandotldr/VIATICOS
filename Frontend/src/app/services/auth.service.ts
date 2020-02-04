@@ -68,6 +68,18 @@ export class AuthService {
     ).toPromise();
   }
 
+  async getComision(id_comision: string){
+    return await this.http.get(`${this.API_URL}/solicitud_comision/${id_comision}`).pipe(
+      map(response => {
+        if(response['ok']){
+          return response['body'];
+        }else{
+          return response['ok'];
+        }
+      })
+    ).toPromise();
+  }
+
   async createComision(comision: { 
     name: Number,
     programa: string,

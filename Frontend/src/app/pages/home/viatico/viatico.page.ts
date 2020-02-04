@@ -3,7 +3,7 @@ import { ToastController } from '@ionic/angular';
 import { AuthService } from 'src/app/services/auth.service';
 import { formatDate } from '@angular/common';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import {Router} from '@angular/router';
 import { ThrowStmt } from '@angular/compiler';
 
@@ -14,21 +14,22 @@ import { ThrowStmt } from '@angular/compiler';
 })
 export class ViaticoPage implements OnInit {
 
-  perfil = '';
+  //@Input() comision: string  = '';
+
+  comision = '';
+  viatico = '';
   fgCreate: FormGroup;
   fgGasto: FormGroup;
   token: string;
   myDate = formatDate(new Date(), 'yyyy-MM-dd', 'en');
 
-
   constructor(
     private formBuilder: FormBuilder,
-    private router: Router,
     private auth: AuthService,
     public toastController: ToastController,
-    private http: HttpClient
     ) {
       this.fgCreate = this.formBuilder.group({
+        id_comision: new FormControl('', []),
         invitado_nombre: new FormControl('', []),
         comentarios: new FormControl('', [])
       });
@@ -46,6 +47,17 @@ export class ViaticoPage implements OnInit {
     }
 
   ngOnInit() {
+    this.getComision();
+  }
+
+  async getComision(){
+    const resp = await this.auth.getComision(this.comision);
+    if (resp) {
+      this.comision = resp;
+      
+    } else {
+      this.presentToast(resp.mensaje);
+    }
   }
 
   async saveViatico(){
@@ -53,6 +65,7 @@ export class ViaticoPage implements OnInit {
       const resp = await this.auth.saveViatico(this.fgCreate.value);
       if (resp.ok) {
         this.presentToast('Guardado correctamente');
+        this.viatico = resp.results.insertId;
       } else {
         this.presentToast(resp.mensaje);
       }
@@ -62,7 +75,7 @@ export class ViaticoPage implements OnInit {
   }
 
   async createGasto(){
-    if(this.fgGasto.valid){
+   
       const resp = await this.auth.createGasto(this.fgGasto.value);
       if(resp.ok){
         this.presentToast('Gastos creados');
@@ -70,21 +83,8 @@ export class ViaticoPage implements OnInit {
       else{
         this.presentToast(resp.mensaje);
       }
-    } else{
-      this.presentToast('Datos no válidos. Llena los datos completos.');
-    }
+     
   }
-
-  async getUsuario(){
-    const resp = await this.auth.getUsuario(localStorage.getItem('id_usuario'));
-    if (resp) {
-      this.perfil = resp;
-    } else {
-      this.presentToast('Datos no Validos');
-    }
-  
-  }
-
 
   async presentToast(message) {
     const toast = await this.toastController.create({

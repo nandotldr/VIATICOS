@@ -1158,7 +1158,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"id\": 1\n}"
+							"raw": "{\n\t\"id\": 1,\n\t\"id_informe_actividades\": 1\n}"
 						},
 						"url": {
 							"raw": "http://localhost:9000/itinerario",
@@ -1341,7 +1341,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"id\": 1\n}"
+							"raw": "{\n\t\"id\": 1,\n\t\"id_informe_actividades\": 1\n}"
 						},
 						"url": {
 							"raw": "http://localhost:9000/agenda",
@@ -1844,7 +1844,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RpZ28iOjIxMDU0NTU0NCwidGlwb191c3VhcmlvIjoiUCIsImlhdCI6MTU4MDQzMjg2OCwiZXhwIjoxNTgwNTE5MjY4fQ.WiyqJqHYhFKOsCrBUJNDkwRITQay6DcNv1VNgudrm_g",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RpZ28iOjIxMTY5Mzc2LCJ0aXBvX3VzdWFyaW8iOiJKIiwiaWF0IjoxNTgwNzk3MTAxLCJleHAiOjE1ODA4ODM1MDF9.A6Gr1U1gUQNcP7tGlZXgu0SeIc5MGKM6t10xDhyVbVw",
 									"type": "string"
 								}
 							]

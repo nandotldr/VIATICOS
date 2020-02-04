@@ -49,7 +49,7 @@ module.exports = {
         const { id } = req.params;
         try {
             const comision = await pool.query('SELECT * FROM solicitud_comision as c INNER JOIN  usuario as us ON  c.id_usuario = ? AND c.id=? ', [req.user.codigo, id]);
-            if (comision.length < 1) res.json({ ok: false, mensaje: "Comision no encontrada" });
+            if (comision.length < 1) return res.json({ ok: false, mensaje: "Comision no encontrada" });
             if (comision[0].tipo_comision == 0) {
                 destino = await pool.query('SELECT nombre FROM pais WHERE id = ?', [comision[0].id_pais]);
             } else if (comision[0].tipo_comision == 1) {

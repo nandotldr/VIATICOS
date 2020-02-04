@@ -1,12 +1,12 @@
 const express = require('express');
 const programa_trabajoCtl = require('../controllers/programa_trabajo');
-//const auth = require('../middlewares/credentials');
+const auth = require('../middlewares/credentials');
 const router = express.Router();
 
-router.post('/', programa_trabajoCtl.crearPrograma);
-router.get('/:id', programa_trabajoCtl.verPrograma);
-router.put('/', programa_trabajoCtl.modificarPrograma);
-router.delete('/', programa_trabajoCtl.eliminarPrograma);
+router.post('/', auth('P','J','A','S'),programa_trabajoCtl.crearPrograma);
+router.get('/:id',auth('P','J','A','S'), programa_trabajoCtl.verPrograma);
+router.put('/', auth('P','J','A','S'),programa_trabajoCtl.modificarPrograma);
+router.delete('/',auth('P','J','A','S'), programa_trabajoCtl.eliminarPrograma);
 
 
 

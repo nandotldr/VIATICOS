@@ -98,13 +98,14 @@ module.exports = {
 
     },
 
-    update: async(req, res) => {
+    modificarSolicitudViatico: async(req, res) => {
         var idSolViatico = req.body.id_solicitudV;
         var status = req.body.estado;
         var comentarios = req.body.comentario;
+        var nom_invitado = req.body.nombre_invitado;
         var id_usuario = req.user.codigo;
-        var buscarSolicitudV = 'SELECT * FROM solicitud_viatico as sv INNER JOIN gasto as g ON sv.id = g.id_solicitud_viatico WHERE sv.id = ?';
-        var actualizarSolicitudV = 'UPDATE solicitud_viatico SET ? WHERE id_solicitud_comision = ?';
+        var buscarSolicitudV = 'SELECT * FROM solicitud_viatico WHERE id = ?';
+        var actualizarSolicitudV = 'UPDATE solicitud_viatico SET ? WHERE id = ?';
 
         try {
             const existe = await pool.query(buscarSolicitudV, [idSolViatico]);
@@ -114,7 +115,8 @@ module.exports = {
                 status: status,
                 fecha_solicitud: new Date(),
                 fecha_modificacion: new Date(),
-                comentarios: comentarios
+                comentarios: comentarios,
+                invitado_nombre: nom_invitado
             };
             pool.query(actualizarSolicitudV, [valuesSolicitud, idSolViatico], (error, results) => {
                 if (error) return res.json(error);

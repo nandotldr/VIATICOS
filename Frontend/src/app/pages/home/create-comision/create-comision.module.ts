@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ProgramPageModule } from "../program/program.module";
+import { ProgramPageModule } from "../components/program/program.module";
 import { IonicModule } from '@ionic/angular';
 
 import { CreateComisionPageRoutingModule } from './create-comision-routing.module';

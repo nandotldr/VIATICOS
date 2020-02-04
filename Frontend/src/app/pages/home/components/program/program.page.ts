@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-program',
   templateUrl: './program.page.html',
-  styleUrls: ['./program.page.scss','../../../app.component.scss'],
+  styleUrls: ['./program.page.scss','../../../../app.component.scss'],
 })
 export class ProgramPage implements OnInit {
   perfil = '';

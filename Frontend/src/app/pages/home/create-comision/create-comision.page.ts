@@ -6,7 +6,7 @@ import {ModalController, NavParams} from '@ionic/angular';
 import { AuthService } from 'src/app/services/auth.service';
 import { formatDate } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { ProgramPage } from '../program/program.page';
+import { ProgramPage } from '../components/program/program.page';
 import {OverlayEventDetail} from '@ionic/core'; 
 
 @Component({

@@ -35,7 +35,11 @@ const routes: Routes = [
       },
       {
         path: 'program',
-        loadChildren: () => import('./program/program.module').then( m => m.ProgramPageModule)
+        loadChildren: () => import('./components/program/program.module').then(m => m.ProgramPageModule)
+      },
+      {
+        path: 'comision-activa',
+        loadChildren: () => import('./components/comision-activa/comision-activa.module').then(m => m.ComisionActivaPageModule)
       }
     ]
   }

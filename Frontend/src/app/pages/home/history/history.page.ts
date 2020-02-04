@@ -45,4 +45,8 @@ export class HistoryPage implements OnInit {
 
   }
 
+  viaticos(id_comision: number){
+    
+  }
+
 }

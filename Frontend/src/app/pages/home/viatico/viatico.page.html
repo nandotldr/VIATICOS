@@ -16,6 +16,79 @@
   <img class="background-image"/>
   <ion-card >
 
+    <div class="center-content" >
+      <ion-card-header class="title">
+        <ion-card-title>Nuevo Viático</ion-card-title>
+      </ion-card-header>
+
+
+        <ion-card-header class="subtitle">
+          <ion-card-title>Información del viático</ion-card-title>
+        </ion-card-header>
+        <form [formGroup]="fgCreate" (ngSubmit)="saveViatico()">
+          <ion-item>
+            <ion-label >Nombre del invitado </ion-label>
+            <ion-input placeholder="Nombre completo" type="text" formControlName="invitado_nombre"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label > Comentarios </ion-label>
+            <ion-textarea placeholder="Comentarios..."  formControlName="comentarios"></ion-textarea>
+          </ion-item>
+
+        <ion-button type="submit" color="light" [disabled]="this.fgCreate.invalid">Guardar estos datos</ion-button>
+        <!-- <ion-button (click)="saveViatico()">Guardar solicitud</ion-button> -->
+        <!-- <ion-button routerLink="/home" >Regresar</ion-button> -->
+
+      </form>
+
+      <ion-card-header class="subtitle">
+        <ion-card-title>Gastos</ion-card-title>
+      </ion-card-header>
+      <form [formGroup]="fgGasto" (ngSubmit)="createGasto()">
+        <!-- <ion-input value="{{viatico.id}}"></ion-input> -->
+        <ion-item>
+          <ion-label position="floating">Dia</ion-label>
+          <ion-datetime displayFormat="MM/DD/YYYY" max="3000-12-09" value="{{myDate}}" formControlName="dia"></ion-datetime>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Alimentacion</ion-label>
+          <ion-input placeholder="Alimentacion" type="number" formControlName="alimentacion"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Hospedaje</ion-label>
+          <ion-input placeholder="Hospedaje" type="number" formControlName="hospedaje"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Transporte Local</ion-label>
+          <ion-input placeholder="Transporte local" type="Number" formControlName="transporteLocal"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Transporte Foraneo</ion-label>
+          <ion-input placeholder="Transporte Foraneo" type="number" formControlName="transporteForaneo"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Combustible</ion-label>
+          <ion-input placeholder="Combustible" type="number" formControlName="combustible"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Otros</ion-label>
+          <ion-input placeholder="Otros" type="number" formControlName="otros"></ion-input>
+        </ion-item>
+
+        <ion-button type="submit" color="light" [disabled]="this.fgGasto.invalid">Guardar Gastos</ion-button>
+        <!-- <ion-button (click)="saveViatico()">Guardar solicitud</ion-button> -->
+        <ion-button routerLink="/home" >Regresar</ion-button>
+
+      </form>
+    </div>
+
   </ion-card>
 
 </ion-content>

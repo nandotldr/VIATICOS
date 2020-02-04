@@ -55,7 +55,7 @@ module.exports = {
     verInforme: (req, res) => {
         const { id } = req.params;
         try {
-            pool.query('SELECT inf.id, inf.fecha_elaboracion, inf. resultados, inf.observaciones, inf.fecha_aprobacion,inf.nombre_aprobacion,c.nombre_comision,c.objetivo_trabajo, concat(u.nombres , " " ,u.apellidos) as nombres , u.codigo FROM viaticos.informe_actividades AS inf INNER JOIN viaticos.solicitud_comision as c on c.id = inf.id_solicitud_comision INNER JOIN viaticos.usuario as u on u.codigo = inf.id_usuario where inf.id =?', [id], (errorInforme, informe) => {
+            pool.query('SELECT inf.id, inf.fecha_elaboracion, inf. resultados, inf.observaciones, inf.fecha_aprobacion,inf.nombre_aprobacion,c.nombre_comision,c.objetivo_trabajo, concat(u.nombres , " " ,u.apellidos) as nombres , u.codigo FROM viaticos.informe_actividades AS inf INNER JOIN viaticos.solicitud_comision as c on c.id = inf.id_solicitud_comision INNER JOIN viaticos.usuario as u on u.codigo = inf.id_usuario where inf.id_solicitud_comision =?', [id], (errorInforme, informe) => {
                 if (errorInforme) return res.json({ ok: false, mensaje: errorInforme });
                 if (informe.length < 1) res.json({ ok: false, mensaje: "Este informe no existe" });
                 pool.query('SELECT * FROM itinerario WHERE id_informe_actividades= ?', [informe[0].id], (errorItinerario, itinerario, fields) => {

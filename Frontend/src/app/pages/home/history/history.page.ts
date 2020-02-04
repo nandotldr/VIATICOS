@@ -1,3 +1,4 @@
+import { ViaticoPage } from './../viatico/viatico.page';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
@@ -45,8 +46,15 @@ export class HistoryPage implements OnInit {
 
   }
 
-  viaticos(id_comision: number){
-    
+  async viaticos(id_comision: string){
+    const resp = await this.auth.getComision(id_comision);
+    if(resp) {
+      console.log(resp);
+      
+    }
+    else{
+      this.presentToast();
+    }
   }
 
 }

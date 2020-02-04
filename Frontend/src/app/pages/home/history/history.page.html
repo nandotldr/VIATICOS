@@ -20,7 +20,6 @@
     <ion-card-header class="title">
       <ion-card-title>Historial de comisiones</ion-card-title>
     </ion-card-header>
-on
     <ion-card-header class="subtitle">
       <ion-card-title>Comisiones</ion-card-title>
     </ion-card-header>
@@ -42,7 +41,7 @@ on
         </ion-row>
         <ion-row *ngFor="let comision of comisiones">
           <ion-col >
-            <div>
+            <div style="text-align: center;">
           {{ comision.folio }}
             </div>
           </ion-col>
@@ -57,7 +56,8 @@ on
           </ion-col>
           <div >
           <ion-col>
-            <ion-button *ngIf="comision.status == 3 || comision.status == 5">Crear viático</ion-button>
+            <ion-button *ngIf="comision.status == 5" (click)="viaticos(comision.folio)">Crear viático</ion-button>
+            <app-viatico [comision]="comision.folio"></app-viatico>
           </ion-col>
           </div>
           

@@ -16,6 +16,9 @@ import { ViaticoPage } from './viatico.page';
     ReactiveFormsModule,
     ViaticoPageRoutingModule
   ],
+  exports:[
+    ViaticoPage
+  ],
   declarations: [ViaticoPage]
 })
 export class ViaticoPageModule {}

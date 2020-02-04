@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button href="/home">
+        <!-- <img src="../../../assets/images/logo.png" width="25px" style="display:inline-block" height="25px"/> -->
+        <!-- <ion-icon slot="icon-only" name="filing"></ion-icon> -->
+        <ion-title>
+          PROGRAMA
+        </ion-title>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <img class="background-image"/>
+  <ion-card >
+    <div class="center-content">
+      <ion-card-header class="title">
+        <ion-card-title>Solicitud de comisión nueva</ion-card-title>
+      </ion-card-header>
+
+        <form [formGroup]="fgCreate" (ngSubmit)="createComision()">
+          <ion-card-header class="subtitle">
+            <ion-card-title>Actividades y programa</ion-card-title>
+          </ion-card-header>
+
+          <ion-item>
+            <ion-label >Programa de trabajo</ion-label>
+            <ion-input placeholder="Programa" type="text" formControlName="dia"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Invitacion al evento</ion-label>
+            <ion-input placeholder="Programa" type="text" formControlName="lugar_estancia"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Programa de el evento</ion-label>
+            <ion-input placeholder="Programa" type="text" formControlName="tareas_realizar"></ion-input>id_comision
+          </ion-item>
+
+          <ion-button type="submit" color="light" [disabled]="this.fgCreate.invalid">Guardar programa</ion-button>
+          <ion-button routerLink="/home" >Regresar</ion-button>
+
+          </form>
+    </div>
+  </ion-card>
+
+</ion-content>

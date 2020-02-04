@@ -33,6 +33,10 @@ const routes: Routes = [
         loadChildren: () => import('./viatico/viatico.module').then(m => m.ViaticoPageModule),
         canLoad: [AuthGuardService]
       },
+      {
+        path: 'program',
+        loadChildren: () => import('./program/program.module').then( m => m.ProgramPageModule)
+      }
     ]
   }
 ];

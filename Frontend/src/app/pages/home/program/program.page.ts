@@ -2,21 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
-import {ModalController, NavParams} from '@ionic/angular';
 import { AuthService } from 'src/app/services/auth.service';
 import { formatDate } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { ProgramPage } from '../program/program.page';
-import {OverlayEventDetail} from '@ionic/core'; 
 
 @Component({
-  selector: 'app-create-comision',
-  templateUrl: './create-comision.page.html',
-  styleUrls: ['./create-comision.page.scss','../../../app.component.scss'],
+  selector: 'app-program',
+  templateUrl: './program.page.html',
+  styleUrls: ['./program.page.scss','../../../app.component.scss'],
 })
-export class CreateComisionPage implements OnInit {
+export class ProgramPage implements OnInit {
   perfil = '';
-  id_comision = '';
   fgCreate: FormGroup;
   token: string;
   restoreStep = 0;
@@ -29,19 +25,13 @@ export class CreateComisionPage implements OnInit {
       private auth: AuthService,
       public toastController: ToastController,
       private router: Router,
-      private http: HttpClient,
-      private modalController: ModalController
+      private http: HttpClient
       ) 
       { 
         this.fgCreate = this.formBuilder.group({
-        tipo_comision: new FormControl('', [Validators.required]),
-        destino_com: new FormControl('', [Validators.required]),
-        name: new FormControl('', [Validators.required]),
-        evento: new FormControl('', [Validators.required]),
-        objetivo_trabajo: new FormControl('', [Validators.required]),
-        justificacion: new FormControl('', [Validators.required]),
-        fecha_inicio: new FormControl('', [Validators.required]),
-        fecha_fin: new FormControl('', [Validators.required]),
+          dia: new FormControl('', [Validators.required]),
+          lugar_estancia: new FormControl('', [Validators.required]),
+          tareas_realizar: new FormControl('', [Validators.required]),
         });
       }
 
@@ -50,11 +40,11 @@ export class CreateComisionPage implements OnInit {
     console.log(localStorage.getItem('id_usuario'));
   }
 
-  async createComision(){
+  async createPrograma(){
     if (this.fgCreate.valid) {
-      const resp = await this.auth.createComision(this.fgCreate.value);
+      console.log(this.fgCreate.value);
+      const resp = await this.auth.createPrograma(this.fgCreate.value);
       if (resp) {
-        this.id_comision = resp.body.id_comision;
         this.presentToastSuccess();
       } else {
         console.log(resp);
@@ -93,23 +83,5 @@ export class CreateComisionPage implements OnInit {
     });
     toast.present();
   }
-
-  async openModal() {
-    const modal: HTMLIonModalElement =
-       await this.modalController.create({
-          component: ProgramPage,
-          componentProps: {
-            id_comision: this.id_comision,
-          }
-    });
-     
-    modal.onDidDismiss().then((detail: OverlayEventDetail) => {
-       if (detail !== null) {
-         console.log('The result:', detail.data);
-       }
-    });
-    
-    await modal.present();
-}
 
 }

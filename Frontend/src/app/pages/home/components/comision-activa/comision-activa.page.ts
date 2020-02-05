@@ -28,7 +28,7 @@ export class ComisionActivaPage implements OnInit {
     await this.modalController.dismiss(result);
   }
   async getComision() {
-    const resp = await this.authService.getComision(this.comision.folio);
+    const resp = await this.authService.getComision(this.comision);//.folio);
     if (resp) {
       this.comi = resp;
     } else {

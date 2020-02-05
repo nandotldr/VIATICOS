@@ -6,133 +6,7 @@
 	},
 	"item": [
 		{
-			"name": "usuario",
-			"item": [
-				{
-					"name": "Crear usuario",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"codigo\": \"211707262\",\n    \"nombres\": \"Jairo Jahaziel\",\n    \"apellidos\": \"Gonzalez Casillas\",\n    \"nip\": \"123\",\n    \"area_adscripcion\": \"Informatica\",\n    \"plaza_laboral\": \"Maestro\",\n    \"numero_social\": \"1234\",\n    \"tipo_usuario\": \"P\"\n}\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:9000/usuario",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "9000",
-							"path": [
-								"usuario"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Perfil",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							},
-							{
-								"key": "access-token",
-								"value": "",
-								"description": "token creado al logearte",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "http://localhost:9000/usuario/?id=1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "9000",
-							"path": [
-								"usuario",
-								""
-							],
-							"query": [
-								{
-									"key": "id",
-									"value": "1"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Modificar datos",
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							},
-							{
-								"key": "access-token",
-								"value": "",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"codigo\": \"211707262\",\n\t\"nombres\": \"Monserrat Elizabeth\",\n    \"apellidos\": \"Guerrero Garcia\",\n    \"area_adscripcion\": \"Quimica\",\n    \"plaza_laboral\": \"Estudiante\",\n    \"numero_social\": \"12345\"\n\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:9000/usuario",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "9000",
-							"path": [
-								"usuario"
-							]
-						}
-					},
-					"response": []
-				}
-			],
-			"protocolProfileBehavior": {}
-		},
-		{
-			"name": "Login",
+			"name": "Autenticacion",
 			"item": [
 				{
 					"name": "Inicio de sesion",
@@ -148,7 +22,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"codigo\": \"OR\",\n\t\"nip\": \"password\"\n}",
+							"raw": "{\n\t\"codigo\": 21169376,\n\t\"nip\": \"123\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -168,18 +42,29 @@
 						}
 					},
 					"response": []
-				}
-			],
-			"protocolProfileBehavior": {}
-		},
-		{
-			"name": "Validate",
-			"item": [
+				},
 				{
 					"name": "Revisar token",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RpZ28iOjIxMDU0NTU0NCwidGlwb191c3VhcmlvIjoiUCIsImlhdCI6MTU4MDc4MDI4MiwiZXhwIjoxNTgwODY2NjgyfQ.flRmUHwjrBBggZma0aqgupUeFrrZZqvebbZJJS6Fm3Y",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "http://localhost:9000/validate",
 							"protocol": "http",
@@ -189,17 +74,17 @@
 							"port": "9000",
 							"path": [
 								"validate"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": ""
+								}
 							]
 						}
 					},
 					"response": []
-				}
-			],
-			"protocolProfileBehavior": {}
-		},
-		{
-			"name": "password_recovery",
-			"item": [
+				},
 				{
 					"name": "Recuperar contraseña",
 					"request": {
@@ -210,11 +95,17 @@
 								"name": "Content-Type",
 								"value": "application/json",
 								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RpZ28iOjIxMTcwNzI3MiwidGlwb191c3VhcmlvIjoiUCIsImlhdCI6MTU4MDM2MjI2NiwiZXhwIjoxNTgwNDQ4NjY2fQ.9bXKRJ9GuLpE4PUQXCvkEgBecgYBVlWx8E7UB3efw_U",
+								"type": "text",
+								"disabled": true
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"codigo\": \"211707262\",\n    \"nombres\": \"Jairo Jahaziel\",\n    \"apellidos\": \"Gonzalez Casillas\",\n    \"numero_social\": \"123456789\",\n    \"nueva_contraseña\": \"1234\"\n}\n",
+							"raw": "{\n    \"codigo\": \"211707262\",\n    \"nombres\": \"Jairo Jahaziel\",\n    \"apellidos\": \"Gonzalez Casillas\",\n    \"numero_social\": \"1234\",\n    \"nueva_contraseña\": \"1234\"\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -230,161 +121,6 @@
 							"port": "9000",
 							"path": [
 								"password_recovery"
-							]
-						}
-					},
-					"response": []
-				}
-			],
-			"protocolProfileBehavior": {}
-		},
-		{
-			"name": "Comision",
-			"item": [
-				{
-					"name": "Ver solicitud",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							},
-							{
-								"key": "access-token",
-								"value": "",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "http://localhost:9000/solicitud_comision/1?id=1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "9000",
-							"path": [
-								"solicitud_comision",
-								"1"
-							],
-							"query": [
-								{
-									"key": "id",
-									"value": "1"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Modificar Solicitud",
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							},
-							{
-								"key": "acces-token",
-								"value": "",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n      \"id_solicitud\": \"1\",\r\n      \"fecha_inicio\":\"2020-02-29\",\r\n      \"fecha_fin\":\"2020-02-30\",\r\n      \"tipo_comision\": 0,\r\n      \"id_destino\": 3,\r\n      \"nombre_comision\": \"Comic-Con Estambul 2019\",\r\n      \"objetivo_trabajo\": \"Aprender cosas y traer regalos.\",\r\n      \"justificacion\": \"Quiero ir a una conferencia.\",\r\n      \"status\": \"0\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:9000/solicitud_comision/",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "9000",
-							"path": [
-								"solicitud_comision",
-								""
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Crear Solicitud",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							},
-							{
-								"key": "access-token",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjaGVjayI6dHJ1ZSwiaWF0IjoxNTc5OTk0NjMxLCJleHAiOjE1Nzk5OTYwNzF9.M3_T_gpJhBU9fZQwFJnUZ0STH4M0pirXCmGVHOG4Sow",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "\r\n{\r\n      \"codigo\": \"211707262\",\r\n      \"fecha_inicio\":\"2020-02-29\",\r\n      \"fecha_fin\":\"2020-02-30\",\r\n      \"tipo_comision\": 0,\r\n      \"id_destino\": 3,\r\n      \"nombre_comision\": \"Comic-Con Estambul 2019\",\r\n      \"objetivo_trabajo\": \"Aprender cosas y traer regalos.\",\r\n      \"justificacion\": \"Quiero ir a una conferencia.\",\r\n      \"status\": \"1\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:9000/solicitud_comision/",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "9000",
-							"path": [
-								"solicitud_comision",
-								""
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Ver todas las solicitudes",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							},
-							{
-								"key": "access-token",
-								"value": "",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "http://localhost:9000/solicitud_comision",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "9000",
-							"path": [
-								"solicitud_comision"
 							]
 						}
 					},
@@ -469,6 +205,16 @@
 				{
 					"name": "Crear Programa",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RpZ28iOjIxMDU0NTU0NCwidGlwb191c3VhcmlvIjoiUCIsImlhdCI6MTU4MDc4NTQ2NCwiZXhwIjoxNTgwODcxODY0fQ.iHBCMMwOfxuP4qKLtZT2zIWBx6Ez6pODeHSCKwx6NH8",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [
 							{
@@ -479,12 +225,13 @@
 							{
 								"key": "access-token",
 								"value": "",
-								"type": "text"
+								"type": "text",
+								"disabled": true
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"dia\": \"2020-02-29\",\n\t\"lugar_estancia\": \"Canada\",\n\t\"tareas_realizar\": \"Exponer comics\",\n\t\"id_comision\": \"1\"\n}"
+							"raw": "{\n\t\"dia\": \"2020-02-29\",\n\t\"lugar_estancia\": \"Canada\",\n\t\"tareas_realizar\": \"Exponer comics\",\n\t\"id_solicitud_comision\": 16\n}"
 						},
 						"url": {
 							"raw": "http://localhost:9000/programa_trabajo",
@@ -512,6 +259,16 @@
 						"disableBodyPruning": true
 					},
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RpZ28iOjIxMDU0NTU0NCwidGlwb191c3VhcmlvIjoiUCIsImlhdCI6MTU4MDc4MDI4MiwiZXhwIjoxNTgwODY2NjgyfQ.flRmUHwjrBBggZma0aqgupUeFrrZZqvebbZJJS6Fm3Y",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [
 							{
@@ -519,11 +276,17 @@
 								"name": "Content-Type",
 								"value": "application/json",
 								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RpZ28iOjIxMTcwNzI3MiwidGlwb191c3VhcmlvIjoiUCIsImlhdCI6MTU4MDM2MzA3NCwiZXhwIjoxNTgwNDQ5NDc0fQ.1Dm2_TUnODxUmyAMDYNaemwqpAEG3s4FyKWkp2vahWU",
+								"type": "text",
+								"disabled": true
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"id_trabajador\": \"1\"\n}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -531,15 +294,14 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:9000/historialComision/2",
+							"raw": "http://localhost:9000/solicitud_comision",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "9000",
 							"path": [
-								"historialComision",
-								"2"
+								"solicitud_comision"
 							]
 						}
 					},
@@ -554,10 +316,44 @@
 				{
 					"name": "Crear Solicitud Viatico",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RpZ28iOjIxMDU0NTU0NCwidGlwb191c3VhcmlvIjoiUCIsImlhdCI6MTU4MDc4MDI4MiwiZXhwIjoxNTgwODY2NjgyfQ.flRmUHwjrBBggZma0aqgupUeFrrZZqvebbZJJS6Fm3Y",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RpZ28iOjIxMTcwNzI2MywidGlwb191c3VhcmlvIjoiUCIsImlhdCI6MTU4MDQ0Mzk0OSwiZXhwIjoxNTgwNTMwMzQ5fQ.LQyY0hxCZprgcdHyv8ilbMuKi8BAFOfjmzBpFdsH7q0",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"id\" : 3,\r\n        \"invitado\" : \"jose\",\r\n        \"comentarios\" : \"un comentario\",\r\n        \"estado\" : 0\r\n}\r\n"
+						},
 						"url": {
-							"raw": ""
+							"raw": "http://localhost:9000/solicitud_viatico",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"solicitud_viatico"
+							]
 						}
 					},
 					"response": []
@@ -565,10 +361,41 @@
 				{
 					"name": "Ver solicitud viatico",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RpZ28iOjIxMDU0NTU0NCwidGlwb191c3VhcmlvIjoiUCIsImlhdCI6MTU4MDc4MDI4MiwiZXhwIjoxNTgwODY2NjgyfQ.flRmUHwjrBBggZma0aqgupUeFrrZZqvebbZJJS6Fm3Y",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RpZ28iOjIxMDU0NTU0NCwidGlwb191c3VhcmlvIjoiUCIsImlhdCI6MTU4MDc2NjUyOCwiZXhwIjoxNTgwODUyOTI4fQ.ZZ2S7qo140fUzr8u4EU1Lx3lA_m1xMW2q1a6Kyj09NU",
+								"type": "text",
+								"disabled": true
+							}
+						],
 						"url": {
-							"raw": ""
+							"raw": "http://localhost:9000/solicitud_viatico/16",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"solicitud_viatico",
+								"16"
+							]
 						}
 					},
 					"response": []
@@ -576,10 +403,38 @@
 				{
 					"name": "Modificar Solicitud viatico",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RpZ28iOjIxMDU0NTU0NCwidGlwb191c3VhcmlvIjoiUCIsImlhdCI6MTU4MDc4MDI4MiwiZXhwIjoxNTgwODY2NjgyfQ.flRmUHwjrBBggZma0aqgupUeFrrZZqvebbZJJS6Fm3Y",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"id_solicitudV\" : 1,\r\n        \"estado\" : 1,\r\n        \"comentario\" : \"un comentario mas\",\r\n        \"nombre_invitado\": \"Pedro Picapiedra\"\r\n}"
+						},
 						"url": {
-							"raw": ""
+							"raw": "http://localhost:9000/solicitud_viatico",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"solicitud_viatico"
+							]
 						}
 					},
 					"response": []
@@ -593,10 +448,38 @@
 				{
 					"name": "Crear Gasto",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RpZ28iOjIxMDU0NTU0NCwidGlwb191c3VhcmlvIjoiUCIsImlhdCI6MTU4MDc4MDI4MiwiZXhwIjoxNTgwODY2NjgyfQ.flRmUHwjrBBggZma0aqgupUeFrrZZqvebbZJJS6Fm3Y",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"id_solicitud_viatico\" : 1,\r\n        \"dia\" : \"2020/01/30\",\r\n        \"alimentacion\" : 500,\r\n        \"hospedaje\" : 600,\r\n        \"transportelocal\" : 600,\r\n        \"transporteforaneo\" : 600,\r\n        \"combustible\" : 800,\r\n        \"otros\" : 900\r\n}"
+						},
 						"url": {
-							"raw": ""
+							"raw": "http://localhost:9000/gasto",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"gasto"
+							]
 						}
 					},
 					"response": []
@@ -604,10 +487,38 @@
 				{
 					"name": "Modificar Gasto",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RpZ28iOjIxMDU0NTU0NCwidGlwb191c3VhcmlvIjoiUCIsImlhdCI6MTU4MDc4MDI4MiwiZXhwIjoxNTgwODY2NjgyfQ.flRmUHwjrBBggZma0aqgupUeFrrZZqvebbZJJS6Fm3Y",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"id\" : 1,\r\n        \"idViatico\": 1,\r\n        \"dia\" : \"2020/02/02\",\r\n        \"alimentacion\" : 700,\r\n        \"hospedaje\" : 900,\r\n        \"transportelocal\" : 900,\r\n        \"transporteforaneo\" : 900,\r\n        \"combustible\" : 500,\r\n        \"otros\" : 1100\r\n}"
+						},
 						"url": {
-							"raw": ""
+							"raw": "http://localhost:9000/gasto",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"gasto"
+							]
 						}
 					},
 					"response": []
@@ -615,10 +526,35 @@
 				{
 					"name": "Ver gasto",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RpZ28iOjIxMDU0NTU0NCwidGlwb191c3VhcmlvIjoiUCIsImlhdCI6MTU4MDc4MDI4MiwiZXhwIjoxNTgwODY2NjgyfQ.flRmUHwjrBBggZma0aqgupUeFrrZZqvebbZJJS6Fm3Y",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
 						"url": {
-							"raw": ""
+							"raw": "http://localhost:9000/gasto/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"gasto",
+								"1"
+							]
 						}
 					},
 					"response": []
@@ -626,27 +562,39 @@
 				{
 					"name": "Borrar gasto",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RpZ28iOjIxMDU0NTU0NCwidGlwb191c3VhcmlvIjoiUCIsImlhdCI6MTU4MDc4MDI4MiwiZXhwIjoxNTgwODY2NjgyfQ.flRmUHwjrBBggZma0aqgupUeFrrZZqvebbZJJS6Fm3Y",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\": 2,\n\t\"idV\": 1\n}"
+						},
 						"url": {
-							"raw": ""
-						}
-					},
-					"response": []
-				}
-			],
-			"protocolProfileBehavior": {}
-		},
-		{
-			"name": "Aceptar solicitud comision",
-			"item": [
-				{
-					"name": "Aceptar comision",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"url": {
-							"raw": ""
+							"raw": "http://localhost:9000/gasto/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"gasto",
+								""
+							]
 						}
 					},
 					"response": []
@@ -660,27 +608,39 @@
 				{
 					"name": "Revisar comision",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RpZ28iOjIxMTY5Mzc2LCJ0aXBvX3VzdWFyaW8iOiJKIiwiaWF0IjoxNTgwNzkzNDgzLCJleHAiOjE1ODA4Nzk4ODN9.avctuovvO8jh33lfcCbEy5rgSfQXoKaPz2flPh6Zw78",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n         \r\n      \"id\": 8,\r\n      \"status\": 5,\r\n      \"comentario_rechazo\": \"\"\r\n}"
+						},
 						"url": {
-							"raw": ""
-						}
-					},
-					"response": []
-				}
-			],
-			"protocolProfileBehavior": {}
-		},
-		{
-			"name": "Rechazar solicitud comision",
-			"item": [
-				{
-					"name": "Rechazar Comision",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"url": {
-							"raw": ""
+							"raw": "http://localhost:9000/revisar_solicitud_comision/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"revisar_solicitud_comision",
+								""
+							]
 						}
 					},
 					"response": []
@@ -694,44 +654,38 @@
 				{
 					"name": "Revisar Viatico",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RpZ28iOjIxMTY5Mzc2LCJ0aXBvX3VzdWFyaW8iOiJKIiwiaWF0IjoxNTgwNzkzNDgzLCJleHAiOjE1ODA4Nzk4ODN9.avctuovvO8jh33lfcCbEy5rgSfQXoKaPz2flPh6Zw78",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"id\" : 1,\r\n        \"comentario_rechazo\" : \"\",\r\n        \"status\" : 5\r\n}"
+						},
 						"url": {
-							"raw": ""
-						}
-					},
-					"response": []
-				}
-			],
-			"protocolProfileBehavior": {}
-		},
-		{
-			"name": "Aceptar solicitud viatico",
-			"item": [
-				{
-					"name": "Aceptar Viatico",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"url": {
-							"raw": ""
-						}
-					},
-					"response": []
-				}
-			],
-			"protocolProfileBehavior": {}
-		},
-		{
-			"name": "Rechazar solicitud viatico",
-			"item": [
-				{
-					"name": "Rechazar Viatico",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"url": {
-							"raw": ""
+							"raw": "http://localhost:9000/revisar_solicitud_viatico",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"revisar_solicitud_viatico"
+							]
 						}
 					},
 					"response": []
@@ -746,9 +700,33 @@
 					"name": "Crear Viatico Proyecto",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"numero_proyecto\": \"1\",\r\n    \"cantidad\": \"10.5\",\r\n    \"id_solicitud_viatico\": \"1\",\r\n    \"status\": \"0\"\r\n}"
+						},
 						"url": {
-							"raw": ""
+							"raw": "http://localhost:9000/viatico_proyecto",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"viatico_proyecto"
+							]
 						}
 					},
 					"response": []
@@ -756,10 +734,38 @@
 				{
 					"name": "Modificar Viatico Proyecto",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RpZ28iOjIxMTY5Mzc2LCJ0aXBvX3VzdWFyaW8iOiJKIiwiaWF0IjoxNTgwNzkzNDgzLCJleHAiOjE1ODA4Nzk4ODN9.avctuovvO8jh33lfcCbEy5rgSfQXoKaPz2flPh6Zw78",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"id_solicitud_viatico\": \"1\",\r\n        \"numero_proyecto\": \"1\",\r\n        \"cantidad\": \"20.50\",\r\n        \"status\": \"0\"\r\n}"
+						},
 						"url": {
-							"raw": ""
+							"raw": "http://localhost:9000/viatico_proyecto",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"viatico_proyecto"
+							]
 						}
 					},
 					"response": []
@@ -767,10 +773,87 @@
 				{
 					"name": "Ver Viatico Proyecto",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RpZ28iOjIxMTY5Mzc2LCJ0aXBvX3VzdWFyaW8iOiJKIiwiaWF0IjoxNTgwNzkzNDgzLCJleHAiOjE1ODA4Nzk4ODN9.avctuovvO8jh33lfcCbEy5rgSfQXoKaPz2flPh6Zw78",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RpZ28iOjIxMTcwNzI2MiwidGlwb191c3VhcmlvIjoiRiIsImlhdCI6MTU4MDc2MDU4OCwiZXhwIjoxNTgwODQ2OTg4fQ.UEjHZMu5f2eSsATpMK_yYcQSg2s507_-FJbMBUitfqU",
+								"type": "text",
+								"disabled": true
+							}
+						],
 						"url": {
-							"raw": ""
+							"raw": "http://localhost:9000/viatico_proyecto/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"viatico_proyecto",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Asignar Recursos",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RpZ28iOjIxMTY5Mzc2LCJ0aXBvX3VzdWFyaW8iOiJKIiwiaWF0IjoxNTgwNzkzNDgzLCJleHAiOjE1ODA4Nzk4ODN9.avctuovvO8jh33lfcCbEy5rgSfQXoKaPz2flPh6Zw78",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RpZ28iOjIxMTcwNzI3MiwidGlwb191c3VhcmlvIjoiRiIsImlhdCI6MTU4MDQzMjQ1NiwiZXhwIjoxNTgwNTE4ODU2fQ.xVjFybc8Q751h9p1oFcjQ7jmSqWwDJatPmmTMGem0Qo",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\": 1\n}"
+						},
+						"url": {
+							"raw": "http://localhost:9000/asignar_recursos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"asignar_recursos"
+							]
 						}
 					},
 					"response": []
@@ -818,10 +901,38 @@
 				{
 					"name": "Crear informe",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RpZ28iOjIxMTY5Mzc2LCJ0aXBvX3VzdWFyaW8iOiJKIiwiaWF0IjoxNTgwNzkzNDgzLCJleHAiOjE1ODA4Nzk4ODN9.avctuovvO8jh33lfcCbEy5rgSfQXoKaPz2flPh6Zw78",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"id_solicitud_comison\": 16,\r\n        \"resultados\": \"kdkdniqievna\",\r\n        \"observaciones\": \"kdkdkkddkkdkdkd\"\r\n}"
+						},
 						"url": {
-							"raw": ""
+							"raw": "http://localhost:9000/informe_actividades",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"informe_actividades"
+							]
 						}
 					},
 					"response": []
@@ -840,10 +951,35 @@
 				{
 					"name": "Ver informe",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RpZ28iOjIxMTY5Mzc2LCJ0aXBvX3VzdWFyaW8iOiJKIiwiaWF0IjoxNTgwNzkzNDgzLCJleHAiOjE1ODA4Nzk4ODN9.avctuovvO8jh33lfcCbEy5rgSfQXoKaPz2flPh6Zw78",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
 						"url": {
-							"raw": ""
+							"raw": "http://localhost:9000/informe_actividades/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"informe_actividades",
+								"2"
+							]
 						}
 					},
 					"response": []
@@ -857,10 +993,44 @@
 				{
 					"name": "Crear Intinerario",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RpZ28iOjIxMTY5Mzc2LCJ0aXBvX3VzdWFyaW8iOiJKIiwiaWF0IjoxNTgwNzkzNDgzLCJleHAiOjE1ODA4Nzk4ODN9.avctuovvO8jh33lfcCbEy5rgSfQXoKaPz2flPh6Zw78",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RpZ28iOjIxMTcwNzI2MywidGlwb191c3VhcmlvIjoiUCIsImlhdCI6MTU4MDQ0Mzk0OSwiZXhwIjoxNTgwNTMwMzQ5fQ.LQyY0hxCZprgcdHyv8ilbMuKi8BAFOfjmzBpFdsH7q0",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"dia\": \"2020-08-08\",\n\t\"origen\": \"Oaxaca\",\n\t\"destino\": \"Tijuana\",\n\t\"id_informe_actividades\": 1\n}"
+						},
 						"url": {
-							"raw": ""
+							"raw": "http://localhost:9000/itinerario",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"itinerario"
+							]
 						}
 					},
 					"response": []
@@ -868,21 +1038,93 @@
 				{
 					"name": "Modificar Itinerario",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RpZ28iOjIxMTY5Mzc2LCJ0aXBvX3VzdWFyaW8iOiJKIiwiaWF0IjoxNTgwNzkzNDgzLCJleHAiOjE1ODA4Nzk4ODN9.avctuovvO8jh33lfcCbEy5rgSfQXoKaPz2flPh6Zw78",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RpZ28iOjIxMTcwNzI2MywidGlwb191c3VhcmlvIjoiUCIsImlhdCI6MTU4MDQ0Mzk0OSwiZXhwIjoxNTgwNTMwMzQ5fQ.LQyY0hxCZprgcdHyv8ilbMuKi8BAFOfjmzBpFdsH7q0",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\": 1, \n\t\"dia\": \"2020-08-08\", \n\t\"origen\": \"Guadalajara\", \n\t\"destino\": \"California\"\n}\n"
+						},
 						"url": {
-							"raw": ""
+							"raw": "http://localhost:9000/itinerario",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"itinerario"
+							]
 						}
 					},
 					"response": []
 				},
 				{
 					"name": "Ver Itinerario",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RpZ28iOjIxMTY5Mzc2LCJ0aXBvX3VzdWFyaW8iOiJKIiwiaWF0IjoxNTgwNzkzNDgzLCJleHAiOjE1ODA4Nzk4ODN9.avctuovvO8jh33lfcCbEy5rgSfQXoKaPz2flPh6Zw78",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RpZ28iOjIxMTcwNzI2MywidGlwb191c3VhcmlvIjoiUCIsImlhdCI6MTU4MDQ0Mzk0OSwiZXhwIjoxNTgwNTMwMzQ5fQ.LQyY0hxCZprgcdHyv8ilbMuKi8BAFOfjmzBpFdsH7q0",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
 						"url": {
-							"raw": ""
+							"raw": "http://localhost:9000/itinerario/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"itinerario",
+								"1"
+							]
 						}
 					},
 					"response": []
@@ -890,10 +1132,44 @@
 				{
 					"name": "Eliminar Itinerario",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RpZ28iOjIxMTY5Mzc2LCJ0aXBvX3VzdWFyaW8iOiJKIiwiaWF0IjoxNTgwNzkzNDgzLCJleHAiOjE1ODA4Nzk4ODN9.avctuovvO8jh33lfcCbEy5rgSfQXoKaPz2flPh6Zw78",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RpZ28iOjIxMTcwNzI2MywidGlwb191c3VhcmlvIjoiUCIsImlhdCI6MTU4MDQ0Mzk0OSwiZXhwIjoxNTgwNTMwMzQ5fQ.LQyY0hxCZprgcdHyv8ilbMuKi8BAFOfjmzBpFdsH7q0",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\": 1,\n\t\"id_informe_actividades\": 1\n}"
+						},
 						"url": {
-							"raw": ""
+							"raw": "http://localhost:9000/itinerario",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"itinerario"
+							]
 						}
 					},
 					"response": []
@@ -907,10 +1183,44 @@
 				{
 					"name": "Crear Agenda",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RpZ28iOjIxMTY5Mzc2LCJ0aXBvX3VzdWFyaW8iOiJKIiwiaWF0IjoxNTgwNzkzNDgzLCJleHAiOjE1ODA4Nzk4ODN9.avctuovvO8jh33lfcCbEy5rgSfQXoKaPz2flPh6Zw78",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RpZ28iOjIxMTcwNzI2MywidGlwb191c3VhcmlvIjoiUCIsImlhdCI6MTU4MDQ0Mzk0OSwiZXhwIjoxNTgwNTMwMzQ5fQ.LQyY0hxCZprgcdHyv8ilbMuKi8BAFOfjmzBpFdsH7q0",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"dia\":\"2020-08-08\",\n\t\"hora_inicio\":\"23:45:000\",\n\t\"hora_fin\":\"23:59:000\",\n\t\"actividad\":\"Ver Tele\",\n\t\"id_informe_actividades\": 1\n}"
+						},
 						"url": {
-							"raw": ""
+							"raw": "http://localhost:9000/agenda",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"agenda"
+							]
 						}
 					},
 					"response": []
@@ -918,10 +1228,44 @@
 				{
 					"name": "Modificar Agenda",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RpZ28iOjIxMTY5Mzc2LCJ0aXBvX3VzdWFyaW8iOiJKIiwiaWF0IjoxNTgwNzkzNDgzLCJleHAiOjE1ODA4Nzk4ODN9.avctuovvO8jh33lfcCbEy5rgSfQXoKaPz2flPh6Zw78",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RpZ28iOjIxMTcwNzI2MywidGlwb191c3VhcmlvIjoiUCIsImlhdCI6MTU4MDQ0Mzk0OSwiZXhwIjoxNTgwNTMwMzQ5fQ.LQyY0hxCZprgcdHyv8ilbMuKi8BAFOfjmzBpFdsH7q0",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"id\": \"1\",\r\n    \"dia\":\"2020-08-08\",\r\n    \"hora_inicio\":\"23:45:000\",\r\n    \"hora_fin\":\"23:59:000\",\r\n    \"actividad\":\"Visitar Congreso\"\r\n}"
+						},
 						"url": {
-							"raw": ""
+							"raw": "http://localhost:9000/agenda",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"agenda"
+							]
 						}
 					},
 					"response": []
@@ -929,10 +1273,41 @@
 				{
 					"name": "Ver Agenda",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RpZ28iOjIxMTY5Mzc2LCJ0aXBvX3VzdWFyaW8iOiJKIiwiaWF0IjoxNTgwNzkzNDgzLCJleHAiOjE1ODA4Nzk4ODN9.avctuovvO8jh33lfcCbEy5rgSfQXoKaPz2flPh6Zw78",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RpZ28iOjIxMTcwNzI2MywidGlwb191c3VhcmlvIjoiUCIsImlhdCI6MTU4MDQ0Mzk0OSwiZXhwIjoxNTgwNTMwMzQ5fQ.LQyY0hxCZprgcdHyv8ilbMuKi8BAFOfjmzBpFdsH7q0",
+								"type": "text",
+								"disabled": true
+							}
+						],
 						"url": {
-							"raw": ""
+							"raw": "http://localhost:9000/agenda/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"agenda",
+								"1"
+							]
 						}
 					},
 					"response": []
@@ -940,10 +1315,145 @@
 				{
 					"name": "Eliminar Agenda",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RpZ28iOjIxMTY5Mzc2LCJ0aXBvX3VzdWFyaW8iOiJKIiwiaWF0IjoxNTgwNzkzNDgzLCJleHAiOjE1ODA4Nzk4ODN9.avctuovvO8jh33lfcCbEy5rgSfQXoKaPz2flPh6Zw78",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RpZ28iOjIxMTcwNzI2MywidGlwb191c3VhcmlvIjoiUCIsImlhdCI6MTU4MDQ0Mzk0OSwiZXhwIjoxNTgwNTMwMzQ5fQ.LQyY0hxCZprgcdHyv8ilbMuKi8BAFOfjmzBpFdsH7q0",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\": 1,\n\t\"id_informe_actividades\": 1\n}"
+						},
 						"url": {
-							"raw": ""
+							"raw": "http://localhost:9000/agenda",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"agenda"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Terminar comision",
+			"item": [
+				{
+					"name": "Terminar comision",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RpZ28iOjIxMTY5Mzc2LCJ0aXBvX3VzdWFyaW8iOiJKIiwiaWF0IjoxNTgwNzkzNDgzLCJleHAiOjE1ODA4Nzk4ODN9.avctuovvO8jh33lfcCbEy5rgSfQXoKaPz2flPh6Zw78",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RpZ28iOjIxMTcwNzI2MiwidGlwb191c3VhcmlvIjoiRiIsImlhdCI6MTU4MDYxOTgyNCwiZXhwIjoxNTgwNzA2MjI0fQ.XgwnBhHKjMUgHxfc4HaA9hZTsd_40cMP6z7LHWQBsQM",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\": 2\n}"
+						},
+						"url": {
+							"raw": "http://localhost:9000/terminar_comision",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"terminar_comision"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Destino",
+			"item": [
+				{
+					"name": "Ver destino",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RpZ28iOjIxMTY5Mzc2LCJ0aXBvX3VzdWFyaW8iOiJKIiwiaWF0IjoxNTgwNzkzNDgzLCJleHAiOjE1ODA4Nzk4ODN9.avctuovvO8jh33lfcCbEy5rgSfQXoKaPz2flPh6Zw78",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RpZ28iOjIxMTcwNzI2MiwidGlwb191c3VhcmlvIjoiRiIsImlhdCI6MTU4MDYyMjMzNiwiZXhwIjoxNTgwNzA4NzM2fQ.T-bTIHuKEG1AcxXnB0LsbRGGCID4Aw9xhcfygeTkHj8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"tipo_comision\": 1\n}\n"
+						},
+						"url": {
+							"raw": "http://localhost:9000/ver_destino",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"ver_destino"
+							]
 						}
 					},
 					"response": []
@@ -957,10 +1467,44 @@
 				{
 					"name": "Crear Factura",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RpZ28iOjIxMTY5Mzc2LCJ0aXBvX3VzdWFyaW8iOiJKIiwiaWF0IjoxNTgwNzkzNDgzLCJleHAiOjE1ODA4Nzk4ODN9.avctuovvO8jh33lfcCbEy5rgSfQXoKaPz2flPh6Zw78",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RpZ28iOjIxMTcwNzI2MiwidGlwb191c3VhcmlvIjoiQSIsImlhdCI6MTU4MDUxMzI2MSwiZXhwIjoxNTgwNTk5NjYxfQ.LJRffSBjR_8Y83YgL-8rUFxJuLV2Zqs2uqMMES4H3JA",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"archivo_url\":\"URL\",\n\t\"id_informe_actividades\": 1\n}"
+						},
 						"url": {
-							"raw": ""
+							"raw": "http://localhost:9000/factura",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"factura"
+							]
 						}
 					},
 					"response": []
@@ -968,21 +1512,92 @@
 				{
 					"name": "Modificar Factura ",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RpZ28iOjIxMTY5Mzc2LCJ0aXBvX3VzdWFyaW8iOiJKIiwiaWF0IjoxNTgwNzkzNDgzLCJleHAiOjE1ODA4Nzk4ODN9.avctuovvO8jh33lfcCbEy5rgSfQXoKaPz2flPh6Zw78",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RpZ28iOjIxMTcwNzI2MiwidGlwb191c3VhcmlvIjoiQSIsImlhdCI6MTU4MDYxNzQ0MCwiZXhwIjoxNTgwNzAzODQwfQ.KuOaIb1G_mMZhrEBx0A0PugfgHgVKS2CjGNhhlUhHvk",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\": 2,\n\t\"archivo_url\":\"URL\",\n\t\"id_informe_actividades\": 1\n}"
+						},
 						"url": {
-							"raw": ""
+							"raw": "http://localhost:9000/factura",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"factura"
+							]
 						}
 					},
 					"response": []
 				},
 				{
 					"name": "Ver Factura",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RpZ28iOjIxMTY5Mzc2LCJ0aXBvX3VzdWFyaW8iOiJKIiwiaWF0IjoxNTgwNzkzNDgzLCJleHAiOjE1ODA4Nzk4ODN9.avctuovvO8jh33lfcCbEy5rgSfQXoKaPz2flPh6Zw78",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RpZ28iOjIxMTcwNzI2MiwidGlwb191c3VhcmlvIjoiQSIsImlhdCI6MTU4MDYxNzQ0MCwiZXhwIjoxNTgwNzAzODQwfQ.KuOaIb1G_mMZhrEBx0A0PugfgHgVKS2CjGNhhlUhHvk",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id_informe_actividades\": 1\n}"
+						},
 						"url": {
-							"raw": ""
+							"raw": "http://localhost:9000/factura1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"factura1"
+							]
 						}
 					},
 					"response": []
@@ -991,43 +1606,531 @@
 			"protocolProfileBehavior": {}
 		},
 		{
-			"name": "Terminar comision",
+			"name": "usuario",
 			"item": [
 				{
-					"name": "Terminar  omision",
+					"name": "Crear usuario",
 					"request": {
-						"method": "PUT",
-						"header": [],
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"codigo\": \"780567234\",\n    \"nombres\": \"Alejandro \",\n    \"apellidos\": \"gonzalez\",\n    \"nip\": \"123\",\n    \"area_adscripcion\": \"ELECtronica\",\n    \"plaza_laboral\": \"Maestro\",\n    \"numero_social\": \"1234\",\n    \"tipo_usuario\": \"P\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": ""
-						}
-					},
-					"response": []
-				}
-			],
-			"protocolProfileBehavior": {}
-		},
-		{
-			"name": "Destino",
-			"item": [
-				{
-					"name": "Ver pais",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": ""
+							"raw": "http://localhost:9000/usuario",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"usuario"
+							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Ver municipios",
+					"name": "Perfil",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RpZ28iOjIxMTY5Mzc2LCJ0aXBvX3VzdWFyaW8iOiJKIiwiaWF0IjoxNTgwNzkzNDgzLCJleHAiOjE1ODA4Nzk4ODN9.avctuovvO8jh33lfcCbEy5rgSfQXoKaPz2flPh6Zw78",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
-						"header": [],
-						"url": {
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "access-token",
+								"value": "",
+								"description": "token creado al logearte",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
 							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:9000/usuario/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"usuario",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modificar datos",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RpZ28iOjIxMDU0NTU0NCwidGlwb191c3VhcmlvIjoiUCIsImlhdCI6MTU4MDUwNzg1NSwiZXhwIjoxNTgwNTk0MjU1fQ.x41V0lFifma2ILQYe3hdHor2KSLTn8pSMEkcVTHNPMo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"nombres\": \"Monserrat Elizabeth\",\n    \"apellidos\": \"Guerrero Garcia\",\n    \"area_adscripcion\": \"Quimica\",\n    \"plaza_laboral\": \"Estudiante\",\n    \"numero_social\": \"8837020188839\"\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9000/usuario",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"usuario"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Comision",
+			"item": [
+				{
+					"name": "Ver solicitud",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RpZ28iOjIxMDU0NTU0NCwidGlwb191c3VhcmlvIjoiUCIsImlhdCI6MTU4MDc4MDI4MiwiZXhwIjoxNTgwODY2NjgyfQ.flRmUHwjrBBggZma0aqgupUeFrrZZqvebbZJJS6Fm3Y",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							},
+							{
+								"key": "access-token",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "http://localhost:9000/solicitud_comision/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"solicitud_comision",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Revisar solicitud",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "acces-token",
+								"type": "text",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t \"codigo\":211707262,\r\n      \"id\": 9,\r\n      \"status\": 5,\r\n      \"comentario_rechazo\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9000/revisar_solicitud_comision/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"revisar_solicitud_comision",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Solicitud",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RpZ28iOjIxMTY5Mzc2LCJ0aXBvX3VzdWFyaW8iOiJKIiwiaWF0IjoxNTgwNzk3MTAxLCJleHAiOjE1ODA4ODM1MDF9.A6Gr1U1gUQNcP7tGlZXgu0SeIc5MGKM6t10xDhyVbVw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "BeareeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RpZ28iOjIxMDU0NTU0NCwidGlwb191c3VhcmlvIjoiUCIsImlhdCI6MTU4MDQzMTMxMSwiZXhwIjoxNTgwNTE3NzExfQ.MCNrQGpJLnMboBaG0KPNNivP6AD7CmNyWKcBRKTFFT0",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n{\r\n      \"fecha_inicio\":\"2020-03-04\",\r\n      \"fecha_fin\":\"2020-03-07\",\r\n      \"tipo_comision\": 1,\r\n      \"id_destino\": 1,\r\n      \"nombre_comision\": \"Comic-Con Estambul 2019\",\r\n      \"objetivo_trabajo\": \"Aprender cosas y traer regalos.\",\r\n      \"justificacion\": \"Quiero ir a una conferencia.\",\r\n      \"status\": 0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9000/solicitud_comision/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"solicitud_comision",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ver todas las solicitudes",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RpZ28iOjIxMDU0NTU0NCwidGlwb191c3VhcmlvIjoiUCIsImlhdCI6MTU4MDQzMjg2OCwiZXhwIjoxNTgwNTE5MjY4fQ.WiyqJqHYhFKOsCrBUJNDkwRITQay6DcNv1VNgudrm_g",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "access-token",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://localhost:9000/solicitud_comision",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"solicitud_comision"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "modificarComision",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RpZ28iOjIxMDU0NTU0NCwidGlwb191c3VhcmlvIjoiUCIsImlhdCI6MTU4MDQzMjg2OCwiZXhwIjoxNTgwNTE5MjY4fQ.WiyqJqHYhFKOsCrBUJNDkwRITQay6DcNv1VNgudrm_g",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t  \"id\": 13,\r\n      \"fecha_inicio\":\"2020-04-04\",\r\n      \"fecha_fin\":\"2020-04-07\",\r\n      \"tipo_comision\": 0,\r\n      \"id_destino\": 1,\r\n      \"nombre_comision\": \" Madrid 2020\",\r\n      \"objetivo_trabajo\": \"Aprender cosas.\",\r\n      \"justificacion\": \"Quiero ir a una .\",\r\n      \"status\": 0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9000/solicitud_comision/?",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"solicitud_comision",
+								""
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "solictudes pendientes de revision",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RpZ28iOjIxMTY5Mzc2LCJ0aXBvX3VzdWFyaW8iOiJKIiwiaWF0IjoxNTgwNDQ1NDAxLCJleHAiOjE1ODA1MzE4MDF9.9fZat35kC4S-UxX-Hn1ANjHt8KLsMy8fx5zzKw1rJ-c",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9000/revisar_solicitud_comision/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"revisar_solicitud_comision",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Subir invitacion",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RpZ28iOjIxMDU0NTU0NCwidGlwb191c3VhcmlvIjoiUCIsImlhdCI6MTU4MDc4MDI4MiwiZXhwIjoxNTgwODY2NjgyfQ.flRmUHwjrBBggZma0aqgupUeFrrZZqvebbZJJS6Fm3Y",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "archivo",
+									"type": "file",
+									"src": "/C:/Users/jairo/Downloads/monse.js"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:9000/solicitud_comision/subir/invitacion",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"solicitud_comision",
+								"subir",
+								"invitacion"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Subir programa",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RpZ28iOjIxMDU0NTU0NCwidGlwb191c3VhcmlvIjoiUCIsImlhdCI6MTU4MDc4MDI4MiwiZXhwIjoxNTgwODY2NjgyfQ.flRmUHwjrBBggZma0aqgupUeFrrZZqvebbZJJS6Fm3Y",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "archivo",
+									"type": "file",
+									"src": "/C:/Users/jairo/Downloads/monse.js"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:9000/solicitud_comision/subir/programa",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"solicitud_comision",
+								"subir",
+								"programa"
+							]
 						}
 					},
 					"response": []

@@ -69,34 +69,67 @@ export class AuthService {
     ).toPromise();
   }
 
+  async getComision(id_comision: any){
+    return await this.http.get(`${this.API_URL}/solicitud_comision/${id_comision}`).pipe(
+      map(response => {
+        if(response['ok']){
+          console.log(response);
+          return response['body'];
+        }else{
+          return response['ok'];
+        }
+      })
+    ).toPromise();
+  }
+
   async createComision(comision: { 
-    name: Number,
-    programa: string,
-    evento: string,
-    objetivo_trabajo: string,
     tipo_comision: Number,
     destino_com: Number,
+    name: string,
+    evento: string,
+    objetivo_trabajo: string,
+    justificacion: string,
     fecha_inicio: string,
     fecha_fin: string,
-    justificacion: string,
-    invitacion_evento: any,
-    programa_evento: any,
   }) {
     return await this.http.post(`${this.API_URL}/solicitud_comision`,{
-      fecha_inicio: comision.fecha_inicio,
-      fecha_fin: comision.fecha_fin,
       tipo_comision: comision.tipo_comision,
-      id_destino: comision.destino_com,
-      nombre_comision: comision.name,
-      objetivo_trabajo: comision.fecha_fin,
-      justificacion: comision.fecha_fin,
-      status: 1
+      destino_com: comision.destino_com,
+      name: comision.name,
+      evento: comision.evento,
+      objetivo_trabajo: comision.objetivo_trabajo,
+      justificacion: comision.justificacion,
+      fecha_inicio: comision.fecha_fin.split('T')[0],
+      fecha_fin: comision.fecha_fin.split('T')[0],
+      status: 0
     }).pipe(
       map(response => {
         if(response['ok']){
           return response['body'];
         }else{
-          return {ok: response['ok'],mensaje: response['mensaje']};
+          return response['ok'];
+        }
+      })
+    ).toPromise();
+  }
+
+  async createPrograma(programa: { 
+    dia: string,
+    lugar_estancia: string,
+    tareas_realizar: string,
+    id_comision: Number
+  }) {
+    return await this.http.post(`${this.API_URL}/solicitud_comision`,{
+      dia: programa.dia,
+      lugar_estancia: programa.lugar_estancia,
+      tareas_realizar: programa.tareas_realizar,
+      id_comision: programa.id_comision
+    }).pipe(
+      map(response => {
+        if(response['ok']){
+          return response['body'];
+        }else{
+          return response['ok'];
         }
       })
     ).toPromise();
@@ -185,4 +218,58 @@ export class AuthService {
     window.location.reload();
     this.nav.navigateRoot('/login', { animated: true });
   }
+
+  async saveViatico(viatico: { 
+    id_comision: Number,
+    invitado_nombre: string,
+    comentarios: string,
+    status: Number
+  }) {
+    return await this.http.post(`${this.API_URL}/solicitud_viatico`,{
+      id: viatico.id_comision,
+      invitado: viatico.invitado_nombre,
+      comentarios: viatico.comentarios,
+      estado: 0
+    }).pipe(
+      map(response => {
+        if(response['ok']){
+          return response['body'];
+        }else{
+          return {ok: response['ok'],mensaje: response['mensaje']};
+        }
+      })
+    ).toPromise();
+  }
+
+  async createGasto(gasto: { 
+    id_solicitud_viatico: Number,
+    dia: string,
+    alimentacion: Number,
+    hospedaje: Number,
+    transporteLocal: Number,
+    transporteForaneo: Number,
+    combustible: Number,
+    otros: Number
+  }) {
+    return await this.http.post(`${this.API_URL}/gasto`,{
+      id_solicitud_viatico: gasto.id_solicitud_viatico,
+      dia: gasto.dia,
+      alimentacion: gasto.alimentacion,
+      hospedaje: gasto.hospedaje,
+      transportelocal: gasto.transporteLocal,
+      transporteforaneo: gasto.transporteForaneo,
+      combustible: gasto.combustible,
+      otros: gasto.otros
+    }).pipe(
+      map(response => {
+        if(response['ok']){
+          return response['body'];
+        }else{
+          return {ok: response['ok'],mensaje: response['mensaje']};
+        }
+      })
+    ).toPromise();
+  }
 }
+
+

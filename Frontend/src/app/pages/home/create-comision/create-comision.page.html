@@ -27,22 +27,17 @@
       
         <ion-item>
           <ion-label position="fixed">Código</ion-label>
-          <ion-input placeholder="{{ this.perfil.codigo }}" type="text" disabled></ion-input>
+          <ion-label position="fixed">{{ this.perfil.codigo }}</ion-label>
         </ion-item>
 
         <ion-item>
           <ion-label position="fixed">Nombre(s)</ion-label>
-          <ion-input placeholder="Nombre(s)" type="text"></ion-input>
+          <ion-label position="fixed">{{ this.perfil.nombres }}</ion-label>
         </ion-item>
 
         <ion-item>
           <ion-label position="fixed">Apellidos</ion-label>
-          <ion-input placeholder="Apellidos" type="text"></ion-input>
-        </ion-item>
-
-        <ion-item>
-          <ion-label position="fixed">NIP</ion-label>
-          <ion-input placeholder="NIP" type="password"></ion-input>
+          <ion-label position="fixed">{{ this.perfil.apellidos }}</ion-label>
         </ion-item>
 
         <ion-card-header class="subtitle">
@@ -70,12 +65,7 @@
 
         <ion-item>
           <ion-label >Nombre de la comisión</ion-label>
-          <ion-input placeholder="Evento" type="text" formControlName="name"></ion-input>
-        </ion-item>
-
-        <ion-item>
-          <ion-label >Evento de la comisión</ion-label>
-          <ion-input placeholder="Evento" type="text" formControlName="evento"></ion-input>
+          <ion-input placeholder="Nombre" type="text" formControlName="name"></ion-input>
         </ion-item>
 
         <ion-item>
@@ -88,38 +78,19 @@
           <ion-input placeholder="Describa detalladamente porqué se solicita la comisión" size="400" type="text" formControlName="justificacion"></ion-input>
         </ion-item>
 
-        <ion-card-header class="subtitle">
-          <ion-card-title>Actividades y programa</ion-card-title>
-        </ion-card-header>
-
         <ion-item>
-          <ion-label >Programa de trabajo</ion-label>
-          <ion-input placeholder="Programa" type="text" formControlName="programa"></ion-input>
-        </ion-item>
-
-        <ion-item>
-          <ion-label position="floating">Fecha inicio de programa</ion-label>
+          <ion-label position="floating">Fecha inicio</ion-label>
           <ion-datetime displayFormat="MM/DD/YYYY" max="3000-12-09" value="{{myDate}}" formControlName="fecha_inicio"></ion-datetime>
         </ion-item>
-
+    
         <ion-item>
-          <ion-label position="floating">Fecha fin de programa</ion-label>
+          <ion-label position="floating">Fecha fin</ion-label>
           <ion-datetime displayFormat="MM/DD/YYYY" max="3000-12-09" value="{{myDate}}" formControlName="fecha_fin"></ion-datetime>
         </ion-item>
 
-        <ion-item>
-          <ion-label>Invitacion al evento</ion-label>
-          <ion-input placeholder="Programa" type="file" formControlName="invitacion_evento"></ion-input>
-        </ion-item>
-
-        <ion-item>
-          <ion-label>Programa de el evento</ion-label>
-          <ion-input placeholder="Programa" type="file" formControlName="programa_evento"></ion-input>
-        </ion-item>
-
-        <ion-button type="submit" color="light" [disabled]="this.fgCreate.invalid">Enviar solicitud</ion-button>
-        <ion-button (click)="saveSol()">Guardar solicitud</ion-button>
+        <ion-button type="submit" color="light" [disabled]="this.fgCreate.invalid">Guardar solicitud</ion-button>
         <ion-button routerLink="/home" >Regresar</ion-button>
+        <ion-button (click)="openModal()" >Programa</ion-button>
 
       </form>
     </div>

@@ -4,21 +4,17 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ViaticoPageRoutingModule } from './viatico-routing.module';
+import { ComisionActivaPageRoutingModule } from './comision-activa-routing.module';
 
-import { ViaticoPage } from './viatico.page';
+import { ComisionActivaPage } from './comision-activa.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ReactiveFormsModule,
-    ViaticoPageRoutingModule
+    ComisionActivaPageRoutingModule
   ],
-  exports:[
-    ViaticoPage
-  ],
-  declarations: [ViaticoPage]
+  declarations: [ComisionActivaPage]
 })
-export class ViaticoPageModule {}
+export class ComisionActivaPageModule {}

@@ -1,62 +1,86 @@
--- phpMyAdmin SQL Dump
--- version 4.8.3
--- https://www.phpmyadmin.net/
+CREATE DATABASE  IF NOT EXISTS `viaticos` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `viaticos`;
+-- MySQL dump 10.13  Distrib 8.0.19, for Win64 (x86_64)
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 31-01-2020 a las 22:27:36
--- Versión del servidor: 10.1.36-MariaDB
--- Versión de PHP: 7.2.11
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
-SET time_zone = "+00:00";
-
+-- Host: localhost    Database: viaticos
+-- ------------------------------------------------------
+-- Server version	8.0.19
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!50503 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Base de datos: `viaticos`
+-- Table structure for table `agenda`
 --
 
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `agenda`
---
-
+DROP TABLE IF EXISTS `agenda`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `agenda` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
   `dia` date DEFAULT NULL,
   `hora_inicio` time(3) DEFAULT NULL,
   `hora_fin` time(3) DEFAULT NULL,
   `actividad` tinytext,
-  `id_informe_actividades` int(11) NOT NULL
+  `id_informe_actividades` int NOT NULL,
+  PRIMARY KEY (`id`,`id_informe_actividades`),
+  KEY `fk_agenda_informe_actividades1_idx` (`id_informe_actividades`),
+  CONSTRAINT `fk_agenda_informe_actividades1` FOREIGN KEY (`id_informe_actividades`) REFERENCES `informe_actividades` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Estructura de tabla para la tabla `factura`
+-- Dumping data for table `agenda`
 --
 
+LOCK TABLES `agenda` WRITE;
+/*!40000 ALTER TABLE `agenda` DISABLE KEYS */;
+/*!40000 ALTER TABLE `agenda` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `factura`
+--
+
+DROP TABLE IF EXISTS `factura`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `factura` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
   `archivo_url` varchar(45) DEFAULT NULL,
-  `id_informe_actividades` int(11) NOT NULL
+  `id_informe_actividades` int NOT NULL,
+  PRIMARY KEY (`id`,`id_informe_actividades`),
+  KEY `fk_factura_informe_actividades1_idx` (`id_informe_actividades`),
+  CONSTRAINT `fk_factura_informe_actividades1` FOREIGN KEY (`id_informe_actividades`) REFERENCES `informe_actividades` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Estructura de tabla para la tabla `gasto`
+-- Dumping data for table `factura`
 --
 
+LOCK TABLES `factura` WRITE;
+/*!40000 ALTER TABLE `factura` DISABLE KEYS */;
+/*!40000 ALTER TABLE `factura` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `gasto`
+--
+
+DROP TABLE IF EXISTS `gasto`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `gasto` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
   `dia` date DEFAULT NULL,
   `alimentacion` decimal(10,2) DEFAULT NULL,
   `hospedaje` decimal(10,2) DEFAULT NULL,
@@ -64,117 +88,180 @@ CREATE TABLE `gasto` (
   `transporte_local` decimal(10,2) DEFAULT NULL,
   `combustible` decimal(10,2) DEFAULT NULL,
   `otros_conceptos` decimal(10,2) DEFAULT NULL,
-  `id_solicitud_viatico` int(11) NOT NULL
+  `id_solicitud_viatico` int NOT NULL,
+  PRIMARY KEY (`id`,`id_solicitud_viatico`),
+  KEY `fk_gastos_solicitud_viatico1_idx` (`id_solicitud_viatico`),
+  CONSTRAINT `fk_gastos_solicitud_viatico1` FOREIGN KEY (`id_solicitud_viatico`) REFERENCES `solicitud_viatico` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Estructura de tabla para la tabla `informe_actividades`
+-- Dumping data for table `gasto`
 --
 
+LOCK TABLES `gasto` WRITE;
+/*!40000 ALTER TABLE `gasto` DISABLE KEYS */;
+/*!40000 ALTER TABLE `gasto` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `informe_actividades`
+--
+
+DROP TABLE IF EXISTS `informe_actividades`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `informe_actividades` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
   `resultados` text,
   `observaciones` tinytext,
   `fecha_elaboracion` datetime DEFAULT NULL,
   `fecha_aprobacion` datetime DEFAULT NULL,
   `nombre_aprobacion` varchar(45) DEFAULT NULL,
-  `id_usuario` int(11) NOT NULL,
-  `id_solicitud_comision` int(11) NOT NULL
+  `id_usuario` int NOT NULL,
+  `id_solicitud_comision` int NOT NULL,
+  PRIMARY KEY (`id`,`id_usuario`,`id_solicitud_comision`),
+  KEY `fk_informe_actividades_usuario1_idx` (`id_usuario`),
+  KEY `fk_informe_actividades_solicitud_comision1_idx` (`id_solicitud_comision`),
+  CONSTRAINT `fk_informe_actividades_solicitud_comision1` FOREIGN KEY (`id_solicitud_comision`) REFERENCES `solicitud_comision` (`id`),
+  CONSTRAINT `fk_informe_actividades_usuario1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`codigo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Estructura de tabla para la tabla `itinerario`
+-- Dumping data for table `informe_actividades`
 --
 
+LOCK TABLES `informe_actividades` WRITE;
+/*!40000 ALTER TABLE `informe_actividades` DISABLE KEYS */;
+/*!40000 ALTER TABLE `informe_actividades` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `itinerario`
+--
+
+DROP TABLE IF EXISTS `itinerario`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `itinerario` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
   `dia` datetime DEFAULT NULL,
   `origen` varchar(45) DEFAULT NULL,
   `destino` varchar(45) DEFAULT NULL,
-  `id_informe_actividades` int(11) NOT NULL
+  `id_informe_actividades` int NOT NULL,
+  PRIMARY KEY (`id`,`id_informe_actividades`),
+  KEY `fk_itinerario_informe_actividades1_idx` (`id_informe_actividades`),
+  CONSTRAINT `fk_itinerario_informe_actividades1` FOREIGN KEY (`id_informe_actividades`) REFERENCES `informe_actividades` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Estructura de tabla para la tabla `municipio`
+-- Dumping data for table `itinerario`
 --
 
+LOCK TABLES `itinerario` WRITE;
+/*!40000 ALTER TABLE `itinerario` DISABLE KEYS */;
+/*!40000 ALTER TABLE `itinerario` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `municipio`
+--
+
+DROP TABLE IF EXISTS `municipio`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `municipio` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) DEFAULT NULL,
-  `zona` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `zona` int DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2464 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Volcado de datos para la tabla `municipio`
+-- Dumping data for table `municipio`
 --
 
-INSERT INTO `municipio` (`id`, `nombre`, `zona`) VALUES
-(1, 'zapopan', 2);
-
--- --------------------------------------------------------
+LOCK TABLES `municipio` WRITE;
+/*!40000 ALTER TABLE `municipio` DISABLE KEYS */;
+INSERT INTO `municipio` VALUES (1,'Aguascalientes',2),(2,'Asientos',2),(3,'Calvillo',2),(4,'Cosío',2),(5,'Jesús María',2),(6,'Pabellón de Arteaga',2),(7,'Rincón de Romos',2),(8,'San José de Gracia',2),(9,'Tepezalá',2),(10,'El Llano',2),(11,'San Francisco de los Romo',2),(12,'Ensenada',4),(13,'Mexicali',4),(14,'Tecate',4),(15,'Tijuana',4),(16,'Playas de Rosarito',4),(17,'Comondú',3),(18,'Mulegé',4),(19,'La Paz',3),(20,'Los Cabos',4),(21,'Loreto',4),(22,'Calkiní',2),(23,'Campeche',2),(24,'Carmen',3),(25,'Champotón',2),(26,'Hecelchakán',2),(27,'Hopelchén',2),(28,'Palizada',2),(29,'Tenabo',2),(30,'Escárcega',2),(31,'Calakmul',2),(32,'Candelaria',2),(33,'Abasolo',2),(34,'Acuña',3),(35,'Allende',2),(36,'Arteaga',2),(37,'Candela',2),(38,'Castaños',2),(39,'Cuatro Ciénegas',2),(40,'Escobedo',2),(41,'Francisco I. Madero',2),(42,'Frontera',2),(43,'General Cepeda',2),(44,'Guerrero',2),(45,'Hidalgo',2),(46,'Jiménez',2),(47,'Juárez',2),(48,'Lamadrid',2),(49,'Matamoros',2),(50,'Monclova',2),(51,'Morelos',2),(52,'Múzquiz',2),(53,'Nadadores',2),(54,'Nava',2),(55,'Ocampo',2),(56,'Parras',2),(57,'Piedras Negras',3),(58,'Progreso',2),(59,'Ramos Arizpe',2),(60,'Sabinas',2),(61,'Sacramento',2),(62,'Saltillo',4),(63,'San Buenaventura',2),(64,'San Juan de Sabinas',2),(65,'San Pedro',2),(66,'Sierra Mojada',2),(67,'Torreón',2),(68,'Viesca',2),(69,'Villa Unión',2),(70,'Zaragoza',2),(71,'Armería',1),(72,'Colima',1),(73,'Comala',1),(74,'Coquimatlán',1),(75,'Cuauhtémoc',1),(76,'Ixtlahuacán',1),(77,'Manzanillo',4),(78,'Minatitlán',1),(79,'Tecomán',1),(80,'Villa de Álvarez',1),(81,'Acacoyagua',2),(82,'Acala',2),(83,'Acapetahua',2),(84,'Altamirano',2),(85,'Amatán',2),(86,'Amatenango de la Frontera',2),(87,'Amatenango del Valle',2),(88,'Angel Albino Corzo',2),(89,'Arriaga',2),(90,'Bejucal de Ocampo',2),(91,'Bella Vista',2),(92,'Berriozábal',2),(93,'Bochil',2),(94,'El Bosque',2),(95,'Cacahoatán',2),(96,'Catazajá',2),(97,'Cintalapa',2),(98,'Coapilla',2),(99,'Comitán de Domínguez',2),(100,'La Concordia',2),(101,'Copainalá',2),(102,'Chalchihuitán',2),(103,'Chamula',2),(104,'Chanal',2),(105,'Chapultenango',2),(106,'Chenalhó',2),(107,'Chiapa de Corzo',2),(108,'Chiapilla',2),(109,'Chicoasén',2),(110,'Chicomuselo',2),(111,'Chilón',2),(112,'Escuintla',2),(113,'Francisco León',2),(114,'Frontera Comalapa',2),(115,'Frontera Hidalgo',2),(116,'La Grandeza',2),(117,'Huehuetán',2),(118,'Huixtán',2),(119,'Huitiupán',2),(120,'Huixtla',2),(121,'La Independencia',2),(122,'Ixhuatán',2),(123,'Ixtacomitán',2),(124,'Ixtapa',2),(125,'Ixtapangajoya',2),(126,'Jiquipilas',2),(127,'Jitotol',2),(128,'Juárez',2),(129,'Larráinzar',2),(130,'La Libertad',2),(131,'Mapastepec',2),(132,'Las Margaritas',2),(133,'Mazapa de Madero',2),(134,'Mazatán',2),(135,'Metapa',2),(136,'Mitontic',2),(137,'Motozintla',2),(138,'Nicolás Ruíz',2),(139,'Ocosingo',2),(140,'Ocotepec',2),(141,'Ocozocoautla de Espinosa',2),(142,'Ostuacán',2),(143,'Osumacinta',2),(144,'Oxchuc',2),(145,'Palenque',2),(146,'Pantelhó',2),(147,'Pantepec',2),(148,'Pichucalco',2),(149,'Pijijiapan',2),(150,'El Porvenir',2),(151,'Villa Comaltitlán',2),(152,'Pueblo Nuevo Solistahuacán',2),(153,'Rayón',2),(154,'Reforma',2),(155,'Las Rosas',2),(156,'Sabanilla',2),(157,'Salto de Agua',2),(158,'San Cristóbal de las Casas',2),(159,'San Fernando',2),(160,'Siltepec',2),(161,'Simojovel',2),(162,'Sitalá',2),(163,'Socoltenango',2),(164,'Solosuchiapa',2),(165,'Soyaló',2),(166,'Suchiapa',2),(167,'Suchiate',2),(168,'Sunuapa',2),(169,'Tapachula',4),(170,'Tapalapa',2),(171,'Tapilula',2),(172,'Tecpatán',2),(173,'Tenejapa',2),(174,'Teopisca',2),(175,'Tila',2),(176,'Tonalá',2),(177,'Totolapa',2),(178,'La Trinitaria',2),(179,'Tumbalá',2),(180,'Tuxtla Gutiérrez',3),(181,'Tuxtla Chico',2),(182,'Tuzantán',2),(183,'Tzimol',2),(184,'Unión Juárez',2),(185,'Venustiano Carranza',2),(186,'Villa Corzo',2),(187,'Villaflores',2),(188,'Yajalón',2),(189,'San Lucas',2),(190,'Zinacantán',2),(191,'San Juan Cancuc',2),(192,'Aldama',2),(193,'Benemérito de las Américas',2),(194,'Maravilla Tenejapa',2),(195,'Marqués de Comillas',2),(196,'Montecristo de Guerrero',2),(197,'San Andrés Duraznal',2),(198,'Santiago el Pinar',2),(199,'Capitán Luis Ángel Vidal',2),(200,'Rincón Chamula San Pedro',2),(201,'El Parral',2),(202,'Emiliano Zapata',2),(203,'Mezcalapa',2),(204,'Ahumada',2),(205,'Aldama',2),(206,'Allende',2),(207,'Aquiles Serdán',2),(208,'Ascensión',2),(209,'Bachíniva',2),(210,'Balleza',2),(211,'Batopilas de Manuel Gómez Morín',2),(212,'Bocoyna',2),(213,'Buenaventura',2),(214,'Camargo',2),(215,'Carichí',2),(216,'Casas Grandes',2),(217,'Coronado',2),(218,'Coyame del Sotol',2),(219,'La Cruz',2),(220,'Cuauhtémoc',2),(221,'Cusihuiriachi',2),(222,'Chihuahua',2),(223,'Chínipas',2),(224,'Delicias',2),(225,'Dr. Belisario Domínguez',2),(226,'Galeana',2),(227,'Santa Isabel',2),(228,'Gómez Farías',2),(229,'Gran Morelos',2),(230,'Guachochi',2),(231,'Guadalupe',2),(232,'Guadalupe y Calvo',2),(233,'Guazapares',2),(234,'Guerrero',2),(235,'Hidalgo del Parral',2),(236,'Huejotitán',2),(237,'Ignacio Zaragoza',2),(238,'Janos',2),(239,'Jiménez',2),(240,'Juárez',4),(241,'Julimes',2),(242,'López',2),(243,'Madera',2),(244,'Maguarichi',2),(245,'Manuel Benavides',2),(246,'Matachí',2),(247,'Matamoros',2),(248,'Meoqui',2),(249,'Morelos',2),(250,'Moris',2),(251,'Namiquipa',2),(252,'Nonoava',2),(253,'Nuevo Casas Grandes',2),(254,'Ocampo',2),(255,'Ojinaga',2),(256,'Praxedis G. Guerrero',2),(257,'Riva Palacio',2),(258,'Rosales',2),(259,'Rosario',2),(260,'San Francisco de Borja',2),(261,'San Francisco de Conchos',2),(262,'San Francisco del Oro',2),(263,'Santa Bárbara',2),(264,'Satevó',2),(265,'Saucillo',2),(266,'Temósachic',2),(267,'El Tule',2),(268,'Urique',2),(269,'Uruachi',2),(270,'Valle de Zaragoza',2),(271,'Azcapotzalco',3),(272,'Coyoacán',3),(273,'Cuajimalpa de Morelos',3),(274,'Gustavo A. Madero',3),(275,'Iztacalco',3),(276,'Iztapalapa',3),(277,'La Magdalena Contreras',3),(278,'Milpa Alta',3),(279,'Álvaro Obregón',3),(280,'Tláhuac',3),(281,'Tlalpan',3),(282,'Xochimilco',3),(283,'Benito Juárez',3),(284,'Cuauhtémoc',3),(285,'Miguel Hidalgo',3),(286,'Venustiano Carranza',3),(287,'Canatlán',2),(288,'Canelas',2),(289,'Coneto de Comonfort',2),(290,'Cuencamé',2),(291,'Durango',2),(292,'General Simón Bolívar',2),(293,'Gómez Palacio',2),(294,'Guadalupe Victoria',2),(295,'Guanaceví',2),(296,'Hidalgo',2),(297,'Indé',2),(298,'Lerdo',2),(299,'Mapimí',2),(300,'Mezquital',2),(301,'Nazas',2),(302,'Nombre de Dios',2),(303,'Ocampo',2),(304,'El Oro',2),(305,'Otáez',2),(306,'Pánuco de Coronado',2),(307,'Peñón Blanco',2),(308,'Poanas',2),(309,'Pueblo Nuevo',2),(310,'Rodeo',2),(311,'San Bernardo',2),(312,'San Dimas',2),(313,'San Juan de Guadalupe',2),(314,'San Juan del Río',2),(315,'San Luis del Cordero',2),(316,'San Pedro del Gallo',2),(317,'Santa Clara',2),(318,'Santiago Papasquiaro',2),(319,'Súchil',2),(320,'Tamazula',2),(321,'Tepehuanes',2),(322,'Tlahualilo',2),(323,'Topia',2),(324,'Vicente Guerrero',2),(325,'Nuevo Ideal',2),(326,'Abasolo',2),(327,'Acámbaro',2),(328,'San Miguel de Allende',3),(329,'Apaseo el Alto',2),(330,'Apaseo el Grande',2),(331,'Atarjea',2),(332,'Celaya',2),(333,'Manuel Doblado',2),(334,'Comonfort',2),(335,'Coroneo',2),(336,'Cortazar',2),(337,'Cuerámaro',2),(338,'Doctor Mora',2),(339,'Dolores Hidalgo Cuna de la Independencia Naci',2),(340,'Guanajuato',3),(341,'Huanímaro',2),(342,'Irapuato',2),(343,'Jaral del Progreso',2),(344,'Jerécuaro',2),(345,'León',3),(346,'Moroleón',2),(347,'Ocampo',2),(348,'Pénjamo',2),(349,'Pueblo Nuevo',2),(350,'Purísima del Rincón',2),(351,'Romita',2),(352,'Salamanca',2),(353,'Salvatierra',2),(354,'San Diego de la Unión',2),(355,'San Felipe',2),(356,'San Francisco del Rincón',2),(357,'San José Iturbide',2),(358,'San Luis de la Paz',2),(359,'Santa Catarina',2),(360,'Santa Cruz de Juventino Rosas',2),(361,'Santiago Maravatío',2),(362,'Silao de la Victoria',2),(363,'Tarandacuao',2),(364,'Tarimoro',2),(365,'Tierra Blanca',2),(366,'Uriangato',2),(367,'Valle de Santiago',2),(368,'Victoria',2),(369,'Villagrán',2),(370,'Xichú',2),(371,'Yuriria',2),(372,'Acapulco de Juárez',4),(373,'Ahuacuotzingo',1),(374,'Ajuchitlán del Progreso',1),(375,'Alcozauca de Guerrero',1),(376,'Alpoyeca',1),(377,'Apaxtla',1),(378,'Arcelia',1),(379,'Atenango del Río',1),(380,'Atlamajalcingo del Monte',1),(381,'Atlixtac',1),(382,'Atoyac de Álvarez',1),(383,'Ayutla de los Libres',1),(384,'Azoyú',1),(385,'Benito Juárez',1),(386,'Buenavista de Cuéllar',1),(387,'Coahuayutla de José María Izazaga',1),(388,'Cocula',1),(389,'Copala',1),(390,'Copalillo',1),(391,'Copanatoyac',1),(392,'Coyuca de Benítez',1),(393,'Coyuca de Catalán',1),(394,'Cuajinicuilapa',1),(395,'Cualác',1),(396,'Cuautepec',1),(397,'Cuetzala del Progreso',1),(398,'Cutzamala de Pinzón',1),(399,'Chilapa de Álvarez',1),(400,'Chilpancingo de los Bravo',1),(401,'Florencio Villarreal',1),(402,'General Canuto A. Neri',1),(403,'General Heliodoro Castillo',1),(404,'Huamuxtitlán',1),(405,'Huitzuco de los Figueroa',1),(406,'Iguala de la Independencia',1),(407,'Igualapa',1),(408,'Ixcateopan de Cuauhtémoc',1),(409,'Zihuatanejo de Azueta',4),(410,'Juan R. Escudero',1),(411,'Leonardo Bravo',1),(412,'Malinaltepec',1),(413,'Mártir de Cuilapan',1),(414,'Metlatónoc',1),(415,'Mochitlán',1),(416,'Olinalá',1),(417,'Ometepec',1),(418,'Pedro Ascencio Alquisiras',1),(419,'Petatlán',1),(420,'Pilcaya',1),(421,'Pungarabato',1),(422,'Quechultenango',1),(423,'San Luis Acatlán',1),(424,'San Marcos',1),(425,'San Miguel Totolapan',1),(426,'Taxco de Alarcón',3),(427,'Tecoanapa',1),(428,'Técpan de Galeana',1),(429,'Teloloapan',1),(430,'Tepecoacuilco de Trujano',1),(431,'Tetipac',1),(432,'Tixtla de Guerrero',1),(433,'Tlacoachistlahuaca',1),(434,'Tlacoapa',1),(435,'Tlalchapa',1),(436,'Tlalixtaquilla de Maldonado',1),(437,'Tlapa de Comonfort',1),(438,'Tlapehuala',1),(439,'La Unión de Isidoro Montes de Oca',1),(440,'Xalpatláhuac',1),(441,'Xochihuehuetlán',1),(442,'Xochistlahuaca',1),(443,'Zapotitlán Tablas',1),(444,'Zirándaro',1),(445,'Zitlala',1),(446,'Eduardo Neri',1),(447,'Acatepec',1),(448,'Marquelia',1),(449,'Cochoapa el Grande',1),(450,'José Joaquín de Herrera',1),(451,'Juchitán',1),(452,'Iliatenco',1),(453,'Acatlán',1),(454,'Acaxochitlán',1),(455,'Actopan',1),(456,'Agua Blanca de Iturbide',1),(457,'Ajacuba',1),(458,'Alfajayucan',1),(459,'Almoloya',1),(460,'Apan',1),(461,'El Arenal',1),(462,'Atitalaquia',1),(463,'Atlapexco',1),(464,'Atotonilco el Grande',1),(465,'Atotonilco de Tula',1),(466,'Calnali',1),(467,'Cardonal',1),(468,'Cuautepec de Hinojosa',1),(469,'Chapantongo',1),(470,'Chapulhuacán',1),(471,'Chilcuautla',1),(472,'Eloxochitlán',1),(473,'Emiliano Zapata',1),(474,'Epazoyucan',1),(475,'Francisco I. Madero',1),(476,'Huasca de Ocampo',1),(477,'Huautla',1),(478,'Huazalingo',1),(479,'Huehuetla',1),(480,'Huejutla de Reyes',1),(481,'Huichapan',1),(482,'Ixmiquilpan',1),(483,'Jacala de Ledezma',1),(484,'Jaltocán',1),(485,'Juárez Hidalgo',1),(486,'Lolotla',1),(487,'Metepec',1),(488,'San Agustín Metzquititlán',1),(489,'Metztitlán',1),(490,'Mineral del Chico',1),(491,'Mineral del Monte',1),(492,'La Misión',1),(493,'Mixquiahuala de Juárez',1),(494,'Molango de Escamilla',1),(495,'Nicolás Flores',1),(496,'Nopala de Villagrán',1),(497,'Omitlán de Juárez',1),(498,'San Felipe Orizatlán',1),(499,'Pacula',1),(500,'Pachuca de Soto',1),(501,'Pisaflores',1),(502,'Progreso de Obregón',1),(503,'Mineral de la Reforma',1),(504,'San Agustín Tlaxiaca',1),(505,'San Bartolo Tutotepec',1),(506,'San Salvador',1),(507,'Santiago de Anaya',1),(508,'Santiago Tulantepec de Lugo Guerrero',1),(509,'Singuilucan',1),(510,'Tasquillo',1),(511,'Tecozautla',1),(512,'Tenango de Doria',1),(513,'Tepeapulco',1),(514,'Tepehuacán de Guerrero',1),(515,'Tepeji del Río de Ocampo',1),(516,'Tepetitlán',1),(517,'Tetepango',1),(518,'Villa de Tezontepec',1),(519,'Tezontepec de Aldama',1),(520,'Tianguistengo',1),(521,'Tizayuca',1),(522,'Tlahuelilpan',1),(523,'Tlahuiltepa',1),(524,'Tlanalapa',1),(525,'Tlanchinol',1),(526,'Tlaxcoapan',1),(527,'Tolcayuca',1),(528,'Tula de Allende',1),(529,'Tulancingo de Bravo',1),(530,'Xochiatipan',1),(531,'Xochicoatlán',1),(532,'Yahualica',1),(533,'Zacualtipán de Ángeles',1),(534,'Zapotlán de Juárez',1),(535,'Zempoala',1),(536,'Zimapán',1),(537,'Acatic',1),(538,'Acatlán de Juárez',1),(539,'Ahualulco de Mercado',1),(540,'Amacueca',1),(541,'Amatitán',1),(542,'Ameca',1),(543,'San Juanito de Escobedo',1),(544,'Arandas',1),(545,'El Arenal',1),(546,'Atemajac de Brizuela',1),(547,'Atengo',1),(548,'Atenguillo',1),(549,'Atotonilco el Alto',1),(550,'Atoyac',1),(551,'Autlán de Navarro',1),(552,'Ayotlán',1),(553,'Ayutla',1),(554,'La Barca',1),(555,'Bolaños',1),(556,'Cabo Corrientes',1),(557,'Casimiro Castillo',1),(558,'Cihuatlán',1),(559,'Zapotlán el Grande',1),(560,'Cocula',1),(561,'Colotlán',1),(562,'Concepción de Buenos Aires',1),(563,'Cuautitlán de García Barragán',1),(564,'Cuautla',1),(565,'Cuquío',1),(566,'Chapala',1),(567,'Chimaltitán',1),(568,'Chiquilistlán',1),(569,'Degollado',1),(570,'Ejutla',1),(571,'Encarnación de Díaz',1),(572,'Etzatlán',1),(573,'El Grullo',1),(574,'Guachinango',1),(575,'Guadalajara',1),(576,'Hostotipaquillo',1),(577,'Huejúcar',1),(578,'Huejuquilla el Alto',1),(579,'La Huerta',1),(580,'Ixtlahuacán de los Membrillos',1),(581,'Ixtlahuacán del Río',1),(582,'Jalostotitlán',1),(583,'Jamay',1),(584,'Jesús María',1),(585,'Jilotlán de los Dolores',1),(586,'Jocotepec',1),(587,'Juanacatlán',1),(588,'Juchitlán',1),(589,'Lagos de Moreno',1),(590,'El Limón',1),(591,'Magdalena',1),(592,'Santa María del Oro',1),(593,'La Manzanilla de la Paz',1),(594,'Mascota',1),(595,'Mazamitla',1),(596,'Mexticacán',1),(597,'Mezquitic',1),(598,'Mixtlán',1),(599,'Ocotlán',1),(600,'Ojuelos de Jalisco',1),(601,'Pihuamo',1),(602,'Poncitlán',1),(603,'Puerto Vallarta',1),(604,'Villa Purificación',1),(605,'Quitupan',1),(606,'El Salto',1),(607,'San Cristóbal de la Barranca',1),(608,'San Diego de Alejandría',1),(609,'San Juan de los Lagos',1),(610,'San Julián',1),(611,'San Marcos',1),(612,'San Martín de Bolaños',1),(613,'San Martín Hidalgo',1),(614,'San Miguel el Alto',1),(615,'Gómez Farías',1),(616,'San Sebastián del Oeste',1),(617,'Santa María de los Ángeles',1),(618,'Sayula',1),(619,'Tala',1),(620,'Talpa de Allende',1),(621,'Tamazula de Gordiano',1),(622,'Tapalpa',1),(623,'Tecalitlán',1),(624,'Tecolotlán',1),(625,'Techaluta de Montenegro',1),(626,'Tenamaxtlán',1),(627,'Teocaltiche',1),(628,'Teocuitatlán de Corona',1),(629,'Tepatitlán de Morelos',1),(630,'Tequila',1),(631,'Teuchitlán',1),(632,'Tizapán el Alto',1),(633,'Tlajomulco de Zúñiga',1),(634,'San Pedro Tlaquepaque',1),(635,'Tolimán',1),(636,'Tomatlán',1),(637,'Tonalá',1),(638,'Tonaya',1),(639,'Tonila',1),(640,'Totatiche',1),(641,'Tototlán',1),(642,'Tuxcacuesco',1),(643,'Tuxcueca',1),(644,'Tuxpan',1),(645,'Unión de San Antonio',1),(646,'Unión de Tula',1),(647,'Valle de Guadalupe',1),(648,'Valle de Juárez',1),(649,'San Gabriel',1),(650,'Villa Corona',1),(651,'Villa Guerrero',1),(652,'Villa Hidalgo',1),(653,'Cañadas de Obregón',1),(654,'Yahualica de González Gallo',1),(655,'Zacoalco de Torres',1),(656,'Zapopan',1),(657,'Zapotiltic',1),(658,'Zapotitlán de Vadillo',1),(659,'Zapotlán del Rey',1),(660,'Zapotlanejo',1),(661,'San Ignacio Cerro Gordo',1),(662,'Acambay de Ruíz Castañeda',1),(663,'Acolman',1),(664,'Aculco',1),(665,'Almoloya de Alquisiras',1),(666,'Almoloya de Juárez',1),(667,'Almoloya del Río',1),(668,'Amanalco',1),(669,'Amatepec',1),(670,'Amecameca',1),(671,'Apaxco',1),(672,'Atenco',1),(673,'Atizapán',1),(674,'Atizapán de Zaragoza',3),(675,'Atlacomulco',1),(676,'Atlautla',1),(677,'Axapusco',1),(678,'Ayapango',1),(679,'Calimaya',1),(680,'Capulhuac',1),(681,'Coacalco de Berriozábal',3),(682,'Coatepec Harinas',1),(683,'Cocotitlán',1),(684,'Coyotepec',1),(685,'Cuautitlán',3),(686,'Chalco',1),(687,'Chapa de Mota',1),(688,'Chapultepec',1),(689,'Chiautla',1),(690,'Chicoloapan',1),(691,'Chiconcuac',1),(692,'Chimalhuacán',1),(693,'Donato Guerra',1),(694,'Ecatepec de Morelos',3),(695,'Ecatzingo',1),(696,'Huehuetoca',1),(697,'Hueypoxtla',1),(698,'Huixquilucan',1),(699,'Isidro Fabela',1),(700,'Ixtapaluca',1),(701,'Ixtapan de la Sal',1),(702,'Ixtapan del Oro',1),(703,'Ixtlahuaca',1),(704,'Xalatlaco',1),(705,'Jaltenco',1),(706,'Jilotepec',1),(707,'Jilotzingo',1),(708,'Jiquipilco',1),(709,'Jocotitlán',1),(710,'Joquicingo',1),(711,'Juchitepec',1),(712,'Lerma',1),(713,'Malinalco',1),(714,'Melchor Ocampo',1),(715,'Metepec',1),(716,'Mexicaltzingo',1),(717,'Morelos',1),(718,'Naucalpan de Juárez',3),(719,'Nezahualcóyotl',3),(720,'Nextlalpan',1),(721,'Nicolás Romero',1),(722,'Nopaltepec',1),(723,'Ocoyoacac',1),(724,'Ocuilan',1),(725,'El Oro',1),(726,'Otumba',1),(727,'Otzoloapan',1),(728,'Otzolotepec',1),(729,'Ozumba',1),(730,'Papalotla',1),(731,'La Paz',1),(732,'Polotitlán',1),(733,'Rayón',1),(734,'San Antonio la Isla',1),(735,'San Felipe del Progreso',1),(736,'San Martín de las Pirámides',1),(737,'San Mateo Atenco',1),(738,'San Simón de Guerrero',1),(739,'Santo Tomás',1),(740,'Soyaniquilpan de Juárez',1),(741,'Sultepec',1),(742,'Tecámac',1),(743,'Tejupilco',1),(744,'Temamatla',1),(745,'Temascalapa',1),(746,'Temascalcingo',1),(747,'Temascaltepec',1),(748,'Temoaya',1),(749,'Tenancingo',1),(750,'Tenango del Aire',1),(751,'Tenango del Valle',1),(752,'Teoloyucan',1),(753,'Teotihuacán',1),(754,'Tepetlaoxtoc',1),(755,'Tepetlixpa',1),(756,'Tepotzotlán',1),(757,'Tequixquiac',1),(758,'Texcaltitlán',1),(759,'Texcalyacac',1),(760,'Texcoco',1),(761,'Tezoyuca',1),(762,'Tianguistenco',1),(763,'Timilpan',1),(764,'Tlalmanalco',1),(765,'Tlalnepantla de Baz',3),(766,'Tlatlaya',1),(767,'Toluca',1),(768,'Tonatico',1),(769,'Tultepec',1),(770,'Tultitlán',3),(771,'Valle de Bravo',1),(772,'Villa de Allende',1),(773,'Villa del Carbón',1),(774,'Villa Guerrero',1),(775,'Villa Victoria',1),(776,'Xonacatlán',1),(777,'Zacazonapan',1),(778,'Zacualpan',1),(779,'Zinacantepec',1),(780,'Zumpahuacán',1),(781,'Zumpango',1),(782,'Cuautitlán Izcalli',3),(783,'Valle de Chalco Solidaridad',1),(784,'Luvianos',1),(785,'San José del Rincón',1),(786,'Tonanitla',1),(787,'Acuitzio',1),(788,'Aguililla',1),(789,'Álvaro Obregón',1),(790,'Angamacutiro',1),(791,'Angangueo',1),(792,'Apatzingán',1),(793,'Aporo',1),(794,'Aquila',1),(795,'Ario',1),(796,'Arteaga',1),(797,'Briseñas',1),(798,'Buenavista',1),(799,'Carácuaro',1),(800,'Coahuayana',1),(801,'Coalcomán de Vázquez Pallares',1),(802,'Coeneo',1),(803,'Contepec',1),(804,'Copándaro',1),(805,'Cotija',1),(806,'Cuitzeo',1),(807,'Charapan',1),(808,'Charo',1),(809,'Chavinda',1),(810,'Cherán',1),(811,'Chilchota',1),(812,'Chinicuila',1),(813,'Chucándiro',1),(814,'Churintzio',1),(815,'Churumuco',1),(816,'Ecuandureo',1),(817,'Epitacio Huerta',1),(818,'Erongarícuaro',1),(819,'Gabriel Zamora',1),(820,'Hidalgo',1),(821,'La Huacana',1),(822,'Huandacareo',1),(823,'Huaniqueo',1),(824,'Huetamo',1),(825,'Huiramba',1),(826,'Indaparapeo',1),(827,'Irimbo',1),(828,'Ixtlán',1),(829,'Jacona',1),(830,'Jiménez',1),(831,'Jiquilpan',1),(832,'Juárez',1),(833,'Jungapeo',1),(834,'Lagunillas',1),(835,'Madero',1),(836,'Maravatío',1),(837,'Marcos Castellanos',1),(838,'Lázaro Cárdenas',2),(839,'Morelia',2),(840,'Morelos',1),(841,'Múgica',1),(842,'Nahuatzen',1),(843,'Nocupétaro',1),(844,'Nuevo Parangaricutiro',1),(845,'Nuevo Urecho',1),(846,'Numarán',1),(847,'Ocampo',1),(848,'Pajacuarán',1),(849,'Panindícuaro',1),(850,'Parácuaro',1),(851,'Paracho',1),(852,'Pátzcuaro',1),(853,'Penjamillo',1),(854,'Peribán',1),(855,'La Piedad',1),(856,'Purépero',1),(857,'Puruándiro',1),(858,'Queréndaro',1),(859,'Quiroga',1),(860,'Cojumatlán de Régules',1),(861,'Los Reyes',1),(862,'Sahuayo',1),(863,'San Lucas',1),(864,'Santa Ana Maya',1),(865,'Salvador Escalante',1),(866,'Senguio',1),(867,'Susupuato',1),(868,'Tacámbaro',1),(869,'Tancítaro',1),(870,'Tangamandapio',1),(871,'Tangancícuaro',1),(872,'Tanhuato',1),(873,'Taretan',1),(874,'Tarímbaro',1),(875,'Tepalcatepec',1),(876,'Tingambato',1),(877,'Tingüindín',1),(878,'Tiquicheo de Nicolás Romero',1),(879,'Tlalpujahua',1),(880,'Tlazazalca',1),(881,'Tocumbo',1),(882,'Tumbiscatío',1),(883,'Turicato',1),(884,'Tuxpan',1),(885,'Tuzantla',1),(886,'Tzintzuntzan',1),(887,'Tzitzio',1),(888,'Uruapan',2),(889,'Venustiano Carranza',1),(890,'Villamar',1),(891,'Vista Hermosa',1),(892,'Yurécuaro',1),(893,'Zacapu',1),(894,'Zamora',1),(895,'Zináparo',1),(896,'Zinapécuaro',1),(897,'Ziracuaretiro',1),(898,'Zitácuaro',1),(899,'José Sixto Verduzco',1),(900,'Amacuzac',1),(901,'Atlatlahucan',1),(902,'Axochiapan',1),(903,'Ayala',1),(904,'Coatlán del Río',1),(905,'Cuautla',1),(906,'Cuernavaca',2),(907,'Emiliano Zapata',1),(908,'Huitzilac',1),(909,'Jantetelco',1),(910,'Jiutepec',1),(911,'Jojutla',1),(912,'Jonacatepec de Leandro Valle',1),(913,'Mazatepec',1),(914,'Miacatlán',1),(915,'Ocuituco',1),(916,'Puente de Ixtla',1),(917,'Temixco',1),(918,'Tepalcingo',1),(919,'Tepoztlán',1),(920,'Tetecala',1),(921,'Tetela del Volcán',1),(922,'Tlalnepantla',1),(923,'Tlaltizapán de Zapata',1),(924,'Tlaquiltenango',1),(925,'Tlayacapan',1),(926,'Totolapan',1),(927,'Xochitepec',1),(928,'Yautepec',1),(929,'Yecapixtla',1),(930,'Zacatepec',1),(931,'Zacualpan de Amilpas',1),(932,'Temoac',1),(933,'Acaponeta',1),(934,'Ahuacatlán',1),(935,'Amatlán de Cañas',1),(936,'Compostela',1),(937,'Huajicori',1),(938,'Ixtlán del Río',1),(939,'Jala',1),(940,'Xalisco',1),(941,'Del Nayar',1),(942,'Rosamorada',1),(943,'Ruíz',1),(944,'San Blas',3),(945,'San Pedro Lagunillas',1),(946,'Santa María del Oro',1),(947,'Santiago Ixcuintla',1),(948,'Tecuala',1),(949,'Tepic',1),(950,'Tuxpan',1),(951,'La Yesca',1),(952,'Bahía de Banderas',1),(953,'Abasolo',2),(954,'Agualeguas',2),(955,'Los Aldamas',2),(956,'Allende',2),(957,'Anáhuac',2),(958,'Apodaca',3),(959,'Aramberri',2),(960,'Bustamante',2),(961,'Cadereyta Jiménez',2),(962,'El Carmen',2),(963,'Cerralvo',2),(964,'Ciénega de Flores',2),(965,'China',2),(966,'Doctor Arroyo',2),(967,'Doctor Coss',2),(968,'Doctor González',2),(969,'Galeana',2),(970,'García',2),(971,'San Pedro Garza García',3),(972,'General Bravo',2),(973,'General Escobedo',3),(974,'General Terán',2),(975,'General Treviño',2),(976,'General Zaragoza',2),(977,'General Zuazua',2),(978,'Guadalupe',3),(979,'Los Herreras',2),(980,'Higueras',2),(981,'Hualahuises',2),(982,'Iturbide',2),(983,'Juárez',2),(984,'Lampazos de Naranjo',2),(985,'Linares',2),(986,'Marín',2),(987,'Melchor Ocampo',2),(988,'Mier y Noriega',2),(989,'Mina',2),(990,'Montemorelos',2),(991,'Monterrey',3),(992,'Parás',2),(993,'Pesquería',2),(994,'Los Ramones',2),(995,'Rayones',2),(996,'Sabinas Hidalgo',2),(997,'Salinas Victoria',2),(998,'San Nicolás de los Garza',3),(999,'Hidalgo',2),(1000,'Santa Catarina',3),(1001,'Santiago',2),(1002,'Vallecillo',2),(1003,'Villaldama',2),(1004,'Abejones',1),(1005,'Acatlán de Pérez Figueroa',1),(1006,'Asunción Cacalotepec',1),(1007,'Asunción Cuyotepeji',1),(1008,'Asunción Ixtaltepec',1),(1009,'Asunción Nochixtlán',1),(1010,'Asunción Ocotlán',1),(1011,'Asunción Tlacolulita',1),(1012,'Ayotzintepec',1),(1013,'El Barrio de la Soledad',1),(1014,'Calihualá',1),(1015,'Candelaria Loxicha',1),(1016,'Ciénega de Zimatlán',1),(1017,'Ciudad Ixtepec',1),(1018,'Coatecas Altas',1),(1019,'Coicoyán de las Flores',1),(1020,'La Compañía',1),(1021,'Concepción Buenavista',1),(1022,'Concepción Pápalo',1),(1023,'Constancia del Rosario',1),(1024,'Cosolapa',1),(1025,'Cosoltepec',1),(1026,'Cuilápam de Guerrero',1),(1027,'Cuyamecalco Villa de Zaragoza',1),(1028,'Chahuites',1),(1029,'Chalcatongo de Hidalgo',1),(1030,'Chiquihuitlán de Benito Juárez',1),(1031,'Heroica Ciudad de Ejutla de Crespo',1),(1032,'Eloxochitlán de Flores Magón',1),(1033,'El Espinal',1),(1034,'Tamazulápam del Espíritu Santo',1),(1035,'Fresnillo de Trujano',1),(1036,'Guadalupe Etla',1),(1037,'Guadalupe de Ramírez',1),(1038,'Guelatao de Juárez',1),(1039,'Guevea de Humboldt',1),(1040,'Mesones Hidalgo',1),(1041,'Villa Hidalgo',1),(1042,'Heroica Ciudad de Huajuapan de León',1),(1043,'Huautepec',1),(1044,'Huautla de Jiménez',1),(1045,'Ixtlán de Juárez',1),(1046,'Heroica Ciudad de Juchitán de Zaragoza',1),(1047,'Loma Bonita',1),(1048,'Magdalena Apasco',1),(1049,'Magdalena Jaltepec',1),(1050,'Santa Magdalena Jicotlán',1),(1051,'Magdalena Mixtepec',1),(1052,'Magdalena Ocotlán',1),(1053,'Magdalena Peñasco',1),(1054,'Magdalena Teitipac',1),(1055,'Magdalena Tequisistlán',1),(1056,'Magdalena Tlacotepec',1),(1057,'Magdalena Zahuatlán',1),(1058,'Mariscala de Juárez',1),(1059,'Mártires de Tacubaya',1),(1060,'Matías Romero Avendaño',1),(1061,'Mazatlán Villa de Flores',1),(1062,'Miahuatlán de Porfirio Díaz',1),(1063,'Mixistlán de la Reforma',1),(1064,'Monjas',1),(1065,'Natividad',1),(1066,'Nazareno Etla',1),(1067,'Nejapa de Madero',1),(1068,'Ixpantepec Nieves',1),(1069,'Santiago Niltepec',1),(1070,'Oaxaca de Juárez',3),(1071,'Ocotlán de Morelos',1),(1072,'La Pe',1),(1073,'Pinotepa de Don Luis',1),(1074,'Pluma Hidalgo',1),(1075,'San José del Progreso',1),(1076,'Putla Villa de Guerrero',1),(1077,'Santa Catarina Quioquitani',1),(1078,'Reforma de Pineda',1),(1079,'La Reforma',1),(1080,'Reyes Etla',1),(1081,'Rojas de Cuauhtémoc',1),(1082,'Salina Cruz',2),(1083,'San Agustín Amatengo',1),(1084,'San Agustín Atenango',1),(1085,'San Agustín Chayuco',1),(1086,'San Agustín de las Juntas',1),(1087,'San Agustín Etla',1),(1088,'San Agustín Loxicha',1),(1089,'San Agustín Tlacotepec',1),(1090,'San Agustín Yatareni',1),(1091,'San Andrés Cabecera Nueva',1),(1092,'San Andrés Dinicuiti',1),(1093,'San Andrés Huaxpaltepec',1),(1094,'San Andrés Huayápam',1),(1095,'San Andrés Ixtlahuaca',1),(1096,'San Andrés Lagunas',1),(1097,'San Andrés Nuxiño',1),(1098,'San Andrés Paxtlán',1),(1099,'San Andrés Sinaxtla',1),(1100,'San Andrés Solaga',1),(1101,'San Andrés Teotilálpam',1),(1102,'San Andrés Tepetlapa',1),(1103,'San Andrés Yaá',1),(1104,'San Andrés Zabache',1),(1105,'San Andrés Zautla',1),(1106,'San Antonino Castillo Velasco',1),(1107,'San Antonino el Alto',1),(1108,'San Antonino Monte Verde',1),(1109,'San Antonio Acutla',1),(1110,'San Antonio de la Cal',1),(1111,'San Antonio Huitepec',1),(1112,'San Antonio Nanahuatípam',1),(1113,'San Antonio Sinicahua',1),(1114,'San Antonio Tepetlapa',1),(1115,'San Baltazar Chichicápam',1),(1116,'San Baltazar Loxicha',1),(1117,'San Baltazar Yatzachi el Bajo',1),(1118,'San Bartolo Coyotepec',1),(1119,'San Bartolomé Ayautla',1),(1120,'San Bartolomé Loxicha',1),(1121,'San Bartolomé Quialana',1),(1122,'San Bartolomé Yucuañe',1),(1123,'San Bartolomé Zoogocho',1),(1124,'San Bartolo Soyaltepec',1),(1125,'San Bartolo Yautepec',1),(1126,'San Bernardo Mixtepec',1),(1127,'San Blas Atempa',1),(1128,'San Carlos Yautepec',1),(1129,'San Cristóbal Amatlán',1),(1130,'San Cristóbal Amoltepec',1),(1131,'San Cristóbal Lachirioag',1),(1132,'San Cristóbal Suchixtlahuaca',1),(1133,'San Dionisio del Mar',1),(1134,'San Dionisio Ocotepec',1),(1135,'San Dionisio Ocotlán',1),(1136,'San Esteban Atatlahuca',1),(1137,'San Felipe Jalapa de Díaz',1),(1138,'San Felipe Tejalápam',1),(1139,'San Felipe Usila',1),(1140,'San Francisco Cahuacuá',1),(1141,'San Francisco Cajonos',1),(1142,'San Francisco Chapulapa',1),(1143,'San Francisco Chindúa',1),(1144,'San Francisco del Mar',1),(1145,'San Francisco Huehuetlán',1),(1146,'San Francisco Ixhuatán',1),(1147,'San Francisco Jaltepetongo',1),(1148,'San Francisco Lachigoló',1),(1149,'San Francisco Logueche',1),(1150,'San Francisco Nuxaño',1),(1151,'San Francisco Ozolotepec',1),(1152,'San Francisco Sola',1),(1153,'San Francisco Telixtlahuaca',1),(1154,'San Francisco Teopan',1),(1155,'San Francisco Tlapancingo',1),(1156,'San Gabriel Mixtepec',1),(1157,'San Ildefonso Amatlán',1),(1158,'San Ildefonso Sola',1),(1159,'San Ildefonso Villa Alta',1),(1160,'San Jacinto Amilpas',1),(1161,'San Jacinto Tlacotepec',1),(1162,'San Jerónimo Coatlán',1),(1163,'San Jerónimo Silacayoapilla',1),(1164,'San Jerónimo Sosola',1),(1165,'San Jerónimo Taviche',1),(1166,'San Jerónimo Tecóatl',1),(1167,'San Jorge Nuchita',1),(1168,'San José Ayuquila',1),(1169,'San José Chiltepec',1),(1170,'San José del Peñasco',1),(1171,'San José Estancia Grande',1),(1172,'San José Independencia',1),(1173,'San José Lachiguiri',1),(1174,'San José Tenango',1),(1175,'San Juan Achiutla',1),(1176,'San Juan Atepec',1),(1177,'Ánimas Trujano',1),(1178,'San Juan Bautista Atatlahuca',1),(1179,'San Juan Bautista Coixtlahuaca',1),(1180,'San Juan Bautista Cuicatlán',1),(1181,'San Juan Bautista Guelache',1),(1182,'San Juan Bautista Jayacatlán',1),(1183,'San Juan Bautista Lo de Soto',1),(1184,'San Juan Bautista Suchitepec',1),(1185,'San Juan Bautista Tlacoatzintepec',1),(1186,'San Juan Bautista Tlachichilco',1),(1187,'San Juan Bautista Tuxtepec',1),(1188,'San Juan Cacahuatepec',1),(1189,'San Juan Cieneguilla',1),(1190,'San Juan Coatzóspam',1),(1191,'San Juan Colorado',1),(1192,'San Juan Comaltepec',1),(1193,'San Juan Cotzocón',1),(1194,'San Juan Chicomezúchil',1),(1195,'San Juan Chilateca',1),(1196,'San Juan del Estado',1),(1197,'San Juan del Río',1),(1198,'San Juan Diuxi',1),(1199,'San Juan Evangelista Analco',1),(1200,'San Juan Guelavía',1),(1201,'San Juan Guichicovi',1),(1202,'San Juan Ihualtepec',1),(1203,'San Juan Juquila Mixes',1),(1204,'San Juan Juquila Vijanos',1),(1205,'San Juan Lachao',1),(1206,'San Juan Lachigalla',1),(1207,'San Juan Lajarcia',1),(1208,'San Juan Lalana',1),(1209,'San Juan de los Cués',1),(1210,'San Juan Mazatlán',1),(1211,'San Juan Mixtepec',1),(1212,'San Juan Mixtepec',1),(1213,'San Juan Ñumí',1),(1214,'San Juan Ozolotepec',1),(1215,'San Juan Petlapa',1),(1216,'San Juan Quiahije',1),(1217,'San Juan Quiotepec',1),(1218,'San Juan Sayultepec',1),(1219,'San Juan Tabaá',1),(1220,'San Juan Tamazola',1),(1221,'San Juan Teita',1),(1222,'San Juan Teitipac',1),(1223,'San Juan Tepeuxila',1),(1224,'San Juan Teposcolula',1),(1225,'San Juan Yaeé',1),(1226,'San Juan Yatzona',1),(1227,'San Juan Yucuita',1),(1228,'San Lorenzo',1),(1229,'San Lorenzo Albarradas',1),(1230,'San Lorenzo Cacaotepec',1),(1231,'San Lorenzo Cuaunecuiltitla',1),(1232,'San Lorenzo Texmelúcan',1),(1233,'San Lorenzo Victoria',1),(1234,'San Lucas Camotlán',1),(1235,'San Lucas Ojitlán',1),(1236,'San Lucas Quiaviní',1),(1237,'San Lucas Zoquiápam',1),(1238,'San Luis Amatlán',1),(1239,'San Marcial Ozolotepec',1),(1240,'San Marcos Arteaga',1),(1241,'San Martín de los Cansecos',1),(1242,'San Martín Huamelúlpam',1),(1243,'San Martín Itunyoso',1),(1244,'San Martín Lachilá',1),(1245,'San Martín Peras',1),(1246,'San Martín Tilcajete',1),(1247,'San Martín Toxpalan',1),(1248,'San Martín Zacatepec',1),(1249,'San Mateo Cajonos',1),(1250,'Capulálpam de Méndez',1),(1251,'San Mateo del Mar',1),(1252,'San Mateo Yoloxochitlán',1),(1253,'San Mateo Etlatongo',1),(1254,'San Mateo Nejápam',1),(1255,'San Mateo Peñasco',1),(1256,'San Mateo Piñas',1),(1257,'San Mateo Río Hondo',1),(1258,'San Mateo Sindihui',1),(1259,'San Mateo Tlapiltepec',1),(1260,'San Melchor Betaza',1),(1261,'San Miguel Achiutla',1),(1262,'San Miguel Ahuehuetitlán',1),(1263,'San Miguel Aloápam',1),(1264,'San Miguel Amatitlán',1),(1265,'San Miguel Amatlán',1),(1266,'San Miguel Coatlán',1),(1267,'San Miguel Chicahua',1),(1268,'San Miguel Chimalapa',1),(1269,'San Miguel del Puerto',1),(1270,'San Miguel del Río',1),(1271,'San Miguel Ejutla',1),(1272,'San Miguel el Grande',1),(1273,'San Miguel Huautla',1),(1274,'San Miguel Mixtepec',1),(1275,'San Miguel Panixtlahuaca',1),(1276,'San Miguel Peras',1),(1277,'San Miguel Piedras',1),(1278,'San Miguel Quetzaltepec',1),(1279,'San Miguel Santa Flor',1),(1280,'Villa Sola de Vega',1),(1281,'San Miguel Soyaltepec',1),(1282,'San Miguel Suchixtepec',1),(1283,'Villa Talea de Castro',1),(1284,'San Miguel Tecomatlán',1),(1285,'San Miguel Tenango',1),(1286,'San Miguel Tequixtepec',1),(1287,'San Miguel Tilquiápam',1),(1288,'San Miguel Tlacamama',1),(1289,'San Miguel Tlacotepec',1),(1290,'San Miguel Tulancingo',1),(1291,'San Miguel Yotao',1),(1292,'San Nicolás',1),(1293,'San Nicolás Hidalgo',1),(1294,'San Pablo Coatlán',1),(1295,'San Pablo Cuatro Venados',1),(1296,'San Pablo Etla',1),(1297,'San Pablo Huitzo',1),(1298,'San Pablo Huixtepec',1),(1299,'San Pablo Macuiltianguis',1),(1300,'San Pablo Tijaltepec',1),(1301,'San Pablo Villa de Mitla',1),(1302,'San Pablo Yaganiza',1),(1303,'San Pedro Amuzgos',1),(1304,'San Pedro Apóstol',1),(1305,'San Pedro Atoyac',1),(1306,'San Pedro Cajonos',1),(1307,'San Pedro Coxcaltepec Cántaros',1),(1308,'San Pedro Comitancillo',1),(1309,'San Pedro el Alto',1),(1310,'San Pedro Huamelula',1),(1311,'San Pedro Huilotepec',1),(1312,'San Pedro Ixcatlán',1),(1313,'San Pedro Ixtlahuaca',1),(1314,'San Pedro Jaltepetongo',1),(1315,'San Pedro Jicayán',1),(1316,'San Pedro Jocotipac',1),(1317,'San Pedro Juchatengo',1),(1318,'San Pedro Mártir',1),(1319,'San Pedro Mártir Quiechapa',1),(1320,'San Pedro Mártir Yucuxaco',1),(1321,'San Pedro Mixtepec',2),(1322,'San Pedro Mixtepec',2),(1323,'San Pedro Molinos',1),(1324,'San Pedro Nopala',1),(1325,'San Pedro Ocopetatillo',1),(1326,'San Pedro Ocotepec',1),(1327,'San Pedro Pochutla',2),(1328,'San Pedro Quiatoni',1),(1329,'San Pedro Sochiápam',1),(1330,'San Pedro Tapanatepec',1),(1331,'San Pedro Taviche',1),(1332,'San Pedro Teozacoalco',1),(1333,'San Pedro Teutila',1),(1334,'San Pedro Tidaá',1),(1335,'San Pedro Topiltepec',1),(1336,'San Pedro Totolápam',1),(1337,'Villa de Tututepec',1),(1338,'San Pedro Yaneri',1),(1339,'San Pedro Yólox',1),(1340,'San Pedro y San Pablo Ayutla',1),(1341,'Villa de Etla',1),(1342,'San Pedro y San Pablo Teposcolula',1),(1343,'San Pedro y San Pablo Tequixtepec',1),(1344,'San Pedro Yucunama',1),(1345,'San Raymundo Jalpan',1),(1346,'San Sebastián Abasolo',1),(1347,'San Sebastián Coatlán',1),(1348,'San Sebastián Ixcapa',1),(1349,'San Sebastián Nicananduta',1),(1350,'San Sebastián Río Hondo',1),(1351,'San Sebastián Tecomaxtlahuaca',1),(1352,'San Sebastián Teitipac',1),(1353,'San Sebastián Tutla',1),(1354,'San Simón Almolongas',1),(1355,'San Simón Zahuatlán',1),(1356,'Santa Ana',1),(1357,'Santa Ana Ateixtlahuaca',1),(1358,'Santa Ana Cuauhtémoc',1),(1359,'Santa Ana del Valle',1),(1360,'Santa Ana Tavela',1),(1361,'Santa Ana Tlapacoyan',1),(1362,'Santa Ana Yareni',1),(1363,'Santa Ana Zegache',1),(1364,'Santa Catalina Quierí',1),(1365,'Santa Catarina Cuixtla',1),(1366,'Santa Catarina Ixtepeji',1),(1367,'Santa Catarina Juquila',1),(1368,'Santa Catarina Lachatao',1),(1369,'Santa Catarina Loxicha',1),(1370,'Santa Catarina Mechoacán',1),(1371,'Santa Catarina Minas',1),(1372,'Santa Catarina Quiané',1),(1373,'Santa Catarina Tayata',1),(1374,'Santa Catarina Ticuá',1),(1375,'Santa Catarina Yosonotú',1),(1376,'Santa Catarina Zapoquila',1),(1377,'Santa Cruz Acatepec',1),(1378,'Santa Cruz Amilpas',1),(1379,'Santa Cruz de Bravo',1),(1380,'Santa Cruz Itundujia',1),(1381,'Santa Cruz Mixtepec',1),(1382,'Santa Cruz Nundaco',1),(1383,'Santa Cruz Papalutla',1),(1384,'Santa Cruz Tacache de Mina',1),(1385,'Santa Cruz Tacahua',1),(1386,'Santa Cruz Tayata',1),(1387,'Santa Cruz Xitla',1),(1388,'Santa Cruz Xoxocotlán',1),(1389,'Santa Cruz Zenzontepec',1),(1390,'Santa Gertrudis',1),(1391,'Santa Inés del Monte',1),(1392,'Santa Inés Yatzeche',1),(1393,'Santa Lucía del Camino',1),(1394,'Santa Lucía Miahuatlán',1),(1395,'Santa Lucía Monteverde',1),(1396,'Santa Lucía Ocotlán',1),(1397,'Santa María Alotepec',1),(1398,'Santa María Apazco',1),(1399,'Santa María la Asunción',1),(1400,'Heroica Ciudad de Tlaxiaco',1),(1401,'Ayoquezco de Aldama',1),(1402,'Santa María Atzompa',1),(1403,'Santa María Camotlán',1),(1404,'Santa María Colotepec',1),(1405,'Santa María Cortijo',1),(1406,'Santa María Coyotepec',1),(1407,'Santa María Chachoápam',1),(1408,'Villa de Chilapa de Díaz',1),(1409,'Santa María Chilchotla',1),(1410,'Santa María Chimalapa',1),(1411,'Santa María del Rosario',1),(1412,'Santa María del Tule',1),(1413,'Santa María Ecatepec',1),(1414,'Santa María Guelacé',1),(1415,'Santa María Guienagati',1),(1416,'Santa María Huatulco',4),(1417,'Santa María Huazolotitlán',1),(1418,'Santa María Ipalapa',1),(1419,'Santa María Ixcatlán',1),(1420,'Santa María Jacatepec',1),(1421,'Santa María Jalapa del Marqués',1),(1422,'Santa María Jaltianguis',1),(1423,'Santa María Lachixío',1),(1424,'Santa María Mixtequilla',1),(1425,'Santa María Nativitas',1),(1426,'Santa María Nduayaco',1),(1427,'Santa María Ozolotepec',1),(1428,'Santa María Pápalo',1),(1429,'Santa María Peñoles',1),(1430,'Santa María Petapa',1),(1431,'Santa María Quiegolani',1),(1432,'Santa María Sola',1),(1433,'Santa María Tataltepec',1),(1434,'Santa María Tecomavaca',1),(1435,'Santa María Temaxcalapa',1),(1436,'Santa María Temaxcaltepec',1),(1437,'Santa María Teopoxco',1),(1438,'Santa María Tepantlali',1),(1439,'Santa María Texcatitlán',1),(1440,'Santa María Tlahuitoltepec',1),(1441,'Santa María Tlalixtac',1),(1442,'Santa María Tonameca',1),(1443,'Santa María Totolapilla',1),(1444,'Santa María Xadani',1),(1445,'Santa María Yalina',1),(1446,'Santa María Yavesía',1),(1447,'Santa María Yolotepec',1),(1448,'Santa María Yosoyúa',1),(1449,'Santa María Yucuhiti',1),(1450,'Santa María Zacatepec',1),(1451,'Santa María Zaniza',1),(1452,'Santa María Zoquitlán',1),(1453,'Santiago Amoltepec',1),(1454,'Santiago Apoala',1),(1455,'Santiago Apóstol',1),(1456,'Santiago Astata',1),(1457,'Santiago Atitlán',1),(1458,'Santiago Ayuquililla',1),(1459,'Santiago Cacaloxtepec',1),(1460,'Santiago Camotlán',1),(1461,'Santiago Comaltepec',1),(1462,'Santiago Chazumba',1),(1463,'Santiago Choápam',1),(1464,'Santiago del Río',1),(1465,'Santiago Huajolotitlán',1),(1466,'Santiago Huauclilla',1),(1467,'Santiago Ihuitlán Plumas',1),(1468,'Santiago Ixcuintepec',1),(1469,'Santiago Ixtayutla',1),(1470,'Santiago Jamiltepec',1),(1471,'Santiago Jocotepec',1),(1472,'Santiago Juxtlahuaca',1),(1473,'Santiago Lachiguiri',1),(1474,'Santiago Lalopa',1),(1475,'Santiago Laollaga',1),(1476,'Santiago Laxopa',1),(1477,'Santiago Llano Grande',1),(1478,'Santiago Matatlán',1),(1479,'Santiago Miltepec',1),(1480,'Santiago Minas',1),(1481,'Santiago Nacaltepec',1),(1482,'Santiago Nejapilla',1),(1483,'Santiago Nundiche',1),(1484,'Santiago Nuyoó',1),(1485,'Santiago Pinotepa Nacional',1),(1486,'Santiago Suchilquitongo',1),(1487,'Santiago Tamazola',1),(1488,'Santiago Tapextla',1),(1489,'Villa Tejúpam de la Unión',1),(1490,'Santiago Tenango',1),(1491,'Santiago Tepetlapa',1),(1492,'Santiago Tetepec',1),(1493,'Santiago Texcalcingo',1),(1494,'Santiago Textitlán',1),(1495,'Santiago Tilantongo',1),(1496,'Santiago Tillo',1),(1497,'Santiago Tlazoyaltepec',1),(1498,'Santiago Xanica',1),(1499,'Santiago Xiacuí',1),(1500,'Santiago Yaitepec',1),(1501,'Santiago Yaveo',1),(1502,'Santiago Yolomécatl',1),(1503,'Santiago Yosondúa',1),(1504,'Santiago Yucuyachi',1),(1505,'Santiago Zacatepec',1),(1506,'Santiago Zoochila',1),(1507,'Nuevo Zoquiápam',1),(1508,'Santo Domingo Ingenio',1),(1509,'Santo Domingo Albarradas',1),(1510,'Santo Domingo Armenta',1),(1511,'Santo Domingo Chihuitán',1),(1512,'Santo Domingo de Morelos',1),(1513,'Santo Domingo Ixcatlán',1),(1514,'Santo Domingo Nuxaá',1),(1515,'Santo Domingo Ozolotepec',1),(1516,'Santo Domingo Petapa',1),(1517,'Santo Domingo Roayaga',1),(1518,'Santo Domingo Tehuantepec',1),(1519,'Santo Domingo Teojomulco',1),(1520,'Santo Domingo Tepuxtepec',1),(1521,'Santo Domingo Tlatayápam',1),(1522,'Santo Domingo Tomaltepec',1),(1523,'Santo Domingo Tonalá',1),(1524,'Santo Domingo Tonaltepec',1),(1525,'Santo Domingo Xagacía',1),(1526,'Santo Domingo Yanhuitlán',1),(1527,'Santo Domingo Yodohino',1),(1528,'Santo Domingo Zanatepec',1),(1529,'Santos Reyes Nopala',1),(1530,'Santos Reyes Pápalo',1),(1531,'Santos Reyes Tepejillo',1),(1532,'Santos Reyes Yucuná',1),(1533,'Santo Tomás Jalieza',1),(1534,'Santo Tomás Mazaltepec',1),(1535,'Santo Tomás Ocotepec',1),(1536,'Santo Tomás Tamazulapan',1),(1537,'San Vicente Coatlán',1),(1538,'San Vicente Lachixío',1),(1539,'San Vicente Nuñú',1),(1540,'Silacayoápam',1),(1541,'Sitio de Xitlapehua',1),(1542,'Soledad Etla',1),(1543,'Villa de Tamazulápam del Progreso',1),(1544,'Tanetze de Zaragoza',1),(1545,'Taniche',1),(1546,'Tataltepec de Valdés',1),(1547,'Teococuilco de Marcos Pérez',1),(1548,'Teotitlán de Flores Magón',1),(1549,'Teotitlán del Valle',1),(1550,'Teotongo',1),(1551,'Tepelmeme Villa de Morelos',1),(1552,'Heroica Villa Tezoatlán de Segura y Luna, Cun',1),(1553,'San Jerónimo Tlacochahuaya',1),(1554,'Tlacolula de Matamoros',1),(1555,'Tlacotepec Plumas',1),(1556,'Tlalixtac de Cabrera',1),(1557,'Totontepec Villa de Morelos',1),(1558,'Trinidad Zaachila',1),(1559,'La Trinidad Vista Hermosa',1),(1560,'Unión Hidalgo',1),(1561,'Valerio Trujano',1),(1562,'San Juan Bautista Valle Nacional',1),(1563,'Villa Díaz Ordaz',1),(1564,'Yaxe',1),(1565,'Magdalena Yodocono de Porfirio Díaz',1),(1566,'Yogana',1),(1567,'Yutanduchi de Guerrero',1),(1568,'Villa de Zaachila',1),(1569,'San Mateo Yucutindoo',1),(1570,'Zapotitlán Lagunas',1),(1571,'Zapotitlán Palmas',1),(1572,'Santa Inés de Zaragoza',1),(1573,'Zimatlán de Álvarez',1),(1574,'Acajete',1),(1575,'Acateno',1),(1576,'Acatlán',1),(1577,'Acatzingo',1),(1578,'Acteopan',1),(1579,'Ahuacatlán',1),(1580,'Ahuatlán',1),(1581,'Ahuazotepec',1),(1582,'Ahuehuetitla',1),(1583,'Ajalpan',1),(1584,'Albino Zertuche',1),(1585,'Aljojuca',1),(1586,'Altepexi',1),(1587,'Amixtlán',1),(1588,'Amozoc',1),(1589,'Aquixtla',1),(1590,'Atempan',1),(1591,'Atexcal',1),(1592,'Atlixco',1),(1593,'Atoyatempan',1),(1594,'Atzala',1),(1595,'Atzitzihuacán',1),(1596,'Atzitzintla',1),(1597,'Axutla',1),(1598,'Ayotoxco de Guerrero',1),(1599,'Calpan',1),(1600,'Caltepec',1),(1601,'Camocuautla',1),(1602,'Caxhuacan',1),(1603,'Coatepec',1),(1604,'Coatzingo',1),(1605,'Cohetzala',1),(1606,'Cohuecan',1),(1607,'Coronango',1),(1608,'Coxcatlán',1),(1609,'Coyomeapan',1),(1610,'Coyotepec',1),(1611,'Cuapiaxtla de Madero',1),(1612,'Cuautempan',1),(1613,'Cuautinchán',1),(1614,'Cuautlancingo',1),(1615,'Cuayuca de Andrade',1),(1616,'Cuetzalan del Progreso',1),(1617,'Cuyoaco',1),(1618,'Chalchicomula de Sesma',1),(1619,'Chapulco',1),(1620,'Chiautla',1),(1621,'Chiautzingo',1),(1622,'Chiconcuautla',1),(1623,'Chichiquila',1),(1624,'Chietla',1),(1625,'Chigmecatitlán',1),(1626,'Chignahuapan',1),(1627,'Chignautla',1),(1628,'Chila',1),(1629,'Chila de la Sal',1),(1630,'Honey',1),(1631,'Chilchotla',1),(1632,'Chinantla',1),(1633,'Domingo Arenas',1),(1634,'Eloxochitlán',1),(1635,'Epatlán',1),(1636,'Esperanza',1),(1637,'Francisco Z. Mena',1),(1638,'General Felipe Ángeles',1),(1639,'Guadalupe',1),(1640,'Guadalupe Victoria',1),(1641,'Hermenegildo Galeana',1),(1642,'Huaquechula',1),(1643,'Huatlatlauca',1),(1644,'Huauchinango',1),(1645,'Huehuetla',1),(1646,'Huehuetlán el Chico',1),(1647,'Huejotzingo',1),(1648,'Hueyapan',1),(1649,'Hueytamalco',1),(1650,'Hueytlalpan',1),(1651,'Huitzilan de Serdán',1),(1652,'Huitziltepec',1),(1653,'Atlequizayan',1),(1654,'Ixcamilpa de Guerrero',1),(1655,'Ixcaquixtla',1),(1656,'Ixtacamaxtitlán',1),(1657,'Ixtepec',1),(1658,'Izúcar de Matamoros',1),(1659,'Jalpan',1),(1660,'Jolalpan',1),(1661,'Jonotla',1),(1662,'Jopala',1),(1663,'Juan C. Bonilla',1),(1664,'Juan Galindo',1),(1665,'Juan N. Méndez',1),(1666,'Lafragua',1),(1667,'Libres',1),(1668,'La Magdalena Tlatlauquitepec',1),(1669,'Mazapiltepec de Juárez',1),(1670,'Mixtla',1),(1671,'Molcaxac',1),(1672,'Cañada Morelos',1),(1673,'Naupan',1),(1674,'Nauzontla',1),(1675,'Nealtican',1),(1676,'Nicolás Bravo',1),(1677,'Nopalucan',1),(1678,'Ocotepec',1),(1679,'Ocoyucan',1),(1680,'Olintla',1),(1681,'Oriental',1),(1682,'Pahuatlán',1),(1683,'Palmar de Bravo',1),(1684,'Pantepec',1),(1685,'Petlalcingo',1),(1686,'Piaxtla',1),(1687,'Puebla',2),(1688,'Quecholac',1),(1689,'Quimixtlán',1),(1690,'Rafael Lara Grajales',1),(1691,'Los Reyes de Juárez',1),(1692,'San Andrés Cholula',1),(1693,'San Antonio Cañada',1),(1694,'San Diego la Mesa Tochimiltzingo',1),(1695,'San Felipe Teotlalcingo',1),(1696,'San Felipe Tepatlán',1),(1697,'San Gabriel Chilac',1),(1698,'San Gregorio Atzompa',1),(1699,'San Jerónimo Tecuanipan',1),(1700,'San Jerónimo Xayacatlán',1),(1701,'San José Chiapa',1),(1702,'San José Miahuatlán',1),(1703,'San Juan Atenco',1),(1704,'San Juan Atzompa',1),(1705,'San Martín Texmelucan',1),(1706,'San Martín Totoltepec',1),(1707,'San Matías Tlalancaleca',1),(1708,'San Miguel Ixitlán',1),(1709,'San Miguel Xoxtla',1),(1710,'San Nicolás Buenos Aires',1),(1711,'San Nicolás de los Ranchos',1),(1712,'San Pablo Anicano',1),(1713,'San Pedro Cholula',1),(1714,'San Pedro Yeloixtlahuaca',1),(1715,'San Salvador el Seco',1),(1716,'San Salvador el Verde',1),(1717,'San Salvador Huixcolotla',1),(1718,'San Sebastián Tlacotepec',1),(1719,'Santa Catarina Tlaltempan',1),(1720,'Santa Inés Ahuatempan',1),(1721,'Santa Isabel Cholula',1),(1722,'Santiago Miahuatlán',1),(1723,'Huehuetlán el Grande',1),(1724,'Santo Tomás Hueyotlipan',1),(1725,'Soltepec',1),(1726,'Tecali de Herrera',1),(1727,'Tecamachalco',1),(1728,'Tecomatlán',1),(1729,'Tehuacán',2),(1730,'Tehuitzingo',1),(1731,'Tenampulco',1),(1732,'Teopantlán',1),(1733,'Teotlalco',1),(1734,'Tepanco de López',1),(1735,'Tepango de Rodríguez',1),(1736,'Tepatlaxco de Hidalgo',1),(1737,'Tepeaca',1),(1738,'Tepemaxalco',1),(1739,'Tepeojuma',1),(1740,'Tepetzintla',1),(1741,'Tepexco',1),(1742,'Tepexi de Rodríguez',1),(1743,'Tepeyahualco',1),(1744,'Tepeyahualco de Cuauhtémoc',1),(1745,'Tetela de Ocampo',1),(1746,'Teteles de Avila Castillo',1),(1747,'Teziutlán',1),(1748,'Tianguismanalco',1),(1749,'Tilapa',1),(1750,'Tlacotepec de Benito Juárez',1),(1751,'Tlacuilotepec',1),(1752,'Tlachichuca',1),(1753,'Tlahuapan',1),(1754,'Tlaltenango',1),(1755,'Tlanepantla',1),(1756,'Tlaola',1),(1757,'Tlapacoya',1),(1758,'Tlapanalá',1),(1759,'Tlatlauquitepec',1),(1760,'Tlaxco',1),(1761,'Tochimilco',1),(1762,'Tochtepec',1),(1763,'Totoltepec de Guerrero',1),(1764,'Tulcingo',1),(1765,'Tuzamapan de Galeana',1),(1766,'Tzicatlacoyan',1),(1767,'Venustiano Carranza',1),(1768,'Vicente Guerrero',1),(1769,'Xayacatlán de Bravo',1),(1770,'Xicotepec',1),(1771,'Xicotlán',1),(1772,'Xiutetelco',1),(1773,'Xochiapulco',1),(1774,'Xochiltepec',1),(1775,'Xochitlán de Vicente Suárez',1),(1776,'Xochitlán Todos Santos',1),(1777,'Yaonáhuac',1),(1778,'Yehualtepec',1),(1779,'Zacapala',1),(1780,'Zacapoaxtla',1),(1781,'Zacatlán',1),(1782,'Zapotitlán',1),(1783,'Zapotitlán de Méndez',1),(1784,'Zaragoza',1),(1785,'Zautla',1),(1786,'Zihuateutla',1),(1787,'Zinacatepec',1),(1788,'Zongozotla',1),(1789,'Zoquiapan',1),(1790,'Zoquitlán',1),(1791,'Amealco de Bonfil',2),(1792,'Pinal de Amoles',2),(1793,'Arroyo Seco',2),(1794,'Cadereyta de Montes',2),(1795,'Colón',2),(1796,'Corregidora',2),(1797,'Ezequiel Montes',2),(1798,'Huimilpan',2),(1799,'Jalpan de Serra',2),(1800,'Landa de Matamoros',2),(1801,'El Marqués',2),(1802,'Pedro Escobedo',2),(1803,'Peñamiller',2),(1804,'Querétaro',2),(1805,'San Joaquín',2),(1806,'San Juan del Río',2),(1807,'Tequisquiapan',2),(1808,'Tolimán',2),(1809,'Cozumel',4),(1810,'Felipe Carrillo Puerto',3),(1811,'Isla Mujeres',3),(1812,'Othón P. Blanco',3),(1813,'Benito Juárez',4),(1814,'José María Morelos',3),(1815,'Lázaro Cárdenas',3),(1816,'Solidaridad',3),(1817,'Tulum',3),(1818,'Bacalar',3),(1819,'Puerto Morelos',3),(1820,'Ahualulco',1),(1821,'Alaquines',1),(1822,'Aquismón',1),(1823,'Armadillo de los Infante',1),(1824,'Cárdenas',1),(1825,'Catorce',1),(1826,'Cedral',1),(1827,'Cerritos',1),(1828,'Cerro de San Pedro',1),(1829,'Ciudad del Maíz',1),(1830,'Ciudad Fernández',1),(1831,'Tancanhuitz',1),(1832,'Ciudad Valles',1),(1833,'Coxcatlán',1),(1834,'Charcas',1),(1835,'Ebano',1),(1836,'Guadalcázar',1),(1837,'Huehuetlán',1),(1838,'Lagunillas',1),(1839,'Matehuala',1),(1840,'Mexquitic de Carmona',1),(1841,'Moctezuma',1),(1842,'Rayón',1),(1843,'Rioverde',1),(1844,'Salinas',1),(1845,'San Antonio',1),(1846,'San Ciro de Acosta',1),(1847,'San Luis Potosí',1),(1848,'San Martín Chalchicuautla',1),(1849,'San Nicolás Tolentino',1),(1850,'Santa Catarina',1),(1851,'Santa María del Río',1),(1852,'Santo Domingo',1),(1853,'San Vicente Tancuayalab',1),(1854,'Soledad de Graciano Sánchez',1),(1855,'Tamasopo',1),(1856,'Tamazunchale',1),(1857,'Tampacán',1),(1858,'Tampamolón Corona',1),(1859,'Tamuín',1),(1860,'Tanlajás',1),(1861,'Tanquián de Escobedo',1),(1862,'Tierra Nueva',1),(1863,'Vanegas',1),(1864,'Venado',1),(1865,'Villa de Arriaga',1),(1866,'Villa de Guadalupe',1),(1867,'Villa de la Paz',1),(1868,'Villa de Ramos',1),(1869,'Villa de Reyes',1),(1870,'Villa Hidalgo',1),(1871,'Villa Juárez',1),(1872,'Axtla de Terrazas',1),(1873,'Xilitla',1),(1874,'Zaragoza',1),(1875,'Villa de Arista',1),(1876,'Matlapa',1),(1877,'El Naranjo',1),(1878,'Ahome',2),(1879,'Angostura',2),(1880,'Badiraguato',2),(1881,'Concordia',2),(1882,'Cosalá',2),(1883,'Culiacán',2),(1884,'Choix',2),(1885,'Elota',2),(1886,'Escuinapa',2),(1887,'El Fuerte',2),(1888,'Guasave',2),(1889,'Mazatlán',4),(1890,'Mocorito',2),(1891,'Rosario',2),(1892,'Salvador Alvarado',2),(1893,'San Ignacio',2),(1894,'Sinaloa',2),(1895,'Navolato',2),(1896,'Aconchi',2),(1897,'Agua Prieta',3),(1898,'Alamos',2),(1899,'Altar',2),(1900,'Arivechi',2),(1901,'Arizpe',2),(1902,'Atil',2),(1903,'Bacadéhuachi',2),(1904,'Bacanora',2),(1905,'Bacerac',2),(1906,'Bacoachi',2),(1907,'Bácum',2),(1908,'Banámichi',2),(1909,'Baviácora',2),(1910,'Bavispe',2),(1911,'Benjamín Hill',2),(1912,'Caborca',2),(1913,'Cajeme',3),(1914,'Cananea',3),(1915,'Carbó',2),(1916,'La Colorada',2),(1917,'Cucurpe',2),(1918,'Cumpas',2),(1919,'Divisaderos',2),(1920,'Empalme',2),(1921,'Etchojoa',2),(1922,'Fronteras',2),(1923,'Granados',2),(1924,'Guaymas',3),(1925,'Hermosillo',3),(1926,'Huachinera',2),(1927,'Huásabas',2),(1928,'Huatabampo',2),(1929,'Huépac',2),(1930,'Imuris',2),(1931,'Magdalena',2),(1932,'Mazatán',2),(1933,'Moctezuma',2),(1934,'Naco',3),(1935,'Nácori Chico',2),(1936,'Nacozari de García',2),(1937,'Navojoa',2),(1938,'Nogales',3),(1939,'Onavas',2),(1940,'Opodepe',2),(1941,'Oquitoa',2),(1942,'Pitiquito',2),(1943,'Puerto Peñasco',2),(1944,'Quiriego',2),(1945,'Rayón',2),(1946,'Rosario',2),(1947,'Sahuaripa',2),(1948,'San Felipe de Jesús',2),(1949,'San Javier',2),(1950,'San Luis Río Colorado',3),(1951,'San Miguel de Horcasitas',2),(1952,'San Pedro de la Cueva',2),(1953,'Santa Ana',2),(1954,'Santa Cruz',2),(1955,'Sáric',2),(1956,'Soyopa',2),(1957,'Suaqui Grande',2),(1958,'Tepache',2),(1959,'Trincheras',2),(1960,'Tubutama',2),(1961,'Ures',2),(1962,'Villa Hidalgo',2),(1963,'Villa Pesqueira',2),(1964,'Yécora',2),(1965,'General Plutarco Elías Calles',2),(1966,'Benito Juárez',2),(1967,'San Ignacio Río Muerto',2),(1968,'Balancán',3),(1969,'Cárdenas',3),(1970,'Centla',3),(1971,'Centro',3),(1972,'Comalcalco',3),(1973,'Cunduacán',3),(1974,'Emiliano Zapata',3),(1975,'Huimanguillo',3),(1976,'Jalapa',3),(1977,'Jalpa de Méndez',3),(1978,'Jonuta',3),(1979,'Macuspana',3),(1980,'Nacajuca',3),(1981,'Paraíso',3),(1982,'Tacotalpa',3),(1983,'Teapa',3),(1984,'Tenosique',3),(1985,'Abasolo',2),(1986,'Aldama',2),(1987,'Altamira',2),(1988,'Antiguo Morelos',2),(1989,'Burgos',2),(1990,'Bustamante',2),(1991,'Camargo',2),(1992,'Casas',2),(1993,'Ciudad Madero',2),(1994,'Cruillas',2),(1995,'Gómez Farías',2),(1996,'González',2),(1997,'Güémez',2),(1998,'Guerrero',2),(1999,'Gustavo Díaz Ordaz',2),(2000,'Hidalgo',2),(2001,'Jaumave',2),(2002,'Jiménez',2),(2003,'Llera',2),(2004,'Mainero',2),(2005,'El Mante',2),(2006,'Matamoros',3),(2007,'Méndez',2),(2008,'Mier',2),(2009,'Miguel Alemán',2),(2010,'Miquihuana',2),(2011,'Nuevo Laredo',3),(2012,'Nuevo Morelos',2),(2013,'Ocampo',2),(2014,'Padilla',2),(2015,'Palmillas',2),(2016,'Reynosa',3),(2017,'Río Bravo',2),(2018,'San Carlos',2),(2019,'San Fernando',2),(2020,'San Nicolás',2),(2021,'Soto la Marina',2),(2022,'Tampico',3),(2023,'Tula',2),(2024,'Valle Hermoso',2),(2025,'Victoria',4),(2026,'Villagrán',2),(2027,'Xicoténcatl',2),(2028,'Amaxac de Guerrero',1),(2029,'Apetatitlán de Antonio Carvajal',1),(2030,'Atlangatepec',1),(2031,'Atltzayanca',1),(2032,'Apizaco',1),(2033,'Calpulalpan',1),(2034,'El Carmen Tequexquitla',1),(2035,'Cuapiaxtla',1),(2036,'Cuaxomulco',1),(2037,'Chiautempan',1),(2038,'Muñoz de Domingo Arenas',1),(2039,'Españita',1),(2040,'Huamantla',1),(2041,'Hueyotlipan',1),(2042,'Ixtacuixtla de Mariano Matamoros',1),(2043,'Ixtenco',1),(2044,'Mazatecochco de José María Morelos',1),(2045,'Contla de Juan Cuamatzi',1),(2046,'Tepetitla de Lardizábal',1),(2047,'Sanctórum de Lázaro Cárdenas',1),(2048,'Nanacamilpa de Mariano Arista',1),(2049,'Acuamanala de Miguel Hidalgo',1),(2050,'Natívitas',1),(2051,'Panotla',1),(2052,'San Pablo del Monte',1),(2053,'Santa Cruz Tlaxcala',1),(2054,'Tenancingo',1),(2055,'Teolocholco',1),(2056,'Tepeyanco',1),(2057,'Terrenate',1),(2058,'Tetla de la Solidaridad',1),(2059,'Tetlatlahuca',1),(2060,'Tlaxcala',1),(2061,'Tlaxco',1),(2062,'Tocatlán',1),(2063,'Totolac',1),(2064,'Ziltlaltépec de Trinidad Sánchez Santos',1),(2065,'Tzompantepec',1),(2066,'Xaloztoc',1),(2067,'Xaltocan',1),(2068,'Papalotla de Xicohténcatl',1),(2069,'Xicohtzinco',1),(2070,'Yauhquemehcan',1),(2071,'Zacatelco',1),(2072,'Benito Juárez',1),(2073,'Emiliano Zapata',1),(2074,'Lázaro Cárdenas',1),(2075,'La Magdalena Tlaltelulco',1),(2076,'San Damián Texóloc',1),(2077,'San Francisco Tetlanohcan',1),(2078,'San Jerónimo Zacualpan',1),(2079,'San José Teacalco',1),(2080,'San Juan Huactzinco',1),(2081,'San Lorenzo Axocomanitla',1),(2082,'San Lucas Tecopilco',1),(2083,'Santa Ana Nopalucan',1),(2084,'Santa Apolonia Teacalco',1),(2085,'Santa Catarina Ayometla',1),(2086,'Santa Cruz Quilehtla',1),(2087,'Santa Isabel Xiloxoxtla',1),(2088,'Acajete',1),(2089,'Acatlán',1),(2090,'Acayucan',1),(2091,'Actopan',1),(2092,'Acula',1),(2093,'Acultzingo',1),(2094,'Camarón de Tejeda',1),(2095,'Alpatláhuac',1),(2096,'Alto Lucero de Gutiérrez Barrios',1),(2097,'Altotonga',1),(2098,'Alvarado',1),(2099,'Amatitlán',1),(2100,'Naranjos Amatlán',1),(2101,'Amatlán de los Reyes',1),(2102,'Angel R. Cabada',1),(2103,'La Antigua',1),(2104,'Apazapan',1),(2105,'Aquila',1),(2106,'Astacinga',1),(2107,'Atlahuilco',1),(2108,'Atoyac',1),(2109,'Atzacan',1),(2110,'Atzalan',1),(2111,'Tlaltetela',1),(2112,'Ayahualulco',1),(2113,'Banderilla',1),(2114,'Benito Juárez',1),(2115,'Boca del Río',1),(2116,'Calcahualco',1),(2117,'Camerino Z. Mendoza',1),(2118,'Carrillo Puerto',1),(2119,'Catemaco',1),(2120,'Cazones de Herrera',1),(2121,'Cerro Azul',1),(2122,'Citlaltépetl',1),(2123,'Coacoatzintla',1),(2124,'Coahuitlán',1),(2125,'Coatepec',1),(2126,'Coatzacoalcos',3),(2127,'Coatzintla',1),(2128,'Coetzala',1),(2129,'Colipa',1),(2130,'Comapa',1),(2131,'Córdoba',1),(2132,'Cosamaloapan de Carpio',1),(2133,'Cosautlán de Carvajal',1),(2134,'Coscomatepec',1),(2135,'Cosoleacaque',1),(2136,'Cotaxtla',1),(2137,'Coxquihui',1),(2138,'Coyutla',1),(2139,'Cuichapa',1),(2140,'Cuitláhuac',1),(2141,'Chacaltianguis',1),(2142,'Chalma',1),(2143,'Chiconamel',1),(2144,'Chiconquiaco',1),(2145,'Chicontepec',1),(2146,'Chinameca',1),(2147,'Chinampa de Gorostiza',1),(2148,'Las Choapas',1),(2149,'Chocamán',1),(2150,'Chontla',1),(2151,'Chumatlán',1),(2152,'Emiliano Zapata',1),(2153,'Espinal',1),(2154,'Filomeno Mata',1),(2155,'Fortín',1),(2156,'Gutiérrez Zamora',1),(2157,'Hidalgotitlán',1),(2158,'Huatusco',1),(2159,'Huayacocotla',1),(2160,'Hueyapan de Ocampo',1),(2161,'Huiloapan de Cuauhtémoc',1),(2162,'Ignacio de la Llave',1),(2163,'Ilamatlán',1),(2164,'Isla',1),(2165,'Ixcatepec',1),(2166,'Ixhuacán de los Reyes',1),(2167,'Ixhuatlán del Café',1),(2168,'Ixhuatlancillo',1),(2169,'Ixhuatlán del Sureste',1),(2170,'Ixhuatlán de Madero',1),(2171,'Ixmatlahuacan',1),(2172,'Ixtaczoquitlán',1),(2173,'Jalacingo',1),(2174,'Xalapa',1),(2175,'Jalcomulco',1),(2176,'Jáltipan',1),(2177,'Jamapa',1),(2178,'Jesús Carranza',1),(2179,'Xico',1),(2180,'Jilotepec',1),(2181,'Juan Rodríguez Clara',1),(2182,'Juchique de Ferrer',1),(2183,'Landero y Coss',1),(2184,'Lerdo de Tejada',1),(2185,'Magdalena',1),(2186,'Maltrata',1),(2187,'Manlio Fabio Altamirano',1),(2188,'Mariano Escobedo',1),(2189,'Martínez de la Torre',1),(2190,'Mecatlán',1),(2191,'Mecayapan',1),(2192,'Medellín de Bravo',1),(2193,'Miahuatlán',1),(2194,'Las Minas',1),(2195,'Minatitlán',3),(2196,'Misantla',1),(2197,'Mixtla de Altamirano',1),(2198,'Moloacán',1),(2199,'Naolinco',1),(2200,'Naranjal',1),(2201,'Nautla',1),(2202,'Nogales',1),(2203,'Oluta',1),(2204,'Omealca',1),(2205,'Orizaba',1),(2206,'Otatitlán',1),(2207,'Oteapan',1),(2208,'Ozuluama de Mascareñas',1),(2209,'Pajapan',1),(2210,'Pánuco',1),(2211,'Papantla',1),(2212,'Paso del Macho',1),(2213,'Paso de Ovejas',1),(2214,'La Perla',1),(2215,'Perote',1),(2216,'Platón Sánchez',1),(2217,'Playa Vicente',1),(2218,'Poza Rica de Hidalgo',2),(2219,'Las Vigas de Ramírez',1),(2220,'Pueblo Viejo',1),(2221,'Puente Nacional',1),(2222,'Rafael Delgado',1),(2223,'Rafael Lucio',1),(2224,'Los Reyes',1),(2225,'Río Blanco',1),(2226,'Saltabarranca',1),(2227,'San Andrés Tenejapan',1),(2228,'San Andrés Tuxtla',1),(2229,'San Juan Evangelista',1),(2230,'Santiago Tuxtla',1),(2231,'Sayula de Alemán',1),(2232,'Soconusco',1),(2233,'Sochiapa',1),(2234,'Soledad Atzompa',1),(2235,'Soledad de Doblado',1),(2236,'Soteapan',1),(2237,'Tamalín',1),(2238,'Tamiahua',1),(2239,'Tampico Alto',1),(2240,'Tancoco',1),(2241,'Tantima',1),(2242,'Tantoyuca',1),(2243,'Tatatila',1),(2244,'Castillo de Teayo',1),(2245,'Tecolutla',1),(2246,'Tehuipango',1),(2247,'Álamo Temapache',1),(2248,'Tempoal',1),(2249,'Tenampa',1),(2250,'Tenochtitlán',1),(2251,'Teocelo',1),(2252,'Tepatlaxco',1),(2253,'Tepetlán',1),(2254,'Tepetzintla',1),(2255,'Tequila',1),(2256,'José Azueta',1),(2257,'Texcatepec',1),(2258,'Texhuacán',1),(2259,'Texistepec',1),(2260,'Tezonapa',1),(2261,'Tierra Blanca',1),(2262,'Tihuatlán',1),(2263,'Tlacojalpan',1),(2264,'Tlacolulan',1),(2265,'Tlacotalpan',1),(2266,'Tlacotepec de Mejía',1),(2267,'Tlachichilco',1),(2268,'Tlalixcoyan',1),(2269,'Tlalnelhuayocan',1),(2270,'Tlapacoyan',1),(2271,'Tlaquilpa',1),(2272,'Tlilapan',1),(2273,'Tomatlán',1),(2274,'Tonayán',1),(2275,'Totutla',1),(2276,'Tuxpan',2),(2277,'Tuxtilla',1),(2278,'Ursulo Galván',1),(2279,'Vega de Alatorre',1),(2280,'Veracruz',2),(2281,'Villa Aldama',1),(2282,'Xoxocotla',1),(2283,'Yanga',1),(2284,'Yecuatla',1),(2285,'Zacualpan',1),(2286,'Zaragoza',1),(2287,'Zentla',1),(2288,'Zongolica',1),(2289,'Zontecomatlán de López y Fuentes',1),(2290,'Zozocolco de Hidalgo',1),(2291,'Agua Dulce',1),(2292,'El Higo',1),(2293,'Nanchital de Lázaro Cárdenas del Río',1),(2294,'Tres Valles',1),(2295,'Carlos A. Carrillo',1),(2296,'Tatahuicapan de Juárez',1),(2297,'Uxpanapa',1),(2298,'San Rafael',1),(2299,'Santiago Sochiapan',1),(2300,'Abalá',2),(2301,'Acanceh',2),(2302,'Akil',2),(2303,'Baca',2),(2304,'Bokobá',2),(2305,'Buctzotz',2),(2306,'Cacalchén',2),(2307,'Calotmul',2),(2308,'Cansahcab',2),(2309,'Cantamayec',2),(2310,'Celestún',2),(2311,'Cenotillo',2),(2312,'Conkal',2),(2313,'Cuncunul',2),(2314,'Cuzamá',2),(2315,'Chacsinkín',2),(2316,'Chankom',2),(2317,'Chapab',2),(2318,'Chemax',2),(2319,'Chicxulub Pueblo',2),(2320,'Chichimilá',2),(2321,'Chikindzonot',2),(2322,'Chocholá',2),(2323,'Chumayel',2),(2324,'Dzán',2),(2325,'Dzemul',2),(2326,'Dzidzantún',2),(2327,'Dzilam de Bravo',2),(2328,'Dzilam González',2),(2329,'Dzitás',2),(2330,'Dzoncauich',2),(2331,'Espita',2),(2332,'Halachó',2),(2333,'Hocabá',2),(2334,'Hoctún',2),(2335,'Homún',2),(2336,'Huhí',2),(2337,'Hunucmá',2),(2338,'Ixil',2),(2339,'Izamal',2),(2340,'Kanasín',2),(2341,'Kantunil',2),(2342,'Kaua',2),(2343,'Kinchil',2),(2344,'Kopomá',2),(2345,'Mama',2),(2346,'Maní',2),(2347,'Maxcanú',2),(2348,'Mayapán',2),(2349,'Mérida',3),(2350,'Mocochá',2),(2351,'Motul',2),(2352,'Muna',2),(2353,'Muxupip',2),(2354,'Opichén',2),(2355,'Oxkutzcab',2),(2356,'Panabá',2),(2357,'Peto',2),(2358,'Progreso',2),(2359,'Quintana Roo',2),(2360,'Río Lagartos',2),(2361,'Sacalum',2),(2362,'Samahil',2),(2363,'Sanahcat',2),(2364,'San Felipe',2),(2365,'Santa Elena',2),(2366,'Seyé',2),(2367,'Sinanché',2),(2368,'Sotuta',2),(2369,'Sucilá',2),(2370,'Sudzal',2),(2371,'Suma',2),(2372,'Tahdziú',2),(2373,'Tahmek',2),(2374,'Teabo',2),(2375,'Tecoh',2),(2376,'Tekal de Venegas',2),(2377,'Tekantó',2),(2378,'Tekax',2),(2379,'Tekit',2),(2380,'Tekom',2),(2381,'Telchac Pueblo',2),(2382,'Telchac Puerto',2),(2383,'Temax',2),(2384,'Temozón',2),(2385,'Tepakán',2),(2386,'Tetiz',2),(2387,'Teya',2),(2388,'Ticul',2),(2389,'Timucuy',2),(2390,'Tinum',2),(2391,'Tixcacalcupul',2),(2392,'Tixkokob',2),(2393,'Tixmehuac',2),(2394,'Tixpéhual',2),(2395,'Tizimín',2),(2396,'Tunkás',2),(2397,'Tzucacab',2),(2398,'Uayma',2),(2399,'Ucú',2),(2400,'Umán',2),(2401,'Valladolid',2),(2402,'Xocchel',2),(2403,'Yaxcabá',2),(2404,'Yaxkukul',2),(2405,'Yobaín',2),(2406,'Apozol',1),(2407,'Apulco',1),(2408,'Atolinga',1),(2409,'Benito Juárez',1),(2410,'Calera',1),(2411,'Cañitas de Felipe Pescador',1),(2412,'Concepción del Oro',1),(2413,'Cuauhtémoc',1),(2414,'Chalchihuites',1),(2415,'Fresnillo',1),(2416,'Trinidad García de la Cadena',1),(2417,'Genaro Codina',1),(2418,'General Enrique Estrada',1),(2419,'General Francisco R. Murguía',1),(2420,'El Plateado de Joaquín Amaro',1),(2421,'General Pánfilo Natera',1),(2422,'Guadalupe',1),(2423,'Huanusco',1),(2424,'Jalpa',1),(2425,'Jerez',1),(2426,'Jiménez del Teul',1),(2427,'Juan Aldama',1),(2428,'Juchipila',1),(2429,'Loreto',1),(2430,'Luis Moya',1),(2431,'Mazapil',1),(2432,'Melchor Ocampo',1),(2433,'Mezquital del Oro',1),(2434,'Miguel Auza',1),(2435,'Momax',1),(2436,'Monte Escobedo',1),(2437,'Morelos',1),(2438,'Moyahua de Estrada',1),(2439,'Nochistlán de Mejía',1),(2440,'Noria de Ángeles',1),(2441,'Ojocaliente',1),(2442,'Pánuco',1),(2443,'Pinos',1),(2444,'Río Grande',1),(2445,'Sain Alto',1),(2446,'El Salvador',1),(2447,'Sombrerete',1),(2448,'Susticacán',1),(2449,'Tabasco',1),(2450,'Tepechitlán',1),(2451,'Tepetongo',1),(2452,'Teúl de González Ortega',1),(2453,'Tlaltenango de Sánchez Román',1),(2454,'Valparaíso',1),(2455,'Vetagrande',1),(2456,'Villa de Cos',1),(2457,'Villa García',1),(2458,'Villa González Ortega',1),(2459,'Villa Hidalgo',1),(2460,'Villanueva',1),(2461,'Zacatecas',2),(2462,'Trancoso',1),(2463,'Santa María de la Paz',1);
+/*!40000 ALTER TABLE `municipio` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
--- Estructura de tabla para la tabla `pais`
+-- Table structure for table `pais`
 --
 
+DROP TABLE IF EXISTS `pais`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `pais` (
-  `id` int(11) NOT NULL,
-  `zona` int(11) DEFAULT NULL,
-  `nombre` varchar(45) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(45) DEFAULT NULL,
+  `zona` int DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=184 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Volcado de datos para la tabla `pais`
+-- Dumping data for table `pais`
 --
 
-INSERT INTO `pais` (`id`, `zona`, `nombre`) VALUES
-(1, 2, 'chile');
-
--- --------------------------------------------------------
+LOCK TABLES `pais` WRITE;
+/*!40000 ALTER TABLE `pais` DISABLE KEYS */;
+INSERT INTO `pais` VALUES (1,'BELICE',1),(2,'COSTA RICA',1),(3,'CUBA',1),(4,'CHILE',1),(5,'REPUBLICA DOMINICANA',1),(6,'GUATEMALA',1),(7,'JAMAICA',1),(8,'NICARAGUA',1),(9,'PANAMA',1),(10,'PUERTO RICO',1),(11,'VENEZUELA',1),(12,'ANTILLAS MENORES',2),(13,'ARGENTINA',2),(14,'BAHAMAS',2),(15,'COLOMBIA',2),(16,'EL SALVADOR',2),(17,'HONDURAS',2),(18,'SURINAM',2),(19,'BERMUDAS',2),(20,'BOLIVIA',3),(21,'BRASIL',3),(22,'CANADA',3),(23,'ECUADOR',3),(24,'ESTADOS UNIDOS DE AMERICA',3),(25,'GUYANA',3),(26,'HAITI',3),(27,'PARAGUAY',3),(28,'PERU',3),(29,'URUGUAY',3),(30,'ALBANIA',1),(31,'ANDORRA',1),(32,'BULGARIA',1),(33,'MONACO',1),(34,'POLONIA',1),(35,'REPUBLICA CHECA',1),(36,'TERRITORIO YUGOSLAVO',1),(37,'ESLOVAQUIA',1),(38,'UCRANIA',1),(39,'BELARUS',1),(40,'LIECHTENSTEIN',1),(41,'MOLDOVA',1),(42,'AUSTRIA',2),(43,'DINAMARCA',2),(44,'HUNGRIA',2),(45,'REPUBLICA DE IRLANDA',2),(46,'ISLANDIA',2),(47,'PAISES BALTICOS',2),(48,'LUXEMBURGO',2),(49,'NORUEGA',2),(50,'RUSIA',2),(51,'TURKMENISTAN',2),(52,'ARMENIA',2),(53,'AZERBAIYAN',2),(54,'GEORGIA',2),(55,'AFGANISTAN',2),(56,'KAZAJSTAN',2),(57,'KIRGUISTAN',2),(58,'TAYIKISTAN',2),(59,'UZBEKISTAN',2),(60,'ALEMANIA',3),(61,'BELGICA',3),(62,'ESPANA',3),(63,'FINLANDIA',3),(64,'FRANCIA',3),(65,'ALEMANIA',3),(66,'REINO UNIDO',3),(67,'GRECIA',3),(68,'PAISES BAJOS',3),(69,'ITALIA',3),(70,'MALTA',3),(71,'PORTUGAL',3),(72,'SAN MARINO',3),(73,'SUECIA',3),(74,'SUIZA',3),(75,'AUSTRALIA',2),(76,'FIYI',2),(77,'KIRIBATI',2),(78,'ISLAS MARSHALL',2),(79,'ISLAS SALOMON',2),(80,'MICRONESIA',2),(81,'NAURU',2),(82,'NUEVA ZELANDA',2),(83,'PALAOS',2),(84,'PAPUA NUEVA GUINEA',2),(85,'SAMOA',2),(86,'TONGA',2),(87,'TUVALU',2),(88,'VANUATU',2),(89,'ZAMBIA',1),(90,'SUDAFRICA',1),(91,'MAURITANIA',1),(92,'GABON',1),(93,'LIBIA',1),(94,'ANGOLA',1),(95,'DJIBOUTI',1),(96,'GAMBIA',1),(97,'LESOTHO',1),(98,'NAMIBIA',1),(99,'SOMALIA',1),(100,'TOGO',1),(101,'ZIMBABWE',1),(102,'SAMBIA',1),(103,'ARGELIA',2),(104,'ETIOPIA',2),(105,'SENEGAL',2),(106,'EGIPTO',2),(107,'MARRUECOS',2),(108,'MOZAMBIQUE',2),(109,'KENIA',2),(110,'SUDAN',2),(111,'COSTA DE MARFIL',2),(112,'GUINEA ECUATORIAL',2),(113,'SANTO TOME Y PRINCIPE',2),(114,'SUAZILANDIA',2),(115,'TUNEZ',2),(116,'ERITREA',2),(117,'GHANA',3),(118,'MALI',3),(119,'TANZANIA',3),(120,'SIERRA LEONA',3),(121,'BURKINA FASO',3),(122,'SEYCHELLES',3),(123,'BOTSWANA',3),(124,'BURUNDI',3),(125,'CABO VERDE',3),(126,'CAMERUN',3),(127,'REPUBLICA CENTRO AFRICANA',3),(128,'ISLAS COMORAS',3),(129,'REPUBLICA DEL CONGO',3),(130,'CHAD',3),(131,'GUINEA',3),(132,'GUINEA BISSAU',3),(133,'LIBERIA',3),(134,'MADAGASCAR',3),(135,'MALAWI',3),(136,'MAURICIO',3),(137,'NIGER',3),(138,'NIGERIA',3),(139,'RUANDA',3),(140,'BENIN',3),(141,'REPUBLICA DEMOCRATICA DEL CONGO',3),(142,'UGANDA',3),(143,'AFGANISTAN',1),(144,'BANGLADESH',1),(145,'BRUNEI',1),(146,'COREA DEL SUR',1),(147,'CHIPRE',1),(148,'CAPITAL DE SIRIA',1),(149,'INDIA',1),(150,'INDONESIA',1),(151,'IRAK',1),(152,'JORDANIA',1),(153,'KUWAIT',1),(154,'LIBANO',1),(155,'NEPAL',1),(156,'PAKISTAN',1),(157,'SINGAPUR',1),(158,'ARABIA SAUDITA',2),(159,'BUTAN',2),(160,'COREA DEL NORTE',2),(161,'REPUBLICA POPULAR DE CHINA',2),(162,'HONG KONG',2),(163,'MALDIVAS',2),(164,'MONGOLIA',2),(165,'REPUBLICA DE CHINA',2),(166,'VIETNAM',2),(167,'BAHREIN',3),(168,'MYANMAR',3),(169,'EMIRATOS ARABES UNIDOS',3),(170,'FILIPINAS',3),(171,'IRAN',3),(172,'ISRAEL',3),(173,'JAPON',3),(174,'CAMBOYA',3),(175,'QATAR',3),(176,'LAOS',3),(177,'MALASIA',3),(178,'OMAN',3),(179,'SIRIA',3),(180,'SRI LANKA',3),(181,'TAILANDIA',3),(182,'TURQUIA',3),(183,'YEMEN',3);
+/*!40000 ALTER TABLE `pais` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
--- Estructura de tabla para la tabla `programa_trabajo`
+-- Table structure for table `programa_trabajo`
 --
 
+DROP TABLE IF EXISTS `programa_trabajo`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `programa_trabajo` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
   `dia` datetime DEFAULT NULL,
   `lugar_estancia` varchar(45) DEFAULT NULL,
   `tareas_realizar` text,
-  `id_solicitud_comision` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `id_solicitud_comision` int NOT NULL,
+  PRIMARY KEY (`id`,`id_solicitud_comision`),
+  KEY `fk_programa_trabajo_solicitud_comision1_idx` (`id_solicitud_comision`),
+  CONSTRAINT `fk_programa_trabajo_solicitud_comision1` FOREIGN KEY (`id_solicitud_comision`) REFERENCES `solicitud_comision` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Volcado de datos para la tabla `programa_trabajo`
+-- Dumping data for table `programa_trabajo`
 --
 
-INSERT INTO `programa_trabajo` (`id`, `dia`, `lugar_estancia`, `tareas_realizar`, `id_solicitud_comision`) VALUES
-(1, '2020-02-12 00:00:00', 'zapopan', 'exponer', 2),
-(2, '2020-02-13 00:00:00', 'guadalajara', 'exponer', 2);
-
--- --------------------------------------------------------
+LOCK TABLES `programa_trabajo` WRITE;
+/*!40000 ALTER TABLE `programa_trabajo` DISABLE KEYS */;
+INSERT INTO `programa_trabajo` VALUES (1,'2020-02-12 00:00:00','zapopan','exponer',2),(2,'2020-02-13 00:00:00','guadalajara','exponer',2);
+/*!40000 ALTER TABLE `programa_trabajo` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
--- Estructura de tabla para la tabla `solicitud_comision`
+-- Table structure for table `solicitud_comision`
 --
 
+DROP TABLE IF EXISTS `solicitud_comision`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `solicitud_comision` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
   `fecha_solicitud` datetime DEFAULT NULL,
   `fecha_inicio` date DEFAULT NULL,
   `fecha_fin` date DEFAULT NULL,
-  `tipo_comision` int(11) NOT NULL,
-  `id_pais` int(11) DEFAULT NULL,
-  `id_municipio` int(11) DEFAULT NULL,
-  `id_usuario` int(11) NOT NULL,
+  `tipo_comision` int NOT NULL,
+  `id_pais` int DEFAULT NULL,
+  `id_municipio` int DEFAULT NULL,
+  `id_usuario` int NOT NULL,
   `justificacion` text,
-  `status` int(11) NOT NULL,
+  `status` int NOT NULL,
   `objetivo_trabajo` tinytext,
   `area_adscripcion` varchar(45) DEFAULT NULL,
   `nombre_comision` varchar(45) DEFAULT NULL,
@@ -186,42 +273,41 @@ CREATE TABLE `solicitud_comision` (
   `programa_evento` tinytext,
   `invitacion_evento` tinytext,
   `fecha_creacion` datetime NOT NULL,
-  `fecha_modificacion` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `fecha_modificacion` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`,`id_usuario`),
+  KEY `fk_solicitud_comision_pais_idx` (`id_pais`),
+  KEY `fk_solicitud_comision_municipio1_idx` (`id_municipio`),
+  KEY `fk_solicitud_comision_usuario1_idx` (`id_usuario`),
+  CONSTRAINT `fk_solicitud_comision_municipio1` FOREIGN KEY (`id_municipio`) REFERENCES `municipio` (`id`),
+  CONSTRAINT `fk_solicitud_comision_pais` FOREIGN KEY (`id_pais`) REFERENCES `pais` (`id`),
+  CONSTRAINT `fk_solicitud_comision_usuario1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`codigo`)
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Volcado de datos para la tabla `solicitud_comision`
+-- Dumping data for table `solicitud_comision`
 --
 
-INSERT INTO `solicitud_comision` (`id`, `fecha_solicitud`, `fecha_inicio`, `fecha_fin`, `tipo_comision`, `id_pais`, `id_municipio`, `id_usuario`, `justificacion`, `status`, `objetivo_trabajo`, `area_adscripcion`, `nombre_comision`, `comentario_rechazo`, `fecha_revisado`, `fecha_aceptado`, `nombre_revisado`, `nombre_aceptado`, `programa_evento`, `invitacion_evento`, `fecha_creacion`, `fecha_modificacion`) VALUES
-(2, '2020-01-28 16:35:29', '2020-02-12', '2020-02-15', 1, NULL, 1, 210545544, 'necesito saber', 6, 'saber it', NULL, 'tecnologias', '', NULL, '2020-01-30 03:22:47', NULL, 'Jairo Jahaziel Gonzalez Casillas', 'programatecno', 'intacioneve', '2020-01-28 16:35:29', '2020-01-30 03:22:47'),
-(3, '2020-01-28 16:40:03', '2020-02-12', '2020-02-15', 1, NULL, 1, 210545544, 'necesito saber', 6, 'saber it', NULL, 'tecnologias', NULL, NULL, NULL, NULL, NULL, 'programatecno', 'intacioneve', '2020-01-28 16:40:03', NULL),
-(4, '2020-01-28 16:41:05', '2020-02-12', '2020-02-15', 1, NULL, 1, 210545544, 'necesito saber', -1, 'saber it', NULL, 'tecnologias', NULL, NULL, NULL, NULL, NULL, 'programatecno', 'intacioneve', '2020-01-28 16:41:05', NULL),
-(5, '2020-01-28 16:42:35', '2020-02-12', '2020-02-15', 1, NULL, 1, 2828001, 'necesito saber', 1, 'saber it', NULL, 'tecnologias', NULL, NULL, NULL, NULL, NULL, 'programatecno', 'intacioneve', '2020-01-28 16:42:35', NULL),
-(6, '2020-01-28 16:43:58', '2020-02-12', '2020-02-15', 1, NULL, 1, 2828001, 'necesito saber', 4, 'saber it', NULL, 'tecnologias', NULL, NULL, NULL, NULL, NULL, 'programatecno', 'intacioneve', '2020-01-28 16:43:58', NULL),
-(8, '2020-01-28 17:19:24', '2020-02-12', '2020-02-15', 0, 1, NULL, 2828001, 'necesito saber', 1, 'saber it', NULL, 'tecnologias', '', '2020-01-30 03:02:36', '2020-01-30 03:04:04', NULL, NULL, 'programatecno', 'intacioneve', '2020-01-28 17:19:24', '2020-01-30 03:04:04'),
-(9, '2020-01-28 17:20:25', '2020-02-12', '2020-02-15', 1, NULL, 1, 2828001, 'necesito saber', 5, 'saber it', NULL, 'tecnologias', '', '2020-01-30 03:24:09', '2020-01-30 03:24:55', 'Octavio Romo Romo', 'Jairo Jahaziel Gonzalez Casillas', 'programatecno', 'intacioneve', '2020-01-28 17:20:25', '2020-01-30 03:24:55'),
-(10, '2020-01-28 22:30:27', '2020-03-12', '2020-03-25', 0, 1, NULL, 2828001, 'necesito ', 3, 'saber ang', NULL, 'tecnologia', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-01-28 22:30:27', NULL),
-(12, '2020-01-29 23:16:40', '2020-02-29', '0000-00-00', 0, 1, NULL, 210545544, 'Quiero ir a una conferencia.', 6, 'Aprender cosas y traer regalos.', NULL, 'Comic-Con Estambul 2019', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-01-29 23:16:40', NULL),
-(13, '2020-01-30 19:29:28', '2020-04-04', '2020-04-07', 0, 1, NULL, 210545544, 'Quiero ir a una .', 0, 'Aprender cosas.', NULL, ' Madrid 2020', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-01-29 23:20:18', '2020-01-30 19:29:28'),
-(14, '2020-01-29 23:22:37', '2020-03-04', '2020-03-07', 1, NULL, 1, 210545544, 'Quiero ir a una conferencia.', 6, 'Aprender cosas y traer regalos.', NULL, 'Comic-Con Estambul 2019', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-01-29 23:22:37', NULL),
-(15, '2020-01-29 23:27:42', '2020-03-04', '2020-03-07', 1, NULL, 1, 210545544, 'Quiero ir a una conferencia.', 6, 'Aprender cosas y traer regalos.', NULL, 'Comic-Con Estambul 2019', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-01-29 23:27:42', NULL),
-(16, '2020-01-29 23:28:12', '2020-03-04', '2020-03-07', 1, NULL, 1, 210545544, 'Quiero ir a una conferencia.', 5, 'Aprender cosas y traer regalos.', NULL, 'Comic-Con Estambul 2019', '', '2020-01-30 22:40:49', NULL, 'Octavio  Romo', NULL, NULL, NULL, '2020-01-29 23:28:12', '2020-01-30 22:40:49'),
-(17, '2020-01-30 19:18:22', '2020-03-04', '2020-03-07', 1, NULL, 1, 210545544, 'Quiero ir a una conferencia.', 0, 'Aprender cosas y traer regalos.', NULL, 'Comic-Con Estambul 2019', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-01-30 19:18:22', NULL);
-
--- --------------------------------------------------------
+LOCK TABLES `solicitud_comision` WRITE;
+/*!40000 ALTER TABLE `solicitud_comision` DISABLE KEYS */;
+INSERT INTO `solicitud_comision` VALUES (2,'2020-01-28 16:35:29','2020-02-12','2020-02-15',1,NULL,1,210545544,'necesito saber',6,'saber it',NULL,'tecnologias','',NULL,'2020-01-30 03:22:47',NULL,'Jairo Jahaziel Gonzalez Casillas','programatecno','intacioneve','2020-01-28 16:35:29','2020-01-30 03:22:47'),(3,'2020-01-28 16:40:03','2020-02-12','2020-02-15',1,NULL,1,210545544,'necesito saber',6,'saber it',NULL,'tecnologias',NULL,NULL,NULL,NULL,NULL,'programatecno','intacioneve','2020-01-28 16:40:03',NULL),(4,'2020-01-28 16:41:05','2020-02-12','2020-02-15',1,NULL,1,210545544,'necesito saber',-1,'saber it',NULL,'tecnologias',NULL,NULL,NULL,NULL,NULL,'programatecno','intacioneve','2020-01-28 16:41:05',NULL),(5,'2020-01-28 16:42:35','2020-02-12','2020-02-15',1,NULL,1,2828001,'necesito saber',1,'saber it',NULL,'tecnologias',NULL,NULL,NULL,NULL,NULL,'programatecno','intacioneve','2020-01-28 16:42:35',NULL),(6,'2020-01-28 16:43:58','2020-02-12','2020-02-15',1,NULL,1,2828001,'necesito saber',4,'saber it',NULL,'tecnologias',NULL,NULL,NULL,NULL,NULL,'programatecno','intacioneve','2020-01-28 16:43:58',NULL),(8,'2020-01-28 17:19:24','2020-02-12','2020-02-15',0,1,NULL,2828001,'necesito saber',1,'saber it',NULL,'tecnologias','','2020-01-30 03:02:36','2020-01-30 03:04:04',NULL,NULL,'programatecno','intacioneve','2020-01-28 17:19:24','2020-01-30 03:04:04'),(9,'2020-01-28 17:20:25','2020-02-12','2020-02-15',1,NULL,1,2828001,'necesito saber',5,'saber it',NULL,'tecnologias','','2020-01-30 03:24:09','2020-01-30 03:24:55','Octavio Romo Romo','Jairo Jahaziel Gonzalez Casillas','programatecno','intacioneve','2020-01-28 17:20:25','2020-01-30 03:24:55'),(10,'2020-01-28 22:30:27','2020-03-12','2020-03-25',0,1,NULL,2828001,'necesito ',3,'saber ang',NULL,'tecnologia',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2020-01-28 22:30:27',NULL),(12,'2020-01-29 23:16:40','2020-02-29','0000-00-00',0,1,NULL,210545544,'Quiero ir a una conferencia.',6,'Aprender cosas y traer regalos.',NULL,'Comic-Con Estambul 2019',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2020-01-29 23:16:40',NULL),(13,'2020-01-30 19:29:28','2020-04-04','2020-04-07',0,1,NULL,210545544,'Quiero ir a una .',0,'Aprender cosas.',NULL,' Madrid 2020',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2020-01-29 23:20:18','2020-01-30 19:29:28'),(14,'2020-01-29 23:22:37','2020-03-04','2020-03-07',1,NULL,1,210545544,'Quiero ir a una conferencia.',6,'Aprender cosas y traer regalos.',NULL,'Comic-Con Estambul 2019',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2020-01-29 23:22:37',NULL),(15,'2020-01-29 23:27:42','2020-03-04','2020-03-07',1,NULL,1,210545544,'Quiero ir a una conferencia.',6,'Aprender cosas y traer regalos.',NULL,'Comic-Con Estambul 2019',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2020-01-29 23:27:42',NULL),(16,'2020-01-29 23:28:12','2020-03-04','2020-03-07',1,NULL,1,210545544,'Quiero ir a una conferencia.',5,'Aprender cosas y traer regalos.',NULL,'Comic-Con Estambul 2019','','2020-01-30 22:40:49',NULL,'Octavio  Romo',NULL,NULL,NULL,'2020-01-29 23:28:12','2020-01-30 22:40:49'),(17,'2020-01-30 19:18:22','2020-03-04','2020-03-07',1,NULL,1,210545544,'Quiero ir a una conferencia.',0,'Aprender cosas y traer regalos.',NULL,'Comic-Con Estambul 2019',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2020-01-30 19:18:22',NULL);
+/*!40000 ALTER TABLE `solicitud_comision` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
--- Estructura de tabla para la tabla `solicitud_viatico`
+-- Table structure for table `solicitud_viatico`
 --
 
+DROP TABLE IF EXISTS `solicitud_viatico`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `solicitud_viatico` (
-  `id` int(11) NOT NULL,
-  `id_solicitud_comision` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_solicitud_comision` int NOT NULL,
   `invitado_nombre` varchar(45) DEFAULT NULL,
   `fecha_solicitud` datetime DEFAULT NULL,
   `comentarios` varchar(45) DEFAULT NULL,
-  `status` int(11) NOT NULL,
+  `status` int NOT NULL,
   `comentario_rechazo` tinytext,
   `fecha_revisado` datetime DEFAULT NULL,
   `nombre_revisado` varchar(45) DEFAULT NULL,
@@ -229,24 +315,34 @@ CREATE TABLE `solicitud_viatico` (
   `nombre_aceptado` varchar(45) DEFAULT NULL,
   `fecha_creacion` datetime NOT NULL,
   `fecha_modificacion` datetime DEFAULT NULL,
-  `id_usuario` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `id_usuario` int NOT NULL,
+  PRIMARY KEY (`id`,`id_solicitud_comision`,`id_usuario`),
+  KEY `fk_solicitud_viatico_solicitud_comision1_idx` (`id_solicitud_comision`),
+  KEY `fk_solicitud_viatico_usuario1_idx` (`id_usuario`),
+  CONSTRAINT `fk_solicitud_viatico_solicitud_comision1` FOREIGN KEY (`id_solicitud_comision`) REFERENCES `solicitud_comision` (`id`),
+  CONSTRAINT `fk_solicitud_viatico_usuario1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`codigo`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Volcado de datos para la tabla `solicitud_viatico`
+-- Dumping data for table `solicitud_viatico`
 --
 
-INSERT INTO `solicitud_viatico` (`id`, `id_solicitud_comision`, `invitado_nombre`, `fecha_solicitud`, `comentarios`, `status`, `comentario_rechazo`, `fecha_revisado`, `nombre_revisado`, `fecha_aceptado`, `nombre_aceptado`, `fecha_creacion`, `fecha_modificacion`, `id_usuario`) VALUES
-(1, 16, NULL, '2020-01-30 23:51:00', 'verificar factura', 5, NULL, '2020-01-30 23:51:00', 'OCTAVIO ROMO', '2020-01-30 23:51:00', 'JAIRO GONZALEZ', '2020-01-30 23:51:00', NULL, 210545544);
-
--- --------------------------------------------------------
+LOCK TABLES `solicitud_viatico` WRITE;
+/*!40000 ALTER TABLE `solicitud_viatico` DISABLE KEYS */;
+INSERT INTO `solicitud_viatico` VALUES (1,16,NULL,'2020-01-30 23:51:00','verificar factura',5,NULL,'2020-01-30 23:51:00','OCTAVIO ROMO','2020-01-30 23:51:00','JAIRO GONZALEZ','2020-01-30 23:51:00',NULL,210545544);
+/*!40000 ALTER TABLE `solicitud_viatico` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
--- Estructura de tabla para la tabla `usuario`
+-- Table structure for table `usuario`
 --
 
+DROP TABLE IF EXISTS `usuario`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `usuario` (
-  `codigo` int(11) NOT NULL,
+  `codigo` int NOT NULL,
   `nombres` varchar(45) NOT NULL,
   `apellidos` varchar(45) NOT NULL,
   `tipo_usuario` varchar(2) NOT NULL,
@@ -256,261 +352,59 @@ CREATE TABLE `usuario` (
   `fecha_creacion` datetime NOT NULL,
   `fecha_modificacion` datetime DEFAULT NULL,
   `numero_social` varchar(45) NOT NULL,
-  `area_adcripcion_revisa` varchar(45) DEFAULT NULL
+  `area_adcripcion_revisa` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`codigo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Volcado de datos para la tabla `usuario`
+-- Dumping data for table `usuario`
 --
 
-INSERT INTO `usuario` (`codigo`, `nombres`, `apellidos`, `tipo_usuario`, `nip`, `area_adscripcion`, `plaza_laboral`, `fecha_creacion`, `fecha_modificacion`, `numero_social`, `area_adcripcion_revisa`) VALUES
-(3, 'jose', 'ramirez', 'J', '$12$OTK/E10mpkjrs/78j7w3Ie6XLlW44OnuGeqEJMyy8E9v1nfnxY2vq', 'QUIMICA', 'Investigador', '2020-01-30 03:43:00', NULL, '9288282828', NULL),
-(88271, 'PATTY', 'Gonzalez Casillas', 'J', '$2a$09$WBCsQa.yAccnuaKn5ktgDeFRcgrULfifmvz0UWn3twmDhNoB9yIxy', 'Informatica', 'Maestro', '2020-01-30 22:26:52', NULL, '1234', NULL),
-(2828001, 'Jario ', 'Gonzalez', 'P', '\r\n$2y$12$OTK/E10mpkjrs/78j7w3Ie6XLlW44OnuGeqEJMyy8E9v1nfnxY2vq\r\n', 'INFORMATICA', 'Investigador', '2020-01-28 12:13:47', NULL, '99939392993', NULL),
-(21169376, 'Octavio ', 'Romo', 'J', '$2a$09$FaPQTHMHmix2UStVDp2ODekH14SM9NqBsSI8e04ELVJgV8ka6Veg2', 'QUIMICA', 'Maestro', '2020-01-30 22:33:39', NULL, '1234', NULL),
-(78020819, 'ALEJANDRO ', 'GONZALEZ', 'P', '$2a$09$XuBWzoOJYpM6kyY2IqIAGeCh7mLjv2kzw2LFN4wOIeeZOwzRS0246', 'ELECTRONICA', 'MAESTRO', '2020-01-30 23:06:17', NULL, '1234', NULL),
-(210545544, 'Monserrat Elizabeth', 'Guerrero Garcia', 'P', '$2y$12$pb.nwfTsME7POgW5SVz5jev0nVFY7nqhgm96aIemqPS2gmvjAkGn6', 'QUIMICA', 'Estudiante', '2020-01-28 11:49:00', '2020-01-30 01:52:55', '8837020188839', NULL),
-(211707262, 'Jairo Jahaziel', 'Gonzalez Casillas', 'A', '\r\n$2y$12$OTK/E10mpkjrs/78j7w3Ie6XLlW44OnuGeqEJMyy8E9v1nfnxY2vq\r\n', 'INFORMATICA', 'Maestro', '2020-01-29 01:50:35', NULL, '1234', NULL);
-
--- --------------------------------------------------------
+LOCK TABLES `usuario` WRITE;
+/*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
+INSERT INTO `usuario` VALUES (3,'jose','ramirez','J','$12$OTK/E10mpkjrs/78j7w3Ie6XLlW44OnuGeqEJMyy8E9v1nfnxY2vq','QUIMICA','Investigador','2020-01-30 03:43:00',NULL,'9288282828',NULL),(88271,'PATTY','Gonzalez Casillas','J','$2a$09$WBCsQa.yAccnuaKn5ktgDeFRcgrULfifmvz0UWn3twmDhNoB9yIxy','Informatica','Maestro','2020-01-30 22:26:52',NULL,'1234',NULL),(2828001,'Jario ','Gonzalez','P','\r\n$2y$12$OTK/E10mpkjrs/78j7w3Ie6XLlW44OnuGeqEJMyy8E9v1nfnxY2vq\r\n','INFORMATICA','Investigador','2020-01-28 12:13:47',NULL,'99939392993',NULL),(21169376,'Octavio ','Romo','J','$2a$09$FaPQTHMHmix2UStVDp2ODekH14SM9NqBsSI8e04ELVJgV8ka6Veg2','QUIMICA','Maestro','2020-01-30 22:33:39',NULL,'1234',NULL),(78020819,'ALEJANDRO ','GONZALEZ','P','$2a$09$XuBWzoOJYpM6kyY2IqIAGeCh7mLjv2kzw2LFN4wOIeeZOwzRS0246','ELECTRONICA','MAESTRO','2020-01-30 23:06:17',NULL,'1234',NULL),(210545544,'Monserrat Elizabeth','Guerrero Garcia','P','$2y$12$pb.nwfTsME7POgW5SVz5jev0nVFY7nqhgm96aIemqPS2gmvjAkGn6','QUIMICA','Estudiante','2020-01-28 11:49:00','2020-01-30 01:52:55','8837020188839',NULL),(211707262,'Jairo Jahaziel','Gonzalez Casillas','A','\r\n$2y$12$OTK/E10mpkjrs/78j7w3Ie6XLlW44OnuGeqEJMyy8E9v1nfnxY2vq\r\n','INFORMATICA','Maestro','2020-01-29 01:50:35',NULL,'1234',NULL);
+/*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
--- Estructura de tabla para la tabla `viatico_proyecto`
+-- Table structure for table `viatico_proyecto`
 --
 
+DROP TABLE IF EXISTS `viatico_proyecto`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `viatico_proyecto` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
   `fecha_solicitud` datetime NOT NULL,
   `numero_proyecto` varchar(45) NOT NULL,
   `cantidad` decimal(10,2) DEFAULT NULL,
-  `id_solicitud_viatico` int(11) NOT NULL,
+  `id_solicitud_viatico` int NOT NULL,
   `fecha_aceptado` datetime DEFAULT NULL,
   `nombre_aceptado` varchar(45) DEFAULT NULL,
-  `status` int(11) NOT NULL
+  `status` int NOT NULL,
+  PRIMARY KEY (`id`,`id_solicitud_viatico`),
+  KEY `fk_proyecto_solicitud_viatico1_idx` (`id_solicitud_viatico`),
+  CONSTRAINT `fk_proyecto_solicitud_viatico1` FOREIGN KEY (`id_solicitud_viatico`) REFERENCES `solicitud_viatico` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Índices para tablas volcadas
+-- Dumping data for table `viatico_proyecto`
 --
 
---
--- Indices de la tabla `agenda`
---
-ALTER TABLE `agenda`
-  ADD PRIMARY KEY (`id`,`id_informe_actividades`),
-  ADD KEY `fk_agenda_informe_actividades1_idx` (`id_informe_actividades`);
+LOCK TABLES `viatico_proyecto` WRITE;
+/*!40000 ALTER TABLE `viatico_proyecto` DISABLE KEYS */;
+/*!40000 ALTER TABLE `viatico_proyecto` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
---
--- Indices de la tabla `factura`
---
-ALTER TABLE `factura`
-  ADD PRIMARY KEY (`id`,`id_informe_actividades`),
-  ADD KEY `fk_factura_informe_actividades1_idx` (`id_informe_actividades`);
-
---
--- Indices de la tabla `gasto`
---
-ALTER TABLE `gasto`
-  ADD PRIMARY KEY (`id`,`id_solicitud_viatico`),
-  ADD KEY `fk_gastos_solicitud_viatico1_idx` (`id_solicitud_viatico`);
-
---
--- Indices de la tabla `informe_actividades`
---
-ALTER TABLE `informe_actividades`
-  ADD PRIMARY KEY (`id`,`id_usuario`,`id_solicitud_comision`),
-  ADD KEY `fk_informe_actividades_usuario1_idx` (`id_usuario`),
-  ADD KEY `fk_informe_actividades_solicitud_comision1_idx` (`id_solicitud_comision`);
-
---
--- Indices de la tabla `itinerario`
---
-ALTER TABLE `itinerario`
-  ADD PRIMARY KEY (`id`,`id_informe_actividades`),
-  ADD KEY `fk_itinerario_informe_actividades1_idx` (`id_informe_actividades`);
-
---
--- Indices de la tabla `municipio`
---
-ALTER TABLE `municipio`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `pais`
---
-ALTER TABLE `pais`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `programa_trabajo`
---
-ALTER TABLE `programa_trabajo`
-  ADD PRIMARY KEY (`id`,`id_solicitud_comision`),
-  ADD KEY `fk_programa_trabajo_solicitud_comision1_idx` (`id_solicitud_comision`);
-
---
--- Indices de la tabla `solicitud_comision`
---
-ALTER TABLE `solicitud_comision`
-  ADD PRIMARY KEY (`id`,`id_usuario`),
-  ADD KEY `fk_solicitud_comision_pais_idx` (`id_pais`),
-  ADD KEY `fk_solicitud_comision_municipio1_idx` (`id_municipio`),
-  ADD KEY `fk_solicitud_comision_usuario1_idx` (`id_usuario`);
-
---
--- Indices de la tabla `solicitud_viatico`
---
-ALTER TABLE `solicitud_viatico`
-  ADD PRIMARY KEY (`id`,`id_solicitud_comision`,`id_usuario`),
-  ADD KEY `fk_solicitud_viatico_solicitud_comision1_idx` (`id_solicitud_comision`),
-  ADD KEY `fk_solicitud_viatico_usuario1_idx` (`id_usuario`);
-
---
--- Indices de la tabla `usuario`
---
-ALTER TABLE `usuario`
-  ADD PRIMARY KEY (`codigo`);
-
---
--- Indices de la tabla `viatico_proyecto`
---
-ALTER TABLE `viatico_proyecto`
-  ADD PRIMARY KEY (`id`,`id_solicitud_viatico`),
-  ADD KEY `fk_proyecto_solicitud_viatico1_idx` (`id_solicitud_viatico`);
-
---
--- AUTO_INCREMENT de las tablas volcadas
---
-
---
--- AUTO_INCREMENT de la tabla `agenda`
---
-ALTER TABLE `agenda`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `factura`
---
-ALTER TABLE `factura`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `gasto`
---
-ALTER TABLE `gasto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `informe_actividades`
---
-ALTER TABLE `informe_actividades`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `itinerario`
---
-ALTER TABLE `itinerario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `municipio`
---
-ALTER TABLE `municipio`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT de la tabla `pais`
---
-ALTER TABLE `pais`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT de la tabla `programa_trabajo`
---
-ALTER TABLE `programa_trabajo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT de la tabla `solicitud_comision`
---
-ALTER TABLE `solicitud_comision`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
-
---
--- AUTO_INCREMENT de la tabla `solicitud_viatico`
---
-ALTER TABLE `solicitud_viatico`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT de la tabla `viatico_proyecto`
---
-ALTER TABLE `viatico_proyecto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- Restricciones para tablas volcadas
---
-
---
--- Filtros para la tabla `agenda`
---
-ALTER TABLE `agenda`
-  ADD CONSTRAINT `fk_agenda_informe_actividades1` FOREIGN KEY (`id_informe_actividades`) REFERENCES `informe_actividades` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Filtros para la tabla `factura`
---
-ALTER TABLE `factura`
-  ADD CONSTRAINT `fk_factura_informe_actividades1` FOREIGN KEY (`id_informe_actividades`) REFERENCES `informe_actividades` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Filtros para la tabla `gasto`
---
-ALTER TABLE `gasto`
-  ADD CONSTRAINT `fk_gastos_solicitud_viatico1` FOREIGN KEY (`id_solicitud_viatico`) REFERENCES `solicitud_viatico` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Filtros para la tabla `informe_actividades`
---
-ALTER TABLE `informe_actividades`
-  ADD CONSTRAINT `fk_informe_actividades_solicitud_comision1` FOREIGN KEY (`id_solicitud_comision`) REFERENCES `solicitud_comision` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_informe_actividades_usuario1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`codigo`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Filtros para la tabla `itinerario`
---
-ALTER TABLE `itinerario`
-  ADD CONSTRAINT `fk_itinerario_informe_actividades1` FOREIGN KEY (`id_informe_actividades`) REFERENCES `informe_actividades` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Filtros para la tabla `programa_trabajo`
---
-ALTER TABLE `programa_trabajo`
-  ADD CONSTRAINT `fk_programa_trabajo_solicitud_comision1` FOREIGN KEY (`id_solicitud_comision`) REFERENCES `solicitud_comision` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Filtros para la tabla `solicitud_comision`
---
-ALTER TABLE `solicitud_comision`
-  ADD CONSTRAINT `fk_solicitud_comision_municipio1` FOREIGN KEY (`id_municipio`) REFERENCES `municipio` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_solicitud_comision_pais` FOREIGN KEY (`id_pais`) REFERENCES `pais` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_solicitud_comision_usuario1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`codigo`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Filtros para la tabla `solicitud_viatico`
---
-ALTER TABLE `solicitud_viatico`
-  ADD CONSTRAINT `fk_solicitud_viatico_solicitud_comision1` FOREIGN KEY (`id_solicitud_comision`) REFERENCES `solicitud_comision` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_solicitud_viatico_usuario1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`codigo`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Filtros para la tabla `viatico_proyecto`
---
-ALTER TABLE `viatico_proyecto`
-  ADD CONSTRAINT `fk_proyecto_solicitud_viatico1` FOREIGN KEY (`id_solicitud_viatico`) REFERENCES `solicitud_viatico` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-COMMIT;
-
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2020-02-03 20:26:08

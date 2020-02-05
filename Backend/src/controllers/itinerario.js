@@ -8,8 +8,9 @@ const pool = require('../database');
 
 module.exports = {
 
-    crearitinerario: async(req, res) => {
+    crearItinerario: async(req, res) => {
         try {
+
             await pool.query('INSERT INTO itinerario SET ?', [{
                 dia: req.body.dia,
                 origen: req.body.origen,
@@ -22,20 +23,27 @@ module.exports = {
         }
     },
 
-    selectitinerario: (req, res) => {
-        const { id } = req.params;
-        pool.query('SELECT * FROM itinerario WHERE id_informe_actividades = ?', [id], (erroritinerario, itinerario) => {
-            console.log(erroritinerario);
-            if (erroritinerario) return res.json({ ok: false, mensaje: erroritinerario });
-            if (itinerario.length < 1) return res.json({ ok: false, mensaje: "No existe itinerario" });
+    selectItinerario: (req, res) => {
+        try {
+            const { id } = req.params;
+            pool.query('SELECT * FROM itinerario WHERE id_informe_actividades = ?', [id], (erroritinerario, itinerario) => {
+                console.log(erroritinerario);
+                if (erroritinerario) return res.json({ ok: false, mensaje: erroritinerario });
+                if (itinerario.length < 1) return res.json({ ok: false, mensaje: "No existe itinerario" });
 
-            res.json({ ok: true, body: itinerario });
-        });
+                res.json({ ok: true, body: itinerario });
+            });
+            
+        } catch (error) {
+            return res.json({ ok: false, mensaje: error });
+        }
+
+        
 
 
     },
     //D
-    modificaritinerario: async(req, res) => {
+    modificarItinerario: async(req, res) => {
         try {
             const existeitinerario = await pool.query('SELECT id FROM itinerario WHERE id=?', [req.body.id]);
             if (existeitinerario.length < 1) {
@@ -55,10 +63,19 @@ module.exports = {
             return res.json({ ok: false, mensaje: error });
         }
     },
-    eliminaritinerario: (req, res) => {
-        pool.query('DELETE FROM itinerario WHERE id = ?', [req.body.id], (error, results) => {
-            if (error) return res.json({ ok: false, mensaje: error });
-            res.json({ ok: true, results, mensaje: 'Itinerario eliminado' });
-        });
+    eliminarItinerario: async(req, res) => {
+        try {
+            const numItinerario =await pool.query("SELECT id FROM itinerario WHERE id_informe_actividades= ? ",[req.body.id_informe_actividades]);
+            if(numItinerario.length == 1) return res.json({ok:false, mensaje: "No puedes eliminar el ultimo Itinerario"});
+        
+            pool.query('DELETE FROM itinerario WHERE id = ?', [req.body.id], (error, results) => {
+                if (error) return res.json({ ok: false, mensaje: error });
+                res.json({ ok: true, results, mensaje: 'Itinerario eliminado' });
+            });
+            
+        } catch (error) {
+            return res.json({ ok: false, mensaje: error });
+        }
+        
     }
 }

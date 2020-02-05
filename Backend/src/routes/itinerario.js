@@ -4,10 +4,10 @@ const oauth = require('../middlewares/credentials');
 
 const router = express.Router();
 
-router.post('/', oauth('P', 'J', 'A', 'S'), itinerarioCtl.crearitinerario);
-router.get('/:id', oauth('P', 'J', 'A', 'S'), itinerarioCtl.selectitinerario);
-router.put('/', oauth('P', 'J', 'A', 'S'), itinerarioCtl.modificaritinerario);
-router.delete('/', oauth('P', 'J', 'A', 'S'), itinerarioCtl.eliminaritinerario);
+router.post('/', oauth('P', 'J', 'A', 'S'), itinerarioCtl.crearItinerario);
+router.get('/:id', oauth('P', 'J', 'A', 'S'), itinerarioCtl.selectItinerario);
+router.put('/', oauth('P', 'J', 'A', 'S'), itinerarioCtl.modificarItinerario);
+router.delete('/', oauth('P', 'J', 'A', 'S'), itinerarioCtl.eliminarItinerario);
 
 // Rutas extras del controlador como archivos, etc.
 

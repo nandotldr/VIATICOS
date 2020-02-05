@@ -8,7 +8,7 @@ const pool = require('../database');
 
 module.exports = {
 
-    crearagenda: async(req, res) => {
+    crearAgenda: async(req, res) => {
         try {
             await pool.query('INSERT INTO agenda SET ?', [{
                 dia: req.body.dia,
@@ -23,7 +23,7 @@ module.exports = {
         }
     },
 
-    selectagenda: (req, res) => {
+    selectAgenda: (req, res) => {
         const { id } = req.params;
         pool.query('SELECT * FROM agenda WHERE id_informe_actividades = ?', [id], (erroragenda, agenda) => {
             console.log(erroragenda);
@@ -36,7 +36,7 @@ module.exports = {
 
     },
     //D
-    modificaragenda: async(req, res) => {
+    modificarAgenda: async(req, res) => {
         try {
             const existeagenda = await pool.query('SELECT id FROM agenda WHERE id=?', [req.body.id]);
             if (existeagenda.length < 1) {
@@ -58,7 +58,10 @@ module.exports = {
         }
     },
 
-    eliminaragenda: (req, res) => {
+    eliminarAgenda: async (req, res) => {
+        const numAgenda =await pool.query("SELECT id FROM agenda WHERE id_informe_actividades= ? ",[req.body.id_informe_actividades]);
+            if(numAgenda.length == 1) return res.json({ok:false, mensaje: "No puedes eliminar la ultima agenda"});
+        
         pool.query('DELETE FROM agenda WHERE id = ?', [req.body.id], (error, results) => {
             if (error) return res.json({ ok: false, mensaje: error });
             res.json({ ok: true, results, mensaje: 'agenda eliminado' });

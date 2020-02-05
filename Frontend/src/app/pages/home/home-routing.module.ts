@@ -33,6 +33,14 @@ const routes: Routes = [
         loadChildren: () => import('./viatico/viatico.module').then(m => m.ViaticoPageModule),
         canLoad: [AuthGuardService]
       },
+      {
+        path: 'program',
+        loadChildren: () => import('./components/program/program.module').then(m => m.ProgramPageModule)
+      },
+      {
+        path: 'comision-activa',
+        loadChildren: () => import('./components/comision-activa/comision-activa.module').then(m => m.ComisionActivaPageModule)
+      }
     ]
   }
 ];

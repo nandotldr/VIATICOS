@@ -13,54 +13,60 @@ tipo_comision: 1
 <ion-content>
   <ion-item>
     <ion-label>Folio</ion-label>
-    <ion-label>{{ this.comision.folio}}</ion-label>
+    <ion-label>{{ this.comi.folio}}</ion-label>
   </ion-item>
 
   <ion-item>
     <ion-label>Estado</ion-label>
-    <ion-label *ngIf="this.comision.status == -1">Cancelado</ion-label>
-    <ion-label *ngIf="this.comision.status == 0">Guardado</ion-label>
-    <ion-label *ngIf="this.comision.status == 1">Enviado a Jefe Depto.</ion-label>
-    <ion-label *ngIf="this.comision.status == 2">Rechazado por Jefe Depto.</ion-label>
-    <ion-label *ngIf="this.comision.status == 3">Aceptado por Jefe Depto.</ion-label>
-    <ion-label *ngIf="this.comision.status == 4">Rechazado por Administrador</ion-label>
-    <ion-label *ngIf="this.comision.status == 5">Aceptado por Administrador</ion-label>
-    <ion-label *ngIf="this.comision.status == 6">Finalizado</ion-label>
+    <ion-label *ngIf="this.comi.status == -1">Cancelado</ion-label>
+    <ion-label *ngIf="this.comi.status == 0">Guardado</ion-label>
+    <ion-label *ngIf="this.comi.status == 1">Enviado a Jefe Depto.</ion-label>
+    <ion-label *ngIf="this.comi.status == 2">Rechazado por Jefe Depto.</ion-label>
+    <ion-label *ngIf="this.comi.status == 3">Aceptado por Jefe Depto.</ion-label>
+    <ion-label *ngIf="this.comi.status == 4">Rechazado por Administrador</ion-label>
+    <ion-label *ngIf="this.comi.status == 5">Aceptado por Administrador</ion-label>
+    <ion-label *ngIf="this.comi.status == 6">Finalizado</ion-label>
   </ion-item>
 
   <ion-item>
     <ion-label>Tipo</ion-label>
-    <ion-label *ngIf="this.comision.tipo_comision == 0"> Nacional</ion-label>
-    <ion-label *ngIf="this.comision.tipo_comision == 1"> Internacional</ion-label>
+    <ion-label *ngIf="this.comi.tipo_comision == 0"> Nacional</ion-label>
+    <ion-label *ngIf="this.comi.tipo_comision == 1"> Internacional</ion-label>
   </ion-item>
 
   <ion-item>
     <ion-label>Destino</ion-label>
-    <ion-label>{{ this.comision.destino }}</ion-label>
+    <ion-label>{{ this.comi.destino }}</ion-label>
   </ion-item>
 
   <ion-item>
     <ion-label>Nombre</ion-label>
-    <ion-label>{{ this.comision.nombre }}</ion-label>
+    <ion-label>{{ this.comi.nombre_comision }}</ion-label>
   </ion-item>
 
   <ion-item>
     <ion-label>Objetivo</ion-label>
-    <ion-label>{{ this.comision.objetivo }}</ion-label>
+    <ion-label>{{ this.comi.objetivo_trabajo }}</ion-label>
   </ion-item>
 
   <ion-item>
     <ion-label>Justificación</ion-label>
-    <ion-label>{{ this.comision.justificacion }}</ion-label>
+    <ion-label>{{ this.comi.justificacion }}</ion-label>
   </ion-item>
 
   <ion-item>
     <ion-label>Fecha Inicio</ion-label>
-    <ion-label>{{ this.comision.fecha_inicio }}</ion-label>
+    <ion-label>{{ this.comi.fecha_inicio }}</ion-label>
   </ion-item>
 
   <ion-item>
     <ion-label>Fecha Fin</ion-label>
-    <ion-label>{{ this.comision.fecha_fin }}</ion-label>
+    <ion-label>{{ this.comi.fecha_fin }}</ion-label>
   </ion-item>
+
+  
+  <ion-button icon-only (click)="closeModal()">
+      <ion-icon name="heart" item-right></ion-icon> 
+  </ion-button>
+
 </ion-content>

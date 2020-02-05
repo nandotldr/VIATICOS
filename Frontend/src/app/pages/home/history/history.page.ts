@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import {ModalController, ToastController} from '@ionic/angular';
-import {ProgramPage} from '../components/program/program.page';
+import { ProgramPage } from '../components/program/program.page';
 import {OverlayEventDetail} from '@ionic/core';
 import { ComisionActivaPage } from '../components/comision-activa/comision-activa.page';
 
@@ -26,7 +26,6 @@ export class HistoryPage implements OnInit {
 
   ngOnInit() {
     this.getAllComisiones();
-    this.getComision();
   }
 
   async getAllComisiones() {
@@ -59,15 +58,6 @@ export class HistoryPage implements OnInit {
 
     } else {
       this.presentToast();
-    }
-  }
-
-  async getComision() {
-    const resp = await this.auth.getComision(id_comision);
-    if (resp) {
-      this.comi = resp;
-    } else {
-      console.log('no jalo')
     }
   }
 

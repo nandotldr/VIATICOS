@@ -68,8 +68,8 @@ export class AuthService {
     ).toPromise();
   }
 
-  async getComision(id_comision: string){
-    return await this.http.get(`${this.API_URL}/solicitud_comision/?id=${id_comision}`).pipe(
+  async getComision(id_comision: any){
+    return await this.http.get(`${this.API_URL}/solicitud_comision/${id_comision}`).pipe(
       map(response => {
         if(response['ok']){
           console.log(response);

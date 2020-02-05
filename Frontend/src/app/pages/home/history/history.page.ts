@@ -63,7 +63,7 @@ export class HistoryPage implements OnInit {
   }
 
   async getComision() {
-    const resp = await this.auth.getComision(18);
+    const resp = await this.auth.getComision(id_comision);
     if (resp) {
       this.comi = resp;
     } else {

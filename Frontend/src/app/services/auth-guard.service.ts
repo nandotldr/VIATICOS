@@ -24,7 +24,6 @@ export class AuthGuardService {
       console.log('error in guard', err);
       this.router.navigateByUrl('/login');
       return false;
-      return false;
     }
   }
 }

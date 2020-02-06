@@ -15,8 +15,15 @@ import {OverlayEventDetail} from '@ionic/core';
   styleUrls: ['./create-comision.page.scss','../../../app.component.scss'],
 })
 export class CreateComisionPage implements OnInit {
-  perfil = '';
-  id_comision = '';
+  perfil: {
+    codigo: Number,
+    nombres: String,
+    apellidos: String,
+    area_adscripcion: String,
+    plaza_laboral: String,
+    numero_social: String
+  };
+  id_comision: Number;
   fgCreate: FormGroup;
   token: string;
   restoreStep = 0;

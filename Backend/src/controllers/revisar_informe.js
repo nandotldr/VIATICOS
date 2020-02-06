@@ -15,7 +15,7 @@ module.exports = {
             }
             //si usuario es A mostrar todas los informes en status 3
             if (existeUsuario[0].tipo_usuario == 'A') {
-                const informe = await pool.query('SELECT i.id, i.status, u.codigo, u.area_adscripcion, i.fecha_solicitud , c.nombre_comision,concat(u.nombres," ",u.apellidos) as nombre  FROM informe_actividades AS c INNER JOIN usuario as u ON u.codigo=i.id_usuario INNER JOIN solicitud_comision AS c ON i.id_solicitud_comision = c.id WHERE i.status =3');
+                const informe = await pool.query('SELECT i.id, i.status, u.codigo, u.area_adscripcion, i.fecha_elaboracion , c.nombre_comision,concat(u.nombres," ",u.apellidos) as nombre  FROM informe_actividades AS i INNER JOIN usuario as u ON u.codigo=i.id_usuario INNER JOIN solicitud_comision AS c ON i.id_solicitud_comision = c.id WHERE i.status =3');
                 if (comision.length < 1) res.json({ ok: false, mensaje: "No hay informes por revisar" });
 
                 return res.json({ ok: true, body: informe });

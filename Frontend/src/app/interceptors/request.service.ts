@@ -18,6 +18,7 @@ export class RequestService implements HttpInterceptor {
   constructor() { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    console.log('interceptor:', req, next);
     const reqClone = req.clone({
       headers: req.headers.set('Authorization', `Bearer ${localStorage.getItem('token')}`)
     });

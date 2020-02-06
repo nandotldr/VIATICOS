@@ -1,6 +1,7 @@
 <ion-header>
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
+      <ion-menu-button menu="menu"></ion-menu-button>
       <ion-button href="/home">
         <!-- <img src="../../../assets/images/logo.png" width="25px" style="display:inline-block" height="25px"/> -->
         <!-- <ion-icon slot="icon-only" name="filing"></ion-icon> -->
@@ -28,7 +29,7 @@
         <form [formGroup]="fgCreate" (ngSubmit)="saveViatico()">
           <ion-item>
             <ion-label>Folio de la comisión </ion-label>
-            <ion-input disabled="true" value="{{this.comision.folio}}"   ></ion-input>
+            <ion-input value="{{this.comision}}" formControlName="id_comision" ></ion-input>
           </ion-item>
 
           <ion-item>

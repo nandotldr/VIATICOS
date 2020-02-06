@@ -20,6 +20,7 @@ export class AuthService {
     // logica para obtener el token en el localStorage, si existe y no esta expirado entonces proceder
     try {
       const resp = await this.validateToken();
+      console.log('esta logeado?', resp);
       return resp;
     } catch (err) {
       console.log('error', err);
@@ -68,8 +69,8 @@ export class AuthService {
     ).toPromise();
   }
 
-  async getComision(id_comision: string){
-    return await this.http.get(`${this.API_URL}/solicitud_comision/?id=${id_comision}`).pipe(
+  async getComision(id_comision: any){
+    return await this.http.get(`${this.API_URL}/solicitud_comision/${id_comision}`).pipe(
       map(response => {
         if(response['ok']){
           console.log(response);
@@ -156,7 +157,6 @@ export class AuthService {
       numero_social: user.numero_social
     }).pipe(
       tap(token => {
-        console.log(token);
         if (token['ok']) {
           this.saveCredentials(user.code.toString(), token['token']);
         }
@@ -171,9 +171,10 @@ export class AuthService {
   async validateToken() {
     return await this.http.post(`${this.API_URL}/validate`, null).pipe(
       map(response => {
+        console.log('Validar token:', response);
         if (response['ok']) {
-          this.codeUser = response['body']['code'];
-          this.userType = response['body']['userType'];
+          this.codeUser = response['body']['codigo'];
+          this.userType = response['body']['tipo_usuario'];
         }
         return response['ok'];
       })
@@ -218,26 +219,28 @@ export class AuthService {
     this.nav.navigateRoot('/login', { animated: true });
   }
 
-  async saveViatico(viatico: { 
+  saveViatico(viatico: { 
     id_comision: Number,
     invitado_nombre: string,
     comentarios: string,
     status: Number
   }) {
-    return await this.http.post(`${this.API_URL}/solicitud_viatico`,{
-      id: viatico.id_comision,
+    console.log(viatico);
+    return this.http.post(`${this.API_URL}/solicitud_viatico`,{
+      id: +viatico.id_comision,
       invitado: viatico.invitado_nombre,
       comentarios: viatico.comentarios,
       estado: 0
-    }).pipe(
+    })/*.pipe(
       map(response => {
+        console.log('respuesta',response);
         if(response['ok']){
           return response['body'];
         }else{
-          return {ok: response['ok'],mensaje: response['mensaje']};
+          return {ok: response['ok'], mensaje: response['mensaje']};
         }
-      })
-    ).toPromise();
+      })*/
+    ;
   }
 
   async createGasto(gasto: { 

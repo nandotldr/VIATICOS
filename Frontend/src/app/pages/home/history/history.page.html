@@ -1,6 +1,7 @@
 <ion-header>
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
+      <ion-menu-button menu="menu"></ion-menu-button>
       <ion-button href="/home">
         <!-- <img src="../../../assets/images/logo.png" width="25px" style="display:inline-block" height="25px"/> -->
         <!-- <ion-icon slot="icon-only" name="filing"></ion-icon> -->
@@ -26,37 +27,40 @@
     <ion-card-content class="background">
       <ion-grid>
         <ion-row class="bg-col">
-          <ion-col>
+          <ion-col size="1">
             ID de la Comisión
           </ion-col>
-          <ion-col>
+          <ion-col size="3">
             Nombre de la Comisión
           </ion-col>
-          <ion-col>
+          <ion-col size="2">
             Fecha de Solicitud
           </ion-col>
-          <ion-col>
+          <ion-col size="2.5">
             Más información
+          </ion-col>
+          <ion-col size="2">
+            Crear Viático
           </ion-col>
         </ion-row>
         <ion-row *ngFor="let comision of comisiones">
-          <ion-col >
+          <ion-col size="1">
             <div style="text-align: center;">
           {{ comision.folio }}
             </div>
           </ion-col>
-          <ion-col>
+          <ion-col size="3">
             {{comision.nombre_comision}}
           </ion-col>
-          <ion-col>
+          <ion-col size="2">
             {{comision.fecha_solicitud}}
           </ion-col>
-          <ion-col>
+          <ion-col size = "2.5">
             <ion-button (click)="openModal(comision)" >Más Información</ion-button>
           </ion-col>
           <div >
-          <ion-col>
-            <ion-button *ngIf="comision.status == 5" (click)="viaticos(comision)">Crear viático</ion-button>
+          <ion-col size = "2.5">
+            <ion-button *ngIf="comision.status == 5" routerLink="/home/viatico/{{comision.folio}}">Crear viático</ion-button>
           </ion-col>
           </div>
           

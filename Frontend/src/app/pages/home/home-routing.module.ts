@@ -29,7 +29,7 @@ const routes: Routes = [
         canLoad: [AuthGuardService]
       },
       {
-        path: 'viatico',
+        path: 'viatico/:folio',
         loadChildren: () => import('./viatico/viatico.module').then(m => m.ViaticoPageModule),
         canLoad: [AuthGuardService]
       },

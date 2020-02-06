@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Modificar Perfil</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="fgModify" (ngSubmit)="modifyUsuario()">
+    <ion-item>
+      <ion-label>Nombres: </ion-label>
+      <ion-input formControlName="nombres" value="{{this.perfil.nombres}}"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Apellidos: </ion-label>
+      <ion-input formControlName="apellidos" value="{{this.perfil.apellidos}}"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Area de Adscripción: </ion-label>
+      <ion-input formControlName="area_adscripcion" value="{{this.perfil.area_adscripcion}}"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Plaza Laboral: </ion-label>
+      <ion-input formControlName="plaza_laboral" value="{{this.perfil.plaza_laboral}}"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>NSS: </ion-label>
+      <ion-input formControlName="nss" value="{{this.perfil.numero_social}}"></ion-input>
+    </ion-item>
+
+    <ion-button type="submit">Modificar
+      <ion-icon name="create"></ion-icon>
+    </ion-button>
+
+    <ion-button (click)="closeModal()">Cerrar
+      <ion-icon name="close"></ion-icon>
+    </ion-button>
+  </form>
+</ion-content>

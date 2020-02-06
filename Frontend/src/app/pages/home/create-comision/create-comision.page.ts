@@ -108,6 +108,6 @@ export class CreateComisionPage implements OnInit {
     });
     
     await modal.present();
-}
+  }
 
 }

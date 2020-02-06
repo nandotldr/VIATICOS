@@ -41,7 +41,7 @@
           </ion-item>
 
           <ion-button type="submit" color="light" [disabled]="this.fgCreate.invalid">Guardar programa</ion-button>
-          <ion-button routerLink="/home" >Regresar</ion-button>
+          <ion-button (click)="closeModal()" >Regresar</ion-button>
 
           </form>
     </div>

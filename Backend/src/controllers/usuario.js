@@ -45,15 +45,15 @@ module.exports = {
                     plaza_laboral: usuario[0].plaza_laboral,
                     numero_social: usuario[0].numero_social
                 };
-    
+
                 res.json({ ok: true, body: json });
             });
-            
+
         } catch (error) {
             console.log(error);
             return res.json({ ok: false, mensaje: error });
         }
-        
+
 
 
     },
@@ -71,8 +71,7 @@ module.exports = {
                 plaza_laboral: req.body.plaza_laboral.toUpperCase(),
                 numero_social: req.body.numero_social,
                 fecha_modificacion: new Date()
-            }, req.body.codigo], (errorModificar, modificarUsuario) => {
-                console.log(errorModificar);
+            }, req.user.codigo], (errorModificar, modificarUsuario) => {
                 if (errorModificar) return res.json({ ok: false, mensaje: errorModificar });
 
                 res.json({ ok: true, mensaje: "Cuenta modificada" });

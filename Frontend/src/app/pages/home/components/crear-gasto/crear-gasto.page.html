@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>crear-gasto</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <img class="background-image">
+  <ion-card>
+    <ion-card-header class="title">
+      <ion-card-title>Nuevo Gasto</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-header class="subtitle">
+      <ion-card-title>Gastos</ion-card-title>
+    </ion-card-header>
+    <form [formGroup]="fgGasto" (ngSubmit)="createGasto()">
+      <ion-item>
+        <ion-input  value="{{ viatico }}" formControlName="id_solicitud_viatico"></ion-input> 
+      </ion-item>
+       
+      <ion-item>
+        <ion-label position="floating">Dia</ion-label>
+        <ion-datetime displayFormat="MM/DD/YYYY" max="3000-12-09" value="{{myDate}}" formControlName="dia"></ion-datetime>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Alimentacion</ion-label>
+        <ion-input placeholder="Alimentacion" type="number" formControlName="alimentacion"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Hospedaje</ion-label>
+        <ion-input placeholder="Hospedaje" type="number" formControlName="hospedaje"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Transporte Local</ion-label>
+        <ion-input placeholder="Transporte local" type="Number" formControlName="transporteLocal"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Transporte Foraneo</ion-label>
+        <ion-input placeholder="Transporte Foraneo" type="number" formControlName="transporteForaneo"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Combustible</ion-label>
+        <ion-input placeholder="Combustible" type="number" formControlName="combustible"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Otros</ion-label>
+        <ion-input placeholder="Otros" type="number" formControlName="otros"></ion-input>
+      </ion-item>
+
+      <ion-button type="submit" color="light" >Guardar Gastos</ion-button>
+      <!-- <ion-button (click)="saveViatico()">Guardar solicitud</ion-button> -->
+      <ion-button routerLink="/home" >Regresar</ion-button>
+
+    </form>
+
+  </ion-card>
+</ion-content>

@@ -29,7 +29,7 @@ const routes: Routes = [
         canLoad: [AuthGuardService]
       },
       {
-        path: 'viatico',
+        path: 'viatico/:folio',
         loadChildren: () => import('./viatico/viatico.module').then(m => m.ViaticoPageModule),
         canLoad: [AuthGuardService]
       },
@@ -40,9 +40,15 @@ const routes: Routes = [
       {
         path: 'comision-activa',
         loadChildren: () => import('./components/comision-activa/comision-activa.module').then(m => m.ComisionActivaPageModule)
+      },
+      {
+        path: 'crear-gasto/',
+        loadChildren: () => import('./components/crear-gasto/crear-gasto.module').then( m => m.CrearGastoPageModule)
       }
     ]
-  }
+  },
+
+
 ];
 
 @NgModule({

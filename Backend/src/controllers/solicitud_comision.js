@@ -19,7 +19,7 @@ module.exports = {
             }
             const existeSolicitud = await pool.query('SELECT * FROM solicitud_comision WHERE id_usuario= ? AND (status= 0 OR status=1 OR status=2 OR status=3 OR status=4 OR status=5)', [req.user.codigo]);
             if (existeSolicitud.length > 0) {
-                return res.json({ ok: false, mensaje: "No puedes crear otra comision tienes una en proceso" });
+                return res.json({ ok: false, mensaje: "No puedes crear otra comision, tienes una en proceso" });
             }
             var pais = null;
             var municipio = null;
@@ -53,11 +53,10 @@ module.exports = {
         try {
             const comision = await pool.query('SELECT * FROM solicitud_comision WHERE id=?', [id]);
             if (comision.length < 1) return res.json({ ok: false, mensaje: "Comision no encontrada" });
-            const destino = "";
             if (comision[0].tipo_comision == 0) {
-                const destino = await pool.query('SELECT nombre FROM pais WHERE id = ?', [comision[0].id_pais]);
+                destino = await pool.query('SELECT nombre FROM pais WHERE id = ?', [comision[0].id_pais]);
             } else if (comision[0].tipo_comision == 1) {
-                const destino = await pool.query('SELECT nombre FROM municipio WHERE id = ?', [comision[0].id_municipio]);
+                destino = await pool.query('SELECT nombre FROM municipio WHERE id = ?', [comision[0].id_municipio]);
             };
             console.log(destino);
             pool.query('SELECT * FROM programa_trabajo WHERE id_solicitud_comision = ?', [comision[0].id], (errorPrograma, programa, fields) => {
@@ -69,7 +68,7 @@ module.exports = {
                     plaza_laboral: comision[0].plaza_laboral,
                     tipo_comision: comision[0].tipo_comision,
                     nombre_comision: comision[0].nombre_comision,
-                    // destino: destino[0].nombre,
+                    destino: destino[0].nombre,
                     fecha_solicitud: comision[0].fecha_solicitud,
                     fecha_inicio: comision[0].fecha_inicio,
                     fecha_fin: comision[0].fecha_fin,
@@ -106,7 +105,7 @@ module.exports = {
 
             //si estatus =0 modificar fecha solicitud
             //si status =2 no modificar fecha solicitud or status 4
-            if (verificarComision[0].status == 0)
+            if (verificarComision[0].status == 0 && req.body.status == 1)
                 verificarComision[0].fecha_solicitud = new Date();
             var pais = null;
             var municipio = null;
@@ -125,8 +124,7 @@ module.exports = {
                 objetivo_trabajo: req.body.objetivo_trabajo,
             }, req.body.id], (errorModificar, modificarComision) => {
                 if (errorModificar) return res.json({ ok: false, mensaje: errorModificar });
-                console.log(errorModificar);
-                res.json({ ok: true, mensaje: "Comision modificada" });
+                res.json({ ok: true, mensaje: "Solicitud comision se modifico correctamente" });
             });
 
         } catch (error) {

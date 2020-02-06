@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import {ModalController, ToastController} from '@ionic/angular';
 import { ProgramPage } from '../components/program/program.page';
 import {OverlayEventDetail} from '@ionic/core';
+import { formatDate } from "@angular/common";
 import { ComisionActivaPage } from '../components/comision-activa/comision-activa.page';
 
 
@@ -16,7 +17,7 @@ import { ComisionActivaPage } from '../components/comision-activa/comision-activ
 export class HistoryPage implements OnInit {
   comi = '';
   comisiones = null;
-
+  
   constructor(
     private router: Router,
     private auth: AuthService,
@@ -31,6 +32,9 @@ export class HistoryPage implements OnInit {
   async getAllComisiones() {
     const resp = await this.auth.getAllComisiones();
     if (resp) {
+        resp.forEach(element => {
+          element.fecha_solicitud = formatDate(element.fecha_solicitud, 'yyyy-MM-dd', 'en');
+        });
         this.comisiones = resp;
         console.log(this.comisiones);
       } else {

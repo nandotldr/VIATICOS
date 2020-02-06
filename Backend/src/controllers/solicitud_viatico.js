@@ -9,67 +9,45 @@ const pool = require('../database');
 module.exports = {
 
     crearSolicitudViatico: async(req, res) => {
-        var id_comision = req.body.id;
-        var id_usuario = req.user.codigo;
-        var invitado_n = req.body.invitado;
-        var comentarios = req.body.comentarios;
-        var status = req.body.estado;
-        var buscarSolicitudC = 'SELECT * FROM solicitud_comision WHERE id = ?';
-        var insertarSolicitud = 'INSERT INTO solicitud_viatico SET ?';
-
         try {
             const existeUsuario = await pool.query('SELECT codigo FROM usuario WHERE codigo=?', [req.user.codigo]);
             if (existeUsuario.length < 1) {
                 return res.json({ ok: false, mensaje: "Este usuario no existe" });
             }
-            const existeSolicitud = await pool.query('SELECT * FROM solicitud_comision WHERE id = ? AND status=5', [id_comision]);
+            const existeSolicitud = await pool.query('SELECT * FROM solicitud_comision WHERE id = ? AND status=5', [req.body.id]);
             if (existeSolicitud.length < 1) {
-                return res.json({ ok: false, mensaje: "Comision no ha sido aprovada" });
+                return res.json({ ok: false, mensaje: "La comision no ha sido aprobada, solicitud de viatico rechazada"});
             }
-            const existe = await pool.query(buscarSolicitudC, [id_comision]);
-            console.log(invitado_n);
-            if (existe.length == 0)
-                return res.json({ ok: false, mensaje: 'No existe la comision' });
-            var valuesSolicitud = {
-                invitado_nombre: invitado_n,
-                id_solicitud_comision: id_comision,
-                comentarios: comentarios,
-                status: status,
-                fecha_solicitud: new Date(),
-                comentario_rechazo: '',
-                fecha_revisado: new Date(),
-                nombre_revisado: '',
-                fecha_aceptado: new Date(),
-                nombre_aceptado: '',
-                fecha_creacion: new Date(),
-                fecha_modificacion: new Date(),
-                id_usuario: id_usuario
+            const existeViatico = await pool.query("SELECT id FROM solicitud_viatico WHERE id_solicitud_comision = ?",[req.body.id]);
+            if(existeViatico.length > 0) return res.json({ ok: false, mensaje: "Esta comision ya tiene una solicitud de viatico en proceso"});
+            const resp= await pool.query("INSERT INTO solicitud_viatico SET ? ", [{
+                    invitado_nombre: req.body.invitado,
+                    id_solicitud_comision: req.body.id,
+                    comentarios: req.body.comentarios,
+                    status: req.body.estado,
+                    fecha_solicitud: new Date(), 
+                    fecha_creacion: new Date(),
+                    id_usuario: req.user.codigo
+                }]);
+            let json = {
+                "id_viatico": resp.insertId
             };
-
-            pool.query(insertarSolicitud, [valuesSolicitud], (error, results) => {
-                if (error) return res.json(error);
-                res.json({ ok: true, results, controller: 'solicitudViatico insertado', mensaje: 'ok', ultimaid: results.insertId });
-            });
+            res.json({ ok: true, mensaje: "Viatico creado correctamente", body: json});
         } catch (error) {
             return res.json({ ok: false, mensaje: error });
         }
-
-
     },
-
-
     consultarSolicitudViatico: async(req, res) => {
         const { id } = req.params;
 
         try {
             const viatico = await pool.query('SELECT * FROM solicitud_viatico as v INNER JOIN solicitud_comision as c ON  c.id = v.id_solicitud_comision where c.id=? ', [id]);
-            if (viatico.length < 1) return res.json({ ok: false, mensaje: "No se encontro viatico" });
+            if (viatico.length < 1) return res.json({ ok: false, mensaje: "No se ha creado viatico"});
             if (viatico[0].tipo_comision == 0) {
                 destino = await pool.query('SELECT nombre FROM pais WHERE id = ?', [viatico[0].id_pais]);
             } else if (viatico[0].tipo_comision == 1) {
                 destino = await pool.query('SELECT nombre FROM municipio WHERE id = ?', [viatico[0].id_municipio]);
             };
-
             pool.query('SELECT * FROM gasto WHERE id_solicitud_viatico = ?', [viatico[0].id], (errorGasto, gastos, fields) => {
                 if (errorGasto) return res.json({ ok: false, mensaje: errorGasto });
                 let json = {
@@ -97,35 +75,42 @@ module.exports = {
         }
 
     },
-
     modificarSolicitudViatico: async(req, res) => {
-        var idSolViatico = req.body.id_solicitudV;
-        var status = req.body.estado;
-        var comentarios = req.body.comentario;
-        var nom_invitado = req.body.nombre_invitado;
-        var id_usuario = req.user.codigo;
-        var buscarSolicitudV = 'SELECT * FROM solicitud_viatico WHERE id = ?';
-        var actualizarSolicitudV = 'UPDATE solicitud_viatico SET ? WHERE id = ?';
-
         try {
-            const existe = await pool.query(buscarSolicitudV, [idSolViatico]);
-            if (existe.length == 0)
-                return res.json({ ok: false, mensaje: 'No existe la solicitud' });
-            var valuesSolicitud = {
-                status: status,
-                fecha_solicitud: new Date(),
+            const existeViatico = await pool.query("SELECT * FROM solicitud_viatico WHERE id = ? AND id_usuario=?", [req.body.id_viatico,req.user.codigo]);
+            if (existeViatico.length < 1)
+                return res.json({ ok: false, mensaje: 'No existe la solicitud viatico' });
+            if (existeViatico[0].status == 0 && req.body.status==1) 
+            {
+                existeViatico[0].fecha_solicitud = new Date();
+            }
+            pool.query("UPDATE solicitud_viatico SET ? WHERE id = ?", [{
+                status: req.body.status,
+                fecha_solicitud: existeViatico[0].fecha_solicitud,
                 fecha_modificacion: new Date(),
-                comentarios: comentarios,
-                invitado_nombre: nom_invitado
-            };
-            pool.query(actualizarSolicitudV, [valuesSolicitud, idSolViatico], (error, results) => {
-                if (error) return res.json(error);
-                res.json({ ok: true, results, controller: 'solicitudViatico actualizado', mensaje: 'ok' });
+                comentarios: req.body.comentarios,
+                invitado_nombre: req.body.nombre_invitado
+            }, req.body.id_viatico], (errorModificar, moficarViatico) => {
+                if (errorModificar) return res.json({ok:false, mensaje:errorModificar});
+                res.json({ ok: true, mensaje: "Solicitud viatico se modifico correctamente" });
             });
         } catch (error) {
-            return res.json({ ok: false, mensaje: "Error al realizar la query" });
+            console.log(error);
+            return res.json({ ok: false, mensaje: "Error al realizar la modificacion" });
         }
-    }
+    },
+    historialViaticos: async(req,res)=>{
+       
+        try {
+            pool.query('SELECT v.id as id_viatico, v.id_solicitud_comision as id_comision,v.fecha_solicitud, v.status , c.nombre_comision FROM solicitud_viatico as v INNER  JOIN solicitud_comision as c on c.id =v.id_solicitud_comision WHERE v.id_usuario =?', [req.user.codigo], (erroViaticos, viaticos, fields) => {
+                if (erroViaticos) return res.json({ ok: false, mensaje: erroViaticos });
+                if (viaticos.length < 1) return res.json({ ok: false, mensaje: "No tienes viaticos realizados" });
+                res.json({ ok: true, body: viaticos });
+            });
+        } catch (error) {
+            return res.json({ ok: false, mensaje: error });
+        }
+    },
 
     // Cosas extra como subir archivos etc
 }

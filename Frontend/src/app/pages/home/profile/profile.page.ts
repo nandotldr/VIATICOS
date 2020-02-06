@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { ToastController } from '@ionic/angular';
+import { ToastController, ModalController } from '@ionic/angular';
 import { AuthService } from 'src/app/services/auth.service';
 import { formatDate } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { OverlayEventDetail } from '@ionic/core';
+import { ModificarPerfilPage } from '../components/modificar-perfil/modificar-perfil.page';
 
 @Component({
   selector: 'app-profile',
@@ -17,6 +19,7 @@ perfil = '';
   constructor(private formBuilder: FormBuilder,
               private auth: AuthService,
               public toastController: ToastController,
+              private modalController: ModalController,
               private router: Router,
               private http: HttpClient) {
   }
@@ -53,5 +56,25 @@ perfil = '';
       position: 'bottom'
     });
     toast.present();
+  }
+
+  async openModal() {
+    const modal: HTMLIonModalElement =
+        await this.modalController.create({
+          component: ModificarPerfilPage,
+          cssClass: 'modal-class',
+          componentProps: {
+            perfil: this.perfil
+          }
+        });
+
+    modal.onDidDismiss().then((detail: OverlayEventDetail) => {
+      if (detail !== null) {
+        console.log('The result:', detail.data);
+      }
+    });
+
+    await modal.present();
+
   }
 }

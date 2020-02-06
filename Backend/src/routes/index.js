@@ -28,5 +28,6 @@ router.use('/agenda', require('./agenda'));
 router.use('/validate', require('./validate'));
 router.use('/terminar_comision', require('./terminar_comision'));
 router.use('/ver_destino', require('./ver_destino'));
+router.use('/revisar_informe', require('./revisar_informe'));
 
 module.exports = router;

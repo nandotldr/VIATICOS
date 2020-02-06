@@ -62,7 +62,6 @@ export class CreateComisionPage implements OnInit {
     } else {
       this.presentToast();
     }
-    
   }
 
   async getUsuario(){

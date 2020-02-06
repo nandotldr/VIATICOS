@@ -18,7 +18,7 @@ export class ViaticoPage implements OnInit {
   //@Input() comision: string  = '';
   comisionCompleta = '';
   comision: Number;
-  viatico = '';
+  viatico: any;
   fgCreate: FormGroup;
   fgGasto: FormGroup;
   token: string;
@@ -69,11 +69,11 @@ export class ViaticoPage implements OnInit {
     if (this.fgCreate.valid) {
      
       const resp = await this.auth.saveViatico(this.fgCreate.value).toPromise();
-      if (resp.ok) {
+      if (resp) {
         this.presentToast('Guardado correctamente');
-        this.viatico = resp.results.insertId;
+        this.viatico = resp;
       } else {
-        this.presentToast(resp.mensaje);
+        this.presentToast('Error');
       }
     } else {
       this.presentToast('Datos no Validos');

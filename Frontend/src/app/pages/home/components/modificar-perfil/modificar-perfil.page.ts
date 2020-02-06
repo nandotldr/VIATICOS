@@ -11,7 +11,14 @@ import { FormGroup, FormBuilder, FormControl, Validators, ReactiveFormsModule } 
 })
 export class ModificarPerfilPage implements OnInit {
 
-  perfil = '';
+  perfil = {
+    codigo: Number,
+    nombres: String,
+    apellidos: String,
+    area_adscripcion: String,
+    plaza_laboral: String,
+    nss: String
+  };
   fgModify: FormGroup;
 
   constructor(private modalController: ModalController,
@@ -19,15 +26,17 @@ export class ModificarPerfilPage implements OnInit {
               private formBuilder: FormBuilder,
               public  toastController: ToastController,
               private auth: AuthService,
-              private navCtrl: NavController) {
-    this.fgModify = this.formBuilder.group({
-      nombres: new FormControl('', []),
-      apellidos: new FormControl('', []),
-      area_adscripcion: new FormControl('', []),
-      plaza_laboral: new FormControl('', []),
-      nss: new FormControl('', [])
-    });
-  }
+              private navCtrl: NavController) 
+              {
+                this.fgModify = this.formBuilder.group({
+                  codigo: new FormControl(this.perfil.codigo, []),
+                  nombres: new FormControl(this.perfil.nombres, []),
+                  apellidos: new FormControl(this.perfil.apellidos, []),
+                  area_adscripcion: new FormControl(this.perfil.area_adscripcion, []),
+                  plaza_laboral: new FormControl(this.perfil.plaza_laboral, []),
+                  nss: new FormControl(this.perfil.nss, [])
+                });
+              }
 
   ionViewWillEnter() {
     this.perfil = this.navParams.get('perfil');

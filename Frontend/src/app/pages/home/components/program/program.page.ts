@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { ModalController, NavParams} from '@ionic/angular';
 import { AuthService } from 'src/app/services/auth.service';
 import { formatDate } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
@@ -25,7 +26,8 @@ export class ProgramPage implements OnInit {
       private auth: AuthService,
       public toastController: ToastController,
       private router: Router,
-      private http: HttpClient
+      private http: HttpClient,
+      private modalController: ModalController
       ) 
       { 
         this.fgCreate = this.formBuilder.group({
@@ -73,6 +75,10 @@ export class ProgramPage implements OnInit {
       position: 'bottom'
     });
     toast.present();
+  }
+
+  closeModal() {
+    this.modalController.dismiss();
   }
 
   async presentToastSuccess() {

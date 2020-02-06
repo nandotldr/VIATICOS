@@ -85,7 +85,7 @@ export class AuthService {
       apellidos: usuario.apellidos,
       area_adscripcion: usuario.area_adscripcion,
       plaza_laboral: usuario.plaza_laboral,
-      nss: usuario.nss
+      numero_social: usuario.nss
     }).pipe(
         tap(resp => {
           console.log(resp);

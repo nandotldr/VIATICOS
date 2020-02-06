@@ -6,7 +6,7 @@ const pool = require('../database');
  * respectivamente.
  */
 module.exports = {
-    consultarSolicitudesComision: async(req, res) => {
+    solicitudesComisionesPorRevisar: async(req, res) => {
         try {
             //Verificar tipo de usuario
             const existeUsuario = await pool.query('SELECT codigo, tipo_usuario,area_adscripcion FROM usuario WHERE codigo=?', [req.user.codigo]);
@@ -34,22 +34,24 @@ module.exports = {
 
     },
 
-    modificarComision: async(req, res) => {
+    aceptarComision: async(req, res) => {
         //verificar que no este en status cancelado =-1, revision = 1, aceptado por J =3, aceptado por A= 5 o finalizado
         try {
-            var sqlSolComision = 'SELECT c.id, c.status, u.codigo, c.fecha_solicitud , concat(u.nombres," ",u.apellidos) as nombre, u.tipo_usuario FROM solicitud_comision AS c INNER JOIN usuario as u ON u.codigo = ? WHERE c.id = ? AND (c.status =1 OR c.status=3)';
-            const verificarComision = await pool.query(sqlSolComision, [req.user.codigo, req.body.id]);
+            var sqlSolComision = 'SELECT c.id, c.status, u.codigo, c.fecha_solicitud , concat(u.nombres," ",u.apellidos) as nombre, u.tipo_usuario FROM solicitud_comision AS c INNER JOIN usuario as u ON u.codigo = c.id_usuario WHERE (c.status =1 OR c.status=3)';
+            const verificarComision = await pool.query(sqlSolComision);
             if (verificarComision.length < 1) {
                 return res.json({ ok: false, mensaje: "No se puede modificar comision" });
             }
+            const usuario = await pool.query("SELECT CONCAT(u.nombre, ' ' , u.apellidos) as nombre FROM viaticos.usuario as u WHERE codigo = ?",[req.user.codigo]);
+                
             var modificarComision = 'UPDATE solicitud_comision SET ? WHERE id = ?';
             //si usuario =J modifcar fecha revisado, nombre revisado, comentario rechazo
             //si usuario =A modificar fecha_aceptado, nombre aceptado, comentario rechazo
-            if (verificarComision[0].tipo_usuario == 'J' && verificarComision[0].status == 1) {
+            if (req.user.tipo_usuario == 'J' && verificarComision[0].status == 1) {
                 pool.query(modificarComision, [{
                     fecha_modificacion: new Date(),
                     fecha_revisado: new Date(),
-                    nombre_revisado: verificarComision[0].nombre,
+                    nombre_revisado: usuario[0].nombre,
                     comentario_rechazo: req.body.comentario_rechazo,
                     status: req.body.status,
                 }, req.body.id], (errorModificar, modificarComision) => {
@@ -58,11 +60,11 @@ module.exports = {
                 });
                 return res.json({ ok: true, mensaje: "Comision modificada" });
 
-            } else if (verificarComision[0].tipo_usuario == 'A' && verificarComision[0].status == 3) {
+            } else if (req.user.tipo_usuario == 'A' && verificarComision[0].status == 3) {
                 pool.query(modificarComision, [{
                     fecha_modificacion: new Date(),
                     fecha_aceptado: new Date(),
-                    nombre_aceptado: verificarComision[0].nombre,
+                    nombre_aceptado: usuario[0].nombre,
                     comentario_rechazo: req.body.comentario_rechazo,
                     status: req.body.status,
                 }, req.body.id], (errorModificar, modificarComision) => {

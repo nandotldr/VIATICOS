@@ -4,8 +4,8 @@ const revisar_solicitud_viaticoCtl = require('../controllers/revisar_solicitud_v
 const router = express.Router();
 const oauth = require('../middlewares/credentials');
 
-router.get('/', oauth('J', 'A', 'S'),revisar_solicitud_viaticoCtl.consultarSolicitudesViatico);
-router.put('/', oauth('J', 'A'),revisar_solicitud_viaticoCtl.modificarViatico);
+router.get('/', oauth('J', 'A', 'S'),revisar_solicitud_viaticoCtl.solicitudesViaticosPorRevisar);
+router.put('/', oauth('S', 'A'),revisar_solicitud_viaticoCtl.aceptarViatico);
 
 
 // Rutas extras del controlador como archivos, etc.

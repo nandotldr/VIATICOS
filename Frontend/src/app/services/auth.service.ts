@@ -69,6 +69,36 @@ export class AuthService {
     ).toPromise();
   }
 
+  async  modifyUsuario(
+      usuario: {
+        codigo: number,
+        nombres: string,
+        apellidos: string,
+        area_adscripcion: string,
+        plaza_laboral: string,
+        nss: string
+      }
+  ){
+    return await this.http.put(`${this.API_URL}/usuario`, {
+      codigo: usuario.codigo,
+      nombres: usuario.nombres,
+      apellidos: usuario.apellidos,
+      area_adscripcion: usuario.area_adscripcion,
+      plaza_laboral: usuario.plaza_laboral,
+      nss: usuario.nss
+    }).pipe(
+        tap(resp => {
+          console.log(resp);
+          if (resp['ok']) {
+            return resp['body'];
+          }
+        }),
+        map(response => {
+          return response['ok'];
+        })
+    ).toPromise();
+  }
+
   async getComision(id_comision: any){
     return await this.http.get(`${this.API_URL}/solicitud_comision/${id_comision}`).pipe(
       map(response => {

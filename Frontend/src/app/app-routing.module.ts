@@ -23,6 +23,11 @@ const routes: Routes = [
     path: '**',
     redirectTo: 'home'
   },
+  {
+    path: 'modificar-perfil',
+    loadChildren: () => import('./pages/home/components/modificar-perfil/modificar-perfil.module').then(m => m.ModificarPerfilPageModule)
+  },
+
 ];
 
 @NgModule({

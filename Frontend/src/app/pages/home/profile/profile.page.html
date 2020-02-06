@@ -16,30 +16,39 @@
 <ion-content>
   <img class="background-image"/>
   <ion-card-content class="background">
+
     <ion-label>Código</ion-label>
     <ion-item>
       <ion-input disabled="true" value="{{this.perfil.codigo}}"></ion-input>
     </ion-item>
+
     <ion-label>Nombres</ion-label>
     <ion-item>
       <ion-input disabled="true" value="{{this.perfil.nombres}}"></ion-input>
     </ion-item>
+
     <ion-label>Apellidos</ion-label>
     <ion-item>
       <ion-input disabled="true" value="{{this.perfil.apellidos}}"></ion-input>
     </ion-item>
+
     <ion-label>Area de Adscripción</ion-label>
     <ion-item>
       <ion-input disabled="true" value="{{this.perfil.area_adscripcion}}"></ion-input>
     </ion-item>
+
     <ion-label>Plaza Laboral</ion-label>
     <ion-item>
       <ion-input disabled="true" value="{{this.perfil.plaza_laboral}}"></ion-input>
     </ion-item>
+
     <ion-label>NSS</ion-label>
     <ion-item>
       <ion-input disabled="true" value="{{this.perfil.numero_social}}"></ion-input>
     </ion-item>
   </ion-card-content>
+  <ion-button (click)="openModal()">Modificar
+    <ion-icon name="create"></ion-icon>
+  </ion-button>
 
 </ion-content>

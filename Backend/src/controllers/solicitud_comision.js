@@ -105,7 +105,7 @@ module.exports = {
 
             //si estatus =0 modificar fecha solicitud
             //si status =2 no modificar fecha solicitud or status 4
-            if (verificarComision[0].status == 0)
+            if (verificarComision[0].status == 0 && req.body.status==1)
                 verificarComision[0].fecha_solicitud = new Date();
             var pais = null;
             var municipio = null;
@@ -124,8 +124,7 @@ module.exports = {
                 objetivo_trabajo: req.body.objetivo_trabajo,
             }, req.body.id], (errorModificar, modificarComision) => {
                 if (errorModificar) return res.json({ ok: false, mensaje: errorModificar });
-                console.log(errorModificar);
-                res.json({ ok: true, mensaje: "Comision modificada" });
+                res.json({ ok: true, mensaje: "Solicitud comision se modifico correctamente" });
             });
 
         } catch (error) {

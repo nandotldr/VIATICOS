@@ -41,7 +41,7 @@ module.exports = {
         const { id } = req.params;
 
         try {
-            const viatico = await pool.query('SELECT * FROM solicitud_viatico as v INNER JOIN solicitud_comision as c ON  c.id = v.id_solicitud_comision where c.id=? and v.id_usuario = ? ', [id,req.user.codigo]);
+            const viatico = await pool.query('SELECT * FROM solicitud_viatico as v INNER JOIN solicitud_comision as c ON  c.id = v.id_solicitud_comision where c.id=? ', [id]);
             if (viatico.length < 1) return res.json({ ok: false, mensaje: "No se ha creado viatico"});
             if (viatico[0].tipo_comision == 0) {
                 destino = await pool.query('SELECT nombre FROM pais WHERE id = ?', [viatico[0].id_pais]);

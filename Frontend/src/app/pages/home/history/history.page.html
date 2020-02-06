@@ -1,36 +1,70 @@
 <ion-header>
-    <ion-toolbar color="primary">
-      <ion-buttons slot="start">
-        <ion-button href="/home">
-          <!-- <img src="../../../assets/images/logo.png" width="25px" style="display:inline-block" height="25px"/> -->
-          <!-- <ion-icon slot="icon-only" name="filing"></ion-icon> -->
-          <ion-title>
-            HISTORIAL DE COMISIÓN
-          </ion-title>
-        </ion-button>
-      </ion-buttons>
-    </ion-toolbar>
-  </ion-header>
-  
-  
-  
-  <ion-content>
-    <img class="background-image"/>
-    <ion-card >
-      <ion-card-header class="title">
-        <ion-card-title>Historial de comosiones</ion-card-title>
-      </ion-card-header>
-  
-      <ion-card-header class="subtitle">
-        <ion-card-title>Comisiones</ion-card-title>
-      </ion-card-header>
-        <ion-list class="centered-list">
-          <ion-button ion-item *ngFor="let comision of comisiones" (click)="itemSelected(comision)">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button menu="menu"></ion-menu-button>
+      <ion-button href="/home">
+        <!-- <img src="../../../assets/images/logo.png" width="25px" style="display:inline-block" height="25px"/> -->
+        <!-- <ion-icon slot="icon-only" name="filing"></ion-icon> -->
+        <ion-title>
+          HISTORIAL DE COMISIÓN
+        </ion-title>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+
+<ion-content>
+  <img class="background-image"/>
+  <ion-card >
+    <ion-card-header class="title">
+      <ion-card-title>Historial de comisiones</ion-card-title>
+    </ion-card-header>
+    <ion-card-header class="subtitle">
+      <ion-card-title>Comisiones</ion-card-title>
+    </ion-card-header>
+    <ion-card-content class="background">
+      <ion-grid>
+        <ion-row class="bg-col">
+          <ion-col text-center size="1">
+            ID
+          </ion-col>
+          <ion-col size="3">
+            Nombre de la Comisión
+          </ion-col>
+          <ion-col text-center size="2">
+            Fecha de Solicitud
+          </ion-col>
+          <ion-col text-center size="2.5">
+            Más información
+          </ion-col>
+          <ion-col text-center size="2">
+            Crear Viático
+          </ion-col>
+        </ion-row>
+        <ion-row *ngFor="let comision of comisiones">
+          <ion-col text-center size="1">
+            {{ comision.folio }}
+          </ion-col>
+          <ion-col size="3">
             {{ comision.nombre_comision }}
-          </ion-button>  
-          <ion-card *ngIf="comisiones == false" class="primary"> No hay elementos para mostrar</ion-card>
-        </ion-list>
-      
-    </ion-card>
-  
-  </ion-content>
+          </ion-col>
+          <ion-col text-center size="2">
+            {{ comision.fecha_solicitud }}
+          </ion-col>
+          <ion-col text-center size = "2.5">
+            <ion-button (click)="openModal(comision)" >
+              <ion-icon name="apps"> </ion-icon>
+            </ion-button>
+          </ion-col>
+          <ion-col text-center  size = "2">
+            <ion-button *ngIf="comision.status == 5" routerLink="/home/viatico/{{comision.folio}}"> Crear viático </ion-button>
+          </ion-col >
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+    <ion-card *ngIf="comisiones == false" class="primary"> No hay elementos para mostrar </ion-card>
+  </ion-card>
+
+</ion-content>

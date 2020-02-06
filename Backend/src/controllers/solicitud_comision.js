@@ -105,7 +105,7 @@ module.exports = {
 
             //si estatus =0 modificar fecha solicitud
             //si status =2 no modificar fecha solicitud or status 4
-            if (verificarComision[0].status == 0 && req.body.status==1)
+            if (verificarComision[0].status == 0 && req.body.status == 1)
                 verificarComision[0].fecha_solicitud = new Date();
             var pais = null;
             var municipio = null;

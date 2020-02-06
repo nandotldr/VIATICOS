@@ -14,10 +14,12 @@ module.exports = {
             if (existeUsuario.length < 1) {
                 return res.json({ ok: false, mensaje: "Este usuario no existe" });
             }
-            const existeSolicitud = await pool.query('SELECT * FROM solicitud_comision WHERE id = ? AND status=5', [id_comision]);
+            const existeSolicitud = await pool.query('SELECT * FROM solicitud_comision WHERE id = ? AND status=5', [req.body.id]);
             if (existeSolicitud.length < 1) {
                 return res.json({ ok: false, mensaje: "La comision no ha sido aprobada, solicitud de viatico rechazada"});
             }
+            const existeViatico = await pool.query("SELECT id FROM solicitud_viatico WHERE id_solicitud_comision = ?",[req.body.id]);
+            if(existeViatico.length > 0) return res.json({ ok: false, mensaje: "Esta comision ya tiene una solicitud de viatico en proceso"});
             const resp= await pool.query("INSERT INTO solicitud_viatico SET ? ", [{
                     invitado_nombre: req.body.invitado,
                     id_solicitud_comision: req.body.id,

@@ -219,26 +219,28 @@ export class AuthService {
     this.nav.navigateRoot('/login', { animated: true });
   }
 
-  async saveViatico(viatico: { 
+  saveViatico(viatico: { 
     id_comision: Number,
     invitado_nombre: string,
     comentarios: string,
     status: Number
   }) {
-    return await this.http.post(`${this.API_URL}/solicitud_viatico`,{
-      id: viatico.id_comision,
+    console.log(viatico);
+    return this.http.post(`${this.API_URL}/solicitud_viatico`,{
+      id: +viatico.id_comision,
       invitado: viatico.invitado_nombre,
       comentarios: viatico.comentarios,
       estado: 0
-    }).pipe(
+    })/*.pipe(
       map(response => {
+        console.log('respuesta',response);
         if(response['ok']){
           return response['body'];
         }else{
-          return {ok: response['ok'],mensaje: response['mensaje']};
+          return {ok: response['ok'], mensaje: response['mensaje']};
         }
-      })
-    ).toPromise();
+      })*/
+    ;
   }
 
   async createGasto(gasto: { 

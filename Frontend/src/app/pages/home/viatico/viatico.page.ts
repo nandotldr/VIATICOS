@@ -3,9 +3,10 @@ import { ToastController } from '@ionic/angular';
 import { AuthService } from 'src/app/services/auth.service';
 import { formatDate } from '@angular/common';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { Component, OnInit, Input } from '@angular/core';
-import {Router} from '@angular/router';
+import { Component, OnInit, Input, ɵConsole } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ThrowStmt } from '@angular/compiler';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-viatico',
@@ -15,8 +16,8 @@ import { ThrowStmt } from '@angular/compiler';
 export class ViaticoPage implements OnInit {
 
   //@Input() comision: string  = '';
-
-  comision = '';
+  comisionCompleta = '';
+  comision: Number;
   viatico = '';
   fgCreate: FormGroup;
   fgGasto: FormGroup;
@@ -27,9 +28,11 @@ export class ViaticoPage implements OnInit {
     private formBuilder: FormBuilder,
     private auth: AuthService,
     public toastController: ToastController,
+    private activatedRoute: ActivatedRoute
     ) {
+      this.comision = +this.activatedRoute.snapshot.paramMap.get('folio');
       this.fgCreate = this.formBuilder.group({
-        id_comision: new FormControl('', []),
+        id_comision: new FormControl(this.comision, []),
         invitado_nombre: new FormControl('', []),
         comentarios: new FormControl('', [])
       });
@@ -48,13 +51,15 @@ export class ViaticoPage implements OnInit {
 
   ngOnInit() {
     this.getComision();
+    
+    //this.fgCreate.value.id_comision = this.comisionCompleta;
+    
   }
 
   async getComision(){
     const resp = await this.auth.getComision(this.comision);
     if (resp) {
-      this.comision = resp;
-      
+      this.comisionCompleta = resp;
     } else {
       this.presentToast(resp.mensaje);
     }
@@ -62,7 +67,8 @@ export class ViaticoPage implements OnInit {
 
   async saveViatico(){
     if (this.fgCreate.valid) {
-      const resp = await this.auth.saveViatico(this.fgCreate.value);
+     
+      const resp = await this.auth.saveViatico(this.fgCreate.value).toPromise();
       if (resp.ok) {
         this.presentToast('Guardado correctamente');
         this.viatico = resp.results.insertId;
@@ -82,8 +88,7 @@ export class ViaticoPage implements OnInit {
       }
       else{
         this.presentToast(resp.mensaje);
-      }
-     
+      }   
   }
 
   async presentToast(message) {

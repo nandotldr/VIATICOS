@@ -29,7 +29,7 @@
         <form [formGroup]="fgCreate" (ngSubmit)="saveViatico()">
           <ion-item>
             <ion-label>Folio de la comisión </ion-label>
-            <ion-input disabled="true" value="{{this.comision.folio}}"   ></ion-input>
+            <ion-input value="{{this.comision}}" formControlName="id_comision" ></ion-input>
           </ion-item>
 
           <ion-item>

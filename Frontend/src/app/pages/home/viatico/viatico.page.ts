@@ -97,7 +97,7 @@ export class ViaticoPage implements OnInit {
      
     modal.onDidDismiss().then((detail: OverlayEventDetail) => {
        if (detail !== null) {
-         console.log('The result:', detail.data);
+         console.log('The result: ', detail.data);
        }
     });
     

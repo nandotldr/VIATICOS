@@ -1,4 +1,4 @@
-import { ToastController, ModalController } from '@ionic/angular';
+import { ToastController, ModalController, NavParams } from '@ionic/angular';
 import { AuthService } from 'src/app/services/auth.service';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
@@ -10,16 +10,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CrearGastoPage implements OnInit {
 
+  idViatico: Number;
   fgGasto: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
     private auth: AuthService,
     public toast: ToastController,
-    private modalController: ModalController
+    private modalController: ModalController,
+    private navParams: NavParams
   ) { 
+
+    this.idViatico = this.navParams.get('id_viatico');
+
     this.fgGasto = this.formBuilder.group({
-      id_solicitud_viatico: new FormControl('', [Validators.required]),
+      id_solicitud_viatico: new FormControl(this.idViatico, [Validators.required]),
       dia: new FormControl('', [Validators.required]),
       alimentacion: new FormControl('', [Validators.required]),
       hospedaje: new FormControl('', [Validators.required]),
@@ -31,17 +36,27 @@ export class CrearGastoPage implements OnInit {
   }
 
   ngOnInit() {
+    this.idViatico = this.navParams.get('id_viatico');
+    console.log('ID DEL VIATICO', this.idViatico);
+    
   }
 
   async createGasto(){
-   
-    const resp = await this.auth.createGasto(this.fgGasto.value);
-    if(resp.ok){
-      this.presentToast('Gastos creados');
+    console.log('Formulario', this.fgGasto.value);
+    if(this.fgGasto.valid){
+      const resp = await this.auth.createGasto(this.fgGasto.value).toPromise();
+      if(resp){
+        this.presentToast('Gastos creados');
+        // PUT en Viatico para cambiar el status
+        
+      }
+      else{
+        this.presentToast('Error');
+      }  
+    }else{
+      this.presentToast("Error");
     }
-    else{
-      this.presentToast(resp.mensaje);
-    }   
+    
   }
 
   async presentToast(message) {

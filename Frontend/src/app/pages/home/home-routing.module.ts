@@ -49,6 +49,7 @@ const routes: Routes = [
         canLoad: [AuthGuardService]
       },
       {
+<<<<<<< HEAD
         path: 'historial-viaticos',
         loadChildren: () => import('./historial-viaticos/historial-viaticos.module').then( m => m.HistorialViaticosPageModule),
         canLoad: [AuthGuardService]
@@ -61,6 +62,21 @@ const routes: Routes = [
   }
 
 
+=======
+        path: 'crear-gasto/',
+        loadChildren: () => import('./components/crear-gasto/crear-gasto.module').then( m => m.CrearGastoPageModule)
+      },
+      {
+        path: 'modificar-perfil',
+        loadChildren: () => import('./components/modificar-perfil/modificar-perfil.module').then(m => m.ModificarPerfilPageModule)
+      },
+      {
+        path: 'revisar-comision',
+        loadChildren: () => import('./revisar-comision/revisar-comision.module').then( m => m.RevisarComisionPageModule)
+      }
+    ]
+  }
+>>>>>>> 8cfb38f88178a164096179af5be8630bf8fc731d
 ];
 
 @NgModule({

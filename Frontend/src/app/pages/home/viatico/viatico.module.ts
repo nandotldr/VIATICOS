@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { ViaticoPageRoutingModule } from './viatico-routing.module';
 
 import { ViaticoPage } from './viatico.page';
+import { CrearGastoPageModule } from '../components/crear-gasto/crear-gasto.module';
 
 @NgModule({
   imports: [
@@ -14,7 +15,8 @@ import { ViaticoPage } from './viatico.page';
     FormsModule,
     IonicModule,
     ReactiveFormsModule,
-    ViaticoPageRoutingModule
+    ViaticoPageRoutingModule,
+    CrearGastoPageModule
   ],
   exports:[
     ViaticoPage

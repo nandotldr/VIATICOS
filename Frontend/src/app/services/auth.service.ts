@@ -45,6 +45,7 @@ export class AuthService {
     ).toPromise();
   }
 
+<<<<<<< HEAD
   // historial viaticos
   getHistorialViaticos() {
     return this.http.get(`${this.API_URL}/solicitud_viatico`).pipe(
@@ -65,6 +66,10 @@ export class AuthService {
 
   async getAllComisiones() {
     return await this.http.get(`${this.API_URL}/solicitud_comision`).pipe(
+=======
+   getAllComisiones() {
+    return this.http.get(`${this.API_URL}/solicitud_comision`).pipe(
+>>>>>>> 8cfb38f88178a164096179af5be8630bf8fc731d
       map(response => {
         if(response['ok']){
           return response['body'];
@@ -75,8 +80,8 @@ export class AuthService {
     ).toPromise();
   }
 
-  async getUsuario(id_usuario: string) {
-    return await this.http.get(`${this.API_URL}/usuario/?id=${id_usuario}`).pipe(
+  getUsuario(id_usuario: string) {
+    return this.http.get(`${this.API_URL}/usuario/?id=${id_usuario}`).pipe(
       map(response => {
         if(response['ok']){
           return response['body'];
@@ -87,7 +92,7 @@ export class AuthService {
     ).toPromise();
   }
 
-  async  modifyUsuario(
+  modifyUsuario(
       usuario: {
         codigo: number,
         nombres: string,
@@ -97,7 +102,7 @@ export class AuthService {
         nss: string
       }
   ){
-    return await this.http.put(`${this.API_URL}/usuario`, {
+    return this.http.put(`${this.API_URL}/usuario`, {
       codigo: usuario.codigo,
       nombres: usuario.nombres,
       apellidos: usuario.apellidos,
@@ -130,7 +135,20 @@ export class AuthService {
     ).toPromise();
   }
 
-  async createComision(comision: { 
+  getRevisarComision(){
+    return this.http.get(`${this.API_URL}/revisar_solicitud_comision`).pipe(
+        map(response => {
+          if(response['ok']){
+            console.log(response);
+            return response['body'];
+          } else {
+            return response['ok'];
+          }
+        })
+    ).toPromise();
+  }
+
+  async createComision(comision: {
     tipo_comision: Number,
     destino_com: Number,
     name: string,
@@ -142,7 +160,7 @@ export class AuthService {
   }) {
     return await this.http.post(`${this.API_URL}/solicitud_comision`,{
       tipo_comision: comision.tipo_comision,
-      destino_com: comision.destino_com,
+      id_destino: comision.destino_com,
       nombre_comision: comision.name,
       evento: comision.evento,
       objetivo_trabajo: comision.objetivo_trabajo,
@@ -291,7 +309,22 @@ export class AuthService {
     ;
   }
 
-  async createGasto(gasto: { 
+
+  modifyViatico(viatico: { 
+    id_comision: Number,
+    invitado_nombre: string,
+    comentarios: string,
+    status: Number
+  }) {
+    return this.http.put(`${this.API_URL}/solicitud_viatico`,{
+      id: +viatico.id_comision,
+      invitado: viatico.invitado_nombre,
+      comentarios: viatico.comentarios,
+      estado: 1
+    });
+  }
+
+  createGasto(gasto: { 
     id_solicitud_viatico: Number,
     dia: string,
     alimentacion: Number,
@@ -301,7 +334,7 @@ export class AuthService {
     combustible: Number,
     otros: Number
   }) {
-    return await this.http.post(`${this.API_URL}/gasto`,{
+    return this.http.post(`${this.API_URL}/gasto`,{
       id_solicitud_viatico: gasto.id_solicitud_viatico,
       dia: gasto.dia,
       alimentacion: gasto.alimentacion,
@@ -310,7 +343,7 @@ export class AuthService {
       transporteforaneo: gasto.transporteForaneo,
       combustible: gasto.combustible,
       otros: gasto.otros
-    }).pipe(
+    })/*.pipe(
       map(response => {
         if(response['ok']){
           return response['body'];
@@ -318,8 +351,17 @@ export class AuthService {
           return {ok: response['ok'],mensaje: response['mensaje']};
         }
       })
-    ).toPromise();
+    ).toPromise()*/;
   }
+
+  getGasto(idViatico: any){
+    return this.http.get(`${this.API_URL}/gastos/${idViatico}`).pipe(
+      map(response => {
+        return response;
+      }));
+  }
+
+
 }
 
 

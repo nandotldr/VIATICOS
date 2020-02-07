@@ -137,7 +137,7 @@ export class AuthService {
   }) {
     return await this.http.post(`${this.API_URL}/solicitud_comision`,{
       tipo_comision: comision.tipo_comision,
-      destino_com: comision.destino_com,
+      id_destino: comision.destino_com,
       nombre_comision: comision.name,
       evento: comision.evento,
       objetivo_trabajo: comision.objetivo_trabajo,

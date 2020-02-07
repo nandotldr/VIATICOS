@@ -29,7 +29,7 @@ module.exports = {
             res.json({ ok: false, mensaje: "Funcion no disponible para tu usuario" })
                 //si usuario es J mostrar las solicitudes de su dependencia
         } catch (error) {
-            return res.json({ ok: false, mensaje: error });
+            return res.json({ ok: false, mensaje: "Error inesperado" });
         }
 
     },
@@ -42,7 +42,7 @@ module.exports = {
             if (verificarComision.length < 1) {
                 return res.json({ ok: false, mensaje: "No se puede modificar comision" });
             }
-            const usuario = await pool.query("SELECT CONCAT(u.nombre, ' ' , u.apellidos) as nombre FROM viaticos.usuario as u WHERE codigo = ?",[req.user.codigo]);
+            const usuario = await pool.query("SELECT CONCAT(u.nombres, ' ' , u.apellidos) as nombre FROM viaticos.usuario as u WHERE codigo = ?",[req.user.codigo]);
                 
             var modificarComision = 'UPDATE solicitud_comision SET ? WHERE id = ?';
             //si usuario =J modifcar fecha revisado, nombre revisado, comentario rechazo
@@ -56,9 +56,11 @@ module.exports = {
                     status: req.body.status,
                 }, req.body.id], (errorModificar, modificarComision) => {
                     if (errorModificar) return res.json({ ok: false, mensaje: errorModificar });
+                    if(modificarComision.affectedRows < 1) return res.json({ok:false, mensaje: "No se acepto la comision"});
+
 
                 });
-                return res.json({ ok: true, mensaje: "Comision modificada" });
+                return res.json({ ok: true, mensaje: "Comision aceptada" });
 
             } else if (req.user.tipo_usuario == 'A' && verificarComision[0].status == 3) {
                 pool.query(modificarComision, [{
@@ -69,14 +71,15 @@ module.exports = {
                     status: req.body.status,
                 }, req.body.id], (errorModificar, modificarComision) => {
                     if (errorModificar) return res.json({ ok: false, mensaje: errorModificar });
+                    if(modificarComision.affectedRows < 1) return res.json({ok:false, mensaje: "No se acepto la comision"});
+
                 });
-                return res.json({ ok: true, mensaje: "Comision modificada" });
+                return res.json({ ok: true, mensaje: "Comision aceptada" });
 
             }
-
             res.json({ ok: false, mensaje: "No se hizo la revision correcta" });
         } catch (error) {
-            return res.json({ ok: false, mensaje: error });
+            return res.json({ ok: false, mensaje: "Error inesperado" });
         }
     },
 }

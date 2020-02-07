@@ -12,7 +12,7 @@ import {OverlayEventDetail} from '@ionic/core';
 @Component({
   selector: 'app-comision-creada',
   templateUrl: './comision-creada.page.html',
-  styleUrls: ['./comision-creada.page.scss'],
+  styleUrls: ['./comision-creada.page.scss','../../../app.component.scss'],
 })
 export class ComisionCreadaPage implements OnInit {
 

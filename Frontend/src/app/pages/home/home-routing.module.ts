@@ -48,6 +48,10 @@ const routes: Routes = [
       {
         path: 'modificar-perfil',
         loadChildren: () => import('./components/modificar-perfil/modificar-perfil.module').then(m => m.ModificarPerfilPageModule)
+      },
+      {
+        path: 'revisar-comision',
+        loadChildren: () => import('./revisar-comision/revisar-comision.module').then( m => m.RevisarComisionPageModule)
       }
     ]
   }

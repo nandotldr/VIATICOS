@@ -273,6 +273,21 @@ export class AuthService {
     ;
   }
 
+
+  modifyViatico(viatico: { 
+    id_comision: Number,
+    invitado_nombre: string,
+    comentarios: string,
+    status: Number
+  }) {
+    return this.http.put(`${this.API_URL}/solicitud_viatico`,{
+      id: +viatico.id_comision,
+      invitado: viatico.invitado_nombre,
+      comentarios: viatico.comentarios,
+      estado: 1
+    });
+  }
+
   createGasto(gasto: { 
     id_solicitud_viatico: Number,
     dia: string,
@@ -302,6 +317,15 @@ export class AuthService {
       })
     ).toPromise()*/;
   }
+
+  getGasto(idViatico: any){
+    return this.http.get(`${this.API_URL}/gastos/${idViatico}`).pipe(
+      map(response => {
+        return response;
+      }));
+  }
+
+
 }
 
 

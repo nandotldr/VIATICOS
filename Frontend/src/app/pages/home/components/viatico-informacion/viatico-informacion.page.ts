@@ -11,7 +11,9 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./viatico-informacion.page.scss'],
 })
 export class ViaticoInformacionPage implements OnInit {
-  idViatico;
+  idComision;
+  tieneDatos = false;
+  viatico;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -24,15 +26,21 @@ export class ViaticoInformacionPage implements OnInit {
     ) { }
 
     async ionViewWillEnter() {
-      this.idViatico = this.navParams.get('id_viatico');
+      this.idComision = this.navParams.get('id_comision');
       try {
-        const resp = await this.auth.getSolicitudViatico(this.idViatico).toPromise();
+        const resp = await this.auth.getSolicitudViatico(this.idComision).toPromise();
+        // tslint:disable-next-line: no-string-literal
+        if (resp['ok']) {
+          this.tieneDatos = true;
+          // tslint:disable-next-line: no-string-literal
+          this.viatico = resp['body'];
+        }
         console.log('respuesta', resp);
       } catch (error) {
         console.error(error);
       }
   
-      console.log('idviatico', this.idViatico);
+      console.log('idviatico', this.idComision);
     }
 
   ngOnInit() {

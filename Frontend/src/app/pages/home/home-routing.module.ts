@@ -66,7 +66,11 @@ const routes: Routes = [
         loadChildren: () => import('./revisar-comision/revisar-comision.module').then(m => m.RevisarComisionPageModule)
       }
     ]
+  },  {
+    path: 'comision-creada',
+    loadChildren: () => import('./comision-creada/comision-creada.module').then( m => m.ComisionCreadaPageModule)
   }
+
 ];
 
 @NgModule({

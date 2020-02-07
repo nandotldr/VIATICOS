@@ -117,8 +117,8 @@ export class AuthService {
     ).toPromise();
   }
 
-  async getComision(id_comision: any){
-    return await this.http.get(`${this.API_URL}/solicitud_comision/${id_comision}`).pipe(
+  getComision(id_comision: any){
+    return this.http.get(`${this.API_URL}/solicitud_comision/${id_comision}`).pipe(
       map(response => {
         if(response['ok']){
           return response['body'];
@@ -173,13 +173,13 @@ export class AuthService {
     ).toPromise();
   }
 
-  async createPrograma(programa: { 
+  createPrograma(programa: { 
     dia: string,
     lugar_estancia: string,
     tareas_realizar: string,
     id_comision: Number
   }) {
-    return await this.http.post(`${this.API_URL}/solicitud_comision`,{
+    return  this.http.post(`${this.API_URL}/programa_trabajo`,{
       dia: programa.dia,
       lugar_estancia: programa.lugar_estancia,
       tareas_realizar: programa.tareas_realizar,

@@ -47,10 +47,8 @@ export class ViaticoPage implements OnInit {
 
   ngOnInit() {
     this.getComision();
-    this.getGastos();
-    
-    //this.fgCreate.value.id_comision = this.comisionCompleta;
-    
+    this.getViaticos();
+
   }
 
   async getComision(){
@@ -62,9 +60,21 @@ export class ViaticoPage implements OnInit {
     }
   }
 
+  
+  async getViaticos(){
+    const resp = await this.auth.getSolicitudViatico(this.comision).toPromise();
+    if (resp['ok']) {
+      this.guardado = true;
+      this.viatico = resp['body'];
+      this.id_viatico = this.viatico.folio;
+    } else {
+      this.presentToast(resp['mensaje']);
+    }
+  }
+
   async getGastos(){
-    const resp = await this.auth.getGasto(this.id_viatico);
-    if(resp){
+    const resp = await this.auth.getGasto(this.id_viatico).toPromise();
+    if(resp['ok']){
       this.guardado = true; 
       this.gastos = resp;
     }
@@ -77,9 +87,9 @@ export class ViaticoPage implements OnInit {
       if (resp) {
         this.presentToast('Guardado correctamente');
         this.viatico = resp;     
-        console.log('resppppp',this.viatico);
         this.id_viatico = this.viatico.body.id_viatico;
         this.guardado = true; 
+        this.getViaticos();
       } else {
         this.presentToast('Error');
       }

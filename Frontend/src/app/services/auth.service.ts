@@ -121,7 +121,6 @@ export class AuthService {
     return await this.http.get(`${this.API_URL}/solicitud_comision/${id_comision}`).pipe(
       map(response => {
         if(response['ok']){
-          console.log(response);
           return response['body'];
         }else{
           return response['ok'];

@@ -48,7 +48,7 @@ export class CrearGastoPage implements OnInit {
       if(resp){
         this.presentToast('Gastos creados');
         // PUT en Viatico para cambiar el status
-        
+        this.closeModal();
       }
       else{
         this.presentToast('Error');

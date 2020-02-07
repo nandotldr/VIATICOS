@@ -45,6 +45,24 @@ export class AuthService {
     ).toPromise();
   }
 
+  // historial viaticos
+  getHistorialViaticos() {
+    return this.http.get(`${this.API_URL}/solicitud_viatico`).pipe(
+      map(response => {
+        return response;
+      })
+    );
+  }
+
+  getSolicitudViatico(idViatico) {
+    return this.http.get(`${this.API_URL}/solicitud_viatico/${idViatico}`).pipe(
+      map(response => {
+        return response;
+      })
+    );
+  }
+  // termina historial viaticos
+
   async getAllComisiones() {
     return await this.http.get(`${this.API_URL}/solicitud_comision`).pipe(
       map(response => {

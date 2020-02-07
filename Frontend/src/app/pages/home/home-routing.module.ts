@@ -35,18 +35,30 @@ const routes: Routes = [
       },
       {
         path: 'program',
-        loadChildren: () => import('./components/program/program.module').then(m => m.ProgramPageModule)
+        loadChildren: () => import('./components/program/program.module').then(m => m.ProgramPageModule),
+        canLoad: [AuthGuardService]
       },
       {
         path: 'comision-activa',
-        loadChildren: () => import('./components/comision-activa/comision-activa.module').then(m => m.ComisionActivaPageModule)
+        loadChildren: () => import('./components/comision-activa/comision-activa.module').then(m => m.ComisionActivaPageModule),
+        canLoad: [AuthGuardService]
       },
       {
-        path: 'crear-gasto/',
-        loadChildren: () => import('./components/crear-gasto/crear-gasto.module').then( m => m.CrearGastoPageModule)
-      }
+        path: 'crear-gasto',
+        loadChildren: () => import('./components/crear-gasto/crear-gasto.module').then( m => m.CrearGastoPageModule),
+        canLoad: [AuthGuardService]
+      },
+      {
+        path: 'historial-viaticos',
+        loadChildren: () => import('./historial-viaticos/historial-viaticos.module').then( m => m.HistorialViaticosPageModule),
+        canLoad: [AuthGuardService]
+      },
     ]
   },
+  {
+    path: 'viatico-informacion',
+    loadChildren: () => import('./components/viatico-informacion/viatico-informacion.module').then( m => m.ViaticoInformacionPageModule)
+  }
 
 
 ];

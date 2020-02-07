@@ -26,7 +26,7 @@ export class ViaticoInformacionPage implements OnInit {
     ) { }
 
     async ionViewWillEnter() {
-      this.idComision = this.navParams.get('id_viatico');
+      this.idComision = this.navParams.get('id_comision');
       try {
         const resp = await this.auth.getSolicitudViatico(this.idComision).toPromise();
         // tslint:disable-next-line: no-string-literal
@@ -40,7 +40,7 @@ export class ViaticoInformacionPage implements OnInit {
         console.error(error);
       }
   
-      console.log('idviatico', this.idViatico);
+      console.log('idviatico', this.idComision);
     }
 
   ngOnInit() {

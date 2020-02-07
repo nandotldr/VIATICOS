@@ -124,6 +124,7 @@ CREATE TABLE `informe_actividades` (
   `fecha_revisado` datetime DEFAULT NULL,
   `nombre_revisado` varchar(45) DEFAULT NULL,
   `constancia` tinytext,
+  `comentario_rechazo` text,
   PRIMARY KEY (`id`,`id_usuario`,`id_solicitud_comision`),
   KEY `fk_informe_actividades_usuario1_idx` (`id_usuario`),
   KEY `fk_informe_actividades_solicitud_comision1_idx` (`id_solicitud_comision`),
@@ -138,7 +139,7 @@ CREATE TABLE `informe_actividades` (
 
 LOCK TABLES `informe_actividades` WRITE;
 /*!40000 ALTER TABLE `informe_actividades` DISABLE KEYS */;
-INSERT INTO `informe_actividades` VALUES (1,'no compre nada','estaba muy caro todo','2020-02-04 00:29:00',NULL,NULL,21169376,16,3,NULL,NULL,NULL);
+INSERT INTO `informe_actividades` VALUES (1,'no compre nada','estaba muy caro todo','2020-02-04 00:29:00','2020-02-06 23:24:58','MONSERRAT GUERRERO GARCIA',21169376,16,5,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `informe_actividades` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -413,4 +414,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-02-06 23:10:04
+-- Dump completed on 2020-02-06 23:30:35

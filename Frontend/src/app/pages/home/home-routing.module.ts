@@ -44,6 +44,10 @@ const routes: Routes = [
       {
         path: 'crear-gasto/',
         loadChildren: () => import('./components/crear-gasto/crear-gasto.module').then( m => m.CrearGastoPageModule)
+      },
+      {
+        path: 'modificar-perfil',
+        loadChildren: () => import('./components/modificar-perfil/modificar-perfil.module').then(m => m.ModificarPerfilPageModule)
       }
     ]
   },

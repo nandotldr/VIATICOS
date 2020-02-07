@@ -91,6 +91,7 @@ export class ViaticoPage implements OnInit {
     const modal: HTMLIonModalElement =
        await this.modalController.create({
           component: CrearGastoPage,
+          cssClass: 'modal-class',
           componentProps: {
             id_viatico: this.id_viatico,
           }

@@ -273,7 +273,7 @@ export class AuthService {
     ;
   }
 
-  async createGasto(gasto: { 
+  createGasto(gasto: { 
     id_solicitud_viatico: Number,
     dia: string,
     alimentacion: Number,
@@ -283,7 +283,7 @@ export class AuthService {
     combustible: Number,
     otros: Number
   }) {
-    return await this.http.post(`${this.API_URL}/gasto`,{
+    return this.http.post(`${this.API_URL}/gasto`,{
       id_solicitud_viatico: gasto.id_solicitud_viatico,
       dia: gasto.dia,
       alimentacion: gasto.alimentacion,
@@ -292,7 +292,7 @@ export class AuthService {
       transporteforaneo: gasto.transporteForaneo,
       combustible: gasto.combustible,
       otros: gasto.otros
-    }).pipe(
+    })/*.pipe(
       map(response => {
         if(response['ok']){
           return response['body'];
@@ -300,7 +300,7 @@ export class AuthService {
           return {ok: response['ok'],mensaje: response['mensaje']};
         }
       })
-    ).toPromise();
+    ).toPromise()*/;
   }
 }
 

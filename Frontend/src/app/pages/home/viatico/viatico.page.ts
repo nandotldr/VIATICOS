@@ -22,6 +22,7 @@ export class ViaticoPage implements OnInit {
   comisionCompleta = '';
   comision: Number;
   viatico: any;
+  gastos: any;
   id_viatico: Number;
   fgCreate: FormGroup;
   fgGasto: FormGroup;
@@ -46,6 +47,7 @@ export class ViaticoPage implements OnInit {
 
   ngOnInit() {
     this.getComision();
+    this.getGastos();
     
     //this.fgCreate.value.id_comision = this.comisionCompleta;
     
@@ -60,15 +62,24 @@ export class ViaticoPage implements OnInit {
     }
   }
 
+  async getGastos(){
+    const resp = await this.auth.getGasto(this.id_viatico);
+    if(resp){
+      this.guardado = true; 
+      this.gastos = resp;
+    }
+  }
+
   async saveViatico(){
     if (this.fgCreate.valid) {
      
       const resp = await this.auth.saveViatico(this.fgCreate.value).toPromise();
       if (resp) {
         this.presentToast('Guardado correctamente');
-        this.viatico = resp;
-        this.guardado = true;      
+        this.viatico = resp;     
+        console.log('resppppp',this.viatico);
         this.id_viatico = this.viatico.body.id_viatico;
+        this.guardado = true; 
       } else {
         this.presentToast('Error');
       }
@@ -90,6 +101,7 @@ export class ViaticoPage implements OnInit {
     const modal: HTMLIonModalElement =
        await this.modalController.create({
           component: CrearGastoPage,
+          cssClass: 'modal-class',
           componentProps: {
             id_viatico: this.id_viatico,
           }
@@ -97,7 +109,7 @@ export class ViaticoPage implements OnInit {
      
     modal.onDidDismiss().then((detail: OverlayEventDetail) => {
        if (detail !== null) {
-         console.log('The result:', detail.data);
+         console.log('The result: ', detail.data);
        }
     });
     

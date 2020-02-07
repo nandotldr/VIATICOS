@@ -5,7 +5,7 @@ const router = express.Router();
 const auth = require('../middlewares/credentials');
 
 router.get('/', auth('F', 'A'), revisar_informeCtl.consultarInformes);
-router.put('/', auth('F', 'A'), revisar_informeCtl.modificarInforme);
+router.put('/', auth('F', 'A'), revisar_informeCtl.aceptarInforme);
 // Rutas extras del controlador como archivos, etc.
 
 module.exports = router;

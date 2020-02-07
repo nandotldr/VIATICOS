@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>crear-gasto</ion-title>
+    <ion-title>Crear Gasto</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -16,7 +16,8 @@
     </ion-card-header>
     <form [formGroup]="fgGasto" (ngSubmit)="createGasto()">
       <ion-item>
-        <ion-input  value="{{ viatico }}" formControlName="id_solicitud_viatico"></ion-input> 
+        <ion-label>ID del viático</ion-label>
+        <ion-input  value="{{ this.idViatico }}" formControlName="id_solicitud_viatico" readonly></ion-input> 
       </ion-item>
        
       <ion-item>
@@ -56,8 +57,7 @@
 
       <ion-button type="submit" color="light" >Guardar Gastos</ion-button>
       <!-- <ion-button (click)="saveViatico()">Guardar solicitud</ion-button> -->
-      <ion-button routerLink="/home" >Regresar</ion-button>
-
+      <ion-button (click)="closeModal()" >Regresar</ion-button>
     </form>
 
   </ion-card>

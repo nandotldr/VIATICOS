@@ -17,7 +17,7 @@ module.exports = {
             if(existeUsuario[0].tipo_usuario =='A')
             {
                 const viaticos = await pool.query('SELECT v.id AS id_viatico, v.status, u.codigo,concat(u.nombres," ",u.apellidos) as nombre, u.area_adscripcion, v.fecha_solicitud, c.nombre_comision FROM solicitud_viatico AS v INNER JOIN usuario as u ON u.codigo=v.id_usuario INNER JOIN solicitud_comision as c ON c.id= v.id_solicitud_comision WHERE v.status =3');
-                    if (viaticos.length < 1) res.json({ ok: false, mensaje: "No hay solicitudes de viaticos por aceptar" });
+                    if (viaticos.length < 1) return res.json({ ok: false, mensaje: "No hay solicitudes de viaticos por aceptar" });
                     
                 return res.json({ok:true, body: viaticos});
 
@@ -25,7 +25,7 @@ module.exports = {
             else if(existeUsuario[0].tipo_usuario =='S')
             {
                 const viaticos = await pool.query('SELECT v.id AS id_viatico, v.status, u.codigo,concat(u.nombres," ",u.apellidos) as nombre, u.area_adscripcion, v.fecha_solicitud, c.nombre_comision FROM solicitud_viatico AS v INNER JOIN usuario as u ON u.codigo=v.id_usuario INNER JOIN solicitud_comision as c ON c.id= v.id_solicitud_comision WHERE v.status =1');
-                    if (viaticos.length < 1) res.json({ ok: false, mensaje: "No hay solicitudes de viaticos por aceptar" });
+                    if (viaticos.length < 1) return res.json({ ok: false, mensaje: "No hay solicitudes de viaticos por aceptar" });
                     
                 return res.json({ok:true, body: viaticos});
             }
@@ -34,7 +34,7 @@ module.exports = {
             
             
         } catch (error) {
-            return res.json({ ok: false, mensaje: error });
+            return res.json({ ok: false, mensaje: "Error Inesperado" });
         }
 
     },
@@ -47,7 +47,7 @@ module.exports = {
             if (verificarViatico.length < 1) {
                 return res.json({ ok: false, mensaje: "No se puede revisar viatico" });
             }
-            const usuario = await pool.query("SELECT CONCAT(u.nombre, ' ' , u.apellidos) as nombre FROM viaticos.usuario as u WHERE codigo = ?",[req.user.codigo]);
+            const usuario = await pool.query("SELECT CONCAT(u.nombres, ' ' , u.apellidos) as nombre FROM viaticos.usuario as u WHERE codigo = ?",[req.user.codigo]);
                 
             var modificarViatico = 'UPDATE solicitud_viatico SET ? WHERE id = ?';
             //si usuario =J modifcar fecha revisado, nombre revisado, comentario rechazo
@@ -61,6 +61,7 @@ module.exports = {
                     status: req.body.status,
                 }, req.body.id], (errorModificar, modificarViatico) => {
                     if (errorModificar) return res.json({ ok: false, mensaje: errorModificar });
+                    if(modificarViatico.affectedRows < 1) return res.json({ok:false, mensaje: "No se acepto el viatico"});
 
                 });
                 return res.json({ ok: true, mensaje: "Viatico verificado" });
@@ -74,6 +75,8 @@ module.exports = {
                     status: req.body.status,
                 }, req.body.id], (errorModificar, modificarViatico) => {
                     if (errorModificar) return res.json({ ok: false, mensaje: errorModificar });
+                    if(modificarViatico.affectedRows < 1) return res.json({ok:false, mensaje: "No se acepto el viatico"});
+
                 });
                 return res.json({ ok: true, mensaje: "Viatico aceptado" });
 
@@ -81,7 +84,7 @@ module.exports = {
 
             res.json({ ok: false, mensaje: "No se hizo la revision correcta" });
         } catch (error) {
-            return res.json({ ok: false, mensaje: error });
+            return res.json({ ok: false, mensaje: "Error Inesperado" });
         }
         
     }

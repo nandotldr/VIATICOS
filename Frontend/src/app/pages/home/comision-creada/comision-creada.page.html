@@ -1,0 +1,96 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button menu="menu"></ion-menu-button>
+      <ion-button href="/home">
+        <!-- <img src="../../../assets/images/logo.png" width="25px" style="display:inline-block" height="25px"/> -->
+        <!-- <ion-icon slot="icon-only" name="filing"></ion-icon> -->
+        <ion-title>
+          COMISIÓN CREADA
+        </ion-title>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <img class="background-image"/>
+  <ion-card >
+    <div class="center-content" >
+      <ion-card-header class="title">
+        <ion-card-title>Comisión creada</ion-card-title>
+      </ion-card-header>
+      
+        <ion-item *ngIf="this.perfil.codigo">
+          <ion-label position="fixed">Código</ion-label>
+          <ion-label position="fixed">{{ this.perfil.codigo }}</ion-label>
+        </ion-item>
+
+        <ion-item *ngIf="this.perfil.nombres">
+          <ion-label position="fixed">Nombre(s)</ion-label>
+          <ion-label position="fixed">{{ this.perfil.nombres }}</ion-label>
+        </ion-item>
+
+        <ion-item *ngIf="this.perfil.apellidos">
+          <ion-label position="fixed">Apellidos</ion-label>
+          <ion-label position="fixed">{{ this.perfil.apellidos }}</ion-label>
+        </ion-item>
+
+        <ion-card-header class="subtitle">
+          <ion-card-title>Información de la comisión</ion-card-title>
+        </ion-card-header>
+        <form [formGroup]="fgCreate" (ngSubmit)="createComision()">
+        <ion-list>
+          <ion-item>
+            <ion-label >Tipo de comisión</ion-label>
+            <ion-select  formControlName="tipo_comision">
+              <ion-select-option value="1">Nacional</ion-select-option>
+              <ion-select-option value="0">Internacional</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <ion-item>
+            <ion-label >Destino de la comisión</ion-label>
+            <ion-select formControlName="destino_com">
+              <ion-select-option value="2">Jalisco</ion-select-option>
+              <ion-select-option value="1">México</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+      </ion-list>
+
+        <ion-item>
+          <ion-label >Nombre de la comisión</ion-label>
+          <ion-input placeholder="Nombre" type="text" formControlName="name"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Objetivo del trabajo</ion-label>
+          <ion-input placeholder="Objetivo" type="text" formControlName="objetivo_trabajo"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label >Justificación</ion-label>
+          <ion-input placeholder="Describa detalladamente porqué se solicita la comisión" size="400" type="text" formControlName="justificacion"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Fecha inicio</ion-label>
+          <ion-datetime displayFormat="MM/DD/YYYY" max="3000-12-09" value="{{myDate}}" formControlName="fecha_inicio"></ion-datetime>
+        </ion-item>
+    
+        <ion-item>
+          <ion-label position="floating">Fecha fin</ion-label>
+          <ion-datetime displayFormat="MM/DD/YYYY" max="3000-12-09" value="{{myDate}}" formControlName="fecha_fin"></ion-datetime>
+        </ion-item>
+
+        <ion-button type="submit" color="light" [disabled]="this.fgCreate.invalid">Guardar solicitud</ion-button>
+        <ion-button routerLink="/home" >Regresar</ion-button>
+        <ion-button (click)="openModal()" >Programa</ion-button>
+
+      </form>
+    </div>
+  </ion-card>
+
+</ion-content>
+

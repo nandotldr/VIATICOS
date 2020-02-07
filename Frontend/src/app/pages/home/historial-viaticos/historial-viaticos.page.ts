@@ -66,7 +66,6 @@ export class HistorialViaticosPage implements OnInit {
     });
 
     await modal.present();
-
   }
 
 }

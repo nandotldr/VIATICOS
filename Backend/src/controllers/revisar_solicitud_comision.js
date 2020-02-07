@@ -16,13 +16,13 @@ module.exports = {
             //si usuario es A mostrar todas las solocitudes de comison en status 3
             if (existeUsuario[0].tipo_usuario == 'A') {
                 const comision = await pool.query('SELECT c.id, c.status, u.codigo, u.area_adscripcion,c.fecha_solicitud , c.nombre_comision,concat(u.nombres," ",u.apellidos) as nombre  FROM solicitud_comision AS c INNER JOIN usuario as u ON u.codigo=c.id_usuario WHERE c.status =3');
-                if (comision.length < 1) res.json({ ok: false, mensaje: "No hay comisiones por aceptar" });
+                if (comision.length < 1) return res.json({ ok: false, mensaje: "No hay comisiones por aceptar" });
 
                 return res.json({ ok: true, body: comision });
 
             } else if (existeUsuario[0].tipo_usuario == 'J') {
                 const comision = await pool.query('SELECT c.id, c.status, u.codigo, u.area_adscripcion,c.fecha_solicitud , c.nombre_comision,concat(u.nombres," ",u.apellidos) as nombre  FROM solicitud_comision AS c INNER JOIN usuario as u ON u.codigo=c.id_usuario WHERE c.status =1 AND u.area_adscripcion = ? group by c.id', [existeUsuario[0].area_adscripcion]);
-                if (comision.length < 1) res.json({ ok: false, mensaje: "No hay comisiones por aceptar" });
+                if (comision.length < 1) return res.json({ ok: false, mensaje: "No hay comisiones por aceptar" });
 
                 return res.json({ ok: true, body: comision });
             }

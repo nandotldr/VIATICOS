@@ -40,7 +40,7 @@ export class ModificarPerfilPage implements OnInit {
 
   ionViewWillEnter() {
     this.perfil = this.navParams.get('perfil');
-    console.log(this.perfil);
+    console.log('PERFIL',this.perfil);
   }
 
   closeModal() {

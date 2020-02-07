@@ -27,7 +27,9 @@ export class HistorialViaticosPage implements OnInit {
   async ngOnInit() {
     try {
       const resp = await this.auth.getHistorialViaticos().toPromise();
+      // tslint:disable-next-line: no-string-literal
       if (resp['ok']) {
+        // tslint:disable-next-line: no-string-literal
         this.viaticos = resp['body'];
         this.viaticosCopia = [...this.viaticos];
         console.log('historial-viaticos', this.viaticos);

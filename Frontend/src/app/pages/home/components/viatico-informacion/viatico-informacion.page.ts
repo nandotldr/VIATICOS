@@ -28,7 +28,6 @@ export class ViaticoInformacionPage implements OnInit {
       try {
         const resp = await this.auth.getSolicitudViatico(this.idViatico).toPromise();
         console.log('respuesta', resp);
-        
       } catch (error) {
         console.error(error);
       }

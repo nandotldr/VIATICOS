@@ -45,8 +45,8 @@ export class AuthService {
     ).toPromise();
   }
 
-  async getAllComisiones() {
-    return await this.http.get(`${this.API_URL}/solicitud_comision`).pipe(
+   getAllComisiones() {
+    return this.http.get(`${this.API_URL}/solicitud_comision`).pipe(
       map(response => {
         if(response['ok']){
           return response['body'];
@@ -57,8 +57,8 @@ export class AuthService {
     ).toPromise();
   }
 
-  async getUsuario(id_usuario: string) {
-    return await this.http.get(`${this.API_URL}/usuario/?id=${id_usuario}`).pipe(
+  getUsuario(id_usuario: string) {
+    return this.http.get(`${this.API_URL}/usuario/?id=${id_usuario}`).pipe(
       map(response => {
         if(response['ok']){
           return response['body'];
@@ -69,7 +69,7 @@ export class AuthService {
     ).toPromise();
   }
 
-  async  modifyUsuario(
+  modifyUsuario(
       usuario: {
         codigo: number,
         nombres: string,
@@ -79,7 +79,7 @@ export class AuthService {
         nss: string
       }
   ){
-    return await this.http.put(`${this.API_URL}/usuario`, {
+    return this.http.put(`${this.API_URL}/usuario`, {
       codigo: usuario.codigo,
       nombres: usuario.nombres,
       apellidos: usuario.apellidos,

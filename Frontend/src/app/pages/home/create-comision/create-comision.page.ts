@@ -15,14 +15,8 @@ import {OverlayEventDetail} from '@ionic/core';
   styleUrls: ['./create-comision.page.scss','../../../app.component.scss'],
 })
 export class CreateComisionPage implements OnInit {
-  perfil: {
-    codigo: Number,
-    nombres: String,
-    apellidos: String,
-    area_adscripcion: String,
-    plaza_laboral: String,
-    numero_social: String
-  };
+  
+  perfil = '';
   id_comision: Number;
   fgCreate: FormGroup;
   token: string;
@@ -40,6 +34,7 @@ export class CreateComisionPage implements OnInit {
       private modalController: ModalController
       )
       {
+        
         this.fgCreate = this.formBuilder.group({
         tipo_comision: new FormControl('', [Validators.required]),
         destino_com: new FormControl('', [Validators.required]),
@@ -71,14 +66,16 @@ export class CreateComisionPage implements OnInit {
     }
   }
 
-  async getUsuario(){
-      const resp = await this.auth.getUsuario(localStorage.getItem('id_usuario'));
-      if (resp) {
-        this.perfil = resp;
-      } else {
-        this.presentToast();
-      }
-    
+  async getUsuario() {
+    const resp = await this.auth.getUsuario(localStorage.getItem('id_usuario'));
+    if (resp) {
+      this.perfil = resp;
+      console.log(this.perfil);
+      this.presentToastSuccess();
+    } else {
+      this.presentToast();
+    }
+
   }
 
   async presentToast() {

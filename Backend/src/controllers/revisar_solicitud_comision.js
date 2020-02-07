@@ -38,7 +38,7 @@ module.exports = {
         //verificar que no este en status cancelado =-1, revision = 1, aceptado por J =3, aceptado por A= 5 o finalizado
         try {
             var sqlSolComision = 'SELECT c.id, c.status, u.codigo, c.fecha_solicitud , concat(u.nombres," ",u.apellidos) as nombre, u.tipo_usuario FROM solicitud_comision AS c INNER JOIN usuario as u ON u.codigo = c.id_usuario WHERE c.id = ? AND (c.status=1 or c.status=3)';
-            const verificarComision = await pool.query(sqlSolComision, req.body.id);
+            const verificarComision = await pool.query(sqlSolComision, req.body.id_comision);
             if (verificarComision.length < 1) {
                 return res.json({ ok: false, mensaje: "No se puede aceptar la comision" });
             }
@@ -54,7 +54,7 @@ module.exports = {
                     nombre_revisado: usuario[0].nombre,
                     comentario_rechazo: req.body.comentario_rechazo,
                     status: req.body.status,
-                }, req.body.id_viatico], (errorModificar, modificarComision) => {
+                }, req.body.id_comision], (errorModificar, modificarComision) => {
                     if (errorModificar) return res.json({ ok: false, mensaje: errorModificar });
                     if(modificarComision.affectedRows < 1) return res.json({ok:false, mensaje: "No se acepto la comision"});
 

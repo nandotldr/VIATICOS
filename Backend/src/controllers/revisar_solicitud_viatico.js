@@ -44,7 +44,7 @@ module.exports = {
         //verificar que no este en status cancelado =-1, revision = 1, aceptado por J =3, aceptado por A= 5 o finalizado
         try {
             var sqlViatico = 'SELECT v.id, v.status, u.codigo, v.fecha_solicitud , concat(u.nombres," ",u.apellidos) as nombre, u.tipo_usuario FROM solicitud_viatico AS v INNER JOIN usuario as u ON u.codigo = v.id_usuario WHERE (v.status =1 OR v.status=3) and v.id =?';
-            const verificarViatico = await pool.query(sqlViatico, req.body.id);
+            const verificarViatico = await pool.query(sqlViatico, req.body.id_viatico);
             if (verificarViatico.length < 1) {
                 return res.json({ ok: false, mensaje: "No se puede revisar viatico" });
             }

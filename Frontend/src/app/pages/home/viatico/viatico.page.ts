@@ -25,7 +25,7 @@ export class ViaticoPage implements OnInit {
   gastos: any;
   id_viatico: Number;
   fgCreate: FormGroup;
-  fgGasto: FormGroup;
+  fgEnviar: FormGroup;
   token: string;
   guardado = false;
   myDate = formatDate(new Date(), 'yyyy-MM-dd', 'en');
@@ -42,6 +42,10 @@ export class ViaticoPage implements OnInit {
         id_comision: new FormControl(this.comision, [Validators.required]),
         invitado_nombre: new FormControl('', []),
         comentarios: new FormControl('', [Validators.required])
+      });
+
+      this.fgEnviar = this.formBuilder.group({
+        status: new FormControl(1,[])
       });
     }
 
@@ -67,6 +71,7 @@ export class ViaticoPage implements OnInit {
       this.guardado = true;
       this.viatico = resp['body'];
       this.id_viatico = this.viatico.folio;
+      this.getGastos();
     } else {
       this.presentToast(resp['mensaje']);
     }
@@ -76,7 +81,8 @@ export class ViaticoPage implements OnInit {
     const resp = await this.auth.getGasto(this.id_viatico).toPromise();
     if(resp['ok']){
       this.guardado = true; 
-      this.gastos = resp;
+      this.gastos = resp['results'];
+      console.log('GASTOS', this.gastos);
     }
   }
 

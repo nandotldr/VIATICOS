@@ -349,7 +349,7 @@ export class AuthService {
   }
 
   getGasto(idViatico: any){
-    return this.http.get(`${this.API_URL}/gastos/${idViatico}`).pipe(
+    return this.http.get(`${this.API_URL}/gasto/${idViatico}`).pipe(
       map(response => {
         return response;
       }));

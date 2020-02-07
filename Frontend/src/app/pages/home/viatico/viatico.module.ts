@@ -8,6 +8,7 @@ import { ViaticoPageRoutingModule } from './viatico-routing.module';
 
 import { ViaticoPage } from './viatico.page';
 import { CrearGastoPageModule } from '../components/crear-gasto/crear-gasto.module';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 @NgModule({
   imports: [
@@ -16,7 +17,8 @@ import { CrearGastoPageModule } from '../components/crear-gasto/crear-gasto.modu
     IonicModule,
     ReactiveFormsModule,
     ViaticoPageRoutingModule,
-    CrearGastoPageModule
+    CrearGastoPageModule,
+    NgxDatatableModule
   ],
   exports:[
     ViaticoPage

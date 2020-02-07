@@ -14,8 +14,8 @@
 </ion-header>
 
 <ion-content>
-  <img class="background-image"/>
-  <ion-card >
+  <img class="background-image" />
+  <ion-card>
 
     <div class="center-content" *ngIf="!guardado">
       <ion-card-header class="title">
@@ -23,24 +23,24 @@
       </ion-card-header>
 
 
-        <ion-card-header class="subtitle">
-          <ion-card-title>Información del viático</ion-card-title>
-        </ion-card-header>
-        <form [formGroup]="fgCreate" (ngSubmit)="saveViatico()">
-          <ion-item>
-            <ion-label>Folio de la comisión </ion-label>
-            <ion-input value="{{this.comision}}" formControlName="id_comision" ></ion-input>
-          </ion-item>
+      <ion-card-header class="subtitle">
+        <ion-card-title>Información del viático</ion-card-title>
+      </ion-card-header>
+      <form [formGroup]="fgCreate" (ngSubmit)="saveViatico()">
+        <ion-item>
+          <ion-label>Folio de la comisión </ion-label>
+          <ion-input value="{{this.comision}}" formControlName="id_comision"></ion-input>
+        </ion-item>
 
-          <ion-item>
-            <ion-label >Nombre del invitado </ion-label>
-            <ion-input placeholder="Nombre completo" type="text" formControlName="invitado_nombre"></ion-input>
-          </ion-item>
+        <ion-item>
+          <ion-label>Nombre del invitado </ion-label>
+          <ion-input placeholder="Nombre completo" type="text" formControlName="invitado_nombre"></ion-input>
+        </ion-item>
 
-          <ion-item>
-            <ion-label > Comentarios </ion-label>
-            <ion-textarea placeholder="Comentarios..."  formControlName="comentarios"></ion-textarea>
-          </ion-item>
+        <ion-item>
+          <ion-label> Comentarios </ion-label>
+          <ion-textarea placeholder="Comentarios..." formControlName="comentarios"></ion-textarea>
+        </ion-item>
 
         <ion-button type="submit" color="light" [disabled]="this.fgCreate.invalid">Guardar estos datos</ion-button>
         <div *ngIf="guardado">
@@ -50,43 +50,86 @@
           <ion-button disabled (click)="openModal()">Crear gasto</ion-button>
         </div>
         <!-- <ion-button (click)="saveViatico()">Guardar solicitud</ion-button> -->
-         <ion-button routerLink="/home" >Regresar</ion-button>
+        <ion-button routerLink="/home">Regresar</ion-button>
 
       </form>
     </div>
-      <div class="center-content" *ngIf="guardado">  
-          <ion-card-header class="subtitle">
-            <ion-card-title>Información del viático</ion-card-title>
-          </ion-card-header>
-          <form [formGroup]="fgCreate" (ngSubmit)="saveViatico()">
-            <ion-item>
-              <ion-label>Folio de la comisión </ion-label>
-              <ion-input value="{{this.comision}}" formControlName="id_comision" ></ion-input>
-            </ion-item>
-  
-            <ion-item>
-              <ion-label >Nombre del invitado </ion-label>
-              <ion-input value="VALOR PARA MOSTRAR" type="text" formControlName="invitado_nombre"></ion-input>
-            </ion-item>
-  
-            <ion-item>
-              <ion-label > Comentarios </ion-label>
-              <ion-textarea value="Comentarios..."  formControlName="comentarios"></ion-textarea>
-            </ion-item>
-  
-          <ion-button type="submit" color="light" [disabled]="this.fgCreate.invalid">Guardar estos datos</ion-button>
-          <div *ngIf="guardado">
-            <ion-button (click)="openModal()">Crear gasto</ion-button>
-          </div>
-          <div *ngIf="!guardado">
-            <ion-button disabled (click)="openModal()">Crear gasto</ion-button>
-          </div>
-          <!-- <ion-button (click)="saveViatico()">Guardar solicitud</ion-button> -->
-           <ion-button routerLink="/home" >Regresar</ion-button>
-  
-        </form>
-      </div>
-</ion-card>
-  
+    <div class="center-content" *ngIf="guardado">
+      <ion-card-header class="subtitle">
+        <ion-card-title>Información del viático</ion-card-title>
+      </ion-card-header>
+      <form [formGroup]="fgCreate" (ngSubmit)="saveViatico()">
+        <ion-item>
+          <ion-label>Folio de la comisión </ion-label>
+          <ion-input value="{{this.comision}}" formControlName="id_comision"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Nombre del invitado </ion-label>
+          <ion-input value="VALOR PARA MOSTRAR" type="text" formControlName="invitado_nombre"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label> Comentarios </ion-label>
+          <ion-textarea value="Comentarios..." formControlName="comentarios"></ion-textarea>
+        </ion-item>
+
+        <ion-button type="submit" color="light" [disabled]="this.fgCreate.invalid">Guardar estos datos</ion-button>
+        <div *ngIf="guardado">
+          <ion-button (click)="openModal()">Crear gasto</ion-button>
+        </div>
+        <div *ngIf="!guardado">
+          <ion-button disabled (click)="openModal()">Crear gasto</ion-button>
+        </div>
+        <!-- <ion-button (click)="saveViatico()">Guardar solicitud</ion-button> -->
+        <ion-button routerLink="/home">Regresar</ion-button>
+
+      </form>
+    </div>
+  </ion-card>
+
+  <div *ngIf="guardado">
+    <ion-card>
+      <ion-card-header class="title">
+        <ion-card-title>Gastos</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content class="background">
+
+        <ion-grid>
+          <ion-row class="bg-col">
+            <ion-col text-center size="3">
+              ID
+            </ion-col>
+            <ion-col size="3">
+              Día
+            </ion-col>
+            <ion-col text-center size="3">
+              ID Viático
+            </ion-col>
+          </ion-row>
+          <ion-row *ngFor="let gasto of gastos">
+            <ion-col text-center size="3">
+              {{ gasto.id }}
+            </ion-col>
+            <ion-col size="3">
+              {{ gasto.dia }}
+            </ion-col>
+            <ion-col text-center size="3">
+              {{ gasto.id_solicitud_viatico }}
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+
+    </ion-card>
+
+    <form [formGroup]="fgEnviar" (ngSubmit)="sendViatico()">
+      <!-- <ion-input type="hidden" value="1" formControlName="status"></ion-input> -->
+    <ion-button type="submit" color="light" >ENVIAR</ion-button>
+
+    </form>
+
+  </div>
 
 </ion-content>

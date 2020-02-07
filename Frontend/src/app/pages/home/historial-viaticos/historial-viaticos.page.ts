@@ -27,8 +27,8 @@ export class HistorialViaticosPage implements OnInit {
   async ngOnInit() {
     try {
       const resp = await this.auth.getHistorialViaticos().toPromise();
-      if (resp.ok) {
-        this.viaticos = resp.body;
+      if (resp['ok']) {
+        this.viaticos = resp['body'];
         this.viaticosCopia = [...this.viaticos];
         console.log('historial-viaticos', this.viaticos);
       } else {

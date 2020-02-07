@@ -1,3 +1,4 @@
+import { ProgramPageModule } from './../components/program/program.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -14,7 +15,8 @@ import { HistoryPage } from './history.page';
     FormsModule,
     IonicModule,
     HistoryPageRoutingModule,
-    ComisionActivaPageModule
+    ComisionActivaPageModule,
+    ProgramPageModule
   ],
   declarations: [HistoryPage]
 })

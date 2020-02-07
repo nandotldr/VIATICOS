@@ -47,7 +47,7 @@ export class ProgramPage implements OnInit {
 
   ionViewWillEnter() {
     this.id_comision = this.NavParams.get('id_comision');
-    console.log('id_comision',this.perfil);
+    console.log('id_comision',this.id_comision);
   }
 
   async createPrograma(){

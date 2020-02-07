@@ -36,11 +36,14 @@
           <ion-col text-center size="2">
             Fecha de Solicitud
           </ion-col>
-          <ion-col text-center size="2.5">
+          <ion-col text-center size="2">
             Más información
           </ion-col>
           <ion-col text-center size="2">
             Crear Viático
+          </ion-col>
+          <ion-col text-center size="2">
+            Crear Programa
           </ion-col>
         </ion-row>
         <ion-row *ngFor="let comision of comisiones">
@@ -53,14 +56,19 @@
           <ion-col text-center size="2">
             {{ comision.fecha_solicitud }}
           </ion-col>
-          <ion-col text-center size = "2.5">
+          <ion-col text-center size = "2">
             <ion-button (click)="openModal(comision)" >
               <ion-icon name="apps"> </ion-icon>
             </ion-button>
           </ion-col>
-          <ion-col text-center  size = "2">
+          <ion-col  text-center  size = "2">
             <ion-button *ngIf="comision.status == 5" routerLink="/home/viatico/{{comision.folio}}"> Crear viático </ion-button>
-          </ion-col >
+          </ion-col>
+          <ion-col text-center size = "2">
+            <ion-button (click)="openModalP(comision.folio)" >
+              <ion-icon name="plus"> </ion-icon>
+            </ion-button>
+          </ion-col>
         </ion-row>
       </ion-grid>
     </ion-card-content>

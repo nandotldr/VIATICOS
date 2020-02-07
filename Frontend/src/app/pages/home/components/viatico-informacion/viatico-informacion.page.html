@@ -14,7 +14,13 @@
 <ion-content>
   <img class="background-image"/>
   <ion-card-content class="background">
-
+    <div *ngIf="!tieneDatos">
+      No tiene viaticos
+    </div>
+    <div *ngIf="tieneDatos">
+      
+    </div>
+    
   </ion-card-content>
 
 </ion-content>

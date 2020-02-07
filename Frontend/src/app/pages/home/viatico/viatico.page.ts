@@ -68,6 +68,7 @@ export class ViaticoPage implements OnInit {
         this.presentToast('Guardado correctamente');
         this.viatico = resp;
         this.guardado = true;      
+        console.log('resppppp',this.viatico);
         this.id_viatico = this.viatico.body.id_viatico;
       } else {
         this.presentToast('Error');

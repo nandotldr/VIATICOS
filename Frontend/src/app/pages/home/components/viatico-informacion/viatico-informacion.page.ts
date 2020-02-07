@@ -5,6 +5,7 @@ import { ToastController, ModalController, NavParams } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
+
 @Component({
   selector: 'app-viatico-informacion',
   templateUrl: './viatico-informacion.page.html',
@@ -26,7 +27,7 @@ export class ViaticoInformacionPage implements OnInit {
     ) { }
 
     async ionViewWillEnter() {
-      this.idComision = this.navParams.get('id_comision');
+      this.idComision = this.navParams.get('id_viatico');
       try {
         const resp = await this.auth.getSolicitudViatico(this.idComision).toPromise();
         // tslint:disable-next-line: no-string-literal
@@ -40,7 +41,7 @@ export class ViaticoInformacionPage implements OnInit {
         console.error(error);
       }
   
-      console.log('idviatico', this.idComision);
+      console.log('idviatico', this.idViatico);
     }
 
   ngOnInit() {

@@ -5,7 +5,7 @@
         <!-- <img src="../../../assets/images/logo.png" width="25px" style="display:inline-block" height="25px"/> -->
         <!-- <ion-icon slot="icon-only" name="filing"></ion-icon> -->
         <ion-title>
-          modal
+          VIATICO
         </ion-title>
     </ion-buttons>
   </ion-toolbar>
@@ -22,5 +22,64 @@
     </div>
     
   </ion-card-content>
+    <ion-label>Folio</ion-label>
+      <ion-item>
+        <ion-input readonly value="{{this.viatico.folio}}"></ion-input>
+    </ion-item>
+    <ion-label>Folio Comisión</ion-label>
+      <ion-item>
+        <ion-input readonly value="{{this.viatico.no_comision}}"></ion-input>
+    </ion-item>
+    <ion-label>Justificación</ion-label>
+      <ion-item>
+        <ion-input readonly value="{{this.viatico.motivo_comision}}"></ion-input>
+    </ion-item>
+    <ion-label>Lugar</ion-label>
+      <ion-item>
+        <ion-input readonly value="{{this.viatico.lugar_de_comision}}"></ion-input>
+    </ion-item>
 
+    <ion-label>Fecha de Solicitud</ion-label>
+      <ion-item>
+        <ion-input readonly value="{{this.viatico.fecha_solicitud}}"></ion-input>
+    </ion-item>
+    <ion-label>Inicio</ion-label>
+      <ion-item>
+        <ion-input readonly value="{{this.viatico.fecha_inicio}}"></ion-input>
+    </ion-item>
+    <ion-label>Fin</ion-label>
+      <ion-item>
+        <ion-input readonly value="{{this.viatico.fecha_fin}}"></ion-input>
+    </ion-item>
+    <ion-label>Status del Viatico</ion-label>
+      <ion-item>
+        <ion-input readonly value="{{this.viatico.status}}"></ion-input>
+    </ion-item>
+    <ion-label>Fecha Revisado</ion-label>
+      <ion-item>
+        <ion-input readonly value="{{this.viatico.fecha_revisado}}"></ion-input>
+    </ion-item>
+    <ion-label>Fecha Aceptado</ion-label>
+      <ion-item>
+        <ion-input readonly value="{{this.viatico.fecha_aceptado}}"></ion-input>
+    </ion-item>
+    <ion-label>Nombre Revisado</ion-label>
+      <ion-item>
+        <ion-input readonly value="{{this.viatico.nombre_revisado}}"></ion-input>
+    </ion-item>
+    <ion-label>Nombre aceptado</ion-label>
+      <ion-item>
+        <ion-input readonly value="{{this.viatico.nombre_aceptado}}"></ion-input>
+    </ion-item>
+    <ion-label>Gastos</ion-label>
+      <div *ngFor="let gasto of this.viatico.gastos">
+        <ion-input readonly value="{{gasto.dia}}"></ion-input>
+        <ion-input readonly value="{{gasto.alimentacion}}"></ion-input>
+        <ion-input readonly value="{{gasto.hospedaje}}"></ion-input>
+        <ion-input readonly value="{{gasto.transporte_foraneo}}"></ion-input>
+        <ion-input readonly value="{{gasto.transporte_local}}"></ion-input>
+        <ion-input readonly value="{{gasto.combustible}}"></ion-input>
+        <ion-input readonly value="{{gasto.otros_conceptos}}"></ion-input>
+      </div>
+    
 </ion-content>

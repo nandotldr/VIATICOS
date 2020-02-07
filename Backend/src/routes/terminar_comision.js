@@ -4,7 +4,7 @@ const oauth = require('../middlewares/credentials');
 
 const router = express.Router();
 
-router.put('/', oauth('F'), terminar_comisionCtl.terminar_comision);
+router.put('/', oauth('A'), terminar_comisionCtl.terminar_comision);
 
 // Rutas extras del controlador como archivos, etc.
 

@@ -3,8 +3,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { ModalController, ToastController } from '@ionic/angular';
 import { OverlayEventDetail } from '@ionic/core';
-import { formatDate } from "@angular/common";
-import { ComisionActivaPage } from "../components/comision-activa/comision-activa.page";
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-revisar-comision',
@@ -46,24 +45,5 @@ export class RevisarComisionPage implements OnInit {
       position: 'bottom'
     });
     toast.present();
-  }
-
-  async openModal(id_comision) {
-    const modal: HTMLIonModalElement =
-        await this.modalController.create({
-          component: ComisionActivaPage,
-          cssClass: 'modal-class',
-          componentProps: {
-            comision: id_comision,
-          }
-        });
-
-    modal.onDidDismiss().then((detail: OverlayEventDetail) => {
-      if (detail !== null) {
-        console.log('The result:', detail.data);
-      }
-    });
-
-    await modal.present();
   }
 }

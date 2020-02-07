@@ -37,13 +37,13 @@ module.exports = {
     aceptarComision: async(req, res) => {
         //verificar que no este en status cancelado =-1, revision = 1, aceptado por J =3, aceptado por A= 5 o finalizado
         try {
-            var sqlSolComision = 'SELECT c.id, c.status, u.codigo, c.fecha_solicitud , concat(u.nombres," ",u.apellidos) as nombre, u.tipo_usuario FROM solicitud_comision AS c INNER JOIN usuario as u ON u.codigo = c.id_usuario WHERE (c.status =1 OR c.status=3)';
-            const verificarComision = await pool.query(sqlSolComision);
+            var sqlSolComision = 'SELECT c.id, c.status, u.codigo, c.fecha_solicitud , concat(u.nombres," ",u.apellidos) as nombre, u.tipo_usuario FROM solicitud_comision AS c INNER JOIN usuario as u ON u.codigo = c.id_usuario WHERE c.id = ? AND (c.status=1 or c.status=3)';
+            const verificarComision = await pool.query(sqlSolComision, req.body.id);
             if (verificarComision.length < 1) {
-                return res.json({ ok: false, mensaje: "No se puede modificar comision" });
+                return res.json({ ok: false, mensaje: "No se puede aceptar la comision" });
             }
             const usuario = await pool.query("SELECT CONCAT(u.nombres, ' ' , u.apellidos) as nombre FROM viaticos.usuario as u WHERE codigo = ?",[req.user.codigo]);
-                
+            console.log(verificarComision);  
             var modificarComision = 'UPDATE solicitud_comision SET ? WHERE id = ?';
             //si usuario =J modifcar fecha revisado, nombre revisado, comentario rechazo
             //si usuario =A modificar fecha_aceptado, nombre aceptado, comentario rechazo
@@ -63,6 +63,7 @@ module.exports = {
                 return res.json({ ok: true, mensaje: "Comision aceptada" });
 
             } else if (req.user.tipo_usuario == 'A' && verificarComision[0].status == 3) {
+                console.log("usuario A");
                 pool.query(modificarComision, [{
                     fecha_modificacion: new Date(),
                     fecha_aceptado: new Date(),
@@ -79,6 +80,7 @@ module.exports = {
             }
             res.json({ ok: false, mensaje: "No se hizo la revision correcta" });
         } catch (error) {
+            console.log(error);
             return res.json({ ok: false, mensaje: "Error inesperado" });
         }
     },

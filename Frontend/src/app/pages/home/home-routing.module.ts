@@ -64,6 +64,10 @@ const routes: Routes = [
       {
         path: 'revisar-comision',
         loadChildren: () => import('./revisar-comision/revisar-comision.module').then(m => m.RevisarComisionPageModule)
+      },
+      {
+        path: 'crear-informe',
+        loadChildren: () => import('./crear-informe/crear-informe.module').then( m => m.CrearInformePageModule)
       }
     ]
   }

@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">    
+      <ion-back-button defaultHref="/home/historial-viaticos"></ion-back-button>
+      
+        <!-- <img src="../../../assets/images/logo.png" width="25px" style="display:inline-block" height="25px"/> -->
+        <!-- <ion-icon slot="icon-only" name="filing"></ion-icon> -->
+        <ion-title>
+          CREAR INFORME
+        </ion-title>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <img class="background-image"/>
+  <ion-card-content class="background">
+    <ion-list>
+      <form [formGroup]="informeGroup">
+        <ion-item>
+          <ion-label position="floating">Invitado: </ion-label>
+          <ion-input type="text" readonly
+                     formControlName="invitado"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Comentarios: </ion-label>
+          <ion-input type="text" readonly
+                     formControlName="comentarios"></ion-input>
+        </ion-item>
+      </form>
+    </ion-list>
+  </ion-card-content>
+  <ion-button (click)="guardar()" color="primary"> Guardar</ion-button>
+  <ion-button (click)="siguiente()" color="primary"> Siguiente</ion-button>
+</ion-content>

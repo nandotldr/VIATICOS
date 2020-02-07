@@ -60,7 +60,7 @@ module.exports = {
                     nombre_revisado: usuario[0].nombre,
                     comentario_rechazo: req.body.comentario_rechazo,
                     status: req.body.status,
-                }, req.body.id], (errorModificar, modificarViatico) => {
+                }, req.body.id_viatico], (errorModificar, modificarViatico) => {
                     if (errorModificar) return res.json({ ok: false, mensaje: errorModificar });
                     if(modificarViatico.affectedRows < 1) return res.json({ok:false, mensaje: "No se acepto el viatico"});
 
@@ -74,7 +74,7 @@ module.exports = {
                     nombre_aceptado: usuario[0].nombre,
                     comentario_rechazo: req.body.comentario_rechazo,
                     status: req.body.status,
-                }, req.body.id], (errorModificar, modificarViatico) => {
+                }, req.body.id_viatico], (errorModificar, modificarViatico) => {
                     if (errorModificar) return res.json({ ok: false, mensaje: errorModificar });
                     if(modificarViatico.affectedRows < 1) return res.json({ok:false, mensaje: "No se acepto el viatico"});
 

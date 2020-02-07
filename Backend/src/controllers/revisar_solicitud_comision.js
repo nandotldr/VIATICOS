@@ -54,7 +54,7 @@ module.exports = {
                     nombre_revisado: usuario[0].nombre,
                     comentario_rechazo: req.body.comentario_rechazo,
                     status: req.body.status,
-                }, req.body.id], (errorModificar, modificarComision) => {
+                }, req.body.id_viatico], (errorModificar, modificarComision) => {
                     if (errorModificar) return res.json({ ok: false, mensaje: errorModificar });
                     if(modificarComision.affectedRows < 1) return res.json({ok:false, mensaje: "No se acepto la comision"});
 
@@ -70,7 +70,7 @@ module.exports = {
                     nombre_aceptado: usuario[0].nombre,
                     comentario_rechazo: req.body.comentario_rechazo,
                     status: req.body.status,
-                }, req.body.id], (errorModificar, modificarComision) => {
+                }, req.body.id_comision], (errorModificar, modificarComision) => {
                     if (errorModificar) return res.json({ ok: false, mensaje: errorModificar });
                     if(modificarComision.affectedRows < 1) return res.json({ok:false, mensaje: "No se acepto la comision"});
 

@@ -45,7 +45,6 @@ export class AuthService {
     ).toPromise();
   }
 
-<<<<<<< HEAD
   // historial viaticos
   getHistorialViaticos() {
     return this.http.get(`${this.API_URL}/solicitud_viatico`).pipe(
@@ -64,12 +63,8 @@ export class AuthService {
   }
   // termina historial viaticos
 
-  async getAllComisiones() {
-    return await this.http.get(`${this.API_URL}/solicitud_comision`).pipe(
-=======
    getAllComisiones() {
     return this.http.get(`${this.API_URL}/solicitud_comision`).pipe(
->>>>>>> 8cfb38f88178a164096179af5be8630bf8fc731d
       map(response => {
         if(response['ok']){
           return response['body'];

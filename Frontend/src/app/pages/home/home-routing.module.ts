@@ -15,7 +15,7 @@ const routes: Routes = [
       },
       {
         path: 'create-comision',
-        loadChildren: () => import('./create-comision/create-comision.module').then( m => m.CreateComisionPageModule),
+        loadChildren: () => import('./create-comision/create-comision.module').then(m => m.CreateComisionPageModule),
         canLoad: [AuthGuardService]
       },
       {
@@ -45,26 +45,17 @@ const routes: Routes = [
       },
       {
         path: 'crear-gasto',
-        loadChildren: () => import('./components/crear-gasto/crear-gasto.module').then( m => m.CrearGastoPageModule),
+        loadChildren: () => import('./components/crear-gasto/crear-gasto.module').then(m => m.CrearGastoPageModule),
         canLoad: [AuthGuardService]
       },
       {
-<<<<<<< HEAD
         path: 'historial-viaticos',
-        loadChildren: () => import('./historial-viaticos/historial-viaticos.module').then( m => m.HistorialViaticosPageModule),
+        loadChildren: () => import('./historial-viaticos/historial-viaticos.module').then(m => m.HistorialViaticosPageModule),
         canLoad: [AuthGuardService]
       },
-    ]
-  },
-  {
-    path: 'viatico-informacion',
-    loadChildren: () => import('./components/viatico-informacion/viatico-informacion.module').then( m => m.ViaticoInformacionPageModule)
-  }
-
-
-=======
-        path: 'crear-gasto/',
-        loadChildren: () => import('./components/crear-gasto/crear-gasto.module').then( m => m.CrearGastoPageModule)
+      {
+        path: 'viatico-informacion',
+        loadChildren: () => import('./components/viatico-informacion/viatico-informacion.module').then(m => m.ViaticoInformacionPageModule)
       },
       {
         path: 'modificar-perfil',
@@ -72,15 +63,14 @@ const routes: Routes = [
       },
       {
         path: 'revisar-comision',
-        loadChildren: () => import('./revisar-comision/revisar-comision.module').then( m => m.RevisarComisionPageModule)
+        loadChildren: () => import('./revisar-comision/revisar-comision.module').then(m => m.RevisarComisionPageModule)
       }
     ]
   }
->>>>>>> 8cfb38f88178a164096179af5be8630bf8fc731d
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class HomePageRoutingModule {}
+export class HomePageRoutingModule { }

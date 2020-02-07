@@ -72,14 +72,28 @@
         <ion-input readonly value="{{this.viatico.nombre_aceptado}}"></ion-input>
     </ion-item>
     <ion-label>Gastos</ion-label>
-      <div *ngFor="let gasto of this.viatico.gastos">
-        <ion-input readonly value="{{gasto.dia}}"></ion-input>
-        <ion-input readonly value="{{gasto.alimentacion}}"></ion-input>
-        <ion-input readonly value="{{gasto.hospedaje}}"></ion-input>
-        <ion-input readonly value="{{gasto.transporte_foraneo}}"></ion-input>
-        <ion-input readonly value="{{gasto.transporte_local}}"></ion-input>
-        <ion-input readonly value="{{gasto.combustible}}"></ion-input>
-        <ion-input readonly value="{{gasto.otros_conceptos}}"></ion-input>
-      </div>
+    
+    <table>
+      <thead>
+          <th>DIA</th>
+          <th>Alimentacion</th>
+          <th>hospedaje</th>
+          <th>Transporte Foraneo</th>
+          <th>Transporte Local</th>
+          <th>Combustible</th>
+          <th>Otros</th>
+      </thead>
+      <tbody>
+          <tr *ngFor="let gasto of this.viatico.gastos">
+              <td >{{gasto.dia|date}}</td>
+              <td>{{gasto.alimentacion}}</td> 
+              <td>{{gasto.hospedaje}}</td>
+              <td>{{gasto.transporte_foraneo}}</td>
+              <td>{{gasto.transporte_local}}</td>
+              <td>{{gasto.combustible}}</td>
+              <td>{{gasto.otros_conceptos}}<td>
+          </tr>
+      </tbody>
+  </table>
     
 </ion-content>

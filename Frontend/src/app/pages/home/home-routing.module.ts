@@ -68,9 +68,14 @@ const routes: Routes = [
       {
         path: 'crear-informe',
         loadChildren: () => import('./crear-informe/crear-informe.module').then( m => m.CrearInformePageModule)
+      },
+      {
+      path: 'comision-creada',
+    loadChildren: () => import('./comision-creada/comision-creada.module').then( m => m.ComisionCreadaPageModule)
       }
     ]
   }
+
 ];
 
 @NgModule({

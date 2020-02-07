@@ -41,7 +41,7 @@ export class ViaticoInformacionPage implements OnInit {
         console.error(error);
       }
   
-      console.log('idviatico', this.idViatico);
+      
     }
 
   ngOnInit() {

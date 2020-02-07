@@ -34,6 +34,7 @@ module.exports = {
             
             
         } catch (error) {
+            console.log(error);
             return res.json({ ok: false, mensaje: "Error Inesperado" });
         }
 
@@ -42,8 +43,8 @@ module.exports = {
     aceptarViatico: async(req, res) => {
         //verificar que no este en status cancelado =-1, revision = 1, aceptado por J =3, aceptado por A= 5 o finalizado
         try {
-            var sqlViatico = 'SELECT V.id, v.status, u.codigo, v.fecha_solicitud , concat(u.nombres," ",u.apellidos) as nombre, u.tipo_usuario FROM solicitud_viatico AS v INNER JOIN usuario as u ON u.codigo = c.id_usuario WHERE (v.status =1 OR v.status=3)';
-            const verificarViatico = await pool.query(sqlViatico);
+            var sqlViatico = 'SELECT v.id, v.status, u.codigo, v.fecha_solicitud , concat(u.nombres," ",u.apellidos) as nombre, u.tipo_usuario FROM solicitud_viatico AS v INNER JOIN usuario as u ON u.codigo = v.id_usuario WHERE (v.status =1 OR v.status=3) and v.id =?';
+            const verificarViatico = await pool.query(sqlViatico, req.body.id);
             if (verificarViatico.length < 1) {
                 return res.json({ ok: false, mensaje: "No se puede revisar viatico" });
             }
@@ -66,7 +67,7 @@ module.exports = {
                 });
                 return res.json({ ok: true, mensaje: "Viatico verificado" });
 
-            } else if (req.user.tipo_usuario == 'A' && verificarComision[0].status == 3) {
+            } else if (req.user.tipo_usuario == 'A' && verificarViatico[0].status == 3) {
                 pool.query(modificarViatico, [{
                     fecha_modificacion: new Date(),
                     fecha_aceptado: new Date(),
@@ -84,6 +85,7 @@ module.exports = {
 
             res.json({ ok: false, mensaje: "No se hizo la revision correcta" });
         } catch (error) {
+            console.log(error);
             return res.json({ ok: false, mensaje: "Error Inesperado" });
         }
         

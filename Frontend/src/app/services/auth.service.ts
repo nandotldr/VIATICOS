@@ -112,7 +112,20 @@ export class AuthService {
     ).toPromise();
   }
 
-  async createComision(comision: { 
+  getRevisarComision(){
+    return this.http.get(`${this.API_URL}/revisar_solicitud_comision`).pipe(
+        map(response => {
+          if(response['ok']){
+            console.log(response);
+            return response['body'];
+          } else {
+            return response['ok'];
+          }
+        })
+    ).toPromise();
+  }
+
+  async createComision(comision: {
     tipo_comision: Number,
     destino_com: Number,
     name: string,

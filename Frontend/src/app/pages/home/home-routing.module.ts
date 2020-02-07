@@ -46,9 +46,7 @@ const routes: Routes = [
         loadChildren: () => import('./components/crear-gasto/crear-gasto.module').then( m => m.CrearGastoPageModule)
       }
     ]
-  },
-
-
+  }
 ];
 
 @NgModule({

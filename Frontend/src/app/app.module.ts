@@ -13,6 +13,8 @@ import { LoginPageModule } from './pages/login/login.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RequestService } from './interceptors/request.service';
 
+import { NavParams } from '@ionic/angular';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],

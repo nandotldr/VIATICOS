@@ -20,24 +20,24 @@
         <ion-card-title>Solicitud de comisión nueva</ion-card-title>
       </ion-card-header>
 
-        <form [formGroup]="fgCreate" (ngSubmit)="createComision()">
+        <form [formGroup]="fgCreate" (ngSubmit)="createPrograma()">
           <ion-card-header class="subtitle">
             <ion-card-title>Actividades y programa</ion-card-title>
           </ion-card-header>
 
           <ion-item>
-            <ion-label >Programa de trabajo</ion-label>
-            <ion-input placeholder="Programa" type="text" formControlName="dia"></ion-input>
+            <ion-label>Fecha</ion-label>
+            <ion-datetime displayFormat="MM/DD/YYYY" max="3000-12-09" value="{{myDate}}" formControlName="dia"></ion-datetime>
           </ion-item>
 
           <ion-item>
-            <ion-label>Invitacion al evento</ion-label>
+            <ion-label>Lugar Estancia</ion-label>
             <ion-input placeholder="Programa" type="text" formControlName="lugar_estancia"></ion-input>
           </ion-item>
 
           <ion-item>
             <ion-label>Programa de el evento</ion-label>
-            <ion-input placeholder="Programa" type="text" formControlName="tareas_realizar"></ion-input>id_comision
+            <ion-input placeholder="Programa" type="text" formControlName="tareas_realizar"></ion-input>
           </ion-item>
 
           <ion-button type="submit" color="light" [disabled]="this.fgCreate.invalid">Guardar programa</ion-button>

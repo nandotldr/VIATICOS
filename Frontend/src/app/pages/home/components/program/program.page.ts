@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { ToastController } from '@ionic/angular';
+import { ToastController, NavParams } from '@ionic/angular';
 import { Router } from '@angular/router';
-import { ModalController, NavParams} from '@ionic/angular';
+import { ModalController} from '@ionic/angular';
 import { AuthService } from 'src/app/services/auth.service';
 import { formatDate } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
@@ -14,6 +14,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ProgramPage implements OnInit {
   perfil = '';
+  id_comision = '';
   fgCreate: FormGroup;
   token: string;
   restoreStep = 0;
@@ -27,19 +28,26 @@ export class ProgramPage implements OnInit {
       public toastController: ToastController,
       private router: Router,
       private http: HttpClient,
-      private modalController: ModalController
+      private modalController: ModalController,
+      private NavParams: NavParams
       ) 
       { 
         this.fgCreate = this.formBuilder.group({
           dia: new FormControl('', [Validators.required]),
           lugar_estancia: new FormControl('', [Validators.required]),
           tareas_realizar: new FormControl('', [Validators.required]),
+          id_comision: new FormControl(this.id_comision,[])
         });
       }
 
   ngOnInit() {
     this.getUsuario();  
     console.log(localStorage.getItem('id_usuario'));
+  }
+
+  ionViewWillEnter() {
+    this.id_comision = this.NavParams.get('id_comision');
+    console.log('id_comision',this.perfil);
   }
 
   async createPrograma(){

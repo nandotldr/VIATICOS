@@ -38,44 +38,44 @@ module.exports = {
     aceptarInforme: async(req, res) => {
         //verificar que no este en status cancelado =-1, revision = 1, aceptado por J =3, aceptado por A= 5 o finalizado
         try {
-            var sqlInforme = 'SELECT i.id, i.status, u.codigo, i.fecha_elaboracion, concat(u.nombres," ",u.apellidos) as nombre, u.tipo_usuario FROM informe_actividades AS i INNER JOIN usuario as u ON u.codigo = i.id_usuario WHERE i.id = ? AND (i.status =1 OR i.status=3)';
+            var sqlInforme = 'SELECT i.id, i.status, u.codigo, i.fecha_elaboracion, concat(u.nombres," ",u.apellidos) as nombre, u.tipo_usuario FROM informe_actividades AS i INNER JOIN usuario as u ON u.codigo = i.id_usuario WHERE (i.status =1 OR i.status=3) AND i.id =?';
             const verificarInforme = await pool.query(sqlInforme, [req.body.id]);
             if (verificarInforme.length < 1) {
-                return res.json({ ok: false, mensaje: "No se puede modificar el informe" });
+                return res.json({ ok: false, mensaje: "Error al aceptar informe" });
             }
+            console.log(verificarInforme);
             const usuario = await pool.query("SELECT CONCAT(u.nombres, ' ' , u.apellidos) as nombre FROM viaticos.usuario as u WHERE codigo = ?", [req.user.codigo]);
-            var modificarInforme = 'UPDATE informe_actividades SET ? WHERE id = ?';
+            var sqlInforme = 'UPDATE informe_actividades SET ? WHERE id = ?';
             //si usuario =F modifcar fecha revisado, nombre revisado, comentario rechazo
             //si usuario =A modificar fecha_aceptado, nombre aceptado, comentario rechazo
             if (req.user.tipo_usuario == 'F' && verificarInforme[0].status == 1) {
-                pool.query(modificarinforme, [{
+
+                pool.query(sqlInforme, [{
                     fecha_revisado: new Date(),
                     nombre_revisado: usuario[0].nombre,
                     comentario_rechazo: req.body.comentario_rechazo,
                     status: req.body.status
                 }, req.body.id], (errorModificar, modificarInforme) => {
                     if (errorModificar) return res.json({ ok: false, mensaje: errorModificar });
-                    if (modificarInforme.affectedRows < 1) return res.json({ ok: false, mensaje: "No se modifico el informe" });
-                    res.json({ ok: true, mensaje: "Informe modificado exitosamente" });
-                });
+                    if (modificarInforme.affectedRows < 1) return res.json({ ok: false, mensaje: "No se acepto el informe" });
 
+                });
+                return res.json({ ok: true, mensaje: "Informe modificado exitosamente" });
             } else if (req.user.tipo_usuario == 'A' && verificarInforme[0].status == 3) {
-                pool.query(modificarInforme, [{
-                    fecha_aceptado: new Date(),
-                    nombre_aceptado: usuario[0].nombre,
+                pool.query(sqlInforme, [{
+                    fecha_aprobacion: new Date(),
+                    nombre_aprobacion: usuario[0].nombre,
                     comentario_rechazo: req.body.comentario_rechazo,
                     status: req.body.status
                 }, req.body.id], (errorModificar, modificarInforme) => {
                     if (errorModificar) return res.json({ ok: false, mensaje: errorModificar });
-                    if (modificarInforme.affectedRows < 1) return res.json({ ok: false, mensaje: "No se modifico el informe" });
-                    res.json({ ok: true, mensaje: "Informe modificado exitosamente" });
+                    if (modificarInforme.affectedRows < 1) return res.json({ ok: false, mensaje: "No se acepto el informe" });
                 });
-
+                return res.json({ ok: true, mensaje: "Informe modificado exitosamente" });
             }
-
             res.json({ ok: false, mensaje: "No se hizo la revision correcta" });
         } catch (error) {
-            return res.json({ ok: false, mensaje: error });
+            return res.json({ ok: false, mensaje: "Error inesperado" });
         }
     },
 }

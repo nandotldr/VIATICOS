@@ -5,7 +5,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { formatDate } from '@angular/common';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit, Input, ɵConsole } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, RouterLink } from '@angular/router';
 import { ThrowStmt } from '@angular/compiler';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import {OverlayEventDetail} from '@ionic/core'; 
@@ -101,6 +101,18 @@ export class ViaticoPage implements OnInit {
       }
     } else {
       this.presentToast('Datos no Validos');
+    }
+  }
+
+  async sendViatico(){
+    //Llamada a la API
+    const resp = await this.auth.sendViatico(this.id_viatico, this.viatico.nombre_invitado, this.viatico.comentarios, 1).toPromise();
+    if(resp['ok']){
+      this.presentToast('Su viatico ha sido enviado.');
+    }
+    else{
+      console.log(resp);
+      
     }
   }
 

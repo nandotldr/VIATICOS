@@ -4,7 +4,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { map, tap } from 'rxjs/operators';
 import { NavController } from '@ionic/angular';
-import { SolicitudViatico } from '../interfaces/interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -316,17 +315,17 @@ export class AuthService {
   }
 
 
-  modifyViatico(viatico: { 
+  sendViatico(
     id_comision: Number,
     invitado_nombre: string,
-    comentarios: string,
+    _comentarios: string,
     status: Number
-  }) {
+  ) {
     return this.http.put(`${this.API_URL}/solicitud_viatico`,{
-      id: +viatico.id_comision,
-      invitado: viatico.invitado_nombre,
-      comentarios: viatico.comentarios,
-      estado: 1
+      id_viatico: +id_comision,
+      invitado: invitado_nombre,
+      comentarios: _comentarios,
+      status: 1
     });
   }
 

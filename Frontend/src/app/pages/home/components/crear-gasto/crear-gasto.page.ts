@@ -37,12 +37,9 @@ export class CrearGastoPage implements OnInit {
 
   ngOnInit() {
     this.idViatico = this.navParams.get('id_viatico');
-    console.log('ID DEL VIATICO', this.idViatico);
-    
   }
 
   async createGasto(){
-    console.log('Formulario', this.fgGasto.value);
     if(this.fgGasto.valid){
       const resp = await this.auth.createGasto(this.fgGasto.value).toPromise();
       if(resp){

@@ -124,11 +124,9 @@
 
     </ion-card>
 
-    <form [formGroup]="fgEnviar" (ngSubmit)="sendViatico()">
-      <!-- <ion-input type="hidden" value="1" formControlName="status"></ion-input> -->
-    <ion-button type="submit" color="light" >ENVIAR</ion-button>
+    <ion-button  (click)="sendViatico()" routerLink="/home" color="danger" >ENVIAR</ion-button>
 
-    </form>
+    
 
   </div>
 

@@ -42,10 +42,10 @@ export class CrearInformePage implements OnInit {
       if (this.informeGroup.valid) {
         const resp = await this.auth.crearSolicitudViatico(this.informeGroup.value).toPromise();
         console.log(resp);
-        if (resp.ok) {
+        if (resp['ok']) {
           this.puedeContinuar = true;
         } else {
-          this.presentToast(resp.mensaje);
+          this.presentToast(resp['mensaje']);
         }
       }
     } catch (error) {

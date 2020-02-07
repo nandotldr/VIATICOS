@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Agenda</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <form [formGroup]="agendaGroup">
+      <ion-item>
+        <ion-label position="floating">Dia: </ion-label>
+        <ion-datetime formControlName="dia" displayFormat="MM DD YY" placeholder="Select Date"></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Hora inicio</ion-label>
+        <ion-datetime formControlName="hora_inicio" displayFormat="h:mm a"></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Hora fin</ion-label>
+        <ion-datetime formControlName="hora_fin" displayFormat="h:mm a"></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Actividad</ion-label>
+        <ion-input formControlName="actividad" type="text"></ion-input>
+      </ion-item>
+      <ion-button (click)="crearAgenda()" [disabled]="agendaGroup.invalid">Crear</ion-button>
+    </form>
+  </ion-list>
+</ion-content>

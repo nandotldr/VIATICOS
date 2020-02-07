@@ -66,7 +66,8 @@
           <ion-button routerLink="/home/crear-informe">
             <ion-icon name="add-circle"></ion-icon> Crear informe
           </ion-button>
-          <ion-button routerLink="/home/profile/{{value}}">
+          <!-- <ion-button routerLink="/home/profile/{{value}}"> -->
+          <ion-button (click)="presentToast('vista no creada aún')">
             <ion-icon name="add-circle"></ion-icon> Crear Proyecto
           </ion-button>
         </ion-buttons>

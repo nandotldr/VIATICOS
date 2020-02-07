@@ -19,17 +19,47 @@
       <form [formGroup]="informeGroup">
         <ion-item>
           <ion-label position="floating">Invitado: </ion-label>
-          <ion-input type="text" readonly
+          <ion-input type="text"
                      formControlName="invitado"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label position="floating">Comentarios: </ion-label>
-          <ion-input type="text" readonly
+          <ion-input type="text"
                      formControlName="comentarios"></ion-input>
         </ion-item>
       </form>
     </ion-list>
   </ion-card-content>
   <ion-button (click)="guardar()" color="primary"> Guardar</ion-button>
-  <ion-button (click)="siguiente()" color="primary"> Siguiente</ion-button>
+  <ion-button  *ngIf="!informeCreado" (click)="informeCreado = !informeCreado" color="primary" [disabled]="!puedeContinuar"> Siguiente</ion-button>
+  <!-- <ion-button *ngIf="!informeCreado" (click)="informeCreado = !informeCreado" color="primary"> Siguiente</ion-button>  -->
+  <ion-card *ngIf="informeCreado">
+    <ion-list>
+      <ion-item>
+        <ion-card-title>
+          Agenda
+        </ion-card-title>
+        <ion-card-content>
+          <ion-button (click)="crearAgenda()">Crear agenda</ion-button>
+        </ion-card-content>
+      </ion-item>
+      <ion-item>
+        <ion-card-title>
+          Itinerario
+        </ion-card-title>
+        <ion-card-content>
+          <ion-button (click)="crearItinerario()">Crear itinerario</ion-button>
+        </ion-card-content>
+      </ion-item>
+      <ion-item>
+        <ion-card-title>
+          Factura
+        </ion-card-title>
+        <ion-card-content>
+          <ion-button (click)="crearFactura()">Crear Factura</ion-button>
+        </ion-card-content>
+      </ion-item>
+    </ion-list>
+    <ion-button>Enviar</ion-button>
+  </ion-card>
 </ion-content>

@@ -74,6 +74,18 @@ const routes: Routes = [
     loadChildren: () => import('./comision-creada/comision-creada.module').then( m => m.ComisionCreadaPageModule)
       }
     ]
+  },
+  {
+    path: 'agenda',
+    loadChildren: () => import('./components/agenda/agenda.module').then( m => m.AgendaPageModule)
+  },
+  {
+    path: 'itinerario',
+    loadChildren: () => import('./components/itinerario/itinerario.module').then( m => m.ItinerarioPageModule)
+  },
+  {
+    path: 'factura',
+    loadChildren: () => import('./components/factura/factura.module').then( m => m.FacturaPageModule)
   }
 
 ];

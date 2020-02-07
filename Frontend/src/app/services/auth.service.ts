@@ -1,8 +1,10 @@
+import { SolicitudViatico } from './../interfaces/interfaces';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { map, tap } from 'rxjs/operators';
 import { NavController } from '@ionic/angular';
+import { SolicitudViatico } from '../interfaces/interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -59,6 +61,16 @@ export class AuthService {
       map(response => {
         return response;
       })
+    );
+  }
+
+  crearSolicitudViatico(solicitudViatico: SolicitudViatico) {
+    return this.http.post(`${this.API_URL}/solicitud_viatico`, {
+      invitado: solicitudViatico.invitado,
+      comentarios: solicitudViatico.comentarios,
+      estado: 0
+    }).pipe(
+      map(response => response)
     );
   }
   // termina historial viaticos

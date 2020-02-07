@@ -8,12 +8,12 @@ import {OverlayEventDetail} from '@ionic/core';
 import { formatDate } from "@angular/common";
 import { ComisionActivaPage } from '../components/comision-activa/comision-activa.page';
 
-
 @Component({
   selector: 'app-history',
   templateUrl: './history.page.html',
   styleUrls: ['./history.page.scss', '../../../app.component.scss'],
 })
+
 export class HistoryPage implements OnInit {
   comi = '';
   comisiones = null;

@@ -50,9 +50,7 @@ const routes: Routes = [
         loadChildren: () => import('./components/modificar-perfil/modificar-perfil.module').then(m => m.ModificarPerfilPageModule)
       }
     ]
-  },
-
-
+  }
 ];
 
 @NgModule({

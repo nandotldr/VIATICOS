@@ -5,6 +5,7 @@ import { ToastController, ModalController, NavParams } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
+
 @Component({
   selector: 'app-viatico-informacion',
   templateUrl: './viatico-informacion.page.html',

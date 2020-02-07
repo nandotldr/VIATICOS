@@ -56,9 +56,9 @@ module.exports = {
                 }, req.body.id], (errorModificar, modificarInforme) => {
                     if (errorModificar) return res.json({ ok: false, mensaje: errorModificar });
                     if (modificarInforme.affectedRows < 1) return res.json({ ok: false, mensaje: "No se modifico el informe" });
-                    res.json({ ok: true, mensaje: "Informe modificado exitosamente" });
-                });
 
+                });
+                return res.json({ ok: true, mensaje: "Informe modificado exitosamente" });
             } else if (req.user.tipo_usuario == 'A' && verificarInforme[0].status == 3) {
                 pool.query(modificarInforme, [{
                     fecha_aceptado: new Date(),
@@ -68,14 +68,13 @@ module.exports = {
                 }, req.body.id], (errorModificar, modificarInforme) => {
                     if (errorModificar) return res.json({ ok: false, mensaje: errorModificar });
                     if (modificarInforme.affectedRows < 1) return res.json({ ok: false, mensaje: "No se modifico el informe" });
-                    res.json({ ok: true, mensaje: "Informe modificado exitosamente" });
                 });
-
+                return res.json({ ok: true, mensaje: "Informe modificado exitosamente" });
             }
 
-            res.json({ ok: false, mensaje: "No se hizo la revision correcta" });
+            return res.json({ ok: false, mensaje: "No se hizo la revision correcta" });
         } catch (error) {
-            return res.json({ ok: false, mensaje: error });
+            return res.json({ ok: false, mensaje: "Error inesperado" });
         }
     },
 }

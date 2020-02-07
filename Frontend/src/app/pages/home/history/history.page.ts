@@ -83,4 +83,22 @@ export class HistoryPage implements OnInit {
 
     await modal.present();
   }
+
+  async openModalP(id_comision) {
+    const modal: HTMLIonModalElement =
+       await this.modalController.create({
+          component: ProgramPage,
+          componentProps: {
+            id_comision: id_comision,
+          }
+    });
+     
+    modal.onDidDismiss().then((detail: OverlayEventDetail) => {
+       if (detail !== null) {
+         console.log('The result:', detail.data);
+       }
+    });
+    
+    await modal.present();
+  }
 }

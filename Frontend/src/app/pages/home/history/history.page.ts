@@ -42,9 +42,9 @@ export class HistoryPage implements OnInit {
           element.fecha_solicitud = formatDate(element.fecha_solicitud, 'yyyy-MM-dd', 'en');
         });
         this.comisiones = resp;
-        console.log(this.comisiones);
+        
       } else {
-        this.presentToast();
+        
       }
   }
 

@@ -14,7 +14,8 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ProgramPage implements OnInit {
   perfil = '';
-  id_comision = '';
+  programa: any;
+  id_comision: Number;
   fgCreate: FormGroup;
   token: string;
   restoreStep = 0;
@@ -32,6 +33,7 @@ export class ProgramPage implements OnInit {
       private NavParams: NavParams
       ) 
       { 
+        this.ionViewWillEnter();
         this.fgCreate = this.formBuilder.group({
           dia: new FormControl('', [Validators.required]),
           lugar_estancia: new FormControl('', [Validators.required]),
@@ -48,6 +50,20 @@ export class ProgramPage implements OnInit {
   ionViewWillEnter() {
     this.id_comision = this.NavParams.get('id_comision');
     console.log('id_comision',this.id_comision);
+  }
+
+  async getProgramaComision(){
+    const resp = await this.auth.getProgramaComision(this.id_comision);
+    if (resp) {
+        resp.forEach(element => {
+          element.fecha_solicitud = formatDate(element.fecha_solicitud, 'yyyy-MM-dd', 'en');
+        });
+        this.programa = resp;
+        console.log(this.programa);
+        this.presentToastSuccess()
+      } else {
+        this.presentToast();
+      }
   }
 
   async createPrograma(){

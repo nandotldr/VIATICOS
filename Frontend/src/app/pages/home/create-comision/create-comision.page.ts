@@ -70,7 +70,6 @@ export class CreateComisionPage implements OnInit {
     if (resp) {
       this.perfil = resp;
       console.log(this.perfil);
-      this.presentToastSuccess();
     } else {
       this.presentToast();
     }

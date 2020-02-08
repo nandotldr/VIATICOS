@@ -153,6 +153,19 @@ export class AuthService {
     ).toPromise();
   }
 
+  getProgramaComision(id_comision: any){
+    return this.http.get(`${this.API_URL}/programa_trabajo/${id_comision}`).pipe(
+        map(response => {
+          if(response['ok']){
+            console.log(response);
+            return response['body'];
+          } else {
+            return response['ok'];
+          }
+        })
+    ).toPromise();
+  }
+  
   async createComision(comision: {
     tipo_comision: Number,
     destino_com: Number,

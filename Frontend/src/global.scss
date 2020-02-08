@@ -30,3 +30,31 @@
     position: absolute; 
     display: block; 
 }
+
+.picker-columns,
+ .picker-toolbar,
+ .picker-md .picker-wrapper,
+ .picker-md .picker-toolbar
+  {
+  background-size: cover !important;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  position: relative;
+}
+.picker-md .picker-prefix,
+.picker-md .picker-suffix,
+.picker-md .picker-opt.picker-opt-selected {
+  color:rgb(12, 59, 2)
+  
+}
+.picker-md .picker-opt {
+    color: rgb(0, 0, 0);
+    
+}
+
+.picker-md .picker-button,
+.picker-md .picker-button.activated {
+  color: rgb(11, 53, 0);
+  
+}

@@ -4,6 +4,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { ModalController, ToastController } from '@ionic/angular';
 import { OverlayEventDetail } from '@ionic/core';
 import { formatDate } from '@angular/common';
+import { ComisionActivaPage } from '../components/comision-activa/comision-activa.page';
 
 @Component({
   selector: 'app-revisar-comision',

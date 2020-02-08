@@ -26,7 +26,7 @@ export class ModificarPerfilPage implements OnInit {
               private formBuilder: FormBuilder,
               public  toastController: ToastController,
               private auth: AuthService,
-              private navCtrl: NavController) 
+              private navCtrl: NavController)
               {
                 this.fgModify = this.formBuilder.group({
                   codigo: new FormControl(this.perfil.codigo, []),

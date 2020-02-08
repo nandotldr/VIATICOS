@@ -2,10 +2,10 @@ import { ViaticoPage } from './../viatico/viatico.page';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
-import {ModalController, ToastController} from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
 import { ProgramPage } from '../components/program/program.page';
-import {OverlayEventDetail} from '@ionic/core';
-import { formatDate } from "@angular/common";
+import { OverlayEventDetail } from '@ionic/core';
+import { formatDate } from '@angular/common';
 import { ComisionActivaPage } from '../components/comision-activa/comision-activa.page';
 
 @Component({
@@ -17,7 +17,7 @@ import { ComisionActivaPage } from '../components/comision-activa/comision-activ
 export class HistoryPage implements OnInit {
   comi = '';
   comisiones = null;
-  
+
   constructor(
     private router: Router,
     private auth: AuthService,

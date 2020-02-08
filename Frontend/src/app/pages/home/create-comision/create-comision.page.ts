@@ -55,7 +55,6 @@ export class CreateComisionPage implements OnInit {
     if (this.fgCreate.valid) {
       const resp = await this.auth.createComision(this.fgCreate.value);
       if (resp) {
-        this.id_comision = resp.body.id_comision;
         this.presentToastSuccess();
       } else {
         console.log(resp);

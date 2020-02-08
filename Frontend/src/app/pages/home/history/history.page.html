@@ -30,8 +30,11 @@
           <ion-col text-center size="1">
             ID
           </ion-col>
-          <ion-col size="3">
-            Nombre de la Comisión
+          <ion-col text-center size="1.5">
+            Nombre
+          </ion-col>
+          <ion-col text-center size="1.5">
+            Estatus
           </ion-col>
           <ion-col text-center size="2">
             Fecha de Solicitud
@@ -46,12 +49,22 @@
             Crear Programa
           </ion-col>
         </ion-row>
-        <ion-row *ngFor="let comision of comisiones">
+        <ion-row *ngFor="let comision of comisiones" [ngStyle]="{'background-color':getColor(comision.status)}">
           <ion-col text-center size="1">
             {{ comision.folio }}
           </ion-col>
-          <ion-col size="3">
+          <ion-col text-center size="1.5">
             {{ comision.nombre_comision }}
+          </ion-col>
+          <ion-col text-center size="1.5">
+            <ion-label *ngIf="comision.status == -1">Cancelado</ion-label>
+            <ion-label *ngIf="comision.status == 0">Guardado</ion-label>
+            <ion-label *ngIf="comision.status == 1">Enviado a Jefe Depto.</ion-label>
+            <ion-label *ngIf="comision.status == 2">Rechazado por Jefe Depto.</ion-label>
+            <ion-label *ngIf="comision.status == 3">Aceptado por Jefe Depto.</ion-label>
+            <ion-label *ngIf="comision.status == 4">Rechazado por Administrador</ion-label>
+            <ion-label *ngIf="comision.status == 5">Aceptado por Administrador</ion-label>
+            <ion-label *ngIf="comision.status == 6">Finalizado</ion-label>
           </ion-col>
           <ion-col text-center size="2">
             {{ comision.fecha_solicitud }}
@@ -65,8 +78,8 @@
             <ion-button *ngIf="comision.status == 5" routerLink="/home/viatico/{{comision.folio}}"> Crear viático </ion-button>
           </ion-col>
           <ion-col text-center size = "2">
-            <ion-button (click)="openModalP(comision.folio)" >
-              <ion-icon name="plus"> </ion-icon>
+            <ion-button (click)="openModalP(comision.folio)">
+              <ion-icon name="add-circle"> </ion-icon>
             </ion-button>
           </ion-col>
         </ion-row>

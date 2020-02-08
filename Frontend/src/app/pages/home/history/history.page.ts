@@ -29,6 +29,12 @@ export class HistoryPage implements OnInit {
     this.getAllComisiones();
   }
 
+  getColor(status) { 
+    if(status>=0 && status<6){
+      return '#bbd9a5';
+    }
+  }
+
   async getAllComisiones() {
     const resp = await this.auth.getAllComisiones();
     if (resp) {

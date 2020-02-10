@@ -55,35 +55,43 @@ const routes: Routes = [
       },
       {
         path: 'viatico-informacion',
-        loadChildren: () => import('./components/viatico-informacion/viatico-informacion.module').then(m => m.ViaticoInformacionPageModule)
+        loadChildren: () => import('./components/viatico-informacion/viatico-informacion.module').then(m => m.ViaticoInformacionPageModule),
+        canLoad: [AuthGuardService]
       },
       {
         path: 'modificar-perfil',
-        loadChildren: () => import('./components/modificar-perfil/modificar-perfil.module').then(m => m.ModificarPerfilPageModule)
+        loadChildren: () => import('./components/modificar-perfil/modificar-perfil.module').then(m => m.ModificarPerfilPageModule),
+        canLoad: [AuthGuardService]
       },
       {
         path: 'revisar-comision',
-        loadChildren: () => import('./revisar-comision/revisar-comision.module').then(m => m.RevisarComisionPageModule)
+        loadChildren: () => import('./revisar-comision/revisar-comision.module').then(m => m.RevisarComisionPageModule),
+        canLoad: [AuthGuardService]
       },
       {
         path: 'crear-informe',
-        loadChildren: () => import('./crear-informe/crear-informe.module').then( m => m.CrearInformePageModule)
+        loadChildren: () => import('./crear-informe/crear-informe.module').then( m => m.CrearInformePageModule),
+        canLoad: [AuthGuardService]
       },
       {
       path: 'comision-creada',
-    loadChildren: () => import('./comision-creada/comision-creada.module').then( m => m.ComisionCreadaPageModule)
+    loadChildren: () => import('./comision-creada/comision-creada.module').then( m => m.ComisionCreadaPageModule),
+    canLoad: [AuthGuardService]
       },
       {
         path: 'agenda',
-        loadChildren: () => import('./components/agenda/agenda.module').then( m => m.AgendaPageModule)
+        loadChildren: () => import('./components/agenda/agenda.module').then( m => m.AgendaPageModule),
+        canLoad: [AuthGuardService]
       },
       {
         path: 'itinerario',
-        loadChildren: () => import('./components/itinerario/itinerario.module').then( m => m.ItinerarioPageModule)
+        loadChildren: () => import('./components/itinerario/itinerario.module').then( m => m.ItinerarioPageModule),
+        canLoad: [AuthGuardService]
       },
       {
         path: 'factura',
-        loadChildren: () => import('./components/factura/factura.module').then( m => m.FacturaPageModule)
+        loadChildren: () => import('./components/factura/factura.module').then( m => m.FacturaPageModule),
+        canLoad: [AuthGuardService]
       }
     ]
   }

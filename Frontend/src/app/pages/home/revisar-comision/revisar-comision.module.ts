@@ -1,3 +1,4 @@
+import { ComisionActivaPageModule } from './../components/comision-activa/comision-activa.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -12,7 +13,8 @@ import { RevisarComisionPage } from './revisar-comision.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    RevisarComisionPageRoutingModule
+    RevisarComisionPageRoutingModule,
+    ComisionActivaPageModule
   ],
   declarations: [RevisarComisionPage]
 })

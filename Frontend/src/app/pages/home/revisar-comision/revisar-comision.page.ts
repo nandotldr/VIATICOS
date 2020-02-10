@@ -37,6 +37,25 @@ export class RevisarComisionPage implements OnInit {
     }
   }
 
+  async openModal(id_comision) {
+    const modal: HTMLIonModalElement =
+        await this.modalController.create({
+          component: ComisionActivaPage,
+          cssClass: 'modal-class',
+          componentProps: {
+            comision: id_comision,
+          }
+        });
+
+    modal.onDidDismiss().then((detail: OverlayEventDetail) => {
+      if (detail !== null) {
+        console.log('The result:', detail.data);
+      }
+    });
+
+    await modal.present();
+  }
+
   async presentToast() {
     const toast = await this.toastController.create({
       message: 'Datos no validos.',

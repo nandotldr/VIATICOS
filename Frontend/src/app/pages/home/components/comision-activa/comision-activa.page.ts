@@ -30,8 +30,9 @@ export class ComisionActivaPage implements OnInit {
 
     await this.modalController.dismiss(result);
   }
-  async getComision(comision) {
-    const resp = await this.authService.getComision(comision.folio);
+  async getComision(comision_id) {
+    const resp = await this.authService.getComision(comision_id);
+    console.log(resp);
     if (resp) {
       resp.fecha_inicio = formatDate(resp.fecha_inicio, 'yyyy-MM-dd', 'en');
       resp.fecha_fin = formatDate(resp.fecha_fin, 'yyyy-MM-dd', 'en');

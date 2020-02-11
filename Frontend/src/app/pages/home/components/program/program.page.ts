@@ -40,7 +40,7 @@ export class ProgramPage implements OnInit {
           tareas_realizar: new FormControl('', [Validators.required]),
           id_comision: new FormControl(this.id_comision,[])
         });
-      }
+      } 
 
   ngOnInit() {
     this.getUsuario();  

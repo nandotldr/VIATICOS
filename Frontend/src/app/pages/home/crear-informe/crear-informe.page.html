@@ -31,8 +31,8 @@
     </ion-list>
   </ion-card-content>
   <ion-button (click)="guardar()" color="primary"> Guardar</ion-button>
-  <ion-button  *ngIf="!informeCreado" (click)="informeCreado = !informeCreado" color="primary" [disabled]="!puedeContinuar"> Siguiente</ion-button>
-  <!-- <ion-button *ngIf="!informeCreado" (click)="informeCreado = !informeCreado" color="primary"> Siguiente</ion-button>  -->
+  <!-- <ion-button  *ngIf="!informeCreado" (click)="informeCreado = !informeCreado" color="primary" [disabled]="!puedeContinuar"> Siguiente</ion-button> -->
+  <ion-button *ngIf="!informeCreado" (click)="informeCreado = !informeCreado" color="primary"> Siguiente</ion-button> 
   <ion-card *ngIf="informeCreado">
     <ion-list>
       <ion-item>

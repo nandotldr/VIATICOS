@@ -18,7 +18,20 @@
 
     <ion-item>
       <ion-label>Area de Adscripción: </ion-label>
-      <ion-input formControlName="area_adscripcion" value="{{this.perfil.area_adscripcion}}"></ion-input>
+      <ion-select placeholder="{{this.perfil.area_adscripcion}}" formControlName="area_adscripcion" class="mySelect">
+        <ion-select-option value="Depto. de Farmacobiologia">Depto. de Farmacobiologia</ion-select-option>
+        <ion-select-option value="Depto. de Fisica">Depto. de Fisica</ion-select-option>
+        <ion-select-option value="Depto. de Matematicas">Depto. de Matematicas</ion-select-option>
+        <ion-select-option value="Depto. de Quimica">Depto. de Quimica</ion-select-option>
+        <ion-select-option value="Depto. de Ingenieria Civil y Topografia">Depto. de Ingenieria Civil y Topografia</ion-select-option>
+        <ion-select-option value="Depto. de Ingenieria Industrial">Depto. de Ingenieria Industrial</ion-select-option>
+        <ion-select-option value="Depto. de Ingenieria Mecanica Electrica">Depto. de Ingenieria Mecanica Electrica</ion-select-option>
+        <ion-select-option value="Depto. de Ingenieria de Proyectos">Depto. de Ingenieria de Proyectos</ion-select-option>
+        <ion-select-option value="Depto. de Ingenieria Quimica">Depto. de Ingenieria Quimica</ion-select-option>
+        <ion-select-option value="Depto. de Madera Celulosa y Papel">Depto. de Madera Celulosa y Papel</ion-select-option>
+        <ion-select-option value="Depto. de Ciencias Computacionales">Depto. de Ciencias Computacionales</ion-select-option>
+        <ion-select-option value="Depto. de Electronica">Depto. de Electronica</ion-select-option>
+      </ion-select>
     </ion-item>
 
     <ion-item>

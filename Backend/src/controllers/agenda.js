@@ -40,7 +40,7 @@ module.exports = {
         try {
             const existeagenda = await pool.query('SELECT id FROM agenda WHERE id=?', [req.body.id]);
             if (existeagenda.length < 1) {
-                return res.json({ ok: false, mensaje: "Este agenda no existe" });
+                return res.json({ ok: false, mensaje: "Esta agenda no existe" });
             }
             pool.query('UPDATE agenda SET ? WHERE id = ?', [{
                 dia: req.body.dia,
@@ -58,10 +58,10 @@ module.exports = {
         }
     },
 
-    eliminarAgenda: async (req, res) => {
-        const numAgenda =await pool.query("SELECT id FROM agenda WHERE id_informe_actividades= ? ",[req.body.id_informe_actividades]);
-            if(numAgenda.length == 1) return res.json({ok:false, mensaje: "No puedes eliminar la ultima agenda"});
-        
+    eliminarAgenda: async(req, res) => {
+        const numAgenda = await pool.query("SELECT id FROM agenda WHERE id_informe_actividades= ? ", [req.body.id_informe_actividades]);
+        if (numAgenda.length == 1) return res.json({ ok: false, mensaje: "No puedes eliminar la ultima agenda" });
+
         pool.query('DELETE FROM agenda WHERE id = ?', [req.body.id], (error, results) => {
             if (error) return res.json({ ok: false, mensaje: error });
             res.json({ ok: true, results, mensaje: 'agenda eliminado' });

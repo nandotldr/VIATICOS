@@ -1,4 +1,4 @@
-import { SolicitudViatico } from './../interfaces/interfaces';
+import { SolicitudViatico, AgendaModel } from './../interfaces/interfaces';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
@@ -68,6 +68,17 @@ export class AuthService {
       invitado: solicitudViatico.invitado,
       comentarios: solicitudViatico.comentarios,
       estado: 0
+    }).pipe(
+      map(response => response)
+    );
+  }
+
+  createAgenda(agenda: AgendaModel) {
+    return this.http.post(`${this.API_URL}/solicitud_viatico`, {
+      dia: agenda.dia,
+      hora_inicio: agenda.hora_inicio,
+      hora_fin: agenda.hora_fin,
+      actividad: agenda.actividad
     }).pipe(
       map(response => response)
     );

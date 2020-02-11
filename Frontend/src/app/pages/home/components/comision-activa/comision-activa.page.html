@@ -35,32 +35,35 @@
 
   <ion-item>
     <ion-label>Nombre</ion-label>
-    <ion-label>{{ this.comi.nombre_comision }}</ion-label>
+    <ion-input value= "{{ this.comi.nombre_comision }}"></ion-input>
   </ion-item>
 
   <ion-item>
     <ion-label>Objetivo</ion-label>
-    <ion-label>{{ this.comi.objetivo_trabajo }}</ion-label>
+    <ion-input value="{{ this.comi.objetivo_trabajo }}"></ion-input>
   </ion-item>
 
   <ion-item>
     <ion-label>Justificación</ion-label>
-    <ion-label>{{ this.comi.justificacion }}</ion-label>
+    <ion-input value="{{ this.comi.justificacion }}"></ion-input>
   </ion-item>
 
   <ion-item>
     <ion-label>Fecha Inicio</ion-label>
-    <ion-label>{{ this.comi.fecha_inicio }}</ion-label>
+    <ion-input value="{{ this.comi.fecha_inicio }}"></ion-input>
   </ion-item>
 
   <ion-item>
     <ion-label>Fecha Fin</ion-label>
-    <ion-label>{{ this.comi.fecha_fin }}</ion-label>
+    <ion-input value="{{ this.comi.fecha_fin }}"></ion-input>
   </ion-item>
 
   
   <ion-button (click)="closeModal()">
       <ion-icon name="close"></ion-icon>
   </ion-button>
+  <ion-button (click)="modifyComision()">
+    <ion-icon name="brush"></ion-icon>
+</ion-button>
 
 </ion-content>

@@ -7,15 +7,16 @@ import { AuthService } from 'src/app/services/auth.service';
 import { formatDate } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { ProgramPage } from '../components/program/program.page';
-import {OverlayEventDetail} from '@ionic/core'; 
+import {OverlayEventDetail} from '@ionic/core';
 
 @Component({
   selector: 'app-create-comision',
   templateUrl: './create-comision.page.html',
-  styleUrls: ['./create-comision.page.scss','../../../app.component.scss'],
+  styleUrls: ['./create-comision.page.scss', '../../../app.component.scss'],
 })
 export class CreateComisionPage implements OnInit {
-  
+  flagtipoc: Number;
+  destinos = '';
   perfil = '';
   id_comision: Number;
   fgCreate: FormGroup;
@@ -32,9 +33,8 @@ export class CreateComisionPage implements OnInit {
       private router: Router,
       private http: HttpClient,
       private modalController: ModalController
-      )
-      {
-        
+      ) {
+
         this.fgCreate = this.formBuilder.group({
         tipo_comision: new FormControl('', [Validators.required]),
         destino_com: new FormControl('', [Validators.required]),
@@ -51,7 +51,7 @@ export class CreateComisionPage implements OnInit {
     console.log(localStorage.getItem('id_usuario'));
   }
 
-  async createComision(){
+  async createComision() {
     if (this.fgCreate.valid) {
       const resp = await this.auth.createComision(this.fgCreate.value);
       if (resp) {
@@ -102,14 +102,30 @@ export class CreateComisionPage implements OnInit {
             id_comision: this.id_comision,
           }
     });
-     
+
     modal.onDidDismiss().then((detail: OverlayEventDetail) => {
        if (detail !== null) {
          console.log('The result:', detail.data);
        }
     });
-    
+
     await modal.present();
   }
 
+  popSelect(flag) {
+    this.flagtipoc = flag;
+    this.getDestinos();
+  }
+
+  async getDestinos() {
+      const resp = await this.auth.getDestinos(this.fgCreate.controls.tipo_comision.value);
+      console.log(resp);
+      if (resp) {
+        this.destinos = resp;
+        this.presentToastSuccess();
+      } else {
+        console.log(resp);
+        this.presentToast();
+      }
+  }
 }

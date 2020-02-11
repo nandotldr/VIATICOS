@@ -78,6 +78,7 @@ export class ModificarPerfilPage implements OnInit {
     } else {
       this.presentToast();
     }
+    this.closeModal();
   }
 
   ngOnInit() {

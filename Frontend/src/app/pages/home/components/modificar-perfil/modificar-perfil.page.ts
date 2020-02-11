@@ -17,7 +17,7 @@ export class ModificarPerfilPage implements OnInit {
     apellidos: String,
     area_adscripcion: String,
     plaza_laboral: String,
-    nss: String
+    numero_social: String
   };
   fgModify: FormGroup;
 
@@ -28,13 +28,13 @@ export class ModificarPerfilPage implements OnInit {
               private auth: AuthService,
               private navCtrl: NavController)
               {
+                this.ionViewWillEnter();
                 this.fgModify = this.formBuilder.group({
-                  codigo: new FormControl(this.perfil.codigo, []),
                   nombres: new FormControl(this.perfil.nombres, []),
                   apellidos: new FormControl(this.perfil.apellidos, []),
                   area_adscripcion: new FormControl(this.perfil.area_adscripcion, []),
                   plaza_laboral: new FormControl(this.perfil.plaza_laboral, []),
-                  nss: new FormControl(this.perfil.nss, [])
+                  nss: new FormControl(this.perfil.numero_social, [])
                 });
               }
 

@@ -60,3 +60,13 @@ ion-item:hover { background-color: rgb(150,185,135) !important; }
   color: rgb(11, 53, 0);
   
 }
+
+.alert-tappable.alert-radio {
+  height: auto;
+  contain: content;
+}
+
+.alert-radio-label.sc-ion-alert-md,
+.alert-radio-label.sc-ion-alert-ios {
+  white-space: normal;
+}

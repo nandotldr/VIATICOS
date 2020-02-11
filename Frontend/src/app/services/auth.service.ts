@@ -1,9 +1,8 @@
-import { SolicitudViatico, AgendaModel } from './../interfaces/interfaces';
+import { SolicitudViatico } from './../interfaces/interfaces';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { map, tap } from 'rxjs/operators';
-import { formatDate } from '@angular/common';
 import { NavController } from '@ionic/angular';
 
 @Injectable({
@@ -73,17 +72,6 @@ export class AuthService {
       map(response => response)
     );
   }
-
-  createAgenda(agenda: AgendaModel) {
-    return this.http.post(`${this.API_URL}/solicitud_viatico`, {
-      dia: agenda.dia,
-      hora_inicio: agenda.hora_inicio,
-      hora_fin: agenda.hora_fin,
-      actividad: agenda.actividad
-    }).pipe(
-      map(response => response)
-    );
-  }
   // termina historial viaticos
 
    getAllComisiones() {
@@ -112,6 +100,7 @@ export class AuthService {
 
   modifyUsuario(
       usuario: {
+        codigo: number,
         nombres: string,
         apellidos: string,
         area_adscripcion: string,
@@ -120,6 +109,7 @@ export class AuthService {
       }
   ){
     return this.http.put(`${this.API_URL}/usuario`, {
+      codigo: usuario.codigo,
       nombres: usuario.nombres,
       apellidos: usuario.apellidos,
       area_adscripcion: usuario.area_adscripcion,
@@ -214,15 +204,14 @@ export class AuthService {
     id_comision: Number
   }) {
     return  this.http.post(`${this.API_URL}/programa_trabajo`,{
-      dia: formatDate(programa.dia, 'yyyy-MM-dd', 'en'),
+      dia: programa.dia,
       lugar_estancia: programa.lugar_estancia,
       tareas_realizar: programa.tareas_realizar,
-      id_solicitud_comision: programa.id_comision
-    }).pipe( 
+      id_comision: programa.id_comision
+    }).pipe(
       map(response => {
-        console.log(response);
         if(response['ok']){
-          return response;
+          return response['body'];
         }else{
           return response['ok'];
         }

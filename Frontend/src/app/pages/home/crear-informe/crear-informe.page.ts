@@ -17,7 +17,7 @@ import { FacturaPage } from '../components/factura/factura.page';
 export class CrearInformePage implements OnInit {
   informeGroup;
   puedeContinuar = false;
-  informeCreado = false;
+  infomeCreado = false;
 
   constructor(
     private formBuilder: FormBuilder,

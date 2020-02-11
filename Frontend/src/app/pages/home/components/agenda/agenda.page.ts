@@ -32,21 +32,10 @@ export class AgendaPage implements OnInit {
   ngOnInit() {
   }
 
-  async crearAgenda() {
+  crearAgenda() {
     console.log(this.agendaGroup);
     // TODO: terminar esto
-    let { dia, hora_inicio, hora_fin, actividad } = this.agendaGroup.value;
-    dia = dia.substring(0, 10);
-    // 2020-02-10T17:04:36.372-06:00"
-    hora_inicio = hora_inicio.substring(11, 23);
-    hora_fin = hora_fin.substring(11, 23);
-    try {
-      const resp = await this.auth.createAgenda({ dia, hora_inicio, hora_fin, actividad }).toPromise();
-      this.presentToast(resp['mensaje']);
-    } catch (error) {
-      console.error(error);
-    }
-    this.modalController.dismiss();
+    this.presentToast('Pendiente por implementar' + JSON.stringify(this.agendaGroup.value));
   }
 
   async presentToast(message) {

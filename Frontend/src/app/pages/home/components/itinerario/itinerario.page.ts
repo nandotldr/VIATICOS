@@ -33,7 +33,6 @@ export class ItinerarioPage implements OnInit {
 
   crearItinerario() {
     console.log(this.itinerarioGroup);
-    let { dia, origen, destino } = this.itinerarioGroup.value;
     // TODO: terminar esto
     this.presentToast('Pendiente por implementar' + JSON.stringify(this.itinerarioGroup.value));
   }

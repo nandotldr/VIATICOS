@@ -390,7 +390,19 @@ export class AuthService {
       }));
   }
 
-
+  getDestinos(tipo_comision: Number) {
+    return this.http.post(`${this.API_URL}/ver_destino`,{
+      tipo_comision: tipo_comision
+    }).pipe(
+        map(response => {
+          if(response['ok']){
+            return response['body'];
+          } else {
+            return response['ok'];
+          }
+        })
+    ).toPromise();
+  }
 }
 
 

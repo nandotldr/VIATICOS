@@ -48,19 +48,35 @@
         <ion-list>
           <ion-item>
             <ion-label >Tipo de comisión</ion-label>
-            <ion-select  formControlName="tipo_comision">
+            <ion-select  formControlName="tipo_comision" (ionChange)="popSelect(fgCreate.controls.tipo_comision.value)">
               <ion-select-option value="1">Nacional</ion-select-option>
               <ion-select-option value="0">Internacional</ion-select-option>
             </ion-select>
           </ion-item>
 
-          <ion-item>
-            <ion-label >Destino de la comisión</ion-label>
-            <ion-select formControlName="destino_com">
-              <ion-select-option value="2">Jalisco</ion-select-option>
-              <ion-select-option value="1">México</ion-select-option>
+          <ion-item *ngIf="flagtipoc==1">
+            <ion-label >Estado:</ion-label>
+            <ion-select>
+              <ion-select-option *ngFor="let destino of destinos">{{destino.municipio}}</ion-select-option>
             </ion-select>
           </ion-item>
+
+          <ion-item *ngIf="flagtipoc==0">
+            <ion-label >Continente:</ion-label>
+            <ion-select>
+              <ion-select-option value="AMERICA">América</ion-select-option>
+              <ion-select-option value="EUROPA">Europa</ion-select-option>
+              <ion-select-option value="OCEANIA">Oceanía</ion-select-option>
+              <ion-select-option value="AFRICA">África</ion-select-option>
+              <ion-select-option value="ASIA">Asia</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <!--
+          <ion-item>
+            formControlName="destino_com"
+          </ion-item>
+          -->
 
       </ion-list>
 

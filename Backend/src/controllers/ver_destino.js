@@ -11,7 +11,7 @@ module.exports = {
     selectdestino: async(req, res) => {
         try {
             var tipo_comision = req.body.tipo_comision;
-            var id_destino = req.body.id
+            var id_destino = req.body.id;
             if (tipo_comision == 0) {
                 pool.query('SELECT id, nombre FROM pais WHERE id_continente = ?', id_destino, (errordestino, destino) => {
                     if (errordestino) return res.json({ ok: false, mensaje: errordestino });

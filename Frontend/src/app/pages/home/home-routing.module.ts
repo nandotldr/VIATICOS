@@ -94,6 +94,10 @@ const routes: Routes = [
         canLoad: [AuthGuardService]
       }
     ]
+  },
+  {
+    path: 'modificar-comision',
+    loadChildren: () => import('./components/modificar-comision/modificar-comision.module').then( m => m.ModificarComisionPageModule)
   }
 
 ];

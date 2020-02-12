@@ -93,8 +93,8 @@
           </ion-item>
           <ion-item *ngIf="flagtipoc==1">
             <ion-label>Municipio: </ion-label>
-            <ion-select>
-              <ion-select-option *ngFor="let destino of destinos">{{destino.nombre}}</ion-select-option>
+            <ion-select formControlName="destino_com">
+              <ion-select-option value="{{destino.id}}"  *ngFor="let destino of destinos">{{destino.nombre}}</ion-select-option>
             </ion-select>
           </ion-item>
 
@@ -109,9 +109,9 @@
             </ion-select>
           </ion-item>
           <ion-item *ngIf="flagtipoc==0">
-            <ion-label>Pais: </ion-label>
-            <ion-select>
-              <ion-select-option *ngFor="let destino of destinos">{{destino.nombre}}</ion-select-option>
+            <ion-label >Pais: </ion-label>
+            <ion-select formControlName="destino_com">
+              <ion-select-option value="{{destino.id}}" *ngFor="let destino of destinos">{{destino.nombre}}</ion-select-option>
             </ion-select>
           </ion-item>
 

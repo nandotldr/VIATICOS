@@ -19,6 +19,7 @@ export class CreateComisionPage implements OnInit {
   destinos = '';
   perfil = '';
   id_filtro = '';
+  id_destino: Number;
   id_comision: Number;
   fgCreate: FormGroup;
   token: string;

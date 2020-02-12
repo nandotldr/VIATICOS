@@ -6,11 +6,12 @@ import { NavController } from "@ionic/angular";
 import { formatDate } from '@angular/common';
 
 @Component({
-  selector: 'app-comision-activa',
-  templateUrl: './comision-activa.page.html',
-  styleUrls: ['./comision-activa.page.scss'],
+  selector: 'app-modificar-comision',
+  templateUrl: './modificar-comision.page.html',
+  styleUrls: ['./modificar-comision.page.scss'],
 })
-export class ComisionActivaPage implements OnInit {
+export class ModificarComisionPage implements OnInit {
+
   comision = '1';
   comi = '';
   fgModify: FormGroup;
@@ -24,7 +25,9 @@ export class ComisionActivaPage implements OnInit {
   }
   ionViewWillEnter() {
     this.comision = this.navParams.get('comision');
+    console.log(this.comision);
     this.getComision(this.comision);
+    console.log(this.comi);
   }
 
   async myDismiss() {
@@ -34,6 +37,7 @@ export class ComisionActivaPage implements OnInit {
   }
   async getComision(comision_id) {
     const resp = await this.auth.getComision(comision_id);
+    console.log(resp);
     if (resp) {
       resp.fecha_inicio = formatDate(resp.fecha_inicio, 'yyyy-MM-dd', 'en');
       resp.fecha_fin = formatDate(resp.fecha_fin, 'yyyy-MM-dd', 'en');
@@ -68,5 +72,6 @@ export class ComisionActivaPage implements OnInit {
     });
     toast.present();
   }
+
 
 }

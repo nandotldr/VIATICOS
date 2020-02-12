@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { ToastController, ModalController } from '@ionic/angular';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { FacturaPage } from '../components/factura/factura.page';
 
@@ -24,12 +24,12 @@ export class CrearInformePage implements OnInit {
     private auth: AuthService,
     public toastController: ToastController,
     private modalController: ModalController,
-    private router: Router,
+    private activatedRoute: ActivatedRoute,
     private http: HttpClient) {
     this.informeGroup = this.formBuilder.group({
-      invitado: new FormControl(''),
-      comentarios: new FormControl(''),
-      status: new FormControl('')
+      resultados: new FormControl(''),
+      observaciones: new FormControl(''),
+      id_solicitud_comision: new FormControl(this.activatedRoute.snapshot.paramMap.get('id'))
     });
   }
 
@@ -38,9 +38,9 @@ export class CrearInformePage implements OnInit {
 
   async guardar() {
     try {
-      console.log(this.informeGroup);
+      console.log(this.informeGroup.value);
       if (this.informeGroup.valid) {
-        const resp = await this.auth.crearSolicitudViatico(this.informeGroup.value).toPromise();
+        const resp = await this.auth.crearInforme(this.informeGroup.value).toPromise();
         console.log(resp);
         if (resp['ok']) {
           this.puedeContinuar = true;

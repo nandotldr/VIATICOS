@@ -63,7 +63,7 @@
           <ion-button (click)="openModal(value)">
             <ion-icon name="information-circle-outline"></ion-icon> Ver Más
           </ion-button>
-          <ion-button routerLink="/home/crear-informe">
+          <ion-button [routerLink]="'/home/crear-informe/'+value">
             <ion-icon name="add-circle"></ion-icon> Crear informe
           </ion-button>
           <!-- <ion-button routerLink="/home/profile/{{value}}"> -->

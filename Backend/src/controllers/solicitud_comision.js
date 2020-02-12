@@ -24,6 +24,9 @@ module.exports = {
             var pais = null;
             var municipio = null;
             if (req.body.tipo_comision == 0) { pais = req.body.id_destino; } else { municipio = req.body.id_destino; }
+            if(pais == null && municipio == null){
+                return res.json({ ok: false, mensaje: "No se envio id_destino" });
+            }
             const resp = await pool.query('INSERT INTO solicitud_comision SET ?', [{
                 id_usuario: req.user.codigo,
                 nombre_comision: req.body.nombre_comision,

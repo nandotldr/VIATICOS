@@ -42,12 +42,12 @@
         </ion-item>
 
         <ion-card-header class="subtitle">
-          <ion-card-title>Información de la comisión</ion-card-title>
+          <ion-card-title>Información de la Comisión: </ion-card-title>
         </ion-card-header>
         <form [formGroup]="fgCreate" (ngSubmit)="createComision()">
         <ion-list>
           <ion-item>
-            <ion-label >Tipo de comisión</ion-label>
+            <ion-label >Tipo de Comisión: </ion-label>
             <ion-select  formControlName="tipo_comision" (ionChange)="popSelect(fgCreate.controls.tipo_comision.value)">
               <ion-select-option value="1">Nacional</ion-select-option>
               <ion-select-option value="0">Internacional</ion-select-option>
@@ -55,7 +55,7 @@
           </ion-item>
 
           <ion-item *ngIf="flagtipoc==1" (ionChange)="popDestinos($event)">
-            <ion-label >Estado:</ion-label>
+            <ion-label >Estado: </ion-label>
             <ion-select>
               <ion-select-option value="1">Aguascalientes</ion-select-option>
               <ion-select-option value="2">Baja California</ion-select-option>
@@ -92,14 +92,14 @@
             </ion-select>
           </ion-item>
           <ion-item *ngIf="flagtipoc==1">
-            <ion-label>Municipio:</ion-label>
+            <ion-label>Municipio: </ion-label>
             <ion-select>
               <ion-select-option *ngFor="let destino of destinos">{{destino.nombre}}</ion-select-option>
             </ion-select>
           </ion-item>
 
           <ion-item *ngIf="flagtipoc==0" (ionChange)="popDestinos($event)">
-            <ion-label >Continente:</ion-label>
+            <ion-label >Continente: </ion-label>
             <ion-select>
               <ion-select-option value="1">América</ion-select-option>
               <ion-select-option value="2">Europa</ion-select-option>
@@ -109,49 +109,40 @@
             </ion-select>
           </ion-item>
           <ion-item *ngIf="flagtipoc==0">
-            <ion-label>Pais:</ion-label>
+            <ion-label>Pais: </ion-label>
             <ion-select>
               <ion-select-option *ngFor="let destino of destinos">{{destino.nombre}}</ion-select-option>
             </ion-select>
           </ion-item>
 
-          <!--
-          llamada a municipios
-
-
-          <ion-item>
-            formControlName="destino_com"
-          </ion-item>
-          -->
-
       </ion-list>
 
         <ion-item>
-          <ion-label >Nombre de la comisión</ion-label>
+          <ion-label >Nombre de la Comisión: </ion-label>
           <ion-input placeholder="Nombre" type="text" formControlName="name"></ion-input>
         </ion-item>
 
         <ion-item>
-          <ion-label>Objetivo del trabajo</ion-label>
+          <ion-label>Objetivo de Trabajo: </ion-label>
           <ion-input placeholder="Objetivo" type="text" formControlName="objetivo_trabajo"></ion-input>
         </ion-item>
 
         <ion-item>
-          <ion-label >Justificación</ion-label>
+          <ion-label >Justificación: </ion-label>
           <ion-input placeholder="Describa detalladamente porqué se solicita la comisión" size="400" type="text" formControlName="justificacion"></ion-input>
         </ion-item>
 
         <ion-item>
-          <ion-label position="floating">Fecha inicio</ion-label>
+          <ion-label position="floating">Fecha Inicio</ion-label>
           <ion-datetime displayFormat="MM/DD/YYYY" max="3000-12-09" value="{{myDate}}" formControlName="fecha_inicio"></ion-datetime>
         </ion-item>
     
         <ion-item>
-          <ion-label position="floating">Fecha fin</ion-label>
+          <ion-label position="floating">Fecha Fin</ion-label>
           <ion-datetime displayFormat="MM/DD/YYYY" max="3000-12-09" value="{{myDate}}" formControlName="fecha_fin"></ion-datetime>
         </ion-item>
 
-        <ion-button type="submit" color="light" [disabled]="this.fgCreate.invalid">Guardar solicitud</ion-button>
+        <ion-button type="submit" color="light" [disabled]="this.fgCreate.invalid">Guardar Solicitud</ion-button>
 
       </form>
     </div>

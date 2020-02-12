@@ -69,7 +69,7 @@ const routes: Routes = [
         canLoad: [AuthGuardService]
       },
       {
-        path: 'crear-informe',
+        path: 'crear-informe/:id',
         loadChildren: () => import('./crear-informe/crear-informe.module').then( m => m.CrearInformePageModule),
         canLoad: [AuthGuardService]
       },

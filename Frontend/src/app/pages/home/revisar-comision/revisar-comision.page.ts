@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
-import { ModalController, ToastController } from '@ionic/angular';
+import { ModalController, ToastController, AlertController } from '@ionic/angular';
 import { OverlayEventDetail } from '@ionic/core';
 import { formatDate } from '@angular/common';
 import { ComisionActivaPage } from '../components/comision-activa/comision-activa.page';
@@ -19,7 +19,8 @@ export class RevisarComisionPage implements OnInit {
       private router: Router,
       private auth: AuthService,
       public toastController: ToastController,
-      private modalController: ModalController
+      private modalController: ModalController,
+      public alertController: AlertController
   ) { }
 
   ngOnInit() {
@@ -64,4 +65,61 @@ export class RevisarComisionPage implements OnInit {
     });
     toast.present();
   }
+
+  async alertConfirm() {
+    const alert = await this.alertController.create({
+      header: 'Aceptar Comision',
+      message: '¿Desea aceptar esta solicitud?',
+      buttons: [
+        {
+          text: 'Si',
+          handler: () => {
+            console.log('Solicitud aceptada');
+            this.getRevisarComision();
+          }
+        },
+        {
+          text: 'No',
+          role: 'cancel',
+          cssClass: 'secondary',
+          // handler: () => {}
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  async alertDecline() {
+    const alert = await this.alertController.create({
+      header: 'Rechazar Comision!',
+      inputs: [
+        {
+          name: 'name1',
+          type: 'text',
+          placeholder: 'Inserte su justificación...'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Rechazar',
+          handler: () => {
+            console.log('Solicitud Rechazada');
+            this.getRevisarComision();
+          }
+        },
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Confirm Cancel');
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
 }

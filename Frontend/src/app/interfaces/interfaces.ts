@@ -1,5 +1,5 @@
 export interface InformeModel {
-    id_solicitud_comision?: string;
+    id_solicitud_comision?: number;
     resultados?: string;
     observaciones: number;
 }

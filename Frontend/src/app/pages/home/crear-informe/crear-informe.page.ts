@@ -2,7 +2,7 @@ import { ItinerarioPage } from './../components/itinerario/itinerario.page';
 import { OverlayEventDetail } from '@ionic/core';
 import { AgendaPage } from './../components/agenda/agenda.page';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { ToastController, ModalController } from '@ionic/angular';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -27,13 +27,20 @@ export class CrearInformePage implements OnInit {
     private activatedRoute: ActivatedRoute,
     private http: HttpClient) {
     this.informeGroup = this.formBuilder.group({
-      resultados: new FormControl(''),
-      observaciones: new FormControl(''),
-      id_solicitud_comision: new FormControl(this.activatedRoute.snapshot.paramMap.get('id'))
+      resultados: new FormControl('', Validators.required),
+      observaciones: new FormControl('', Validators.required),
+      id_solicitud_comision: new FormControl(+this.activatedRoute.snapshot.paramMap.get('id'))
     });
   }
 
   ngOnInit() {
+    try {
+      console.log('inicio', this.informeGroup.value);
+      const resp = this.auth.getInforme(this.informeGroup.value).toPromise();
+      console.log(resp);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   async guardar() {

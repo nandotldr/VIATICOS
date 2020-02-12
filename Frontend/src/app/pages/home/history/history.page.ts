@@ -1,3 +1,4 @@
+import { ModificarComisionPage } from './../components/modificar-comision/modificar-comision.page';
 import { ViaticoPage } from './../viatico/viatico.page';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -74,7 +75,7 @@ export class HistoryPage implements OnInit {
   async openModal(id_comision) {
     const modal: HTMLIonModalElement =
         await this.modalController.create({
-          component: ComisionActivaPage,
+          component: ModificarComisionPage,
           cssClass: 'modal-class',
           componentProps: {
             comision: id_comision,

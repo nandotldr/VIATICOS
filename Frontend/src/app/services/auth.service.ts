@@ -418,6 +418,53 @@ export class AuthService {
     ).toPromise();
   }
 
+  modifyPrograma(
+    programa: { 
+      dia: string,
+      lugar_estancia: string,
+      tareas_realizar: string,
+      id_comision: Number
+    }
+){
+  return this.http.put(`${this.API_URL}/programa_trabajo`, {
+    dia: formatDate(programa.dia, 'yyyy-MM-dd', 'en'),
+    lugar_estancia: programa.lugar_estancia,
+    tareas_realizar: programa.tareas_realizar,
+    id_solicitud_comision: programa.id_comision
+  }).pipe(
+      tap(resp => {
+        console.log(resp);
+        if (resp['ok']) {
+          return resp['body'];
+        }
+      }),
+      map(response => {
+        return response['ok'];
+      })
+  ).toPromise();
+}
+
+deletePrograma(
+  programa: { 
+    dia: string,
+    lugar_estancia: string,
+    tareas_realizar: string,
+    id_programa: Number
+  }
+){
+return this.http.delete(`${this.API_URL}/programa_trabajo/${programa.id_programa}`).pipe(
+    tap(resp => {
+      console.log(resp);
+      if (resp['ok']) {
+        return resp['body'];
+      }
+    }),
+    map(response => {
+      return response['ok'];
+    })
+).toPromise();
+}
+
   getDestinos(tipo_comision: Number, id: Number) {
     return this.http.post(`${this.API_URL}/ver_destino`,{
       tipo_comision: tipo_comision,

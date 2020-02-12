@@ -25,9 +25,7 @@ export class ModificarComisionPage implements OnInit {
   }
   ionViewWillEnter() {
     this.comision = this.navParams.get('comision');
-    console.log(this.comision);
     this.getComision(this.comision);
-    console.log(this.comi);
   }
 
   async myDismiss() {

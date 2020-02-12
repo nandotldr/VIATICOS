@@ -1,3 +1,4 @@
+import { ModificarComisionPageModule } from './../components/modificar-comision/modificar-comision.module';
 import { ProgramPageModule } from './../components/program/program.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -15,7 +16,7 @@ import { HistoryPage } from './history.page';
     FormsModule,
     IonicModule,
     HistoryPageRoutingModule,
-    ComisionActivaPageModule,
+    ModificarComisionPageModule,
     ProgramPageModule
   ],
   declarations: [HistoryPage]

@@ -38,6 +38,7 @@ export class ComisionActivaPage implements OnInit {
       resp.fecha_inicio = formatDate(resp.fecha_inicio, 'yyyy-MM-dd', 'en');
       resp.fecha_fin = formatDate(resp.fecha_fin, 'yyyy-MM-dd', 'en');
       this.comi = resp;
+      console.log(this.comi);
     } else {
       console.log('no jalo')
     }

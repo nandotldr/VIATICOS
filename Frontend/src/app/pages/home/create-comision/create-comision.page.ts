@@ -18,6 +18,7 @@ export class CreateComisionPage implements OnInit {
   flagtipoc: Number;
   destinos = '';
   perfil = '';
+  id_filtro = '';
   id_comision: Number;
   fgCreate: FormGroup;
   token: string;
@@ -114,11 +115,10 @@ export class CreateComisionPage implements OnInit {
 
   popSelect(flag) {
     this.flagtipoc = flag;
-    this.getDestinos();
   }
 
-  async getDestinos() {
-      const resp = await this.auth.getDestinos(this.fgCreate.controls.tipo_comision.value);
+  async getDestinos(id_filtro) {
+      const resp = await this.auth.getDestinos(this.fgCreate.controls.tipo_comision.value, id_filtro);
       console.log(resp);
       if (resp) {
         this.destinos = resp;
@@ -127,5 +127,10 @@ export class CreateComisionPage implements OnInit {
         console.log(resp);
         this.presentToast();
       }
+  }
+
+  async popDestinos(event: any) {
+    this.id_filtro = event.target.value;
+    this.getDestinos(this.id_filtro);
   }
 }

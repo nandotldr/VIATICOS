@@ -54,25 +54,71 @@
             </ion-select>
           </ion-item>
 
-          <ion-item *ngIf="flagtipoc==1">
+          <ion-item *ngIf="flagtipoc==1" (ionChange)="popDestinos($event)">
             <ion-label >Estado:</ion-label>
             <ion-select>
-              <ion-select-option *ngFor="let destino of destinos">{{destino.municipio}}</ion-select-option>
+              <ion-select-option value="1">Aguascalientes</ion-select-option>
+              <ion-select-option value="2">Baja California</ion-select-option>
+              <ion-select-option value="3">Baja California Sur</ion-select-option>
+              <ion-select-option value="4">Campeche</ion-select-option>
+              <ion-select-option value="5">Coahuila de Zaragoza</ion-select-option>
+              <ion-select-option value="6">Colima</ion-select-option>
+              <ion-select-option value="7">Chiapas</ion-select-option>
+              <ion-select-option value="8">Chihuahua</ion-select-option>
+              <ion-select-option value="9">Ciudad de México</ion-select-option>
+              <ion-select-option value="10">Durango</ion-select-option>
+              <ion-select-option value="11">Guanajuato</ion-select-option>
+              <ion-select-option value="12">Guerrero</ion-select-option>
+              <ion-select-option value="13">Hidalgo</ion-select-option>
+              <ion-select-option value="14">Jalisco</ion-select-option>
+              <ion-select-option value="15">México</ion-select-option>
+              <ion-select-option value="16">Michoacán de Ocampo</ion-select-option>
+              <ion-select-option value="17">Morelos</ion-select-option>
+              <ion-select-option value="18">Nayarit</ion-select-option>
+              <ion-select-option value="19">Nuevo León</ion-select-option>
+              <ion-select-option value="20">Oaxaca</ion-select-option>
+              <ion-select-option value="21">Puebla</ion-select-option>
+              <ion-select-option value="22">Querétaro</ion-select-option>
+              <ion-select-option value="23">Quintana Roo</ion-select-option>
+              <ion-select-option value="24">San Luis Potosí</ion-select-option>
+              <ion-select-option value="25">Sinaloa</ion-select-option>
+              <ion-select-option value="26">Sonora</ion-select-option>
+              <ion-select-option value="27">Tabasco</ion-select-option>
+              <ion-select-option value="28">Tamaulipas</ion-select-option>
+              <ion-select-option value="29">Tlaxcala</ion-select-option>
+              <ion-select-option value="30">Veracruz de Ignacio de la Llave</ion-select-option>
+              <ion-select-option value="31">Yucatán</ion-select-option>
+              <ion-select-option value="32">Zacatecas</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item *ngIf="flagtipoc==1">
+            <ion-label>Municipio:</ion-label>
+            <ion-select>
+              <ion-select-option *ngFor="let destino of destinos">{{destino.nombre}}</ion-select-option>
             </ion-select>
           </ion-item>
 
-          <ion-item *ngIf="flagtipoc==0">
+          <ion-item *ngIf="flagtipoc==0" (ionChange)="popDestinos($event)">
             <ion-label >Continente:</ion-label>
             <ion-select>
-              <ion-select-option value="AMERICA">América</ion-select-option>
-              <ion-select-option value="EUROPA">Europa</ion-select-option>
-              <ion-select-option value="OCEANIA">Oceanía</ion-select-option>
-              <ion-select-option value="AFRICA">África</ion-select-option>
-              <ion-select-option value="ASIA">Asia</ion-select-option>
+              <ion-select-option value="1">América</ion-select-option>
+              <ion-select-option value="2">Europa</ion-select-option>
+              <ion-select-option value="3">Oceanía</ion-select-option>
+              <ion-select-option value="4">África</ion-select-option>
+              <ion-select-option value="5">Asia</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item *ngIf="flagtipoc==0">
+            <ion-label>Pais:</ion-label>
+            <ion-select>
+              <ion-select-option *ngFor="let destino of destinos">{{destino.nombre}}</ion-select-option>
             </ion-select>
           </ion-item>
 
           <!--
+          llamada a municipios
+
+
           <ion-item>
             formControlName="destino_com"
           </ion-item>

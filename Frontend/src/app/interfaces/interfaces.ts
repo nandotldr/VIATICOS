@@ -1,7 +1,7 @@
-export interface SolicitudViatico {
-    invitado?: string;
-    comentarios?: string;
-    estado: number;
+export interface InformeModel {
+    id_solicitud_comision?: string;
+    resultados?: string;
+    observaciones: number;
 }
 
 export interface AgendaModel {

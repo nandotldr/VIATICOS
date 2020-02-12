@@ -1,4 +1,4 @@
-import { SolicitudViatico, AgendaModel } from './../interfaces/interfaces';
+import { AgendaModel, InformeModel } from './../interfaces/interfaces';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
@@ -64,11 +64,11 @@ export class AuthService {
     );
   }
 
-  crearSolicitudViatico(solicitudViatico: SolicitudViatico) {
-    return this.http.post(`${this.API_URL}/solicitud_viatico`, {
-      invitado: solicitudViatico.invitado,
-      comentarios: solicitudViatico.comentarios,
-      estado: 0
+  crearInforme(informe: InformeModel) {
+    return this.http.post(`${this.API_URL}/informe_actividades`, {
+      resultados: informe.resultados,
+      observaciones: informe.observaciones,
+      id_solicitud_comision: informe.id_solicitud_comision
     }).pipe(
       map(response => response)
     );
@@ -137,34 +137,6 @@ export class AuthService {
         })
     ).toPromise();
   }
-
-  modifyComision(
-    comision: {
-      nombres: string,
-      apellidos: string,
-      area_adscripcion: string,
-      plaza_laboral: string,
-      nss: string
-    }
-){
-  return this.http.put(`${this.API_URL}/solicitud_comision`, {
-    nombres: comision.nombres,
-    apellidos: comision.apellidos,
-    area_adscripcion: comision.area_adscripcion,
-    plaza_laboral: comision.plaza_laboral,
-    numero_social: comision.nss
-  }).pipe(
-      tap(resp => {
-        console.log(resp);
-        if (resp['ok']) {
-          return resp['body'];
-        }
-      }),
-      map(response => {
-        return response['ok'];
-      })
-  ).toPromise();
-}
 
   getComision(id_comision: any){
     return this.http.get(`${this.API_URL}/solicitud_comision/${id_comision}`).pipe(
@@ -418,19 +390,7 @@ export class AuthService {
       }));
   }
 
-  getDestinos(tipo_comision: Number) {
-    return this.http.post(`${this.API_URL}/ver_destino`,{
-      tipo_comision: tipo_comision
-    }).pipe(
-        map(response => {
-          if(response['ok']){
-            return response['body'];
-          } else {
-            return response['ok'];
-          }
-        })
-    ).toPromise();
-  }
+
 }
 
 

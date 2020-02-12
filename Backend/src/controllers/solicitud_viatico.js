@@ -52,7 +52,7 @@ module.exports = {
                 if (errorGasto) return res.json({ ok: false, mensaje: errorGasto });
                 let json = {
                     folio: viatico[0].id,
-                    no_comision: viatico[0].id_solicitud_comision,
+                    id_solicitud_comision: viatico[0].id_solicitud_comision,
                     nombre_invitado: viatico[0].invitado_nombre,
                     motivo_comision: viatico[0].justificacion,
                     lugar_de_comision: destino[0].nombre,

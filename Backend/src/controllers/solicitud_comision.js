@@ -52,14 +52,18 @@ module.exports = {
         const { id } = req.params;
         global.globalString = "hola";
         try {
-            const comision = await pool.query('SELECT * FROM solicitud_comision WHERE id=?', [id]);
+            const comision = await pool.query('SELECT * FROM solicitud_comision WHERE id = ?', [id]);
             if (comision.length < 1) return res.json({ ok: false, mensaje: "Comision no encontrada" });
             if (comision[0].tipo_comision == 0) {
+                if(comision[0].id_pais == null ){
+                    return res.json({ ok: false, mensaje: "Comision no tiene un pais asignado" })
+                } 
                 globalString = await pool.query('SELECT nombre FROM pais WHERE id = ?', [comision[0].id_pais]);
-                console.log(globalString[0].nombre);
             } else if (comision[0].tipo_comision == 1) {
+                if(comision[0].id_municipio == null ){
+                    return res.json({ ok: false, mensaje: "Comision no tiene un municipio asignado" })
+                } 
                 globalString = await pool.query('SELECT nombre FROM municipio WHERE id = ?', [comision[0].id_municipio]);
-                console.log(globalString[0].nombre);
             };
             pool.query('SELECT * FROM programa_trabajo WHERE id_solicitud_comision = ?', [comision[0].id], (errorPrograma, programa, fields) => {
                 if (errorPrograma) return res.json({ ok: false, mensaje: errorPrograma });

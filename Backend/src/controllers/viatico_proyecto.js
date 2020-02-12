@@ -44,7 +44,6 @@ module.exports = {
                     };
                     res.json({ ok: true, body: json });
                 });
-                res.json({ ok: true, body: json });
             });
         } catch (error) {
             return res.json({ ok: false, mensaje: e });

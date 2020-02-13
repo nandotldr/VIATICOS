@@ -39,8 +39,8 @@
           <td>{{ comision.nombre }}</td>
           <td text-center><ion-button (click)="openModal(comision.id)"><ion-icon name="apps"></ion-icon></ion-button></td>
           <td>
-            <ion-button (click)="alertConfirm()"><ion-icon name="checkmark-circle-outline"></ion-icon></ion-button>
-            <ion-button (click)="alertDecline()"><ion-icon name="close-circle-outline"></ion-icon></ion-button>
+            <ion-button (click)="alertConfirm(comision)"><ion-icon name="checkmark-circle-outline"></ion-icon></ion-button>
+            <ion-button (click)="alertDecline(comision)"><ion-icon name="close-circle-outline"></ion-icon></ion-button>
           </td>
         </tr>
       </table>

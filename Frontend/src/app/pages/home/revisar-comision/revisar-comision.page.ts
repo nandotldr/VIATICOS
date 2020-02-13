@@ -14,7 +14,7 @@ import { ComisionActivaPage } from '../components/comision-activa/comision-activ
 export class RevisarComisionPage implements OnInit {
 
   comisiones = null;
-
+  comentario_rechazo = '';
   constructor(
       private router: Router,
       private auth: AuthService,
@@ -66,7 +66,16 @@ export class RevisarComisionPage implements OnInit {
     toast.present();
   }
 
-  async alertConfirm() {
+  async presentToastSuccess() {
+    const toast = await this.toastController.create({
+      message: 'Usuario Modificado.',
+      duration: 2000,
+      position: 'bottom'
+    });
+    toast.present();
+  }
+
+  async alertConfirm(comision) {
     const alert = await this.alertController.create({
       header: 'Aceptar Comision',
       message: '¿Desea aceptar esta solicitud?',
@@ -74,6 +83,12 @@ export class RevisarComisionPage implements OnInit {
         {
           text: 'Si',
           handler: () => {
+            //if(this.auth.userType == 'A')
+              comision.status = 5;
+            /*if(this.auth.userType == 'J')
+              comision.status = 3;*/
+            comision.comentario_rechazo = '';
+            this.revisarSolicitud(comision)
             console.log('Solicitud aceptada');
             this.getRevisarComision();
           }
@@ -90,7 +105,7 @@ export class RevisarComisionPage implements OnInit {
     await alert.present();
   }
 
-  async alertDecline() {
+  async alertDecline(comision) {
     const alert = await this.alertController.create({
       header: 'Rechazar Comision!',
       inputs: [
@@ -104,6 +119,11 @@ export class RevisarComisionPage implements OnInit {
         {
           text: 'Rechazar',
           handler: () => {
+            if(this.auth.userType === 'A')
+              comision.status = 4;
+            if(this.auth.userType === 'J')
+              comision.status = 2;
+            this.revisarSolicitud(comision)
             console.log('Solicitud Rechazada');
             this.getRevisarComision();
           }
@@ -122,4 +142,13 @@ export class RevisarComisionPage implements OnInit {
     await alert.present();
   }
 
+  async revisarSolicitud(comision) {
+      const resp = await this.auth.revisarSolicitud(comision);
+      if (resp) {
+        this.presentToastSuccess();
+      } else {
+        console.log(resp);
+        this.presentToast();
+      }
+  }
 }

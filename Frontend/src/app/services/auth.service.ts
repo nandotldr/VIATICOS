@@ -490,6 +490,28 @@ return this.http.request('delete',`${this.API_URL}/programa_trabajo/`,{body: pro
     ).toPromise();
   }
 
+  revisarSolicitud(
+      comision: {
+          id: Number,
+          status: Number,
+          comentario_rechazo: string
+      }
+      ){
+      return this.http.put(`${this.API_URL}/revisar_solicitud_comision`,{
+          id_comision: comision.id,
+          status: comision.status,
+          comentario_rechazo: comision.comentario_rechazo
+      }).pipe(
+          map(response => {
+              if(response['ok']){
+                  return response['body'];
+              } else {
+                  return response['ok'];
+              }
+          })
+      ).toPromise();
+  }
+
 }
 
 

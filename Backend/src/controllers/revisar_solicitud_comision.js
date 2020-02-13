@@ -42,8 +42,8 @@ module.exports = {
             if (verificarComision.length < 1) {
                 return res.json({ ok: false, mensaje: "No se puede aceptar la comision" });
             }
-            const usuario = await pool.query("SELECT CONCAT(u.nombres, ' ' , u.apellidos) as nombre FROM viaticos.usuario as u WHERE codigo = ?",[req.user.codigo]);
-            console.log(verificarComision);  
+            const usuario = await pool.query("SELECT CONCAT(u.nombres, ' ' , u.apellidos) as nombre FROM viaticos.usuario as u WHERE codigo = ?", [req.user.codigo]);
+            console.log(verificarComision);
             var modificarComision = 'UPDATE solicitud_comision SET ? WHERE id = ?';
             //si usuario =J modifcar fecha revisado, nombre revisado, comentario rechazo
             //si usuario =A modificar fecha_aceptado, nombre aceptado, comentario rechazo
@@ -56,7 +56,7 @@ module.exports = {
                     status: req.body.status,
                 }, req.body.id_comision], (errorModificar, modificarComision) => {
                     if (errorModificar) return res.json({ ok: false, mensaje: errorModificar });
-                    if(modificarComision.affectedRows < 1) return res.json({ok:false, mensaje: "No se acepto la comision"});
+                    if (modificarComision.affectedRows < 1) return res.json({ ok: false, mensaje: "No se acepto la comision" });
 
 
                 });
@@ -72,7 +72,7 @@ module.exports = {
                     status: req.body.status,
                 }, req.body.id_comision], (errorModificar, modificarComision) => {
                     if (errorModificar) return res.json({ ok: false, mensaje: errorModificar });
-                    if(modificarComision.affectedRows < 1) return res.json({ok:false, mensaje: "No se acepto la comision"});
+                    if (modificarComision.affectedRows < 1) return res.json({ ok: false, mensaje: "No se acepto la comision" });
 
                 });
                 return res.json({ ok: true, mensaje: "Comision aceptada" });
@@ -80,7 +80,6 @@ module.exports = {
             }
             res.json({ ok: false, mensaje: "No se hizo la revision correcta" });
         } catch (error) {
-            console.log(error);
             return res.json({ ok: false, mensaje: "Error inesperado" });
         }
     },

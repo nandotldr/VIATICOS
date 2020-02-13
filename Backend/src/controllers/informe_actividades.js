@@ -26,12 +26,13 @@ module.exports = {
                 id_solicitud_comision: verificarViatico[0].id,
                 resultados: req.body.resultados,
                 observaciones: req.body.observaciones,
-                fecha_elaboracion: new Date()
+                fecha_elaboracion: new Date(),
+                status: req.body.status
             }]);
             let json = {
                 "id_informe": resp.insertId
             };
-            res.json({ ok: true, mensaje: "Informe creado", body: json });
+            return res.json({ ok: true, mensaje: "Informe creado", body: json });
 
 
         } catch (error) {
@@ -56,7 +57,7 @@ module.exports = {
         try {
             pool.query('SELECT inf.id, inf.fecha_elaboracion, inf.resultados, inf.observaciones, inf.fecha_aprobacion,inf.nombre_aprobacion,c.nombre_comision,c.objetivo_trabajo, concat(u.nombres , " " ,u.apellidos) as nombres , u.codigo FROM viaticos.informe_actividades AS inf INNER JOIN viaticos.solicitud_comision as c on c.id = inf.id_solicitud_comision INNER JOIN viaticos.usuario as u on u.codigo = inf.id_usuario where inf.id_solicitud_comision = ?', [id], (errorInforme, informe) => {
                 if (errorInforme) return res.json({ ok: false, mensaje: errorInforme });
-                if (informe.length < 1) res.json({ ok: false, mensaje: "Este informe no existe" });
+                if (informe.length < 1) return res.json({ ok: false, mensaje: "Este informe no existe" });
                 pool.query('SELECT * FROM itinerario WHERE id_informe_actividades= ?', [informe[0].id], (errorItinerario, itinerario, fields) => {
                     if (errorItinerario) return res.json({ ok: false, mensaje: errorItinerario });
                     pool.query('SELECT * FROM agenda WHERE id_informe_actividades= ?', [informe[0].id], (errorAgenda, agenda, fields) => {
@@ -75,7 +76,7 @@ module.exports = {
                             agenda: agenda,
                             itinerario: itinerario
                         }
-                        res.json({ ok: true, body: json });
+                        return res.json({ ok: true, body: json });
                     });
                 });
             });

@@ -65,7 +65,7 @@ export class AuthService {
   }
 
   getInforme(informe: InformeModel) {
-    return this.http.get(`${this.API_URL}/informe_actividades/?id_comision=${informe.id_solicitud_comision}`, {
+    return this.http.get(`${this.API_URL}/informe_actividades/${informe.id_solicitud_comision}`, {
     }).pipe(
       map(response => response)
     );

@@ -26,18 +26,34 @@ export class CrearInformePage implements OnInit {
     private modalController: ModalController,
     private activatedRoute: ActivatedRoute,
     private http: HttpClient) {
+    // console.log('inicio', this.informeGroup.value);
     this.informeGroup = this.formBuilder.group({
       resultados: new FormControl('', Validators.required),
       observaciones: new FormControl('', Validators.required),
       id_solicitud_comision: new FormControl(+this.activatedRoute.snapshot.paramMap.get('id'))
     });
+    this.getInforme();
+    console.log('inicio', this.informeGroup.value);
   }
 
   ngOnInit() {
+  }
+
+  async getInforme() {
     try {
-      console.log('inicio', this.informeGroup.value);
-      const resp = this.auth.getInforme(this.informeGroup.value).toPromise();
-      console.log(resp);
+      const resp = await this.auth.getInforme(this.informeGroup.value).toPromise();
+      // tslint:disable-next-line
+      if (resp['ok']) {
+        this.puedeContinuar = true;
+        this.informeGroup = this.formBuilder.group({
+          // tslint:disable-next-line
+          resultados: new FormControl(resp['body'].resultados, Validators.required),
+          // tslint:disable-next-line
+          observaciones: new FormControl(resp['body'].observaciones, Validators.required),
+          id_solicitud_comision: new FormControl(+this.activatedRoute.snapshot.paramMap.get('id'))
+        });
+        console.log('inicio', this.informeGroup);
+      }
     } catch (error) {
       console.error(error);
     }
@@ -49,9 +65,11 @@ export class CrearInformePage implements OnInit {
       if (this.informeGroup.valid) {
         const resp = await this.auth.crearInforme(this.informeGroup.value).toPromise();
         console.log(resp);
+        // tslint:disable-next-line
         if (resp['ok']) {
           this.puedeContinuar = true;
         } else {
+          // tslint:disable-next-line
           this.presentToast(resp['mensaje']);
         }
       }

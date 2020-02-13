@@ -43,7 +43,7 @@ module.exports = {
         try {
             pool.query(' SELECT inf.id as folio, inf.fecha_elaboracion, c.nombre_comision, concat(u.nombres , " " ,u.apellidos) as nombres FROM viaticos.informe_actividades AS inf INNER JOIN viaticos.solicitud_comision as c on c.id = inf.id_solicitud_comision  INNER JOIN viaticos.usuario as u on u.codigo = inf.id_usuario where inf.id_usuario =?', [req.user.codigo], (errorInforme, informes, fields) => {
                 if (errorInforme) return res.json({ ok: false, mensaje: errorInforme });
-                if (informes.length < 1) res.json({ ok: false, mensaje: "No tienes informes creados" });
+                if (informes.length < 1) return res.json({ ok: false, mensaje: "No tienes informes creados" });
                 res.json({ ok: true, body: informes });
             });
         } catch (error) {

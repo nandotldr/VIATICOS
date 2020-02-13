@@ -503,6 +503,7 @@ return this.http.request('delete',`${this.API_URL}/programa_trabajo/`,{body: pro
           comentario_rechazo: comision.comentario_rechazo
       }).pipe(
           map(response => {
+              console.log(response);
               if(response['ok']){
                   return response['body'];
               } else {

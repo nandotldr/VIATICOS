@@ -16,8 +16,10 @@ import { FacturaPage } from '../components/factura/factura.page';
 })
 export class CrearInformePage implements OnInit {
   informeGroup;
+  existiaEnBD = false;
   puedeContinuar = false;
   informeCreado = false;
+  idInforme: number;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -44,7 +46,9 @@ export class CrearInformePage implements OnInit {
       const resp = await this.auth.getInforme(this.informeGroup.value).toPromise();
       // tslint:disable-next-line
       if (resp['ok']) {
+        console.log(resp);
         this.puedeContinuar = true;
+        this.existiaEnBD = true;
         this.informeGroup = this.formBuilder.group({
           // tslint:disable-next-line
           resultados: new FormControl(resp['body'].resultados, Validators.required),
@@ -52,6 +56,8 @@ export class CrearInformePage implements OnInit {
           observaciones: new FormControl(resp['body'].observaciones, Validators.required),
           id_solicitud_comision: new FormControl(+this.activatedRoute.snapshot.paramMap.get('id'))
         });
+        // tslint:disable-next-line
+        this.idInforme = resp['body'].folio;
         console.log('inicio', this.informeGroup);
       }
     } catch (error) {
@@ -61,16 +67,30 @@ export class CrearInformePage implements OnInit {
 
   async guardar() {
     try {
-      console.log(this.informeGroup.value);
       if (this.informeGroup.valid) {
-        const resp = await this.auth.crearInforme(this.informeGroup.value).toPromise();
-        console.log(resp);
-        // tslint:disable-next-line
-        if (resp['ok']) {
-          this.puedeContinuar = true;
-        } else {
+        if (this.existiaEnBD) {
+          const { resultados, observaciones } = this.informeGroup.value;
+          const resp = await this.auth.modificarInforme({resultados, observaciones, id_solicitud_comision: this.idInforme}).toPromise();
+          console.log(resp);
           // tslint:disable-next-line
-          this.presentToast(resp['mensaje']);
+          if (resp['ok']) {
+            this.puedeContinuar = true;
+            // tslint:disable-next-line
+            this.presentToast(resp['mensaje']);
+          } else {
+            // tslint:disable-next-line
+            this.presentToast(resp['mensaje']);
+          }
+        } else {
+          const resp = await this.auth.crearInforme(this.informeGroup.value).toPromise();
+          console.log(resp);
+          // tslint:disable-next-line
+          if (resp['ok']) {
+            this.puedeContinuar = true;
+          } else {
+            // tslint:disable-next-line
+            this.presentToast(resp['mensaje']);
+          }
         }
       }
     } catch (error) {

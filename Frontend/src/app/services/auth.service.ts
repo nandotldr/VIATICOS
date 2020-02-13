@@ -71,6 +71,18 @@ export class AuthService {
     );
   }
 
+  modificarInforme(informe) {
+    console.log('informe', informe);
+    return this.http.put(`${this.API_URL}/informe_actividades`, {
+      id_informe: informe.id_informe,
+      resultados: informe.resultados,
+      observaciones: informe.observaciones,
+      // status: 1
+    }).pipe(
+      map(response => response)
+    );
+  }
+
   crearInforme(informe: InformeModel) {
     return this.http.post(`${this.API_URL}/informe_actividades`, {
       resultados: informe.resultados,

@@ -1,6 +1,7 @@
 <ion-header>
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
+      <ion-button (click)="cerrarModal()"><ion-icon name="arrow-back"></ion-icon></ion-button>
       <!-- <ion-menu-button menu="menu"></ion-menu-button> -->
       <!-- <img src="../../../assets/images/logo.png" width="25px" style="display:inline-block" height="25px"/> -->
       <!-- <ion-icon slot="icon-only" name="filing"></ion-icon> -->
@@ -8,6 +9,7 @@
         VIATICO
       </ion-title>
     </ion-buttons>
+    <ion-button class="ion-float-right" routerLink="/home/modificar-viatico"><ion-icon name="create"></ion-icon>Modificar viatico</ion-button>
   </ion-toolbar>
 </ion-header>
 
@@ -18,7 +20,7 @@
       No tiene viaticos
     </div>
     <div *ngIf="tieneDatos">
-      {{ viatico | json}}
+      <!-- {{ viatico | json}} -->
     </div>
     <ion-item *ngIf="this.viatico.id_viatico">
       <ion-label position="floating">Folio</ion-label>
@@ -38,7 +40,7 @@
     </ion-item>
     <ion-item *ngIf="this.viatico.fecha_solicitud">
       <ion-label position="floating">Fecha de Solicitud</ion-label>
-      <ion-input readonly value="{{this.viatico.fecha_solicitud}}"></ion-input>
+      <ion-input readonly value="{{this.viatico.fecha_solicitud | date}}"></ion-input>
     </ion-item>
     <ion-item *ngIf="this.viatico.fecha_inicio">
       <ion-label position="floating">Inicio</ion-label>

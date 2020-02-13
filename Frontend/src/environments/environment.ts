@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  API: 'http://localhost:9000',
+  API: 'http://148.202.152.94:9000',
   usuario: {
     login: '/OAuth/login',
     validate: '/OAuth/validate',

@@ -24,27 +24,29 @@ export class ViaticoInformacionPage implements OnInit {
     private router: Router,
     private http: HttpClient,
     private navParams: NavParams,
-    ) { }
+  ) { }
 
-    async ionViewWillEnter() {
-      this.idComision = this.navParams.get('id_comision');
-      try {
-        const resp = await this.auth.getSolicitudViatico(this.idComision).toPromise();
+  async ionViewWillEnter() {
+    this.idComision = this.navParams.get('id_comision');
+    try {
+      const resp = await this.auth.getSolicitudViatico(this.idComision).toPromise();
+      // tslint:disable-next-line: no-string-literal
+      if (resp['ok']) {
+        this.tieneDatos = true;
         // tslint:disable-next-line: no-string-literal
-        if (resp['ok']) {
-          this.tieneDatos = true;
-          // tslint:disable-next-line: no-string-literal
-          this.viatico = resp['body'][0];
-        }
-        console.log('respuesta', resp);
-      } catch (error) {
-        console.error(error);
+        this.viatico = resp['body'][0];
       }
-  
-      
+      console.log('respuesta', resp);
+    } catch (error) {
+      console.error(error);
     }
+  }
 
   ngOnInit() {
+  }
+
+  cerrarModal() {
+    this.modalController.dismiss();
   }
 
 }

@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  API: 'http://localhost:9000',
+  API: 'http://148.202.152.94:9000',
 
   usuario: {
     login: '/OAuth/login',

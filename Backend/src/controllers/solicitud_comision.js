@@ -13,7 +13,7 @@ module.exports = {
     crearSolicitudComision: async(req, res) => {
 
         try {
-            const existeUsuario = await pool.query('SELECT codigo FROM usuario WHERE codigo=?', [req.user.codigo]);
+            const existeUsuario = await pool.query('SELECT codigo, area_adscripcion FROM usuario WHERE codigo=?', [req.user.codigo]);
             if (existeUsuario.length < 1) {
                 return res.json({ ok: false, mensaje: "Este usuario no existe" });
             }
@@ -34,6 +34,7 @@ module.exports = {
                 fecha_inicio: req.body.fecha_inicio,
                 fecha_fin: req.body.fecha_fin,
                 id_pais: pais,
+                area_adscripcion: existeUsuario[0].area_adscripcion,
                 id_municipio: municipio,
                 justificacion: req.body.justificacion,
                 status: req.body.status,
@@ -127,8 +128,6 @@ module.exports = {
                 tipo_comision: req.body.tipo_comision,
                 fecha_inicio: req.body.fecha_inicio,
                 fecha_fin: req.body.fecha_fin,
-                id_pais: pais,
-                id_municipio: municipio,
                 justificacion: req.body.justificacion,
                 status: req.body.status,
                 objetivo_trabajo: req.body.objetivo_trabajo,

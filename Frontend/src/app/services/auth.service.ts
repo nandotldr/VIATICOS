@@ -187,6 +187,7 @@ export class AuthService {
   async createComision(comision: {
     tipo_comision: Number,
     destino_com: Number,
+    area_adscripcion: string,
     name: string,
     evento: string,
     objetivo_trabajo: string,
@@ -276,8 +277,8 @@ export class AuthService {
       map(response => {
         console.log('Validar token:', response);
         if (response['ok']) {
-          this.codeUser = response['body']['codigo'];
-          this.userType = response['body']['tipo_usuario'];
+          this.codeUser = response['body'][0]['codigo'];
+          this.userType = response['body'][0]['tipo_usuario'];
         }
         return response['ok'];
       })
@@ -400,19 +401,42 @@ export class AuthService {
 
   modifyComision(
       comision: {
-        nombres: String,
-        apellidos: String,
+        folio: Number,
         area_adscripcion: String,
-        plaza_laboral: String,
-        nss: String
+        tipo_comision: Number,
+        nombre_comision: String,
+        destino: String,
+        fecha_solicitud: String,
+        fecha_inicio: string,
+        fecha_fin: string,
+        status: Number,
+        justificacion: String,
+        objetivo_trabajo: String,
+        programa_evento: String,
+        invitacion_evento: String,
+        fecha_revisado: String,
+        fecha_aceptado: String,
+        nombre_revisado: String,
+        nombre_aceptado: String,
+        programa_trabajo?: 
+        {
+          dia: string,
+          lugar_estancia: string,
+          tareas_realizar: string,
+          id: Number,
+          id_solicitud_comision: Number
+        }
       }
   ){
     return this.http.put(`${this.API_URL}/solicitud_comision`, {
-      nombres: comision.nombres,
-      apellidos: comision.apellidos,
-      area_adscripcion: comision.area_adscripcion,
-      plaza_laboral: comision.plaza_laboral,
-      numero_social: comision.nss
+      id: comision.folio, 
+      fecha_inicio: formatDate(comision.fecha_inicio, 'yyyy-MM-dd', 'en'),
+      fecha_fin: formatDate(comision.fecha_fin, 'yyyy-MM-dd', 'en'),
+      tipo_comision: comision.tipo_comision,
+      nombre_comision:  comision.nombre_comision,
+      objetivo_trabajo: comision.objetivo_trabajo,
+      justificacion: comision.justificacion,
+      status: comision.status
     }).pipe(
         tap(resp => {
           console.log(resp);
@@ -489,6 +513,64 @@ return this.http.request('delete',`${this.API_URL}/programa_trabajo/`,{body: pro
           }
         })
     ).toPromise();
+  }
+
+  revisarSolicitud(
+      comision: {
+          id: Number,
+          status: Number,
+          comentario_rechazo: string
+      }
+      ){
+      return this.http.put(`${this.API_URL}/revisar_solicitud_comision`,{
+          id_comision: comision.id,
+          status: comision.status,
+          comentario_rechazo: comision.comentario_rechazo
+      }).pipe(
+          map(response => {
+              console.log(response);
+              if(response['ok']){
+                  return response['body'];
+              } else {
+                  return response['ok'];
+              }
+          })
+      ).toPromise();
+  }
+
+  saveViaticoProyecto(viatico_proyecto: { 
+    numero_proyecto: Number,
+    cantidad: Number,
+    id_solicitud_viatico: Number,
+    status: 0,
+  }) {
+    return this.http.post(`${this.API_URL}/viatico_proyecto`,{ 
+      numero_proyecto: viatico_proyecto.numero_proyecto,
+      cantidad: viatico_proyecto.cantidad,
+      id_solicitud_viatico: viatico_proyecto.id_solicitud_viatico,
+      status: viatico_proyecto.status
+    });
+  }
+
+  createViaticoProyecto(
+    id_solicitud_viatico: Number,
+    numero_proyecto: Number,
+    cantidad: Number,
+    status: Number,
+  ) {
+    return this.http.put(`${this.API_URL}/viatico_proyecto`,{ 
+      numero_proyecto: numero_proyecto,
+      cantidad: cantidad,
+      id_solicitud_viatico: id_solicitud_viatico,
+      status: status
+    });
+  }
+
+  getViaticoProyecto(idViatico: any){
+    return this.http.get(`${this.API_URL}/viatico-proyecto/${idViatico}`).pipe(
+      map(response => {
+        return response;
+      }));
   }
 
 }

@@ -19,23 +19,33 @@ export class ModificarComisionPage implements OnInit {
     area_adscripcion: String,
     plaza_laboral: String,
     nss: String,
-    status: String,
+    status: Number,
   };
   
   comi: {
-    folio:Number,
-    nombres: String,
-    apellidos: String,
+    folio: Number,
     area_adscripcion: String,
-    plaza_laboral: String,
-    nss: String,
-    status: String,
-    programa_trabajo: 
+    tipo_comision: Number,
+    nombre_comision: String,
+    destino: String,
+    fecha_solicitud: String,
+    fecha_inicio: string,
+    fecha_fin: string,
+    status: Number,
+    justificacion: String,
+    objetivo_trabajo: String,
+    programa_evento: String,
+    invitacion_evento: String,
+    fecha_revisado: String,
+    fecha_aceptado: String,
+    nombre_revisado: String,
+    nombre_aceptado: String,
+    programa_trabajo?: 
     {
       dia: string,
       lugar_estancia: string,
       tareas_realizar: string,
-      id: Number
+      id: Number,
       id_solicitud_comision: Number
     }
   };
@@ -66,6 +76,7 @@ export class ModificarComisionPage implements OnInit {
 
     await this.modalController.dismiss(result);
   }
+  
   async getComision(comision_id) {
     const resp = await this.auth.getComision(comision_id);
     console.log(resp);
@@ -80,7 +91,6 @@ export class ModificarComisionPage implements OnInit {
   }
 
   async modifyComision(){
-    
       const resp = await this.auth.modifyComision(this.comi);
       if (resp) {
         this.presentToastSuccess();
@@ -123,6 +133,20 @@ export class ModificarComisionPage implements OnInit {
   }
   ngOnInit() {
 
+  }
+
+  async enviarSolicitud(comision) {
+    console.log(this.comi);
+    console.log(this.comision);
+    comision.status =1;
+    comision.destino = 0;
+    const resp = await this.auth.modifyComision(this.comi);
+    if (resp) {
+      this.presentToastSuccess();
+    } else {
+      this.presentToast();
+    }
+  this.closeModal();
   }
 
   async presentToast() { 

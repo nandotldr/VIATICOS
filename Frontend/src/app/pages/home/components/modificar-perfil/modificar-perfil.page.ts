@@ -67,19 +67,19 @@ export class ModificarPerfilPage implements OnInit {
 
   async modifyUsuario(){
     if (this.fgModify.valid) {
-      console.log(this.fgModify.value);
-      const resp = await this.auth.modifyUsuario(this.fgModify.value);
-      if (resp) {
-        this.presentToastSuccess();
-      } else {
-        console.log(resp);
-        this.presentToast();
-      }
-    } else {
-      this.presentToast();
-    }
-    this.closeModal();
-  }
+  console.log(this.fgModify.value);
+  const resp = await this.auth.modifyUsuario(this.fgModify.value);
+  if (resp) {
+    this.presentToastSuccess();
+  } else {
+  console.log(resp);
+  this.presentToast();
+}
+} else {
+  this.presentToast();
+}
+this.closeModal();
+}
 
   ngOnInit() {
   }

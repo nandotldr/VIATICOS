@@ -29,5 +29,6 @@ router.use('/validate', require('./validate'));
 router.use('/terminar_comision', require('./terminar_comision'));
 router.use('/ver_destino', require('./ver_destino'));
 router.use('/revisar_informe', require('./revisar_informe'));
+router.use('/revisar_viatico_proyecto', require('./revisar_viatico_proyecto'));
 
 module.exports = router;

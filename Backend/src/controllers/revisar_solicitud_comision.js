@@ -21,7 +21,7 @@ module.exports = {
                 return res.json({ ok: true, body: comision });
 
             } else if (existeUsuario[0].tipo_usuario == 'J') {
-                const comision = await pool.query('SELECT c.id, c.status, u.codigo, u.area_adscripcion,c.fecha_solicitud , c.nombre_comision,concat(u.nombres," ",u.apellidos) as nombre  FROM solicitud_comision AS c INNER JOIN usuario as u ON u.codigo=c.id_usuario WHERE c.status =1 AND u.area_adscripcion = ? group by c.id', [existeUsuario[0].area_adscripcion]);
+                const comision = await pool.query('SELECT c.id, c.status, u.codigo, u.area_adscripcion,c.fecha_solicitud , c.nombre_comision,concat(u.nombres," ",u.apellidos) as nombre  FROM solicitud_comision AS c INNER JOIN usuario as u ON u.codigo=c.id_usuario WHERE c.status =1 AND u.area_adscripcion = ? group by c.id,u.codigo', [existeUsuario[0].area_adscripcion]);
                 if (comision.length < 1) return res.json({ ok: false, mensaje: "No hay comisiones por aceptar" });
 
                 return res.json({ ok: true, body: comision });
@@ -29,7 +29,7 @@ module.exports = {
             res.json({ ok: false, mensaje: "Funcion no disponible para tu usuario" })
                 //si usuario es J NO FUNCIONA JEJE mostrar las solicitudes de su dependencia 
         } catch (error) {
-            return res.json({ ok: false, mensaje: "Error inesperado" });
+            return res.json({ ok: false, mensaje: error });
         }
 
     },
@@ -38,12 +38,12 @@ module.exports = {
         //verificar que no este en status cancelado =-1, revision = 1, aceptado por J =3, aceptado por A= 5 o finalizado
         try {
             var sqlSolComision = 'SELECT c.id, c.status, u.codigo, c.fecha_solicitud , concat(u.nombres," ",u.apellidos) as nombre, u.tipo_usuario FROM solicitud_comision AS c INNER JOIN usuario as u ON u.codigo = c.id_usuario WHERE c.id = ? AND (c.status=1 or c.status=3)';
-            const verificarComision = await pool.query(sqlSolComision, req.body.id_comision);
+            const verificarComision = await pool.query(sqlSolComision, [req.body.id_comision]);
             if (verificarComision.length < 1) {
                 return res.json({ ok: false, mensaje: "No se puede aceptar la comision" });
             }
-            const usuario = await pool.query("SELECT CONCAT(u.nombres, ' ' , u.apellidos) as nombre FROM viaticos.usuario as u WHERE codigo = ?",[req.user.codigo]);
-            console.log(verificarComision);  
+            const usuario = await pool.query("SELECT CONCAT(u.nombres, ' ' , u.apellidos) as nombre FROM viaticos.usuario as u WHERE codigo = ?", [req.user.codigo]);
+            console.log(verificarComision);
             var modificarComision = 'UPDATE solicitud_comision SET ? WHERE id = ?';
             //si usuario =J modifcar fecha revisado, nombre revisado, comentario rechazo
             //si usuario =A modificar fecha_aceptado, nombre aceptado, comentario rechazo
@@ -56,7 +56,7 @@ module.exports = {
                     status: req.body.status,
                 }, req.body.id_comision], (errorModificar, modificarComision) => {
                     if (errorModificar) return res.json({ ok: false, mensaje: errorModificar });
-                    if(modificarComision.affectedRows < 1) return res.json({ok:false, mensaje: "No se acepto la comision"});
+                    if (modificarComision.affectedRows < 1) return res.json({ ok: false, mensaje: "No se acepto la comision" });
 
 
                 });
@@ -72,7 +72,7 @@ module.exports = {
                     status: req.body.status,
                 }, req.body.id_comision], (errorModificar, modificarComision) => {
                     if (errorModificar) return res.json({ ok: false, mensaje: errorModificar });
-                    if(modificarComision.affectedRows < 1) return res.json({ok:false, mensaje: "No se acepto la comision"});
+                    if (modificarComision.affectedRows < 1) return res.json({ ok: false, mensaje: "No se acepto la comision" });
 
                 });
                 return res.json({ ok: true, mensaje: "Comision aceptada" });
@@ -80,7 +80,6 @@ module.exports = {
             }
             res.json({ ok: false, mensaje: "No se hizo la revision correcta" });
         } catch (error) {
-            console.log(error);
             return res.json({ ok: false, mensaje: "Error inesperado" });
         }
     },

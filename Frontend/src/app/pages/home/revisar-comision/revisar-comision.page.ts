@@ -14,7 +14,8 @@ import { ComisionActivaPage } from '../components/comision-activa/comision-activ
 export class RevisarComisionPage implements OnInit {
 
   comisiones = null;
-
+  comentario_rechazo = '';
+  userType = '';
   constructor(
       private router: Router,
       private auth: AuthService,
@@ -26,6 +27,7 @@ export class RevisarComisionPage implements OnInit {
   ngOnInit() {
     this.getRevisarComision();
   }
+
   async getRevisarComision() {
     const resp = await this.auth.getRevisarComision();
     console.log(resp);
@@ -35,6 +37,7 @@ export class RevisarComisionPage implements OnInit {
       });
       this.comisiones = resp;
     } else {
+      this.comisiones = null;
     }
   }
 
@@ -66,7 +69,16 @@ export class RevisarComisionPage implements OnInit {
     toast.present();
   }
 
-  async alertConfirm() {
+  async presentToastSuccess() {
+    const toast = await this.toastController.create({
+      message: 'Usuario Modificado.',
+      duration: 2000,
+      position: 'bottom'
+    });
+    toast.present();
+  }
+
+  async alertConfirm(comision) {
     const alert = await this.alertController.create({
       header: 'Aceptar Comision',
       message: '¿Desea aceptar esta solicitud?',
@@ -74,23 +86,31 @@ export class RevisarComisionPage implements OnInit {
         {
           text: 'Si',
           handler: () => {
-            console.log('Solicitud aceptada');
-            this.getRevisarComision();
+            if(this.auth.userType == 'A')
+            {
+              comision.status = 5;
+            }
+            if(this.auth.userType == 'J')
+            {
+              comision.status = 3;
+            }
+            comision.comentario_rechazo = '';
+            this.revisarSolicitud(comision);
           }
         },
         {
           text: 'No',
           role: 'cancel',
           cssClass: 'secondary',
-          // handler: () => {}
+          handler: () => {}
         }
       ]
     });
-
     await alert.present();
+    alert.onDidDismiss().then(() => this.getRevisarComision());
   }
 
-  async alertDecline() {
+  async alertDecline(comision) {
     const alert = await this.alertController.create({
       header: 'Rechazar Comision!',
       inputs: [
@@ -103,9 +123,13 @@ export class RevisarComisionPage implements OnInit {
       buttons: [
         {
           text: 'Rechazar',
-          handler: () => {
-            console.log('Solicitud Rechazada');
-            this.getRevisarComision();
+          handler: data => {
+            if(this.auth.userType == 'A')
+              comision.status = 4;
+            if(this.auth.userType == 'J')
+              comision.status = 2;
+            comision.comentario_rechazo = data.name1;
+            this.revisarSolicitud(comision);
           }
         },
         {
@@ -120,6 +144,15 @@ export class RevisarComisionPage implements OnInit {
     });
 
     await alert.present();
+    alert.onDidDismiss().then(() => this.getRevisarComision());
   }
 
+  async revisarSolicitud(comision) {
+      const resp1 = await this.auth.revisarSolicitud(comision);
+      if (resp1) {
+        this.presentToastSuccess();
+      } else {
+        // this.presentToast();
+      }
+  }
 }

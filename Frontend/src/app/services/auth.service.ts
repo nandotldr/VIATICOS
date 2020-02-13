@@ -513,6 +513,41 @@ return this.http.request('delete',`${this.API_URL}/programa_trabajo/`,{body: pro
       ).toPromise();
   }
 
+  saveViaticoProyecto(viatico_proyecto: { 
+    numero_proyecto: Number,
+    cantidad: Number,
+    id_solicitud_viatico: Number,
+    status: 0,
+  }) {
+    return this.http.post(`${this.API_URL}/viatico_proyecto`,{ 
+      numero_proyecto: viatico_proyecto.numero_proyecto,
+      cantidad: viatico_proyecto.cantidad,
+      id_solicitud_viatico: viatico_proyecto.id_solicitud_viatico,
+      status: viatico_proyecto.status
+    });
+  }
+
+  createViaticoProyecto(
+    id_solicitud_viatico: Number,
+    numero_proyecto: Number,
+    cantidad: Number,
+    status: Number,
+  ) {
+    return this.http.put(`${this.API_URL}/viatico_proyecto`,{ 
+      numero_proyecto: numero_proyecto,
+      cantidad: cantidad,
+      id_solicitud_viatico: id_solicitud_viatico,
+      status: status
+    });
+  }
+
+  getViaticoProyecto(idViatico: any){
+    return this.http.get(`${this.API_URL}/viatico-proyecto/${idViatico}`).pipe(
+      map(response => {
+        return response;
+      }));
+  }
+
 }
 
 

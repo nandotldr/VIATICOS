@@ -82,7 +82,6 @@ export class ViaticoPage implements OnInit {
     if(resp['ok']){
       this.guardado = true; 
       this.gastos = resp['results'];
-      console.log('GASTOS', this.gastos);
     }
   }
 
@@ -109,6 +108,7 @@ export class ViaticoPage implements OnInit {
     const resp = await this.auth.sendViatico(this.id_viatico, this.viatico.nombre_invitado, this.viatico.comentarios, 1).toPromise();
     if(resp['ok']){
       this.presentToast('Su viatico ha sido enviado.');
+      
     }
     else{
       console.log(resp);

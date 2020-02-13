@@ -66,12 +66,12 @@
 
         <ion-item>
           <ion-label>Nombre del invitado </ion-label>
-          <ion-input value="VALOR PARA MOSTRAR" type="text" formControlName="invitado_nombre"></ion-input>
+          <ion-input value="{{viatico.nombre_invitado}}" type="text" formControlName="invitado_nombre"></ion-input>
         </ion-item>
 
         <ion-item>
           <ion-label> Comentarios </ion-label>
-          <ion-textarea value="Comentarios..." formControlName="comentarios"></ion-textarea>
+          <ion-textarea value="{{viatico.comentarios}}" formControlName="comentarios"></ion-textarea>
         </ion-item>
 
         <ion-button type="submit" color="light" [disabled]="this.fgCreate.invalid">Guardar estos datos</ion-button>

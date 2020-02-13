@@ -275,9 +275,8 @@ export class AuthService {
       map(response => {
         console.log('Validar token:', response);
         if (response['ok']) {
-          this.codeUser = response['body']['codigo'];
-          this.userType = response['body']['tipo_usuario'];
-          localStorage.setItem('tipo_usuario',response['body']['tipo_usuario']);
+          this.codeUser = response['body'][0]['codigo'];
+          this.userType = response['body'][0]['tipo_usuario'];
         }
         return response['ok'];
       })

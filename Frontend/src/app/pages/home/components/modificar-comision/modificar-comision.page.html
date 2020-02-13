@@ -6,12 +6,12 @@
 
 <ion-content>
   <ion-card>
-    <ion-item>
+    <ion-item *ngIf="this.comi">
       <ion-label>Folio</ion-label>
       <ion-label>{{ this.comi.folio}}</ion-label>
     </ion-item>
 
-    <ion-item>
+    <ion-item *ngIf="this.comi">
       <ion-label>Estado</ion-label>
       <ion-label *ngIf="this.comi.status == -1">Cancelado</ion-label>
       <ion-label *ngIf="this.comi.status == 0">Guardado</ion-label>
@@ -23,38 +23,38 @@
       <ion-label *ngIf="this.comi.status == 6">Finalizado</ion-label>
     </ion-item>
 
-    <ion-item>
+    <ion-item *ngIf="this.comi">
       <ion-label>Tipo</ion-label>
       <ion-label *ngIf="this.comi.tipo_comision == 0"> Nacional</ion-label>
       <ion-label *ngIf="this.comi.tipo_comision == 1"> Internacional</ion-label>
     </ion-item>
 
-    <ion-item>
+    <ion-item *ngIf="this.comi">
       <ion-label>Destino      </ion-label>
       <ion-label >{{ this.comi.destino }}</ion-label>
     </ion-item>
 
-    <ion-item>
+    <ion-item *ngIf="this.comi">
       <ion-label>Nombre       </ion-label>
       <ion-input text-center value="{{ this.comi.nombre_comision }}" [ngModel]="comi.nombre_comision"></ion-input>
     </ion-item>
 
-    <ion-item>
+    <ion-item *ngIf="this.comi">
       <ion-label>Objetivo     </ion-label>
       <ion-input text-center value="{{ this.comi.objetivo_trabajo }}" [ngModel]="comi.objetivo_trabajo"></ion-input>
     </ion-item>
 
-    <ion-item>
+    <ion-item *ngIf="this.comi">
       <ion-label>Justificación</ion-label>
       <ion-input text-center value="{{ this.comi.justificacion }}" [ngModel]="comi.justificacion"></ion-input>
     </ion-item>
 
-    <ion-item>
+    <ion-item *ngIf="this.comi">
       <ion-label>Fecha Inicio </ion-label>
       <ion-input text-center value="{{ this.comi.fecha_inicio }}" [ngModel]="comi.fecha_inicio"></ion-input>
     </ion-item>
 
-    <ion-item>
+    <ion-item *ngIf="this.comi">
       <ion-label>Fecha Fin    </ion-label>
       <ion-input text-center value="{{ this.comi.fecha_fin }}" [ngModel]="comi.fecha_fin"></ion-input>
     </ion-item>
@@ -68,7 +68,7 @@
     <ion-toolbar>
       <ion-title>Programa de la Comisión</ion-title>
     </ion-toolbar>
-    <ion-grid>
+    <ion-grid *ngIf="this.comi">
       <ion-row class="bg-row">
         <ion-col>
           <ion-label>Fecha</ion-label>
@@ -89,22 +89,23 @@
       <ion-row *ngFor="let programa of comi.programa_trabajo">
 
         <ion-col>
-          <ion-input value="{{programa.dia | date: 'dd/MM/yyyy'}}" [ngModel]="programa.dia"></ion-input>
+          <ion-input value="{{programa.dia | date: 'dd/MM/yyyy'}}" ></ion-input>
         </ion-col>
 
         <ion-col>
-          <ion-input value="{{programa.lugar_estancia}}" [ngModel]="programa.lugar_estancia"></ion-input>
+          <ion-input value="{{programa.lugar_estancia}}"></ion-input>
         </ion-col>
 
         <ion-col>
-          <ion-input value="{{programa.tareas_realizar}}" [ngModel]="programa.tareas_realizar"></ion-input>
+          <ion-input value="{{programa.tareas_realizar}}"></ion-input>
         </ion-col>
 
         <ion-col>
-          <ion-button (click)="modifyPrograma()">
+          <ion-button (click)="modifyPrograma(programa)">
             <ion-icon name="brush"></ion-icon>
           </ion-button>
-          <ion-button (click)="deletePrograma()">
+
+          <ion-button (click)="deletePrograma(programa)">
             <ion-icon name="close"></ion-icon>
           </ion-button>
         </ion-col>

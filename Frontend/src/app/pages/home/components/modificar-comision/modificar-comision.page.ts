@@ -1,4 +1,4 @@
-import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { ModalController, NavParams, ToastController } from '@ionic/angular';
 import { AuthService } from '../../../../services/auth.service';
@@ -12,8 +12,34 @@ import { formatDate } from '@angular/common';
 })
 export class ModificarComisionPage implements OnInit {
 
-  comision = '1';
-  comi = '';
+  comision = {
+    folio: Number,
+    nombres: String,
+    apellidos: String,
+    area_adscripcion: String,
+    plaza_laboral: String,
+    nss: String,
+    status: String,
+  };
+  
+  comi: {
+    folio:Number,
+    nombres: String,
+    apellidos: String,
+    area_adscripcion: String,
+    plaza_laboral: String,
+    nss: String,
+    status: String,
+    programa_trabajo: 
+    {
+      dia: string,
+      lugar_estancia: string,
+      tareas_realizar: string,
+      id: Number
+      id_solicitud_comision: Number
+    }
+  };
+
   fgModify: FormGroup;
   constructor(private modalController: ModalController,
               private navParams: NavParams,
@@ -22,6 +48,13 @@ export class ModificarComisionPage implements OnInit {
               private toastController: ToastController,
               private formBuilder: FormBuilder) {
                 this.ionViewWillEnter();
+                this.fgModify = this.formBuilder.group({
+                  nombres: new FormControl('', []),
+                  apellidos: new FormControl('', []),
+                  area_adscripcion: new FormControl('', []),
+                  plaza_laboral: new FormControl('', []),
+                  nss: new FormControl('', [])
+                });
   }
   ionViewWillEnter() {
     this.comision = this.navParams.get('comision');
@@ -44,6 +77,45 @@ export class ModificarComisionPage implements OnInit {
       console.log('no jalo')
     }
 
+  }
+
+  async modifyComision(){
+    
+      const resp = await this.auth.modifyComision(this.comi);
+      if (resp) {
+        this.presentToastSuccess();
+      } else {
+        console.log(resp);
+        this.presentToast();
+      }
+    this.closeModal();
+  }
+
+  async modifyPrograma(programa){
+      console.log(programa);
+      programa.id_programa = programa.id;
+      programa.id_solicitud_comision = this.comi.folio;
+      const resp = await this.auth.modifyPrograma(programa);
+      if (resp) {
+        this.presentToastSuccess();
+      } else {
+        console.log(resp);
+        this.presentToast();
+      }
+    this.closeModal();
+  }
+
+  async deletePrograma(programa){
+    programa.id_solicitud_comision = this.comi.folio;
+    programa.id_programa = programa.id;
+      const resp = await this.auth.deletePrograma(programa);
+      if (resp) {
+        this.presentToastSuccess();
+      } else {
+        console.log(resp);
+        this.presentToast();
+      }
+    this.getComision(this.comision);
   }
 
   closeModal() {

@@ -50,7 +50,7 @@ export class CreateComisionPage implements OnInit {
 
   ngOnInit() {
     this.getUsuario();
-    console.log(localStorage.getItem('id_usuario'));
+    
   }
 
   async createComision() {

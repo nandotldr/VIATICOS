@@ -44,7 +44,7 @@
         <ion-card-header class="subtitle">
           <ion-card-title>Información de la Comisión: </ion-card-title>
         </ion-card-header>
-        <form [formGroup]="fgCreate" (ngSubmit)="createComision()">
+        <form [formGroup]="fgCreate" (ngSubmit)="createComision(perfil)">
         <ion-list>
           <ion-item>
             <ion-label >Tipo de Comisión: </ion-label>

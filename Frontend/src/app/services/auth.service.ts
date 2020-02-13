@@ -186,6 +186,7 @@ export class AuthService {
   async createComision(comision: {
     tipo_comision: Number,
     destino_com: Number,
+    area_adscripcion: string,
     name: string,
     evento: string,
     objetivo_trabajo: string,
@@ -399,19 +400,42 @@ export class AuthService {
 
   modifyComision(
       comision: {
-        nombres: String,
-        apellidos: String,
+        folio: Number,
         area_adscripcion: String,
-        plaza_laboral: String,
-        nss: String
+        tipo_comision: Number,
+        nombre_comision: String,
+        destino: String,
+        fecha_solicitud: String,
+        fecha_inicio: string,
+        fecha_fin: string,
+        status: Number,
+        justificacion: String,
+        objetivo_trabajo: String,
+        programa_evento: String,
+        invitacion_evento: String,
+        fecha_revisado: String,
+        fecha_aceptado: String,
+        nombre_revisado: String,
+        nombre_aceptado: String,
+        programa_trabajo?: 
+        {
+          dia: string,
+          lugar_estancia: string,
+          tareas_realizar: string,
+          id: Number,
+          id_solicitud_comision: Number
+        }
       }
   ){
     return this.http.put(`${this.API_URL}/solicitud_comision`, {
-      nombres: comision.nombres,
-      apellidos: comision.apellidos,
-      area_adscripcion: comision.area_adscripcion,
-      plaza_laboral: comision.plaza_laboral,
-      numero_social: comision.nss
+      id: comision.folio, 
+      fecha_inicio: formatDate(comision.fecha_inicio, 'yyyy-MM-dd', 'en'),
+      fecha_fin: formatDate(comision.fecha_fin, 'yyyy-MM-dd', 'en'),
+      tipo_comision: comision.tipo_comision,
+      nombre_comision:  comision.nombre_comision,
+      objetivo_trabajo: comision.objetivo_trabajo,
+      justificacion: comision.justificacion,
+      status: comision.status
     }).pipe(
         tap(resp => {
           console.log(resp);

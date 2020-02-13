@@ -98,7 +98,11 @@ const routes: Routes = [
   {
     path: 'modificar-comision',
     loadChildren: () => import('./components/modificar-comision/modificar-comision.module').then( m => m.ModificarComisionPageModule)
+  },  {
+    path: 'viatico-proyecto',
+    loadChildren: () => import('./viatico-proyecto/viatico-proyecto.module').then( m => m.ViaticoProyectoPageModule)
   }
+
 
 ];
 

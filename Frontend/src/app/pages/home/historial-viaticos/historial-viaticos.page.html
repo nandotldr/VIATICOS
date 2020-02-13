@@ -14,67 +14,48 @@
 </ion-header>
 
 <ion-content>
-  <img class="background-image"/>
+  <img class="background-image" />
   <ion-card-content class="background">
 
-  <ngx-datatable *ngIf="viaticos"
-    [ngClass]="'material'"
-    [rows]="viaticosCopia"
-    [headerHeight]="'auto'"
-    [rowHeight]="'auto'"
-    [columnMode]="'standard'"
-    [scrollbarH]="true">
-    <!--  Estos son las definiciones de columnas  -->
+    <ngx-datatable *ngIf="viaticos" [ngClass]="'material'" [rows]="viaticosCopia" [headerHeight]="'auto'"
+      [rowHeight]="'auto'" [columnMode]="'standard'" [scrollbarH]="true">
+      <!--  Estos son las definiciones de columnas  -->
 
-    <ngx-datatable-column prop="id_viatico"
-      name="ID Viatico"
-      width="120">
-      <ng-template let-row="row"
-        let-value="value"
-        ngx-datatable-cell-template>
-        {{value}}
-      </ng-template>
-    </ngx-datatable-column>
-    <ngx-datatable-column prop="id_comision"
-      name="ID Viatico"
-      width="120">
-      <ng-template let-row="row"
-        let-value="value"
-        ngx-datatable-cell-template>
-        {{value}}
-      </ng-template>
-    </ngx-datatable-column>
-    <ngx-datatable-column prop="fecha_solicitud"
-      name="Fecha solicitud"
-      width="120">
-      <ng-template let-row="row"
-        let-value="value"
-        ngx-datatable-cell-template>
-        {{value | date}}
-      </ng-template>
-    </ngx-datatable-column>
-    <ngx-datatable-column prop="id_comision"
-      name="Acciones"
-      width="465">
-      <ng-template let-row="row"
-        let-value="value"
-        ngx-datatable-cell-template>
-        <ion-buttons>
-          <ion-button (click)="openModal(value)">
-            <ion-icon name="information-circle-outline"></ion-icon> Ver Más
-          </ion-button>
-          <ion-button [routerLink]="'/home/crear-informe/'+value">
-            <ion-icon name="add-circle"></ion-icon> Crear informe
-          </ion-button>
-          <!-- <ion-button routerLink="/home/profile/{{value}}"> -->
-          <ion-button (click)="presentToast('vista no creada aún')">
-            <ion-icon name="add-circle"></ion-icon> Crear Proyecto
-          </ion-button>
-        </ion-buttons>
-      </ng-template>
-    </ngx-datatable-column>
-  </ngx-datatable>
+      <ngx-datatable-column prop="id_viatico" name="ID Viatico" width="120">
+        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+          {{value}}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column prop="id_comision" name="ID Comision" width="120">
+        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+          {{value}}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column prop="fecha_solicitud" name="Fecha solicitud" width="120">
+        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+          {{value | date}}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column prop="id_solicitud_comision" name="Acciones" width="465">
+        <ng-template let-row="row" let-value="value" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+          <ion-buttons>
+            <ion-button (click)="openModal(value)">
+              <ion-icon name="information-circle-outline"></ion-icon> Ver Más
+            </ion-button>
+            <div *ngIf="viaticosCopia[rowIndex].status == 5">
+              <ion-button [routerLink]="'/home/crear-informe/'+viaticosCopia[rowIndex].id_comision">
+                <ion-icon name="add-circle"></ion-icon> Crear informe
+              </ion-button>
+              <!-- <ion-button routerLink="/home/profile/{{value}}"> -->
+              <ion-button (click)="presentToast('vista no creada aún')">
+                <ion-icon name="add-circle"></ion-icon> Crear Proyecto
+              </ion-button>
+            </div>
+          </ion-buttons>
+        </ng-template>
+      </ngx-datatable-column>
+    </ngx-datatable>
 
 
-</ion-card-content>
+  </ion-card-content>
 </ion-content>

@@ -2,7 +2,7 @@ import { ItinerarioPage } from './../components/itinerario/itinerario.page';
 import { OverlayEventDetail } from '@ionic/core';
 import { AgendaPage } from './../components/agenda/agenda.page';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { ToastController, ModalController } from '@ionic/angular';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -26,14 +26,37 @@ export class CrearInformePage implements OnInit {
     private modalController: ModalController,
     private activatedRoute: ActivatedRoute,
     private http: HttpClient) {
+    // console.log('inicio', this.informeGroup.value);
     this.informeGroup = this.formBuilder.group({
-      resultados: new FormControl(''),
-      observaciones: new FormControl(''),
-      id_solicitud_comision: new FormControl(this.activatedRoute.snapshot.paramMap.get('id'))
+      resultados: new FormControl('', Validators.required),
+      observaciones: new FormControl('', Validators.required),
+      id_solicitud_comision: new FormControl(+this.activatedRoute.snapshot.paramMap.get('id'))
     });
+    this.getInforme();
+    console.log('inicio', this.informeGroup.value);
   }
 
   ngOnInit() {
+  }
+
+  async getInforme() {
+    try {
+      const resp = await this.auth.getInforme(this.informeGroup.value).toPromise();
+      // tslint:disable-next-line
+      if (resp['ok']) {
+        this.puedeContinuar = true;
+        this.informeGroup = this.formBuilder.group({
+          // tslint:disable-next-line
+          resultados: new FormControl(resp['body'].resultados, Validators.required),
+          // tslint:disable-next-line
+          observaciones: new FormControl(resp['body'].observaciones, Validators.required),
+          id_solicitud_comision: new FormControl(+this.activatedRoute.snapshot.paramMap.get('id'))
+        });
+        console.log('inicio', this.informeGroup);
+      }
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   async guardar() {
@@ -42,9 +65,11 @@ export class CrearInformePage implements OnInit {
       if (this.informeGroup.valid) {
         const resp = await this.auth.crearInforme(this.informeGroup.value).toPromise();
         console.log(resp);
+        // tslint:disable-next-line
         if (resp['ok']) {
           this.puedeContinuar = true;
         } else {
+          // tslint:disable-next-line
           this.presentToast(resp['mensaje']);
         }
       }

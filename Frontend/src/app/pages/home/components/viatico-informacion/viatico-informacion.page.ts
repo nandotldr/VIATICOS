@@ -27,14 +27,14 @@ export class ViaticoInformacionPage implements OnInit {
     ) { }
 
     async ionViewWillEnter() {
-      this.idComision = this.navParams.get('id_viatico');
+      this.idComision = this.navParams.get('id_comision');
       try {
         const resp = await this.auth.getSolicitudViatico(this.idComision).toPromise();
         // tslint:disable-next-line: no-string-literal
         if (resp['ok']) {
           this.tieneDatos = true;
           // tslint:disable-next-line: no-string-literal
-          this.viatico = resp['body'];
+          this.viatico = resp['body'][0];
         }
         console.log('respuesta', resp);
       } catch (error) {

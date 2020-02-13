@@ -2,17 +2,17 @@
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
       <!-- <ion-menu-button menu="menu"></ion-menu-button> -->
-        <!-- <img src="../../../assets/images/logo.png" width="25px" style="display:inline-block" height="25px"/> -->
-        <!-- <ion-icon slot="icon-only" name="filing"></ion-icon> -->
-        <ion-title>
-          VIATICO
-        </ion-title>
+      <!-- <img src="../../../assets/images/logo.png" width="25px" style="display:inline-block" height="25px"/> -->
+      <!-- <ion-icon slot="icon-only" name="filing"></ion-icon> -->
+      <ion-title>
+        VIATICO
+      </ion-title>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <img class="background-image"/>
+<ion-content *ngIf="tieneDatos">
+  <img class="background-image" />
   <ion-card-content class="background">
     <div *ngIf="!tieneDatos">
       No tiene viaticos
@@ -20,61 +20,58 @@
     <div *ngIf="tieneDatos">
       {{ viatico | json}}
     </div>
-    
-  </ion-card-content>
-    <ion-label>Folio</ion-label>
-      <ion-item>
-        <ion-input readonly value="{{this.viatico.folio}}"></ion-input>
+    <ion-item *ngIf="this.viatico.id_viatico">
+      <ion-label position="floating">Folio</ion-label>
+      <ion-input readonly value="{{this.viatico.id_viatico}}"></ion-input>
     </ion-item>
-    <ion-label>Folio Comisión</ion-label>
-      <ion-item>
-        <ion-input readonly value="{{this.viatico.no_comision}}"></ion-input>
+    <ion-item *ngIf="this.viatico.id_comision">
+      <ion-label position="floating">Folio Comisión</ion-label>
+      <ion-input readonly value="{{this.viatico.id_comision}}"></ion-input>
     </ion-item>
-    <ion-label>Justificación</ion-label>
-      <ion-item>
-        <ion-input readonly value="{{this.viatico.motivo_comision}}"></ion-input>
+    <ion-item *ngIf="this.viatico.motivo_comision">
+      <ion-label position="floating">Justificación</ion-label>
+      <ion-input readonly value="{{this.viatico.motivo_comision}}"></ion-input>
     </ion-item>
-    <ion-label>Lugar</ion-label>
-      <ion-item>
-        <ion-input readonly value="{{this.viatico.lugar_de_comision}}"></ion-input>
+    <ion-item *ngIf="this.viatico.lugar_de_comision">
+      <ion-label position="floating">Lugar</ion-label>
+      <ion-input readonly value="{{this.viatico.lugar_de_comision}}"></ion-input>
     </ion-item>
-
-    <ion-label>Fecha de Solicitud</ion-label>
-      <ion-item>
-        <ion-input readonly value="{{this.viatico.fecha_solicitud}}"></ion-input>
+    <ion-item *ngIf="this.viatico.fecha_solicitud">
+      <ion-label position="floating">Fecha de Solicitud</ion-label>
+      <ion-input readonly value="{{this.viatico.fecha_solicitud}}"></ion-input>
     </ion-item>
-    <ion-label>Inicio</ion-label>
-      <ion-item>
-        <ion-input readonly value="{{this.viatico.fecha_inicio}}"></ion-input>
+    <ion-item *ngIf="this.viatico.fecha_inicio">
+      <ion-label position="floating">Inicio</ion-label>
+      <ion-input readonly value="{{this.viatico.fecha_inicio}}"></ion-input>
     </ion-item>
-    <ion-label>Fin</ion-label>
-      <ion-item>
-        <ion-input readonly value="{{this.viatico.fecha_fin}}"></ion-input>
+    <ion-item *ngIf="this.viatico.fecha_fin">
+      <ion-label position="floating">Fin</ion-label>
+      <ion-input readonly value="{{this.viatico.fecha_fin}}"></ion-input>
     </ion-item>
-    <ion-label>Status del Viatico</ion-label>
-      <ion-item>
-        <ion-input readonly value="{{this.viatico.status}}"></ion-input>
+    <ion-item *ngIf="this.viatico.status">
+      <ion-label position="floating">Status del Viatico</ion-label>
+      <ion-input readonly value="{{this.viatico.status}}"></ion-input>
     </ion-item>
-    <ion-label>Fecha Revisado</ion-label>
-      <ion-item>
-        <ion-input readonly value="{{this.viatico.fecha_revisado}}"></ion-input>
+    <ion-item *ngIf="this.viatico.fecha_revisado">
+      <ion-label position="floating">Fecha Revisado</ion-label>
+      <ion-input readonly value="{{this.viatico.fecha_revisado}}"></ion-input>
     </ion-item>
-    <ion-label>Fecha Aceptado</ion-label>
-      <ion-item>
-        <ion-input readonly value="{{this.viatico.fecha_aceptado}}"></ion-input>
+    <ion-item *ngIf="this.viatico.fecha_aceptado">
+      <ion-label position="floating">Fecha Aceptado</ion-label>
+      <ion-input readonly value="{{this.viatico.fecha_aceptado}}"></ion-input>
     </ion-item>
-    <ion-label>Nombre Revisado</ion-label>
-      <ion-item>
-        <ion-input readonly value="{{this.viatico.nombre_revisado}}"></ion-input>
+    <ion-item *ngIf="this.viatico.nombre_revisado">
+      <ion-label position="floating">Nombre Revisado</ion-label>
+      <ion-input readonly value="{{this.viatico.nombre_revisado}}"></ion-input>
     </ion-item>
-    <ion-label>Nombre aceptado</ion-label>
-      <ion-item>
-        <ion-input readonly value="{{this.viatico.nombre_aceptado}}"></ion-input>
+    <ion-item *ngIf="this.viatico.nombre_aceptado">
+      <ion-label position="floating">Nombre aceptado</ion-label>
+      <ion-input readonly value="{{this.viatico.nombre_aceptado}}"></ion-input>
     </ion-item>
-    <ion-label>Gastos</ion-label>
-    
-    <table>
-      <thead>
+    <div *ngIf="this.viatico.gastos">
+      <ion-label>Gastos</ion-label>
+      <table>
+        <thead>
           <th>DIA</th>
           <th>Alimentacion</th>
           <th>hospedaje</th>
@@ -82,18 +79,20 @@
           <th>Transporte Local</th>
           <th>Combustible</th>
           <th>Otros</th>
-      </thead>
-      <tbody>
+        </thead>
+        <tbody>
           <tr *ngFor="let gasto of this.viatico.gastos">
-              <td >{{gasto.dia|date}}</td>
-              <td>{{gasto.alimentacion}}</td> 
-              <td>{{gasto.hospedaje}}</td>
-              <td>{{gasto.transporte_foraneo}}</td>
-              <td>{{gasto.transporte_local}}</td>
-              <td>{{gasto.combustible}}</td>
-              <td>{{gasto.otros_conceptos}}<td>
+            <td>{{gasto.dia|date}}</td>
+            <td>{{gasto.alimentacion}}</td>
+            <td>{{gasto.hospedaje}}</td>
+            <td>{{gasto.transporte_foraneo}}</td>
+            <td>{{gasto.transporte_local}}</td>
+            <td>{{gasto.combustible}}</td>
+            <td>{{gasto.otros_conceptos}}
+            <td>
           </tr>
-      </tbody>
-  </table>
-    
+        </tbody>
+      </table>
+    </div>
+  </ion-card-content>
 </ion-content>

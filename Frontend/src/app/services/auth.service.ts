@@ -75,7 +75,8 @@ export class AuthService {
     return this.http.post(`${this.API_URL}/informe_actividades`, {
       resultados: informe.resultados,
       observaciones: informe.observaciones,
-      id_solicitud_comision: informe.id_solicitud_comision
+      id_solicitud_comision: informe.id_solicitud_comision,
+      status: 0
     }).pipe(
       map(response => response)
     );

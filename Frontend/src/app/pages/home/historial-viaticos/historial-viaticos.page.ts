@@ -52,13 +52,13 @@ export class HistorialViaticosPage implements OnInit {
     toast.present();
   }
 
-  async openModal(idViatico) {
+  async openModal(idComision) {
     const modal: HTMLIonModalElement =
         await this.modalController.create({
           component: ViaticoInformacionPage,
           cssClass: 'modal-class',
           componentProps: {
-            id_viatico: idViatico
+            id_comision: idComision
            }
         });
     modal.onDidDismiss().then((detail: OverlayEventDetail) => {

@@ -277,6 +277,7 @@ export class AuthService {
         if (response['ok']) {
           this.codeUser = response['body']['codigo'];
           this.userType = response['body']['tipo_usuario'];
+          localStorage.setItem('tipo_usuario',response['body']['tipo_usuario']);
         }
         return response['ok'];
       })

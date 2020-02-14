@@ -14,7 +14,7 @@ import { HttpClient } from '@angular/common/http';
 export class ViaticoInformacionPage implements OnInit {
   idComision;
   tieneDatos = false;
-  viatico;
+  viatico = null;
 
   constructor(
     private formBuilder: FormBuilder,

@@ -70,7 +70,7 @@ export class CrearInformePage implements OnInit {
       if (this.informeGroup.valid) {
         if (this.existiaEnBD) {
           const { resultados, observaciones } = this.informeGroup.value;
-          const resp = await this.auth.modificarInforme({resultados, observaciones, id_solicitud_comision: this.idInforme}).toPromise();
+          const resp = await this.auth.modificarInforme({resultados, observaciones, id_informe: this.idInforme}).toPromise();
           console.log(resp);
           // tslint:disable-next-line
           if (resp['ok']) {

@@ -102,9 +102,10 @@ const routes: Routes = [
         path: 'viatico-proyecto/:id_comision',
         loadChildren: () => import('./viatico-proyecto/viatico-proyecto.module').then(m => m.ViaticoProyectoPageModule),
         canLoad: [AuthGuardService]
-      }
+      },
     ]
-  },
+  }
+
 
 
 

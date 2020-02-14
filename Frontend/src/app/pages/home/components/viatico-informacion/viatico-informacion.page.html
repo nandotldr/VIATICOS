@@ -9,7 +9,8 @@
         VIATICO
       </ion-title>
     </ion-buttons>
-    <ion-button class="ion-float-right" routerLink="/home/modificar-viatico"><ion-icon name="create"></ion-icon>Modificar viatico</ion-button>
+    <ion-button class="ion-float-right" *ngIf="this.viatico"
+    (click)="cerrarModal()" [routerLink]="'/home/viatico/'+this.viatico.id_comision"><ion-icon name="create"></ion-icon>Modificar viatico</ion-button>
   </ion-toolbar>
 </ion-header>
 

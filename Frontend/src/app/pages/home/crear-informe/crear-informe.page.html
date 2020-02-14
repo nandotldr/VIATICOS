@@ -35,30 +35,40 @@
   <!-- <ion-button *ngIf="!informeCreado" (click)="informeCreado = !informeCreado" color="primary"> Siguiente</ion-button>  -->
   <ion-card *ngIf="informeCreado">
     <ion-list>
-      <ion-item>
-        <ion-card-title>
-          Agenda
-        </ion-card-title>
-        <ion-card-content>
-          <ion-button (click)="crearAgenda()">Crear agenda</ion-button>
-        </ion-card-content>
-      </ion-item>
-      <ion-item>
-        <ion-card-title>
-          Itinerario
-        </ion-card-title>
-        <ion-card-content>
-          <ion-button (click)="crearItinerario()">Crear itinerario</ion-button>
-        </ion-card-content>
-      </ion-item>
-      <ion-item>
-        <ion-card-title>
-          Factura
-        </ion-card-title>
-        <ion-card-content>
-          <ion-button (click)="crearFactura()">Crear Factura</ion-button>
-        </ion-card-content>
-      </ion-item>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-card-title>
+                Agenda
+              </ion-card-title>
+              <ion-card-content>
+                <ion-button (click)="crearAgenda()">Crear agenda</ion-button>
+              </ion-card-content>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item>
+              <ion-card-title>
+                Itinerario
+              </ion-card-title>
+              <ion-card-content>
+                <ion-button (click)="crearItinerario()">Crear itinerario</ion-button>
+              </ion-card-content>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item>
+              <ion-card-title>
+                Factura
+              </ion-card-title>
+              <ion-card-content>
+                <ion-button (click)="crearFactura()">Crear Factura</ion-button>
+              </ion-card-content>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-list>
     <ion-button>Enviar</ion-button>
   </ion-card>

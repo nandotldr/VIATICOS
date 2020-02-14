@@ -1,7 +1,7 @@
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
-import { ToastController, ModalController } from '@ionic/angular';
+import { ToastController, ModalController, NavParams } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
@@ -19,6 +19,7 @@ export class ItinerarioPage implements OnInit {
     private auth: AuthService,
     public toastController: ToastController,
     private modalController: ModalController,
+    private navParams: NavParams,
     private router: Router,
     private http: HttpClient) {
     this.itinerarioGroup = this.formBuilder.group({
@@ -31,11 +32,21 @@ export class ItinerarioPage implements OnInit {
   ngOnInit() {
   }
 
-  crearItinerario() {
+  async crearItinerario() {
     console.log(this.itinerarioGroup);
     let { dia, origen, destino } = this.itinerarioGroup.value;
-    // TODO: terminar esto
-    this.presentToast('Pendiente por implementar' + JSON.stringify(this.itinerarioGroup.value));
+    dia = dia.substring(0, 10);
+    try {
+      const resp = await this.auth.crearItinerario({
+        dia, origen, destino, id_informe_actividades: this.navParams.get('id_informe')
+      }).toPromise();
+      console.log(resp);
+      
+      this.presentToast(resp['mensaje']);
+    } catch (error) {
+      console.error(error);
+    }
+    this.modalController.dismiss();
   }
 
   async presentToast(message) {

@@ -1,4 +1,4 @@
-import { AgendaModel, InformeModel } from './../interfaces/interfaces';
+import { AgendaModel, InformeModel, ItinerarioModel, FacturaModel } from './../interfaces/interfaces';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
@@ -94,12 +94,33 @@ export class AuthService {
     );
   }
 
+  crearItinerario(itinerario: ItinerarioModel) {
+    return this.http.post(`${this.API_URL}/itinerario`, {
+      dia: itinerario.dia,
+      origen: itinerario.origen,
+      destino: itinerario.destino,
+      id_informe_actividades: itinerario.id_informe_actividades
+    }).pipe(
+      map(response => response)
+    );
+  }
+
   createAgenda(agenda: AgendaModel) {
-    return this.http.post(`${this.API_URL}/solicitud_viatico`, {
+    return this.http.post(`${this.API_URL}/agenda`, {
       dia: agenda.dia,
       hora_inicio: agenda.hora_inicio,
       hora_fin: agenda.hora_fin,
-      actividad: agenda.actividad
+      actividad: agenda.actividad,
+      id_informe_actividades: agenda.id
+    }).pipe(
+      map(response => response)
+    );
+  }
+
+  createFactura(factura: FacturaModel) {
+    return this.http.post(`${this.API_URL}/factura`, {
+      archivo_url: factura.archivo_url,
+      id_informe_actividades: factura.id_informe_actividades
     }).pipe(
       map(response => response)
     );

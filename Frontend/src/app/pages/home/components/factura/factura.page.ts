@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators, FormGroup } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
-import { ToastController, ModalController } from '@ionic/angular';
+import { ToastController, ModalController, NavController, NavParams } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
@@ -18,6 +18,7 @@ export class FacturaPage implements OnInit {
     private auth: AuthService,
     public toastController: ToastController,
     private modalController: ModalController,
+    private navParams: NavParams,
     private router: Router,
     private http: HttpClient) {
     this.facturaGroup = this.formBuilder.group({
@@ -28,10 +29,18 @@ export class FacturaPage implements OnInit {
   ngOnInit() {
   }
 
-  crearFactura() {
-    console.log(this.facturaGroup);
-    // TODO: terminar esto
-    this.presentToast('Pendiente por implementar' + JSON.stringify(this.facturaGroup.value));
+  async crearFactura() {
+    const { archivo_url } = this.facturaGroup.value;
+    try {
+      const resp = await this.auth.createFactura({
+        archivo_url, id_informe_actividades: this.navParams.get('id_informe')
+      }).toPromise();
+      console.log(resp);
+      this.presentToast(resp['mensaje']);
+    } catch (error) {
+      console.error(error);
+    }
+    this.modalController.dismiss();
   }
 
   async presentToast(message) {

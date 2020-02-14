@@ -113,7 +113,7 @@ export class CrearInformePage implements OnInit {
           component: AgendaPage,
           cssClass: 'modal-class',
           componentProps: {
-            // id_viatico: idViatico
+             id_informe: this.idInforme
            }
         });
     modal.onDidDismiss().then((detail: OverlayEventDetail) => {
@@ -131,7 +131,7 @@ export class CrearInformePage implements OnInit {
           component: FacturaPage,
           cssClass: 'modal-class',
           componentProps: {
-            // id_viatico: idViatico
+            id_informe: this.idInforme
            }
         });
     modal.onDidDismiss().then((detail: OverlayEventDetail) => {
@@ -149,7 +149,7 @@ export class CrearInformePage implements OnInit {
           component: ItinerarioPage,
           cssClass: 'modal-class',
           componentProps: {
-            // id_viatico: idViatico
+            id_informe: this.idInforme
            }
         });
     modal.onDidDismiss().then((detail: OverlayEventDetail) => {

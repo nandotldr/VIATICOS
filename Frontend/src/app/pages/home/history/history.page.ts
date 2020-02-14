@@ -85,6 +85,7 @@ export class HistoryPage implements OnInit {
     modal.onDidDismiss().then((detail: OverlayEventDetail) => {
       if (detail !== null) {
         console.log('The result:', detail.data);
+        this.getAllComisiones();
       }
     });
 

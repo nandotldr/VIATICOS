@@ -9,7 +9,7 @@ import { ComisionActivaPage } from '../components/comision-activa/comision-activ
 @Component({
   selector: 'app-revisar-comision',
   templateUrl: './revisar-comision.page.html',
-  styleUrls: ['./revisar-comision.page.scss'],
+  styleUrls: ['./revisar-comision.page.scss', '../../../app.component.scss'],
 })
 export class RevisarComisionPage implements OnInit {
 

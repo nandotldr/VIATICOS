@@ -93,10 +93,9 @@ export class ModificarComisionPage implements OnInit {
   async modifyComision(){
       const resp = await this.auth.modifyComision(this.comi);
       if (resp) {
-        this.presentToastSuccess();
+        this.presentToast(resp);
       } else {
-        console.log(resp);
-        this.presentToast();
+        this.presentToast(resp);
       }
     this.closeModal();
   }
@@ -107,10 +106,9 @@ export class ModificarComisionPage implements OnInit {
       programa.id_solicitud_comision = this.comi.folio;
       const resp = await this.auth.modifyPrograma(programa);
       if (resp) {
-        this.presentToastSuccess();
+        this.presentToast(resp);
       } else {
-        console.log(resp);
-        this.presentToast();
+        this.presentToast(resp);
       }
     this.closeModal();
   }
@@ -120,10 +118,9 @@ export class ModificarComisionPage implements OnInit {
     programa.id_programa = programa.id;
       const resp = await this.auth.deletePrograma(programa);
       if (resp) {
-        this.presentToastSuccess();
+        this.presentToast(resp);
       } else {
-        console.log(resp);
-        this.presentToast();
+        this.presentToast(resp);
       }
     this.getComision(this.comision);
   }
@@ -142,16 +139,16 @@ export class ModificarComisionPage implements OnInit {
     comision.destino = 0;
     const resp = await this.auth.modifyComision(this.comi);
     if (resp) {
-      this.presentToastSuccess();
+      this.presentToast(resp);
     } else {
-      this.presentToast();
+      this.presentToast(resp);
     }
   this.closeModal();
   }
 
-  async presentToast() { 
+  async presentToast(message: string) { 
     const toast = await this.toastController.create({
-      message: 'Datos no Validos',
+      message: message,
       duration: 2000,
       position: 'bottom'
     });
@@ -160,7 +157,7 @@ export class ModificarComisionPage implements OnInit {
 
   async presentToastSuccess() {
     const toast = await this.toastController.create({
-      message: 'Usuario Modificado.',
+      message: 'Comision Modificada.',
       duration: 2000,
       position: 'bottom'
     });

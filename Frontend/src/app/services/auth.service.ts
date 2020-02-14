@@ -451,13 +451,12 @@ export class AuthService {
       status: comision.status
     }).pipe(
         tap(resp => {
-          console.log(resp);
           if (resp['ok']) {
-            return resp['body'];
+            return resp['mensaje'];
           }
         }),
         map(response => {
-          return response['ok'];
+          return response['mensaje'];
         })
     ).toPromise();
   }
@@ -481,11 +480,11 @@ export class AuthService {
       tap(resp => {
         console.log(resp);
         if (resp['ok']) {
-          return resp['body'];
+          return resp['mensaje'];
         }
       }),
       map(response => {
-        return response['ok'];
+        return response['mensaje'];
       })
   ).toPromise();
 }
@@ -503,11 +502,11 @@ return this.http.request('delete',`${this.API_URL}/programa_trabajo/`,{body: pro
     tap(resp => {
       console.log(resp);
       if (resp['ok']) {
-        return resp['body'];
+        return resp['mensaje'];
       }
     }),
     map(response => {
-      return response['ok'];
+      return response['mensaje'];
     })
 ).toPromise();
 }

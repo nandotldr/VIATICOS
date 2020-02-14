@@ -109,7 +109,8 @@ const routes: Routes = [
         canLoad: [AuthGuardService]
       },
     ]
-  },  {
+  },
+  {
     path: 'informe-activo',
     loadChildren: () => import('./components/informe-activo/informe-activo.module').then( m => m.InformeActivoPageModule)
   },

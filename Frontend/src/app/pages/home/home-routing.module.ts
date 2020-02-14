@@ -99,7 +99,7 @@ const routes: Routes = [
         canLoad: [AuthGuardService]
       },
       {
-        path: 'viatico-proyecto',
+        path: 'viatico-proyecto/:id_comision',
         loadChildren: () => import('./viatico-proyecto/viatico-proyecto.module').then(m => m.ViaticoProyectoPageModule),
         canLoad: [AuthGuardService]
       }

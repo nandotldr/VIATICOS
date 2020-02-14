@@ -6,7 +6,7 @@
         <!-- <img src="../../../assets/images/logo.png" width="25px" style="display:inline-block" height="25px"/> -->
         <!-- <ion-icon slot="icon-only" name="filing"></ion-icon> -->
         <ion-title>
-          HISTORIAL DE COMISIÓN
+          LISTA DE COMISIONES
         </ion-title>
       </ion-button>
     </ion-buttons>
@@ -19,7 +19,7 @@
   <img class="background-image"/>
   <ion-card >
     <ion-card-header class="title">
-      <ion-card-title>Historial de comisiones</ion-card-title>
+      <ion-card-title>Lista de Comisiones</ion-card-title>
     </ion-card-header>
     <ion-card-header class="subtitle">
       <ion-card-title>Comisiones</ion-card-title>
@@ -67,7 +67,7 @@
             <ion-label *ngIf="comision.status == 6">Finalizado</ion-label>
           </ion-col>
           <ion-col text-center size="2">
-            {{ comision.fecha_solicitud }}
+            {{ comision.fecha_solicitud | date }}
           </ion-col>
           <ion-col text-center size = "2">
             <ion-button (click)="openModal(comision.folio)" >

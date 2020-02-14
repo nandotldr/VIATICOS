@@ -108,12 +108,13 @@ const routes: Routes = [
         loadChildren: () => import('./revisar-informe/revisar-informe.module').then( m => m.RevisarInformePageModule),
         canLoad: [AuthGuardService]
       },
+      {
+        path: 'informe-activo',
+        loadChildren: () => import('./components/informe-activo/informe-activo.module').then( m => m.InformeActivoPageModule)
+      },
     ]
   },
-  {
-    path: 'informe-activo',
-    loadChildren: () => import('./components/informe-activo/informe-activo.module').then( m => m.InformeActivoPageModule)
-  },
+
 
 
 

@@ -8,12 +8,16 @@ import { RevisarInformePageRoutingModule } from './revisar-informe-routing.modul
 
 import { RevisarInformePage } from './revisar-informe.page';
 
+import { InformeActivoPageModule} from '../components/informe-activo/informe-activo.module';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    RevisarInformePageRoutingModule
+    RevisarInformePageRoutingModule,
+      InformeActivoPageModule
+      
   ],
   declarations: [RevisarInformePage]
 })

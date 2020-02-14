@@ -33,11 +33,11 @@
           <th>Acciones</th>
         </tr>
         <tr *ngFor="let informe of informes">
-          <td>{{ informe.id }}</td>
+          <td>{{ informe.id_solicitud_comision }}</td>
           <td>{{ informe.nombre_comision }}</td>
           <td>{{ informe.fecha_elaboracion | date }}</td>
           <td>{{ informe.nombre }}</td>
-          <td text-center><ion-button (click)="openModal(informe.id)"><ion-icon name="apps"></ion-icon></ion-button></td>
+          <td text-center><ion-button (click)="openModal(informe.id_solicitud_comision)"><ion-icon name="apps"></ion-icon></ion-button></td>
           <td>
             <ion-button (click)="alertConfirm(informe)"><ion-icon name="checkmark-circle-outline"></ion-icon></ion-button>
             <ion-button (click)="alertDecline(informe)"><ion-icon name="close-circle-outline"></ion-icon></ion-button>

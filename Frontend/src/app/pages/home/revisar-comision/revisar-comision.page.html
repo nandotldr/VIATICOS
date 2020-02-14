@@ -35,7 +35,7 @@
         <tr *ngFor="let comision of comisiones">
           <td>{{ comision.id }}</td>
           <td>{{ comision.nombre_comision }}</td>
-          <td>{{ comision.fecha_solicitud }}</td>
+          <td>{{ comision.fecha_solicitud | date }}</td>
           <td>{{ comision.nombre }}</td>
           <td text-center><ion-button (click)="openModal(comision.id)"><ion-icon name="apps"></ion-icon></ion-button></td>
           <td>

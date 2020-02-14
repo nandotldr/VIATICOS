@@ -53,6 +53,12 @@
           </ion-item>
         </ion-menu-toggle>
         <ion-menu-toggle auto-hide="false">
+          <ion-item lines="full" class="color" router-direction="root" [routerLink]="'/home/revisar-informe'">
+            <ion-icon name="folder-open" slot="start" class="color"></ion-icon>
+            <ion-label>Informes Pendientes</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle auto-hide="false">
           <ion-item (click)="logout()" lines="none" class="color" routerDirection="root" [routerLink]="''">
             <ion-icon name="exit" slot="start" class="color"></ion-icon>
             <ion-label> Cerrar Sesión </ion-label>

@@ -102,9 +102,20 @@ const routes: Routes = [
         path: 'viatico-proyecto',
         loadChildren: () => import('./viatico-proyecto/viatico-proyecto.module').then(m => m.ViaticoProyectoPageModule),
         canLoad: [AuthGuardService]
-      }
+      },
+      {
+        path: 'revisar-informe',
+        loadChildren: () => import('./revisar-informe/revisar-informe.module').then( m => m.RevisarInformePageModule),
+        canLoad: [AuthGuardService]
+      },
     ]
+  },  {
+    path: 'informe-activo',
+    loadChildren: () => import('./components/informe-activo/informe-activo.module').then( m => m.InformeActivoPageModule)
   },
+
+
+
 
 
 

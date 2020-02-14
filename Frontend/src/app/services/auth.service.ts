@@ -585,6 +585,41 @@ return this.http.request('delete',`${this.API_URL}/programa_trabajo/`,{body: pro
       }));
   }
 
+  getRevisarInforme(){
+      return this.http.get(`${this.API_URL}/revisar_informe`).pipe(
+          map(response => {
+              if(response['ok']){
+                  console.log(response);
+                  return response['body'];
+              } else {
+                  return response['ok'];
+              }
+          })
+      ).toPromise();
+  }
+
+    revisarInforme(
+        informe: {
+            id: Number,
+            status: Number,
+            comentario_rechazo: string
+        }
+    ){
+        return this.http.put(`${this.API_URL}/revisar_informe`,{
+            id: informe.id,
+            status: informe.status,
+            comentario_rechazo: informe.comentario_rechazo
+        }).pipe(
+            map(response => {
+                console.log(response);
+                if(response['ok']){
+                    return response['body'];
+                } else {
+                    return response['ok'];
+                }
+            })
+        ).toPromise();
+    }
 }
 
 

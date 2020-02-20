@@ -6,7 +6,7 @@
         <!-- <img src="../../../assets/images/logo.png" width="25px" style="display:inline-block" height="25px"/> -->
         <!-- <ion-icon slot="icon-only" name="filing"></ion-icon> -->
         <ion-title>
-          Viatico
+          VIÁTICO
         </ion-title>
       </ion-button>
     </ion-buttons>
@@ -29,7 +29,7 @@
       <form [formGroup]="fgCreate" (ngSubmit)="saveViatico()">
         <ion-item>
           <ion-label>Folio de la comisión </ion-label>
-          <ion-input value="{{this.comision}}" formControlName="id_comision"></ion-input>
+          <ion-input disabled="true" value="{{this.comision}}" formControlName="id_comision"></ion-input>
         </ion-item>
 
         <ion-item>
@@ -113,7 +113,7 @@
               {{ gasto.id }}
             </ion-col>
             <ion-col size="3">
-              {{ gasto.dia }}
+              {{ gasto.dia | date}}
             </ion-col>
             <ion-col text-center size="3">
               {{ gasto.id_solicitud_viatico }}
@@ -121,13 +121,7 @@
           </ion-row>
         </ion-grid>
       </ion-card-content>
-
     </ion-card>
-
-    <ion-button  (click)="sendViatico()" routerLink="/home/history" color="danger" >ENVIAR</ion-button>
-
-    
-
+    <ion-button  (click)="sendViatico()" routerLink="/home/historial-viaticos" color="danger" >ENVIAR</ion-button>
   </div>
-
 </ion-content>

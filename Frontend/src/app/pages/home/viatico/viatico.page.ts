@@ -142,6 +142,7 @@ export class ViaticoPage implements OnInit {
       if (detail !== null) {
         console.log('The result: ', detail.data);
       }
+      this.getGastos();
     });
 
     await modal.present();

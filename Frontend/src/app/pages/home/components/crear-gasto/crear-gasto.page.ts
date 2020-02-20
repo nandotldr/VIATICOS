@@ -40,20 +40,20 @@ export class CrearGastoPage implements OnInit {
   }
 
   async createGasto(){
-    if(this.fgGasto.valid){
+    if (this.fgGasto.valid){
       const resp = await this.auth.createGasto(this.fgGasto.value).toPromise();
-      if(resp){
+      if (resp) {
+        console.log(resp);
         this.presentToast('Gastos creados');
         // PUT en Viatico para cambiar el status
         this.closeModal();
+      } else {
+        this.presentToast(resp);
       }
-      else{
-        this.presentToast('Error');
-      }  
-    }else{
-      this.presentToast("Error");
+    } else {
+      this.presentToast('Por favor llena todos los campos');
     }
-    
+
   }
 
   async presentToast(message) {

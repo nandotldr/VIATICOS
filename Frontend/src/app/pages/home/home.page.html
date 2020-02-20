@@ -46,13 +46,13 @@
             <ion-label>Lista de Viáticos</ion-label>
           </ion-item>
         </ion-menu-toggle>
-        <ion-menu-toggle auto-hide="false">
+        <ion-menu-toggle *ngIf="tipo_usuario!='P'" auto-hide="false">
           <ion-item lines="full" class="color" router-direction="root" [routerLink]="'/home/revisar-comision'">
             <ion-icon name="checkbox-outline" slot="start" class="color"></ion-icon>
             <ion-label>Comisiones Pendientes</ion-label>
           </ion-item>
         </ion-menu-toggle>
-        <ion-menu-toggle auto-hide="false">
+        <ion-menu-toggle *ngIf="tipo_usuario!='P'" auto-hide="false">
           <ion-item lines="full" class="color" router-direction="root" [routerLink]="'/home/revisar-informe'">
             <ion-icon name="folder-open" slot="start" class="color"></ion-icon>
             <ion-label>Informes Pendientes</ion-label>

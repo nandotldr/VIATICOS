@@ -1,9 +1,51 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>revisar-viatico</ion-title>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button menu="menu"></ion-menu-button>
+        <!-- <img src="../../../assets/images/logo.png" width="25px" style="display:inline-block" height="25px"/> -->
+        <!-- <ion-icon slot="icon-only" name="filing"></ion-icon> -->
+        <ion-title>
+          REVISAR VIATICOS
+        </ion-title>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <img class="background-image"/>
+  <ion-card class="card-b">
+    <ion-card-header class="title">
+      <ion-card-title>Viaticos Pendientes de Aprobación</ion-card-title>
+    </ion-card-header>
+    <ion-card-header class="subtitle">
+      <ion-card-title>Viaticos</ion-card-title>
+    </ion-card-header>
+    <ion-card-content >
+      <table>
+        <tr>
+          <th>ID</th>
+          <th>Nombre de la Comisión</th>
+          <th>Fecha de Solicitud</th>
+          <th>Nombre Solicitante</th>
+          <th>Más Información</th>
+          <th>Acciones</th>
+        </tr>
+        <tr *ngFor="let viatico of viaticos">
+          <td>{{ viatico.id_viatico }}</td>
+          <td>{{ viatico.nombre_comision }}</td>
+          <td>{{ viatico.fecha_solicitud | date }}</td>
+          <td>{{ viatico.nombre }}</td>
+          <td text-center><ion-button (click)="openModal(viatico.id)"><ion-icon name="apps"></ion-icon></ion-button></td>
+          <td>
+            <ion-button (click)="alertConfirm(viatico)"><ion-icon name="checkmark-circle-outline"></ion-icon></ion-button>
+            <ion-button (click)="alertDecline(viatico)"><ion-icon name="close-circle-outline"></ion-icon></ion-button>
+          </td>
+        </tr>
+      </table>
+
+    </ion-card-content>
+    <ion-card *ngIf="viaticos == null" class="primary"> No hay elementos para mostrar </ion-card>
+  </ion-card>
 
 </ion-content>
+

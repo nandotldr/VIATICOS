@@ -641,6 +641,45 @@ return this.http.request('delete',`${this.API_URL}/programa_trabajo/`,{body: pro
             })
         ).toPromise();
     }
+
+    getRevisarViatico(){
+      return this.http.get(`${this.API_URL}/revisar_solicitud_viatico`).pipe(
+          map(response => {
+              if(response['ok']){
+                  console.log(response);
+                  return response['body'];
+              } else {
+                  return response['ok'];
+              }
+          })
+      ).toPromise();
+  }
+
+  revisarViatico(
+    viatico: {
+      id_viatico: Number,
+      invitado: String,
+      comentarios: String,
+      status: Number
+    }
+    ){
+    return this.http.put(`${this.API_URL}/solicitud_viatico`,{
+      id_viatico: viatico.id_viatico,
+      invitado: viatico.invitado,
+      comentarios: viatico.comentarios,
+      status: viatico.status
+    }).pipe(
+        map(response => {
+            console.log(response);
+            if(response['ok']){
+                return response['body'];
+            } else {
+                return response['ok'];
+            }
+        })
+    ).toPromise();
+}
+
 }
 
 

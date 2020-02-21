@@ -134,14 +134,24 @@ export class ModificarComisionPage implements OnInit {
   }
 
   async enviarSolicitud(comision) {
-    console.log(this.comi);
-    console.log(this.comision);
     comision.status =1;
     comision.destino = 0;
     const resp = await this.auth.modifyComision(this.comi);
     if (resp) {
       this.presentToast(resp);
       this.presentAlert();
+    } else {
+      this.presentToast(resp);
+    }
+  this.closeModal();
+  }
+
+  async cancelarSolicitud(comision) {
+    comision.status = -1;
+    comision.destino = 0;
+    const resp = await this.auth.modifyComision(this.comi);
+    if (resp) {
+      this.presentToast(resp);
     } else {
       this.presentToast(resp);
     }

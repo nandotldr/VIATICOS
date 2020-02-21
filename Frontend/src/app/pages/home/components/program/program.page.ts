@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { ToastController, NavParams } from '@ionic/angular';
+import { ToastController, NavParams, ModalController, AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
-import { ModalController} from '@ionic/angular';
 import { AuthService } from 'src/app/services/auth.service';
 import { formatDate } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
@@ -10,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-program',
   templateUrl: './program.page.html',
-  styleUrls: ['./program.page.scss','../../../../app.component.scss'],
+  styleUrls: ['./program.page.scss', '../../../../app.component.scss'],
 })
 export class ProgramPage implements OnInit {
   perfil = '';
@@ -30,9 +29,10 @@ export class ProgramPage implements OnInit {
       private router: Router,
       private http: HttpClient,
       private modalController: ModalController,
-      private NavParams: NavParams
-      ) 
-      { 
+      private NavParams: NavParams,
+      public  alertController: AlertController
+      )
+      {
         this.ionViewWillEnter();
         this.fgCreate = this.formBuilder.group({
           dia: new FormControl('', [Validators.required]),
@@ -71,7 +71,8 @@ export class ProgramPage implements OnInit {
       console.log(this.fgCreate.value);
       const resp = await this.auth.createPrograma(this.fgCreate.value);
       if (resp) {
-        this.presentToastSuccess();
+        // this.presentToastSuccess();
+        this.presentAlert();
       } else {
         console.log(resp);
         this.presentToast();
@@ -79,7 +80,6 @@ export class ProgramPage implements OnInit {
     } else {
       this.presentToast();
     }
-    
   }
 
   async getUsuario(){
@@ -89,7 +89,6 @@ export class ProgramPage implements OnInit {
       } else {
         this.presentToast();
       }
-    
   }
 
   async presentToast() {
@@ -113,5 +112,17 @@ export class ProgramPage implements OnInit {
     });
     toast.present();
   }
+
+  async presentAlert() {
+    const alert = await this.alertController.create({
+      header: 'Programa Creado',
+      // subHeader: 'Subtitle',
+      message: 'Tu actividad fue registrada, revisa tu programa en el botón "Más información".',
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
+
 
 }

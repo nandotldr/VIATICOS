@@ -1,8 +1,8 @@
 import { FormBuilder, FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import { ModalController, NavParams, ToastController } from '@ionic/angular';
+import { ModalController, NavParams, ToastController, AlertController } from '@ionic/angular';
 import { AuthService } from '../../../../services/auth.service';
-import { NavController } from "@ionic/angular";
+import { NavController } from '@ionic/angular';
 import { formatDate } from '@angular/common';
 
 @Component({
@@ -40,7 +40,7 @@ export class ModificarComisionPage implements OnInit {
     fecha_aceptado: String,
     nombre_revisado: String,
     nombre_aceptado: String,
-    programa_trabajo?: 
+    programa_trabajo?:
     {
       dia: string,
       lugar_estancia: string,
@@ -52,6 +52,7 @@ export class ModificarComisionPage implements OnInit {
 
   fgModify: FormGroup;
   constructor(private modalController: ModalController,
+              public  alertController: AlertController,
               private navParams: NavParams,
               private auth: AuthService,
               private navCtrl: NavController,
@@ -140,6 +141,7 @@ export class ModificarComisionPage implements OnInit {
     const resp = await this.auth.modifyComision(this.comi);
     if (resp) {
       this.presentToast(resp);
+      this.presentAlert();
     } else {
       this.presentToast(resp);
     }
@@ -164,5 +166,15 @@ export class ModificarComisionPage implements OnInit {
     toast.present();
   }
 
+  async presentAlert() {
+    const alert = await this.alertController.create({
+      header: 'Comisión Enviada',
+      // subHeader: 'Subtitle',
+      message: 'Revisa el estado, cuando sea aceptada por Administrador, crea un viático en esta página.',
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
 
 }

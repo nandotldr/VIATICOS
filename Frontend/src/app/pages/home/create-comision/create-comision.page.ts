@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
-import {ModalController, NavParams} from '@ionic/angular';
+import {ModalController, NavParams, AlertController} from '@ionic/angular';
 import { AuthService } from 'src/app/services/auth.service';
 import { formatDate } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
@@ -32,6 +32,7 @@ export class CreateComisionPage implements OnInit {
       private formBuilder: FormBuilder,
       private auth: AuthService,
       public toastController: ToastController,
+      public alertController: AlertController,
       private router: Router,
       private http: HttpClient,
       private modalController: ModalController
@@ -58,6 +59,7 @@ export class CreateComisionPage implements OnInit {
       const resp = await this.auth.createComision(this.fgCreate.value);
       if (resp) {
         this.presentToastSuccess();
+        this.presentAlert();
       } else {
         console.log(resp);
         this.presentToast();
@@ -134,4 +136,16 @@ export class CreateComisionPage implements OnInit {
     this.id_filtro = event.target.value;
     this.getDestinos(this.id_filtro);
   }
+
+  async presentAlert() {
+    const alert = await this.alertController.create({
+      header: 'Comisión Guardada',
+      // subHeader: 'Subtitle',
+      message: 'Revisa tu comisión en el menú de la izquierda "Lista de Comisiones" y agrega un programa.',
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
+
 }

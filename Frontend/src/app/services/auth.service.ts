@@ -324,11 +324,12 @@ export class AuthService {
   }
 
   restorePassword(data) {
-    return this.http.post(`${this.API_URL}/restorePassword`, {
-      code: data.code,
-      rfc: data.rfc,
-      imss: data.imss,
-      birthday: data.birthday
+    return this.http.put(`${this.API_URL}/password_recovery`, {
+      codigo: data.code,
+      nombres: data.name,
+      apellidos: data.lastname,
+      numero_social: data.imss,
+      nueva_contrasena: data.newpassword
     }).pipe(
       map(response => {
         return response;

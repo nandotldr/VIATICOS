@@ -40,7 +40,7 @@ export class ForgotPasswordPage implements OnInit {
   async restorePassword() {
     try {
       let data = {...this.fgRestore.value} as RestorePasswordModel;
-      data.birthday = new Date(data.birthday).toJSON().slice(0, 10);
+      //data.birthday = new Date(data.birthday).toJSON().slice(0, 10);
       const resp = await this.auth.restorePassword(data).toPromise();
       // @ts-ignore
       if (resp.ok) {

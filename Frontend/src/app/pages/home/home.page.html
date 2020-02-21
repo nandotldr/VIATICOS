@@ -64,7 +64,7 @@
             <ion-label>Viaticos Pendientes</ion-label>
           </ion-item>
         </ion-menu-toggle>
-        <ion-menu-toggle *ngIf="tipo_usuario=='A' || tipo_usuario=='F'" auto-hide="false">
+        <ion-menu-toggle *ngIf="tipo_usuario=='F'" auto-hide="false">
           <ion-item lines="full" class="color" router-direction="root" [routerLink]="'/home/revisar-proyecto'">
             <ion-icon name="hammer" slot="start" class="color"></ion-icon>
             <ion-label>Proyectos Pendientes</ion-label>

@@ -112,15 +112,16 @@ const routes: Routes = [
         path: 'informe-activo',
         loadChildren: () => import('./components/informe-activo/informe-activo.module').then( m => m.InformeActivoPageModule)
       },
+      {
+        path: 'revisar-viatico',
+        loadChildren: () => import('./revisar-viatico/revisar-viatico.module').then( m => m.RevisarViaticoPageModule)
+      },
+      {
+        path: 'revisar-proyecto',
+        loadChildren: () => import('./revisar-proyecto/revisar-proyecto.module').then( m => m.RevisarProyectoPageModule)
+      }
     ]
-  },
-
-
-
-
-
-
-
+  }
 ];
 
 @NgModule({

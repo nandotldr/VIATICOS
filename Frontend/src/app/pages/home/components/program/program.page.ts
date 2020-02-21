@@ -117,7 +117,7 @@ export class ProgramPage implements OnInit {
     const alert = await this.alertController.create({
       header: 'Programa Creado',
       // subHeader: 'Subtitle',
-      message: 'Tu actividad fue registrada, revisa tu programa en el botón "Más información".',
+      message: 'Tu actividad fue registrada, revisa tu programa en el botón "Más información" o crea otra actividad.',
       buttons: ['OK']
     });
 

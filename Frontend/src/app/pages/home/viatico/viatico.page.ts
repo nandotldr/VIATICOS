@@ -1,6 +1,6 @@
 import { CrearGastoPage } from './../components/crear-gasto/crear-gasto.page';
 import { HttpClient } from '@angular/common/http';
-import { ToastController, ModalController } from '@ionic/angular';
+import { ToastController, ModalController, AlertController } from '@ionic/angular';
 import { AuthService } from 'src/app/services/auth.service';
 import { formatDate } from '@angular/common';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
@@ -35,7 +35,8 @@ export class ViaticoPage implements OnInit {
     private auth: AuthService,
     public toastController: ToastController,
     private activatedRoute: ActivatedRoute,
-    private modalController: ModalController
+    private modalController: ModalController,
+    public  alertController: AlertController
   ) {
     this.comision = +this.activatedRoute.snapshot.paramMap.get('folio');
     this.fgCreate = this.formBuilder.group({
@@ -52,7 +53,6 @@ export class ViaticoPage implements OnInit {
   ngOnInit() {
     this.getComision();
     this.getViaticos();
-
   }
 
   async getComision() {
@@ -91,6 +91,7 @@ export class ViaticoPage implements OnInit {
       const resp = await this.auth.saveViatico(this.fgCreate.value).toPromise();
       if (resp) {
         this.presentToast('Guardado correctamente');
+        this.presentAlert();
         this.viatico = resp;
         this.id_viatico = this.viatico.body.id_viatico;
         this.guardado = true;
@@ -105,7 +106,7 @@ export class ViaticoPage implements OnInit {
 
   async sendViatico() {
     //Llamada a la API
-    if (confirm("¿Está seguro de enviar los datos? Una vez enviados no podrán ser modificados")) {
+    if (confirm('¿Está seguro de enviar los datos? Una vez enviados no podrán ser modificados')) {
       const resp = await this.auth.sendViatico(this.id_viatico, this.viatico.nombre_invitado, this.viatico.comentarios, 1).toPromise();
       if (resp['ok']) {
         this.presentToast('Su viatico ha sido enviado.');
@@ -146,6 +147,17 @@ export class ViaticoPage implements OnInit {
     });
 
     await modal.present();
+  }
+
+  async presentAlert() {
+    const alert = await this.alertController.create({
+      header: 'Viático Creado',
+      // subHeader: 'Subtitle',
+      message: 'Añade tus gastos por día con en botón "Crear Gasto".',
+      buttons: ['OK']
+    });
+
+    await alert.present();
   }
 
 }

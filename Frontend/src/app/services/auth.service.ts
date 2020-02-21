@@ -241,9 +241,9 @@ export class AuthService {
     }).pipe(
       map(response => {
         if(response['ok']){
-          return response['body'];
+          return response;
         }else{
-          return response['ok'];
+          return response;
         }
       })
     ).toPromise();
@@ -539,9 +539,9 @@ return this.http.request('delete',`${this.API_URL}/programa_trabajo/`,{body: pro
     }).pipe(
         map(response => {
           if(response['ok']){
-            return response['body'];
+            return response;
           } else {
-            return response['ok'];
+            return response;
           }
         })
     ).toPromise();

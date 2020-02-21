@@ -8,6 +8,8 @@ import { formatDate } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { ProgramPage } from '../components/program/program.page';
 import {OverlayEventDetail} from '@ionic/core';
+import { analyzeAndValidateNgModules } from '@angular/compiler';
+import { stringify } from '@angular/compiler/src/util';
 
 @Component({
   selector: 'app-create-comision',
@@ -57,15 +59,15 @@ export class CreateComisionPage implements OnInit {
   async createComision() {
     if (this.fgCreate.valid) {
       const resp = await this.auth.createComision(this.fgCreate.value);
-      if (resp) {
-        this.presentToastSuccess();
+      if (resp['ok']) {
+        this.presentToast(resp['mensaje']);
         this.presentAlert();
       } else {
         console.log(resp);
-        this.presentToast();
+        this.presentToast(resp['mensaje']);
       }
     } else {
-      this.presentToast();
+      this.presentToast('Llena los campos');
     }
   }
 
@@ -75,14 +77,14 @@ export class CreateComisionPage implements OnInit {
       this.perfil = resp;
       console.log(this.perfil);
     } else {
-      this.presentToast();
+      this.presentToast(resp.mensaje);
     }
 
   }
 
-  async presentToast() {
+  async presentToast(message: any) {
     const toast = await this.toastController.create({
-      message: 'Datos no Validos',
+      message: message,
       duration: 2000,
       position: 'bottom'
     });
@@ -122,13 +124,13 @@ export class CreateComisionPage implements OnInit {
 
   async getDestinos(id_filtro) {
       const resp = await this.auth.getDestinos(this.fgCreate.controls.tipo_comision.value, id_filtro);
-      console.log(resp);
-      if (resp) {
-        this.destinos = resp;
-        this.presentToastSuccess();
+      console.log(resp['body']);
+      if (resp['ok']) {
+        this.destinos = resp['body'];
+        this.presentToast(resp['mensaje']);
       } else {
         console.log(resp);
-        this.presentToast();
+        this.presentToast(resp['mensaje']);
       }
   }
 

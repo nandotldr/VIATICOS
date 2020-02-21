@@ -10,6 +10,7 @@ import { AuthService} from '../../services/auth.service';
 export class HomePage implements OnInit {
 tipo_usuario = this.auth.userType;
   logout() {
+    this.auth.logout();
     this.router.navigateByUrl('/login');
   }
   constructor(private router: Router,

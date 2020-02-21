@@ -349,8 +349,8 @@ export class AuthService {
 
   logout() {
     console.log('Cerrar Sesión');
-    this.codeUser = '';
-    this.userType = '';
+    this.codeUser = null;
+    this.userType = null;
     localStorage.clear();
     window.location.reload();
     this.nav.navigateRoot('/login', { animated: true });

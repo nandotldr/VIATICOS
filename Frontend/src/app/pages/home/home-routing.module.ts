@@ -114,11 +114,13 @@ const routes: Routes = [
       },
       {
         path: 'revisar-viatico',
-        loadChildren: () => import('./revisar-viatico/revisar-viatico.module').then( m => m.RevisarViaticoPageModule)
+        loadChildren: () => import('./revisar-viatico/revisar-viatico.module').then( m => m.RevisarViaticoPageModule),
+        canLoad: [AuthGuardService]
       },
       {
         path: 'revisar-proyecto',
-        loadChildren: () => import('./revisar-proyecto/revisar-proyecto.module').then( m => m.RevisarProyectoPageModule)
+        loadChildren: () => import('./revisar-proyecto/revisar-proyecto.module').then( m => m.RevisarProyectoPageModule),
+        canLoad: [AuthGuardService]
       }
     ]
   }

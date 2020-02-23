@@ -8,12 +8,15 @@ import { RevisarProyectoPageRoutingModule } from './revisar-proyecto-routing.mod
 
 import { RevisarProyectoPage } from './revisar-proyecto.page';
 
+import { ProyectoActivoPageModule } from "../components/proyecto-activo/proyecto-activo.module";
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    RevisarProyectoPageRoutingModule
+    RevisarProyectoPageRoutingModule,
+      ProyectoActivoPageModule
   ],
   declarations: [RevisarProyectoPage]
 })

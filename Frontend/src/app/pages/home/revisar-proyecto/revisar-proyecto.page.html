@@ -1,9 +1,52 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>revisar-proyecto</ion-title>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button menu="menu"></ion-menu-button>
+      <!-- <img src="../../../assets/images/logo.png" width="25px" style="display:inline-block" height="25px"/> -->
+      <!-- <ion-icon slot="icon-only" name="filing"></ion-icon> -->
+      <ion-title>
+        REVISAR PROYECTOS
+      </ion-title>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <img class="background-image"/>
+  <ion-card >
+    <ion-card-header class="title">
+      <ion-card-title>Proyectos Pendientes de Aprobación</ion-card-title>
+    </ion-card-header>
+    <ion-card-header class="subtitle">
+      <ion-card-title>Proyectos</ion-card-title>
+    </ion-card-header>
+    <ion-card-content class="background">
+      <table>
+        <tr>
+          <th>ID de Comisión</th>
+          <th>Nombre de la Comisión</th>
+          <th>Fecha de Elaboración</th>
+          <th>Nombre Solicitante</th>
+          <th>Más Información</th>
+          <th>Acciones</th>
+        </tr>
+        <tr *ngFor="let proyecto of proyectos">
+          <td>{{ proyecto.id_solicitud_comision }}</td>
+          <td>{{ proyecto.nombre_comision }}</td>
+          <td>{{ proyecto.fecha_elaboracion | date }}</td>
+          <td>{{ proyecto.nombre }}</td>
+          <td text-center><ion-button (click)="openModal(proyecto.id_solicitud_comision)"><ion-icon name="apps"></ion-icon></ion-button></td>
+          <td>
+            <ion-button (click)="alertConfirm(proyecto)"><ion-icon name="checkmark-circle-outline"></ion-icon></ion-button>
+            <ion-button (click)="alertDecline(proyecto)"><ion-icon name="close-circle-outline"></ion-icon></ion-button>
+          </td>
+        </tr>
+      </table>
+
+    </ion-card-content>
+    <ion-card *ngIf="proyectos == null" class="primary"> No hay elementos para mostrar </ion-card>
+  </ion-card>
 
 </ion-content>
+
+

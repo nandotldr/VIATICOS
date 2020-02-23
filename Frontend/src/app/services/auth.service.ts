@@ -680,8 +680,8 @@ return this.http.request('delete',`${this.API_URL}/programa_trabajo/`,{body: pro
     ).toPromise();
 }
 
-getViatico(id_viatico: any){
-  return this.http.get(`${this.API_URL}/solicitud_viatico/${id_viatico}`).pipe(
+    getViatico(id_viatico: any){
+      return this.http.get(`${this.API_URL}/solicitud_viatico/${id_viatico}`).pipe(
       map(response => {
           if(response['ok']){
               console.log(response);
@@ -691,8 +691,20 @@ getViatico(id_viatico: any){
           }
       })
   ).toPromise();
-}
+    }
 
+    getRevisarProyecto(){
+        return this.http.get(`${this.API_URL}/revisar_viatico_proyecto`).pipe(
+            map(response => {
+                if(response['ok']){
+                    console.log(response);
+                    return response['body'];
+                } else {
+                    return response['ok'];
+                }
+            })
+        ).toPromise();
+    }
 }
 
 

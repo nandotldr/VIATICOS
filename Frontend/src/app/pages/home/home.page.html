@@ -52,12 +52,6 @@
             <ion-label>Comisiones Pendientes</ion-label>
           </ion-item>
         </ion-menu-toggle>
-        <ion-menu-toggle *ngIf="tipo_usuario!='P' && tipo_usuario!='J'" auto-hide="false">
-          <ion-item lines="full" class="color" router-direction="root" [routerLink]="'/home/revisar-informe'">
-            <ion-icon name="folder-open" slot="start" class="color"></ion-icon>
-            <ion-label>Informes Pendientes</ion-label>
-          </ion-item>
-        </ion-menu-toggle>
         <ion-menu-toggle *ngIf="tipo_usuario=='A'" auto-hide="false">
           <ion-item lines="full" class="color" router-direction="root" [routerLink]="'/home/revisar-viatico'">
             <ion-icon name="hourglass" slot="start" class="color"></ion-icon>
@@ -68,6 +62,12 @@
           <ion-item lines="full" class="color" router-direction="root" [routerLink]="'/home/revisar-proyecto'">
             <ion-icon name="hammer" slot="start" class="color"></ion-icon>
             <ion-label>Proyectos Pendientes</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle *ngIf="tipo_usuario!='P' && tipo_usuario!='J'" auto-hide="false">
+          <ion-item lines="full" class="color" router-direction="root" [routerLink]="'/home/revisar-informe'">
+            <ion-icon name="folder-open" slot="start" class="color"></ion-icon>
+            <ion-label>Informes Pendientes</ion-label>
           </ion-item>
         </ion-menu-toggle>
         <ion-menu-toggle auto-hide="false">

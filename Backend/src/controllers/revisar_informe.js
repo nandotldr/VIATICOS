@@ -29,7 +29,7 @@ module.exports = {
             res.json({ ok: false, mensaje: "Funcion no disponible para tu usuario" })
         } catch (error) {
             console.log(error);
-            return res.json({ ok: false, mensaje: error });
+            return res.json({ ok: false, mensaje: 'Error inesperado' });
 
         }
 

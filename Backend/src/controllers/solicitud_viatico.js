@@ -49,7 +49,7 @@ module.exports = {
                 destino = await pool.query('SELECT nombre FROM municipio WHERE id = ?', [viatico[0].id_municipio]);
             };
             pool.query('SELECT * FROM gasto WHERE id_solicitud_viatico = ?', [viatico[0].id], (errorGasto, gastos, fields) => {
-                if (errorGasto) return res.json({ ok: false, mensaje: errorGasto });
+                if (errorGasto) return res.json({ ok: false, mensaje: 'No existe la solicitud' });
                 let json = {
                     folio: viatico[0].id,
                     id_solicitud_comision: viatico[0].id_solicitud_comision,
@@ -81,7 +81,7 @@ module.exports = {
         try {
             const existeViatico = await pool.query("SELECT * FROM solicitud_viatico WHERE id = ? AND id_usuario=?", [req.body.id_viatico, req.user.codigo]);
             if (existeViatico.length < 1)
-                return res.json({ ok: false, mensaje: 'No existe la solicitud viatico' });
+                return res.json({ ok: false, mensaje: 'No existe la solicitud' });
             if (existeViatico[0].status == 0 && req.body.status == 1) {
                 existeViatico[0].fecha_solicitud = new Date();
             }

@@ -19,7 +19,7 @@ module.exports = {
             }]);
             res.json({ ok: true, mensaje: 'agenda creada' });
         } catch (error) {
-            return res.json({ ok: false, mensaje: error });
+            return res.json({ ok: false, mensaje: "Error inesperado" });
         }
     },
 
@@ -35,7 +35,7 @@ module.exports = {
 
 
     },
-    //D
+
     modificarAgenda: async(req, res) => {
         try {
             const existeagenda = await pool.query('SELECT id FROM agenda WHERE id=?', [req.body.id]);
@@ -49,12 +49,12 @@ module.exports = {
                 actividad: req.body.actividad
             }, req.body.id], (errorModificar, modificaragenda) => {
                 console.log(errorModificar);
-                if (errorModificar) return res.json({ ok: false, mensaje: errorModificar });
+                if (errorModificar) return res.json({ ok: false, mensaje: "Error al intentar modificar tu agenda" });
 
                 res.json({ ok: true, modificaragenda, mensaje: "Agenda modificada" });
             });
         } catch (error) {
-            return res.json({ ok: false, mensaje: error });
+            return res.json({ ok: false, mensaje: "Error inesperado" });
         }
     },
 

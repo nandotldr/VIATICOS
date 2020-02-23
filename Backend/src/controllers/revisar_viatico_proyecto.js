@@ -31,7 +31,6 @@ module.exports = {
     },
 
     aceptarViaticoProyecto: async(req, res) => {
-        //verificar que no este en status cancelado =-1, revision = 1, aceptado por J =3, aceptado por A= 5 o finalizado
         try {
             var sqlViatico_proyecto = 'SELECT p.id, p.status, u.codigo, p.fecha_solicitud, concat(u.nombres," ",u.apellidos) as nombre, u.tipo_usuario FROM viatico_proyecto AS p INNER JOIN usuario as u ON u.codigo = i.id_usuario WHERE (p.status = 1) AND v.id =?';
             const verificarViatico_proyecto = await pool.query(sqlViatico_proyecto, [req.body.id]);

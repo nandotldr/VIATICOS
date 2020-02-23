@@ -9,6 +9,9 @@ const pool = require('../database');
 module.exports = {
 
     insert: async(req, res) => {
+        
+        
+        try{
         var id_viatico = req.body.id_solicitud_viatico;
         var dias = req.body.dia;
         var aliment = req.body.alimentacion;
@@ -20,11 +23,19 @@ module.exports = {
 
         var buscarSolicitudV = 'SELECT id FROM solicitud_viatico WHERE id = ? AND (status = 0 OR status = 2 OR status = 4)';
         var insertarGasto = 'INSERT INTO gasto SET ?';
-        console.log(id_viatico);
-        try {
+        
+            aliment = (aliment < 1) ? 0:aliment;
+            hos = (hos < 1) ? 0:hos;
+            transporteLocal = (transporteLocal < 1) ? 0:transporteLocal;
+            transporteForaneo = (transporteForaneo < 1) ? 0:transporteForaneo;
+            combustible_viaje = (combustible_viaje < 1) ? 0:combustible_viaje;
+            otros = (otros.length < 1) ? 0:otros;
+
+
+
             const existe = await pool.query(buscarSolicitudV, [id_viatico]);
             if (existe.length == 0)
-                return res.json({ ok: false, mensaje: 'no existe el viatico o no se puede crear con el estatus actual' });
+                return res.json({ ok: false, mensaje: 'No existe el viatico o no se puede crear con el estatus actual' });
             var valuesSolicitud = {
                 dia: dias,
                 alimentacion: aliment,
@@ -37,10 +48,10 @@ module.exports = {
             };
             pool.query(insertarGasto, [valuesSolicitud], (error, results) => {
                 if (error) return res.json(error);
-                res.json({ ok: true, results, controller: 'gasto insertado', mensaje: 'ok' });
+                res.json({ ok: true, results, controller: 'Gasto insertado', mensaje: 'ok' });
             });
-        } catch (e) {
-            return res.json({ ok: false, mensaje: e });
+        } catch (error) {
+            return res.json({ ok: false, mensaje: 'Error inesperado' });
         }
 
 
@@ -58,7 +69,7 @@ module.exports = {
         const { id } = req.params;
         var consultaGasto = 'SELECT * FROM gasto WHERE id_solicitud_viatico = ?';
         pool.query(consultaGasto, [id], (error, results) => {
-            if (error) return res.json(error);
+            if (error) return res.json(error, 'Error al consultar el gasto');
             res.json({ ok: true, results, controller: 'conceptoGasto select' });
         });
     },
@@ -94,8 +105,8 @@ module.exports = {
                 if (error) return res.json(error);
                 res.json({ ok: true, results, controller: 'Gasto actualizado', mensaje: 'ok' });
             });
-        } catch (e) {
-            return res.json({ ok: false, mensaje: e });
+        } catch (error) {
+            return res.json({ ok: false, mensaje: 'Error inesperado' });
         }
     },
 

@@ -36,19 +36,19 @@ module.exports = {
 
 
         } catch (error) {
-            return res.json({ ok: false, mensaje: error });
+            return res.json({ ok: false, mensaje: 'Error inesperado', error });
         }
     },
 
     historialInforme: (req, res) => {
         try {
             pool.query(' SELECT inf.id as folio, inf.fecha_elaboracion, c.nombre_comision, concat(u.nombres , " " ,u.apellidos) as nombres FROM viaticos.informe_actividades AS inf INNER JOIN viaticos.solicitud_comision as c on c.id = inf.id_solicitud_comision  INNER JOIN viaticos.usuario as u on u.codigo = inf.id_usuario where inf.id_usuario =?', [req.user.codigo], (errorInforme, informes, fields) => {
-                if (errorInforme) return res.json({ ok: false, mensaje: errorInforme });
+                if (errorInforme) return res.json({ ok: false, mensaje: 'Error al obtener el informe' });
                 if (informes.length < 1) return res.json({ ok: false, mensaje: "No tienes informes creados" });
                 res.json({ ok: true, body: informes });
             });
         } catch (error) {
-            return res.json({ ok: false, mensaje: error });
+            return res.json({ ok: false, mensaje: 'Error inesperado' });
         }
     },
 
@@ -59,9 +59,9 @@ module.exports = {
                 if (errorInforme) return res.json({ ok: false, mensaje: errorInforme });
                 if (informe.length < 1) return res.json({ ok: false, mensaje: "Este informe no existe" });
                 pool.query('SELECT * FROM itinerario WHERE id_informe_actividades= ?', [informe[0].id], (errorItinerario, itinerario, fields) => {
-                    if (errorItinerario) return res.json({ ok: false, mensaje: errorItinerario });
+                    if (errorItinerario) return res.json({ ok: false, mensaje: 'No existe el itinerario' });
                     pool.query('SELECT * FROM agenda WHERE id_informe_actividades= ?', [informe[0].id], (errorAgenda, agenda, fields) => {
-                        if (errorAgenda) return res.json({ ok: false, mensaje: errorAgenda });
+                        if (errorAgenda) return res.json({ ok: false, mensaje: 'No existe la agenda' });
                         let json = {
                             folio: informe[0].id,
                             codigo: informe[0].codigo,
@@ -81,7 +81,7 @@ module.exports = {
                 });
             });
         } catch (error) {
-            return res.json({ ok: false, mensaje: error });
+            return res.json({ ok: false, mensaje: 'Error Inesperado' });
         }
     },
 
@@ -110,7 +110,7 @@ module.exports = {
                 res.json({ ok: true, mensaje: "Informe modificado" });
             });
         } catch (error) {
-            return res.json({ ok: false, mensaje: error });
+            return res.json({ ok: false, mensaje: 'Error inesperado' });
         }
     }
 }

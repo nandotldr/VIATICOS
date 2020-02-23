@@ -27,8 +27,8 @@ module.exports = {
                 if (error) return res.json(error);
                 res.json({ ok: true, controller: 'Contraseña actualizada ', mensaje: 'ok' });
             });
-        } catch (e) {
-            return res.json({ ok: false, mensaje: e });
+        } catch (error) {
+            return res.json({ ok: false, mensaje: 'Error Inesperado' });
         }
     }
 

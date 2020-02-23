@@ -4,7 +4,7 @@ module.exports = {
         selectPais: (req, res) => {
             var sqlContinente = 'SELECT continente.id_continente as id_continente,continente.nombre as continente, pais.id_pais as id_pais , pais.nombre as pais, pais.zona as zona, pais.activo as activo FROM continente INNER JOIN pais WHERE continente.id_continente=pais.id_continente';
             pool.query(sqlContinente, (errorContinente, continente, fields) => {
-                if (errorContinente) return res.json(errorContinente);
+                if (errorContinente) return res.json('Error al obtener el continente');
 
 
                 const JSON_RESPONSE = { continentes: [] };

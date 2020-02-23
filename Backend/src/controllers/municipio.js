@@ -4,7 +4,7 @@ module.exports = {
     selectMunicipio: (req, res) => {
         var sqlestados = 'SELECT estados.id as id, estados.nombre as estados, municipios.id as id , municipios.nombre as municipios, municipios.zona as zona FROM estados INNER JOIN municipios WHERE estados.id=municipios.estado_id';
         pool.query(sqlestados, (errorestados, estados, fields) => {
-            if (errorestados) return res.json(errorestados);
+            if (errorestados) return res.json('Error al obtener los estados');
 
 
             const JSON_RESPONSE = { Estados: [] };

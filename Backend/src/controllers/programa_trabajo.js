@@ -22,7 +22,7 @@ module.exports = {
         res.json({ ok: true, mensaje: "Programa creado" });
       
       }catch (error){
-        return res.json({ ok: false, mensaje: error });
+        return res.json({ ok: false, mensaje: 'Error inesperado' });
       }
       
     },
@@ -37,7 +37,7 @@ module.exports = {
             res.json({ ok: true, body: programa});
         });
       }catch(error){
-        return res.json({ ok: false, mensaje: error});
+        return res.json({ ok: false, mensaje: 'Error inesperado'});
       }
     },
 
@@ -56,7 +56,7 @@ module.exports = {
           res.json({ok:true, mensaje: "Programa modificado exitosamente"});
         });
       }catch(error){
-        return res.json({ ok: false, mensaje: error})
+        return res.json({ ok: false, mensaje: 'Error inesperado'})
       }
     },
 
@@ -74,7 +74,7 @@ module.exports = {
           res.json({ok:true, mensaje: "Programa eliminado exitosamente"});
         });
       }catch(error){
-        return res.json({ ok: false, mensaje: error})
+        return res.json({ ok: false, mensaje: 'Error inesperado'})
       }
         
     },

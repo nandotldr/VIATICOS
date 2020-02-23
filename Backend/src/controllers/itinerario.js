@@ -19,7 +19,7 @@ module.exports = {
             }]);
             res.json({ ok: true, mensaje: 'Itinerario creado' });
         } catch (error) {
-            return res.json({ ok: false, mensaje: error });
+            return res.json({ ok: false, mensaje: 'Error al crear el itinerario' });
         }
     },
 
@@ -35,7 +35,7 @@ module.exports = {
             });
             
         } catch (error) {
-            return res.json({ ok: false, mensaje: error });
+            return res.json({ ok: false, mensaje: 'Error inesperado' });
         }
 
         
@@ -54,13 +54,12 @@ module.exports = {
                 origen: req.body.origen,
                 destino: req.body.destino,
             }, req.body.id_itinerario], (errorModificar, modificaritinerario) => {
-                console.log(errorModificar);
-                if (errorModificar) return res.json({ ok: false, mensaje: errorModificar });
+                if (errorModificar) return res.json({ ok: false, mensaje: 'Error al modificar' });
 
                 res.json({ ok: true, modificaritinerario, mensaje: "Itinerario modificado" });
             });
         } catch (error) {
-            return res.json({ ok: false, mensaje: error });
+            return res.json({ ok: false, mensaje: 'Error inesperado' });
         }
     },
     eliminarItinerario: async(req, res) => {
@@ -74,7 +73,7 @@ module.exports = {
             });
             
         } catch (error) {
-            return res.json({ ok: false, mensaje: error });
+            return res.json({ ok: false, mensaje: 'Error inesperado' });
         }
         
     }

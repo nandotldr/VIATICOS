@@ -22,7 +22,7 @@ module.exports = {
                 return res.json({ok:true, body: viaticos});
 
             }
-            else if(existeUsuario[0].tipo_usuario =='S')
+            else if(existeUsuario[0].tipo_usuario =='F')
             {
                 const viaticos = await pool.query('SELECT v.id AS id_viatico, v.status, u.codigo,concat(u.nombres," ",u.apellidos) as nombre, u.area_adscripcion, v.fecha_solicitud, c.nombre_comision FROM solicitud_viatico AS v INNER JOIN usuario as u ON u.codigo=v.id_usuario INNER JOIN solicitud_comision as c ON c.id= v.id_solicitud_comision WHERE v.status =1');
                     if (viaticos.length < 1) return res.json({ ok: false, mensaje: "No hay solicitudes de viaticos por aceptar" });
@@ -51,9 +51,9 @@ module.exports = {
             const usuario = await pool.query("SELECT CONCAT(u.nombres, ' ' , u.apellidos) as nombre FROM viaticos.usuario as u WHERE codigo = ?",[req.user.codigo]);
                 
             var modificarViatico = 'UPDATE solicitud_viatico SET ? WHERE id = ?';
-            //si usuario =J modifcar fecha revisado, nombre revisado, comentario rechazo
+            //si usuario =F modifcar fecha revisado, nombre revisado, comentario rechazo
             //si usuario =A modificar fecha_aceptado, nombre aceptado, comentario rechazo
-            if (req.user.tipo_usuario == 'S' && verificarViatico[0].status == 1) {
+            if (req.user.tipo_usuario == 'F' && verificarViatico[0].status == 3) {
                 pool.query(modificarViatico, [{
                     fecha_modificacion: new Date(),
                     fecha_revisado: new Date(),
@@ -67,7 +67,7 @@ module.exports = {
                 });
                 return res.json({ ok: true, mensaje: "Viatico verificado" });
 
-            } else if (req.user.tipo_usuario == 'A' && verificarViatico[0].status == 3) {
+            } else if (req.user.tipo_usuario == 'A' && verificarViatico[0].status == 5) {
                 pool.query(modificarViatico, [{
                     fecha_modificacion: new Date(),
                     fecha_aceptado: new Date(),

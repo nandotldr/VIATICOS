@@ -70,5 +70,26 @@ export class ViaticoActivoPage implements OnInit {
     });
     toast.present();
   }
+  
+  async deleteViatico(viatico){
+      const resp = 1//await this.auth.deleteViatico(viatico);
+      if (resp) {
+        this.presentToast();
+      } else {
+        this.presentToast();
+      }
+    this.getViatico(this.viatico);
+  }
+
+  async modifyViatico(viatico){
+    console.log(viatico);
+    const resp = 1//await this.auth.modifyViatico(viatico);
+    if (resp) {
+      this.presentToast();
+    } else {
+      this.presentToast();
+    }
+  this.closeModal();
+}
 
 }

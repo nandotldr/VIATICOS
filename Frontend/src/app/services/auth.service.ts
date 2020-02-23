@@ -392,7 +392,7 @@ export class AuthService {
       id_viatico: +id_comision,
       invitado: invitado_nombre,
       comentarios: _comentarios,
-      status: 1
+      status: 3
     });
   }
 
@@ -667,7 +667,7 @@ return this.http.request('delete',`${this.API_URL}/programa_trabajo/`,{body: pro
       id_viatico: viatico.id_viatico,
       invitado: viatico.invitado,
       comentarios: viatico.comentarios,
-      status: viatico.status
+      status: 3
     }).pipe(
         map(response => {
             console.log(response);
@@ -705,6 +705,61 @@ return this.http.request('delete',`${this.API_URL}/programa_trabajo/`,{body: pro
             })
         ).toPromise();
     }
+
+    deleteViatico(
+      viatico: { 
+        id: Number,
+        idV: Number
+      }
+    ){
+    return this.http.request('delete',`${this.API_URL}/viatico_trabajo/`,{body: viatico }).pipe(
+        tap(resp => {
+          console.log(resp);
+          if (resp['ok']) {
+            return resp['mensaje'];
+          }
+        }),
+        map(response => {
+          return response['mensaje'];
+        })
+    ).toPromise();
+    }
+
+    modifyViatico(
+      gasto: { 
+        dia: string,
+        alimentacion: Number,
+        hospedaje: Number,
+        transporte_local: Number,
+        transporte_foraneo: Number,
+        combustible: Number,
+        otros_conceptos: Number,
+        idViatico: Number,
+        status: Number
+      }
+  ){
+    return this.http.put(`${this.API_URL}/gasto_trabajo`, {
+      dia: formatDate(gasto.dia, 'yyyy-MM-dd', 'en'),
+      alimentacion: gasto.alimentacion,
+      hospedaje: gasto.hospedaje,
+      transporte_local: gasto.transporte_local,
+      transporte_foraneo: gasto.transporte_foraneo,
+      combustible: gasto.combustible,
+      otros_conceptos: gasto.otros_conceptos,
+      idViatico: gasto.idViatico,
+      status: gasto.status
+    }).pipe(
+        tap(resp => {
+          console.log(resp);
+          if (resp['ok']) {
+            return resp['mensaje'];
+          }
+        }),
+        map(response => {
+          return response['mensaje'];
+        })
+    ).toPromise();
+  }
 }
 
 

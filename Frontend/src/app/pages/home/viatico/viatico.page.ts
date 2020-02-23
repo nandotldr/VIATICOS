@@ -93,7 +93,6 @@ export class ViaticoPage implements OnInit {
         this.presentToast('Guardado correctamente');
         this.presentAlert();
         this.viatico = resp;
-        this.id_viatico = this.viatico.body.id_viatico;
         this.guardado = true;
         this.getViaticos();
       } else {
@@ -119,6 +118,16 @@ export class ViaticoPage implements OnInit {
     }
 
   }
+
+  async revisarViatico(){
+    const resp = await this.auth.modifyViatico(this.viatico);
+    if (resp) {
+      this.presentToast(resp);
+    } else {
+      this.presentToast(resp);
+    }
+
+}
 
   async presentToast(message) {
     const toast = await this.toastController.create({

@@ -1,4 +1,4 @@
-import { ComisionActivaPageModule } from './../components/comision-activa/comision-activa.module';
+import { ViaticoActivoPageModule } from './../components/viatico-activo/viatico-activo.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -15,7 +15,7 @@ import { RevisarViaticoPage } from './revisar-viatico.page';
     FormsModule,
     IonicModule,
     RevisarViaticoPageRoutingModule,
-    ComisionActivaPageModule
+    ViaticoActivoPageModule
   ],
   declarations: [RevisarViaticoPage]
 })

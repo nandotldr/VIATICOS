@@ -1,10 +1,10 @@
+import { ViaticoActivoPage } from './../components/viatico-activo/viatico-activo.page';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { ModalController, ToastController, AlertController } from '@ionic/angular';
 import { OverlayEventDetail } from '@ionic/core';
 import { formatDate } from '@angular/common';
-import { ComisionActivaPage } from '../components/comision-activa/comision-activa.page';
 
 @Component({
   selector: 'app-revisar-viatico',
@@ -41,13 +41,13 @@ export class RevisarViaticoPage implements OnInit {
     }
   }
 
-  async openModal(id_comision) {
+  async openModal(id_viatico) {
     const modal: HTMLIonModalElement =
         await this.modalController.create({
-          component: ComisionActivaPage,
+          component: ViaticoActivoPage,
           cssClass: 'modal-class',
           componentProps: {
-            comision: id_comision,
+            viatico: id_viatico,
           }
         });
 

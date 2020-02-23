@@ -35,7 +35,7 @@
           <td>{{ viatico.nombre_comision }}</td>
           <td>{{ viatico.fecha_solicitud | date }}</td>
           <td>{{ viatico.nombre }}</td>
-          <td text-center><ion-button (click)="openModal(viatico.id)"><ion-icon name="apps"></ion-icon></ion-button></td>
+          <td text-center><ion-button (click)="openModal(viatico.id_viatico)"><ion-icon name="apps"></ion-icon></ion-button></td>
           <td>
             <ion-button (click)="alertConfirm(viatico)"><ion-icon name="checkmark-circle-outline"></ion-icon></ion-button>
             <ion-button (click)="alertDecline(viatico)"><ion-icon name="close-circle-outline"></ion-icon></ion-button>

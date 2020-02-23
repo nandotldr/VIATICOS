@@ -79,7 +79,6 @@ export class CreateComisionPage implements OnInit {
     } else {
       this.presentToast(resp.mensaje);
     }
-
   }
 
   async presentToast(message: any) {

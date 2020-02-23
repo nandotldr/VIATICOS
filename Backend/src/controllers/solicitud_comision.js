@@ -47,7 +47,7 @@ module.exports = {
             };
             res.json({ ok: true, mensaje: "Comision creada correctamente", body: json });
         } catch (error) {
-            return res.json({ ok: false, mensaje: error });
+            return res.json({ ok: false, mensaje: 'Error inesperado' });
 
         }
     },
@@ -70,7 +70,7 @@ module.exports = {
                 globalString = await pool.query('SELECT nombre FROM municipio WHERE id = ?', [comision[0].id_municipio]);
             };
             pool.query('SELECT * FROM programa_trabajo WHERE id_solicitud_comision = ?', [comision[0].id], (errorPrograma, programa, fields) => {
-                if (errorPrograma) return res.json({ ok: false, mensaje: errorPrograma });
+                if (errorPrograma) return res.json({ ok: false, mensaje: 'Error al obtener el programa' });
                 let json = {
                     folio: comision[0].id,
                     codigo: comision[0].codigo,
@@ -98,7 +98,7 @@ module.exports = {
 
         } catch (error) {
             console.log(error);
-            return res.json({ ok: false, mensaje: error });
+            return res.json({ ok: false, mensaje: 'Error inesperado' });
         }
 
     },
@@ -111,7 +111,7 @@ module.exports = {
             const verificarComision = await pool.query(sqlSolComision, [req.body.id, req.user.codigo]);
             console.log(verificarComision);
             if (verificarComision.length < 1) {
-                return res.json({ ok: false, mensaje: "No se puede modificar comison" });
+                return res.json({ ok: false, mensaje: "No se puede modificar comision" });
             }
 
             //si estatus =0 modificar fecha solicitud
@@ -132,12 +132,12 @@ module.exports = {
                 status: req.body.status,
                 objetivo_trabajo: req.body.objetivo_trabajo,
             }, req.body.id], (errorModificar, modificarComision) => {
-                if (errorModificar) return res.json({ ok: false, mensaje: errorModificar });
+                if (errorModificar) return res.json({ ok: false, mensaje: 'Error al modificar la comision' });
                 res.json({ ok: true, mensaje: "Solicitud comision se modifico correctamente" });
             });
 
         } catch (error) {
-            return res.json({ ok: false, mensaje: error });
+            return res.json({ ok: false, mensaje: 'Error inesperado' });
         }
     },
     historialComisones: async(req, res) => {
@@ -152,7 +152,7 @@ module.exports = {
             });
 
         } catch (error) {
-            return res.json({ ok: false, mensaje: error });
+            return res.json({ ok: false, mensaje: 'Error inesperado' });
         }
 
     },

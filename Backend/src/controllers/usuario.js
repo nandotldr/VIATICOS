@@ -28,7 +28,7 @@ module.exports = {
             }]);
             res.json({ ok: true, mensaje: 'Cuenta creada' });
         } catch (error) {
-            return res.json({ ok: false, mensaje: error });
+            return res.json({ ok: false, mensaje: 'Error inesperado' });
         }
     },
 
@@ -51,7 +51,7 @@ module.exports = {
 
         } catch (error) {
             console.log(error);
-            return res.json({ ok: false, mensaje: error });
+            return res.json({ ok: false, mensaje: 'Error inesperado' });
         }
 
 
@@ -72,12 +72,12 @@ module.exports = {
                 numero_social: req.body.numero_social,
                 fecha_modificacion: new Date()
             }, req.user.codigo], (errorModificar, modificarUsuario) => {
-                if (errorModificar) return res.json({ ok: false, mensaje: errorModificar });
+                if (errorModificar) return res.json({ ok: false, mensaje: 'Error al modificar' });
 
                 res.json({ ok: true, mensaje: "Cuenta modificada" });
             });
         } catch (error) {
-            return res.json({ ok: false, mensaje: error });
+            return res.json({ ok: false, mensaje: 'Error inesperado' });
         }
 
 

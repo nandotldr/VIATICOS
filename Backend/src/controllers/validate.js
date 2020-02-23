@@ -15,7 +15,7 @@ module.exports = {
             }
             res.json({ ok: true, mensaje: "Token Valido", body: existeUsuario });
         } catch (error) {
-            return res.json({ ok: false, mensaje: error });
+            return res.json({ ok: false, mensaje: 'Error inesperado' });
 
         }
     },

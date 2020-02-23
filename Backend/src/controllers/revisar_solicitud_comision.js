@@ -29,7 +29,7 @@ module.exports = {
             res.json({ ok: false, mensaje: "Funcion no disponible para tu usuario" })
                 //si usuario es J NO FUNCIONA JEJE mostrar las solicitudes de su dependencia 
         } catch (error) {
-            return res.json({ ok: false, mensaje: error });
+            return res.json({ ok: false, mensaje: 'Error inesperado' });
         }
 
     },

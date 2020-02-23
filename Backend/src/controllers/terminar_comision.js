@@ -15,12 +15,12 @@ module.exports = {
                 return res.json({ ok: false, mensaje: "Esta comision no existe" });
             }
             pool.query('UPDATE solicitud_comision SET status = 6 WHERE id = ?', [req.body.id], (errorTerminar, terminarcomision) => {
-                if (errorTerminar) return res.json({ ok: false, mensaje: errorTerminar });
+                if (errorTerminar) return res.json({ ok: false, mensaje: 'Error al terminar la comision' });
 
                 res.json({ ok: true, terminarcomision, mensaje: "Comision terminada satisfactoriamente" });
             });
         } catch (error) {
-            return res.json({ ok: false, mensaje: error });
+            return res.json({ ok: false, mensaje: 'Error inesperado' });
         }
     }
 }

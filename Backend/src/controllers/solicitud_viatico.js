@@ -72,7 +72,6 @@ module.exports = {
 
 
         } catch (error) {
-            console.log(error);
             return res.json({ ok: false, mensaje: "Error inesperado" });
         }
 
@@ -92,7 +91,7 @@ module.exports = {
                 comentarios: req.body.comentarios,
                 invitado_nombre: req.body.nombre_invitado
             }, req.body.id_viatico], (errorModificar, moficarViatico) => {
-                if (errorModificar) return res.json({ ok: false, mensaje: errorModificar });
+                if (errorModificar) return res.json({ ok: false, mensaje: 'Error al modificar' });
                 res.json({ ok: true, mensaje: "Solicitud viatico se modifico correctamente" });
             });
         } catch (error) {

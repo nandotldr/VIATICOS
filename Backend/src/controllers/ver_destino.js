@@ -15,14 +15,14 @@ module.exports = {
             if (tipo_comision == 0) {
                 pool.query('SELECT id, nombre FROM pais WHERE id_continente = ?', id_destino, (errordestino, destino) => {
                     if (errordestino) return res.json({ ok: false, mensaje: errordestino });
-                    if (destino.length < 1) return res.json({ ok: false, mensaje: "Error" });
+                    if (destino.length < 1) return res.json({ ok: false, mensaje: "Error al obterner el destino" });
 
                     res.json({ ok: true, body: destino });
                 });
             } else if (tipo_comision == 1) {
                 pool.query('SELECT id, nombre FROM municipio WHERE id_estado = ?', id_destino, (errordestino, destino) => {
                     if (errordestino) return res.json({ ok: false, mensaje: errordestino });
-                    if (destino.length < 1) return res.json({ ok: false, mensaje: "Error" });
+                    if (destino.length < 1) return res.json({ ok: false, mensaje: "Error al obtener el destino" });
 
                     res.json({ ok: true, body: destino });
                 });

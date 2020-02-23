@@ -24,8 +24,8 @@ module.exports = {
                 fecha_solicitud: new Date()
             };
             const resp = await pool.query(sqlProgram, [valuesProject]);
-        } catch (e) {
-            return res.json({ ok: false, mensaje: e });
+        } catch (error) {
+            return res.json({ ok: false, mensaje: 'Error inesperado' });
         }
         res.json({ ok: true, mensaje: "Proyecto creado" });
     },
@@ -37,7 +37,7 @@ module.exports = {
                 if (errorProyecto) return res.json({ ok: false, mensaje: errorProyecto });
                 if (proyecto.length < 1) return res.json({ ok: false, mensaje: "no existe el proyecto" });
                 pool.query('SELECT * FROM solicitud_viatico WHERE id = ?', [id], (errorViatico, viatico) => {
-                    if (errorViatico) return res.json({ ok: false, mensaje: errorViatico });
+                    if (errorViatico) return res.json({ ok: false, mensaje: 'Error al obtener la solicitud del viatico' });
                     let json = {
                         solicitud_viatico: viatico,
                         viatico_proyecto: proyecto
@@ -46,7 +46,7 @@ module.exports = {
                 });
             });
         } catch (error) {
-            return res.json({ ok: false, mensaje: e });
+            return res.json({ ok: false, mensaje: 'Error inesperado'});
         }
     },
 
@@ -62,14 +62,14 @@ module.exports = {
                 res.json({ ok: true, mensaje: "proyecto modificado exitosamente" });
             });
         } catch (e) {
-            return res.json({ ok: false, mensaje: e });
+            return res.json({ ok: false, mensaje: 'Error inesperado' });
         }
     },
 
     eliminarProyecto: (req, res) => {
         var idProyecto = req.params;
         pool.query('DELETE FROM viatico_proyecto WHERE id_solicitud_viatico = ?', [idProyecto], (error, results) => {
-            if (error) return res.json({ ok: false, mensaje: error });
+            if (error) return res.json({ ok: false, mensaje: 'Error al borrar el proyecto' });
             res.json({ ok: true, results, mensaje: 'Proyecto eliminado' });
         });
     },

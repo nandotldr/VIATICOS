@@ -90,15 +90,15 @@ export class ViaticoPage implements OnInit {
     if (this.fgCreate.valid) {
 
       const resp = await this.auth.saveViatico(this.fgCreate.value).toPromise();
-      if (resp) {
+      if (resp['ok']) {
         this.presentToast('Guardado correctamente');
         this.presentAlert();
-        this.viatico = resp;
-        this.id_viatico = this.viatico.body.id_viatico;
+        this.viatico = resp['body'];
+        this.id_viatico = this.viatico.id_viatico;
         this.guardado = true;
         this.getViaticos();
       } else {
-        this.presentToast('Error');
+        this.presentToast(resp['mensaje']);
       }
     } else {
       this.presentToast('Datos no Validos');

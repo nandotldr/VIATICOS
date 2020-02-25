@@ -69,8 +69,9 @@ export class ViaticoPage implements OnInit {
   async saveViatico(){
     if (this.fgCreate.valid) {
       console.log(this.fgCreate.value);
-      const resp = await this.auth.saveViatico(this.fgCreate.value);
+      const resp = await this.auth.saveViatico(this.fgCreate.value).toPromise();
       if (resp) {
+        console.log(resp);
         // this.presentToastSuccess();
         this.presentAlert();
       } else {

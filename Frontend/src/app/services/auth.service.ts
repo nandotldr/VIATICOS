@@ -365,7 +365,7 @@ export class AuthService {
   }) {
     console.log(viatico);
     return this.http.post(`${this.API_URL}/solicitud_viatico`,{
-      id: +viatico.id_comision,
+      id: viatico.id_comision,
       invitado: viatico.invitado_nombre,
       comentarios: viatico.comentarios,
       estado: 0

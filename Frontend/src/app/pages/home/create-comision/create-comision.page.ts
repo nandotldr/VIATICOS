@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
-import {ModalController, NavParams, AlertController} from '@ionic/angular';
+import { ModalController, NavParams, AlertController } from '@ionic/angular';
 import { AuthService } from 'src/app/services/auth.service';
 import { formatDate } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { ProgramPage } from '../components/program/program.page';
-import {OverlayEventDetail} from '@ionic/core';
+import { OverlayEventDetail } from '@ionic/core';
 import { analyzeAndValidateNgModules } from '@angular/compiler';
 import { stringify } from '@angular/compiler/src/util';
 

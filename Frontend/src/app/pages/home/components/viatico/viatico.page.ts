@@ -74,6 +74,7 @@ export class ViaticoPage implements OnInit {
         console.log(resp);
         // this.presentToastSuccess();
         this.presentAlert();
+        this.closeModal();
       } else {
         console.log(resp);
         this.presentToast();
@@ -116,9 +117,9 @@ export class ViaticoPage implements OnInit {
 
   async presentAlert() {
     const alert = await this.alertController.create({
-      header: 'Programa Creado',
+      header: 'Viatico Creado',
       // subHeader: 'Subtitle',
-      message: 'Tu actividad fue registrada, revisa tu programa en el botón "Más información" o crea otra actividad.',
+      message: 'Tu viático fue registrado, consulta la página "Lista de Viáticos" para agregar tus gastos por día.',
       buttons: ['OK']
     });
 

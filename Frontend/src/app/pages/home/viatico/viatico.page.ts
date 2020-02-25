@@ -70,8 +70,9 @@ export class ViaticoPage implements OnInit {
     if (resp['ok']) {
       this.guardado = true;
       this.viatico = resp['body'];
-      this.id_viatico = this.viatico.folio;
+      this.id_viatico = this.viatico.id_comision;
       this.getGastos();
+      console.log(this.id_viatico);
     } else {
       this.presentToast(resp['mensaje']);
     }
@@ -93,6 +94,7 @@ export class ViaticoPage implements OnInit {
         this.presentToast('Guardado correctamente');
         this.presentAlert();
         this.viatico = resp;
+        this.id_viatico = this.viatico.body.id_viatico;
         this.guardado = true;
         this.getViaticos();
       } else {

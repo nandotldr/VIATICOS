@@ -73,7 +73,7 @@
             </ion-button>
           </ion-col>
           <ion-col  text-center  size = "2">
-            <ion-button *ngIf="comision.status == 5" routerLink="/home/viatico/{{comision.folio}}"> Crear viático </ion-button>
+            <ion-button *ngIf="comision.status == 5" (click)="openModalV(comision.folio)"> Crear viático </ion-button>
           </ion-col>
           <ion-col text-center size = "2">
             <ion-button *ngIf="comision.status == 0 || comision.status == 2" (click)="openModalP(comision.folio)">

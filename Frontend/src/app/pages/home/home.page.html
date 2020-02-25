@@ -52,7 +52,7 @@
             <ion-label>Comisiones Pendientes</ion-label>
           </ion-item>
         </ion-menu-toggle>
-        <ion-menu-toggle *ngIf="tipo_usuario=='A'" auto-hide="false">
+        <ion-menu-toggle *ngIf="tipo_usuario == 'A' || tipo_usuario == 'F'" auto-hide="false">
           <ion-item lines="full" class="color" router-direction="root" [routerLink]="'/home/revisar-viatico'">
             <ion-icon name="hourglass" slot="start" class="color"></ion-icon>
             <ion-label>Viaticos Pendientes</ion-label>

@@ -30,8 +30,8 @@ export class HistoryPage implements OnInit {
     this.getAllComisiones();
   }
 
-  getColor(status) { 
-    if(status>=0 && status<6){
+  getColor(status) {
+    if (status >= 0 && status < 6) {
       return '#bbd9a5';
     }
   }

@@ -4,56 +4,57 @@
       <ion-menu-button menu="menu"></ion-menu-button>
       <!-- <img src="../../../assets/images/logo.png" width="25px" style="display:inline-block" height="25px"/> -->
       <!-- <ion-icon slot="icon-only" name="filing"></ion-icon> -->
-      <ion-title>
-        LISTA DE VIATICOS
-      </ion-title>
+      <ion-title>LISTA DE VIATICOS</ion-title>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <img class="background-image" />
-  <ion-card-content class="background">
+  <img class="background-image"/>
+  <ion-card>
+    <ion-card-header class="title">
+      <ion-card-title>Lista de Viáticos</ion-card-title>
+    </ion-card-header>
+    <ion-card-content class="background">
+      <ngx-datatable *ngIf="viaticos" [ngClass]="'material'" [rows]="viaticosCopia" [headerHeight]="'auto'"
+                     [rowHeight]="'auto'" [columnMode]="'standard'" [scrollbarH]="true">
+        <!--  Estos son las definiciones de columnas  -->
 
-    <ngx-datatable *ngIf="viaticos" [ngClass]="'material'" [rows]="viaticosCopia" [headerHeight]="'auto'"
-      [rowHeight]="'auto'" [columnMode]="'standard'" [scrollbarH]="true">
-      <!--  Estos son las definiciones de columnas  -->
-
-      <ngx-datatable-column prop="id_viatico" name="ID Viatico" width="120">
-        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-          {{value}}
-        </ng-template>
-      </ngx-datatable-column>
-      <ngx-datatable-column prop="id_comision" name="ID Comision" width="120">
-        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-          {{value}}
-        </ng-template>
-      </ngx-datatable-column>
-      <ngx-datatable-column prop="fecha_solicitud" name="Fecha solicitud" width="120">
-        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-          {{value | date}}
-        </ng-template>
-      </ngx-datatable-column>
-      <ngx-datatable-column prop="id_solicitud_comision" name="Acciones" width="465">
-        <ng-template let-row="row" let-value="value" let-rowIndex="rowIndex" ngx-datatable-cell-template>
-          <ion-buttons>
-            <ion-button (click)="openModal(value)">
-              <ion-icon name="information-circle-outline"></ion-icon> Ver Más
-            </ion-button>
-            <div *ngIf="viaticosCopia[rowIndex].status == 5">
-              <ion-button [routerLink]="'/home/crear-informe/'+viaticosCopia[rowIndex].id_comision">
-                <ion-icon name="add-circle"></ion-icon> Crear informe
+        <ngx-datatable-column prop="id_viatico" name="ID Viatico" width="120">
+          <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+            {{value}}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column prop="id_comision" name="ID Comision" width="120">
+          <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+            {{value}}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column prop="fecha_solicitud" name="Fecha solicitud" width="120">
+          <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+            {{value | date}}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column prop="id_solicitud_comision" name="Acciones" width="465">
+          <ng-template let-row="row" let-value="value" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+            <ion-buttons>
+              <ion-button (click)="openModal(value)">
+                <ion-icon name="information-circle-outline"></ion-icon> Ver Más
               </ion-button>
-              <!-- <ion-button routerLink="/home/profile/{{value}}"> -->
-              <ion-button [routerLink]="'/home/viatico-proyecto/'+viaticosCopia[rowIndex].id_comision">
-                <ion-icon name="add-circle"></ion-icon> Crear Proyecto
-              </ion-button>
-            </div>
-          </ion-buttons>
-        </ng-template>
-      </ngx-datatable-column>
-    </ngx-datatable>
+              <div *ngIf="viaticosCopia[rowIndex].status == 5">
+                <ion-button [routerLink]="'/home/crear-informe/'+viaticosCopia[rowIndex].id_comision">
+                  <ion-icon name="add-circle"></ion-icon> Crear informe
+                </ion-button>
+                <!-- <ion-button routerLink="/home/profile/{{value}}"> -->
+                <ion-button [routerLink]="'/home/viatico-proyecto/'+viaticosCopia[rowIndex].id_comision">
+                  <ion-icon name="add-circle"></ion-icon> Crear Proyecto
+                </ion-button>
+              </div>
+            </ion-buttons>
+          </ng-template>
+        </ngx-datatable-column>
+      </ngx-datatable>
+    </ion-card-content>
+  </ion-card>
 
-
-  </ion-card-content>
 </ion-content>

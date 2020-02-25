@@ -1,5 +1,5 @@
 import { ModificarComisionPage } from './../components/modificar-comision/modificar-comision.page';
-import { ViaticoPage } from './../viatico/viatico.page';
+import { ViaticoPage } from './../components/viatico/viatico.page';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
@@ -96,6 +96,24 @@ export class HistoryPage implements OnInit {
     const modal: HTMLIonModalElement =
        await this.modalController.create({
           component: ProgramPage,
+          componentProps: {
+            id_comision: id_comision,
+          }
+    });
+     
+    modal.onDidDismiss().then((detail: OverlayEventDetail) => {
+       if (detail !== null) {
+         // si necesitas hacer algo cuando se cierra el modal aqui mero caballero 
+       }
+    });
+    
+    await modal.present();
+  }
+
+  async openModalV(id_comision) {
+    const modal: HTMLIonModalElement =
+       await this.modalController.create({
+          component: ViaticoPage,
           componentProps: {
             id_comision: id_comision,
           }

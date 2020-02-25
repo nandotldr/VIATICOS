@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button href="/home">
+        <!-- <img src="../../../assets/images/logo.png" width="25px" style="display:inline-block" height="25px"/> -->
+        <!-- <ion-icon slot="icon-only" name="filing"></ion-icon> -->
+        <ion-title>
+          PROGRAMA
+        </ion-title>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <img class="background-image"/>
+  <ion-card >
+    <div class="center-content">
+      <ion-card-header class="title">
+        <ion-card-title>Solicitud de viatico</ion-card-title>
+      </ion-card-header>
+
+        <form [formGroup]="fgCreate" (ngSubmit)="saveViatico()">
+          <ion-card-header class="subtitle">
+            <ion-card-title>Viatico</ion-card-title>
+          </ion-card-header>
+
+          <ion-item>
+            <ion-label pickerOptions="cssClass:'datetime'">ID comisión</ion-label>
+            <ion-label pickerOptions="cssClass:'datetime'">{{id_comision}}</ion-label>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Nombre del invitado</ion-label>
+            <ion-input placeholder="Programa" type="text" formControlName="nombre_invitado"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Comentarios</ion-label>
+            <ion-input placeholder="Programa" type="text" formControlName="comentarios"></ion-input>
+          </ion-item>
+
+          <ion-button type="submit" color="light" [disabled]="this.fgCreate.invalid">Guardar programa</ion-button>
+          <ion-button (click)="closeModal()" >Regresar</ion-button>
+
+          </form>
+    </div>
+  </ion-card>
+
+</ion-content>

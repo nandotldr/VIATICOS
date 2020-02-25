@@ -123,15 +123,7 @@ const routes: Routes = [
         canLoad: [AuthGuardService]
       }
     ]
-  },  {
-    path: 'viatico-activo',
-    loadChildren: () => import('./components/viatico-activo/viatico-activo.module').then( m => m.ViaticoActivoPageModule)
   },
-  {
-    path: 'proyecto-activo',
-    loadChildren: () => import('./components/proyecto-activo/proyecto-activo.module').then( m => m.ProyectoActivoPageModule)
-  }
-
 ];
 
 @NgModule({

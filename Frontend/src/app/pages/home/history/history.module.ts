@@ -1,3 +1,4 @@
+import { ViaticoPageModule } from './../components/viatico/viatico.module';
 import { ModificarComisionPageModule } from './../components/modificar-comision/modificar-comision.module';
 import { ProgramPageModule } from './../components/program/program.module';
 import { NgModule } from '@angular/core';
@@ -17,7 +18,8 @@ import { HistoryPage } from './history.page';
     IonicModule,
     HistoryPageRoutingModule,
     ModificarComisionPageModule,
-    ProgramPageModule
+    ProgramPageModule,
+    ViaticoPageModule
   ],
   declarations: [HistoryPage]
 })

@@ -34,7 +34,7 @@ export class ViaticoInformacionPage implements OnInit {
       if (resp['ok']) {
         this.tieneDatos = true;
         // tslint:disable-next-line: no-string-literal
-        this.viatico = resp['body'][0];
+        this.viatico = resp['body'];
       }
       console.log('respuesta', resp);
     } catch (error) {

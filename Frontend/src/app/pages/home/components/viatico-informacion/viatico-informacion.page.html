@@ -21,9 +21,9 @@
     <div *ngIf="tieneDatos">
       <!-- {{ viatico | json}} -->
     </div>
-    <ion-item *ngIf="this.viatico.id_viatico">
-      <ion-label position="floating">Folio Viático</ion-label>
-      <ion-input readonly value="{{this.viatico.id_viatico}}"></ion-input>
+    <ion-item *ngIf="this.viatico.folio">
+      <ion-label position="floating">Folio</ion-label>
+      <ion-input readonly value="{{this.viatico.folio}}"></ion-input>
     </ion-item>
     <ion-item *ngIf="this.viatico.id_comision">
       <ion-label position="floating">Folio Comisión</ion-label>
@@ -43,11 +43,11 @@
     </ion-item>
     <ion-item *ngIf="this.viatico.fecha_inicio">
       <ion-label position="floating">Inicio</ion-label>
-      <ion-input readonly value="{{this.viatico.fecha_inicio}}"></ion-input>
+      <ion-input readonly value="{{this.viatico.fecha_inicio | date}}"></ion-input>
     </ion-item>
     <ion-item *ngIf="this.viatico.fecha_fin">
       <ion-label position="floating">Fin</ion-label>
-      <ion-input readonly value="{{this.viatico.fecha_fin}}"></ion-input>
+      <ion-input readonly value="{{this.viatico.fecha_fin | date}}"></ion-input>
     </ion-item>
     <ion-item *ngIf="this.viatico.status">
       <ion-label position="floating">Status del Viatico</ion-label>

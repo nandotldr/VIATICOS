@@ -9,8 +9,6 @@
         VIATICO
       </ion-title>
     </ion-buttons>
-    <ion-button class="ion-float-right" *ngIf="this.viatico"
-    (click)="cerrarModal()" [routerLink]="'/home/viatico/'+this.viatico.id_comision"><ion-icon name="create"></ion-icon>Modificar viatico</ion-button>
   </ion-toolbar>
 </ion-header>
 
@@ -24,7 +22,7 @@
       <!-- {{ viatico | json}} -->
     </div>
     <ion-item *ngIf="this.viatico.id_viatico">
-      <ion-label position="floating">Folio</ion-label>
+      <ion-label position="floating">Folio Viático</ion-label>
       <ion-input readonly value="{{this.viatico.id_viatico}}"></ion-input>
     </ion-item>
     <ion-item *ngIf="this.viatico.id_comision">

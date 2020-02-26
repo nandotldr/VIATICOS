@@ -19,7 +19,7 @@
       <ngx-datatable *ngIf="viaticos" [ngClass]="'material'" [rows]="viaticosCopia" [headerHeight]="'auto'"
                      [rowHeight]="'auto'" [columnMode]="'standard'" [scrollbarH]="true">
         <!--  Estos son las definiciones de columnas  -->
-        
+
       <ngx-datatable-column prop="id_viatico" name="ID Viatico" width="120">
         <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
           {{value}}
@@ -52,16 +52,8 @@
               <ion-button [routerLink]="'/home/viatico-proyecto/'+viaticosCopia[rowIndex].id_comision">
                 <ion-icon name="add-circle"></ion-icon> Crear Proyecto
               </ion-button>
-              <div *ngIf="viaticosCopia[rowIndex].status == 5">
-                <ion-button [routerLink]="'/home/crear-informe/'+viaticosCopia[rowIndex].id_comision">
-                  <ion-icon name="add-circle"></ion-icon> Crear informe
-                </ion-button>
-                <!-- <ion-button routerLink="/home/profile/{{value}}"> -->
-                <ion-button [routerLink]="'/home/viatico-proyecto/'+viaticosCopia[rowIndex].id_comision">
-                  <ion-icon name="add-circle"></ion-icon> Crear Proyecto
-                </ion-button>
-              </div>
-            </ion-buttons>
+            </div>
+          </ion-buttons>
           </ng-template>
         </ngx-datatable-column>
       </ngx-datatable>

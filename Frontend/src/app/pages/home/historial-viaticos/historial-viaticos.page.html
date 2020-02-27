@@ -19,12 +19,12 @@
       <ngx-datatable *ngIf="viaticos" [ngClass]="'material'" [rows]="viaticosCopia" [headerHeight]="'auto'"
                      [rowHeight]="'auto'" [columnMode]="'standard'" [scrollbarH]="true">
         <!--  Estos son las definiciones de columnas  -->
-        <ngx-datatable-column prop="id_viatico" name="ID Viatico" width="120">
+        <ngx-datatable-column prop="id_viatico" name="ID Viatico" width="80">
           <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
             {{value}}
           </ng-template>
         </ngx-datatable-column>
-        <ngx-datatable-column prop="id_comision" name="ID Comision" width="120">
+        <ngx-datatable-column prop="id_comision" name="ID Comision" width="100">
           <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
             {{value}}
           </ng-template>
@@ -51,23 +51,32 @@
             <ion-label *ngIf="value == 6">Capital Asignado</ion-label>
           </ng-template>
         </ngx-datatable-column>
-        <ngx-datatable-column prop="id_viatico" name="Info" width="120">
+        <ngx-datatable-column prop="id_viatico" name="Info" width="70">
           <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-            <ion-button (click)="openModal(value)">
-              <ion-icon name="information-circle-outline"></ion-icon> Ver Más
+            <ion-button (click)="openModalInfo(value)">
+              <ion-icon name="information-circle-outline"></ion-icon>
             </ion-button>
           </ng-template>
         </ngx-datatable-column>
         <ngx-datatable-column prop="id_solicitud_comision" name="Acciones" width="465">
           <ng-template let-row="row" let-value="value" let-rowIndex="rowIndex" ngx-datatable-cell-template>
             <ion-buttons>
-              <div *ngIf="viaticosCopia[rowIndex].status == 5">
-                <ion-button [routerLink]="'/home/crear-informe/'+viaticosCopia[rowIndex].id_comision">
-                  <ion-icon name="add-circle"></ion-icon> Crear informe
+              <div *ngIf="viaticosCopia[rowIndex].status == 0 || viaticosCopia[rowIndex].status == 2">
+                <ion-button (click)="openModalGastos(viaticosCopia[rowIndex].id_viatico)">
+                  <ion-icon name="cash"></ion-icon> Crear Gasto
                 </ion-button>
-                <!-- <ion-button routerLink="/home/profile/{{value}}"> -->
+                <ion-button (click)="sendViatico()">
+                  <ion-icon name="send"></ion-icon> Enviar Viático
+                </ion-button>
+              </div>
+              <div *ngIf="viaticosCopia[rowIndex].status == 5">
                 <ion-button [routerLink]="'/home/viatico-proyecto/'+viaticosCopia[rowIndex].id_comision">
                   <ion-icon name="add-circle"></ion-icon> Crear Proyecto
+                </ion-button>
+              </div>
+              <div *ngIf="viaticosCopia[rowIndex].status == 6">
+                <ion-button [routerLink]="'/home/crear-informe/'+viaticosCopia[rowIndex].id_comision">
+                  <ion-icon name="add-circle"></ion-icon> Crear informe
                 </ion-button>
               </div>
             </ion-buttons>

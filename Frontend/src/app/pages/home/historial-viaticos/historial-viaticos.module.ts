@@ -9,6 +9,7 @@ import { HistorialViaticosPageRoutingModule } from './historial-viaticos-routing
 import { HistorialViaticosPage } from './historial-viaticos.page';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { ViaticoInformacionPageModule } from '../components/viatico-informacion/viatico-informacion.module';
+import { CrearGastoPageModule } from '../components/crear-gasto/crear-gasto.module';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { ViaticoInformacionPageModule } from '../components/viatico-informacion/
     IonicModule,
     HistorialViaticosPageRoutingModule,
     NgxDatatableModule,
-    ViaticoInformacionPageModule
+    ViaticoInformacionPageModule,
+    CrearGastoPageModule
   ],
   declarations: [HistorialViaticosPage]
 })

@@ -6,6 +6,7 @@ import { ToastController, ModalController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { ViaticoInformacionPage } from '../components/viatico-informacion/viatico-informacion.page';
+import { CrearGastoPage } from '../components/crear-gasto/crear-gasto.page';
 
 @Component({
   selector: 'app-historial-viaticos',
@@ -15,6 +16,8 @@ import { ViaticoInformacionPage } from '../components/viatico-informacion/viatic
 export class HistorialViaticosPage implements OnInit {
   viaticos;
   viaticosCopia;
+  gastos: any;
+  id_viatico: Number;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -28,7 +31,7 @@ export class HistorialViaticosPage implements OnInit {
     try {
       const resp = await this.auth.getHistorialViaticos().toPromise();
       console.log(resp);
-      
+
       // tslint:disable-next-line: no-string-literal
       if (resp['ok']) {
         // tslint:disable-next-line: no-string-literal
@@ -52,7 +55,7 @@ export class HistorialViaticosPage implements OnInit {
     toast.present();
   }
 
-  async openModal(id_viatico) {
+  async openModalInfo(id_viatico) {
     const modal: HTMLIonModalElement =
         await this.modalController.create({
           component: ViaticoInformacionPage,
@@ -70,4 +73,45 @@ export class HistorialViaticosPage implements OnInit {
     await modal.present();
   }
 
+  async openModalGastos(id_viatico) {
+    console.log(id_viatico);
+    const modal: HTMLIonModalElement =
+        await this.modalController.create({
+          component: CrearGastoPage,
+          cssClass: 'modal-class',
+          componentProps: {
+            id_viatico: id_viatico,
+          }
+        });
+
+    modal.onDidDismiss().then((detail: OverlayEventDetail) => {
+      if (detail !== null) {
+        console.log('The result: ', detail.data);
+      }
+      this.getGastos();
+    });
+
+    await modal.present();
+  }
+
+  async getGastos() {
+    const resp = await this.auth.getGasto(this.id_viatico).toPromise();
+    if (resp['ok']) {
+      // this.guardado = true;
+      this.gastos = resp['results'];
+    }
+  }
+/*
+  async sendViatico() {
+    //Llamada a la API
+    if (confirm('¿Está seguro de enviar los datos? Una vez enviados no podrán ser modificados')) {
+      const resp = await this.auth.sendViatico(this.id_viatico, this.viatico.nombre_invitado, this.viatico.comentarios, 1).toPromise();
+      if (resp['ok']) {
+        this.presentToast('Su viatico ha sido enviado.');
+      } else {
+        console.log(resp);
+      }
+    }
+  }
+  */
 }

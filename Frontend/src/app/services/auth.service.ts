@@ -760,6 +760,32 @@ return this.http.request('delete',`${this.API_URL}/programa_trabajo/`,{body: pro
         })
     ).toPromise();
   }
+
+  revisarProyecto(
+    proyecto: {
+      id_solicitud_viatico: Number,
+      numero_proyecto: String,
+      cantidad: String,
+      status: Number
+    }
+    ){
+    return this.http.put(`${this.API_URL}/viatico_proyecto`,{
+      id_solicitud_viatico: proyecto.id_solicitud_viatico,
+      numero_proyecto: proyecto.numero_proyecto,
+      cantidad: proyecto.cantidad,
+      status: proyecto.status
+    }).pipe(
+        map(response => {
+            console.log(response);
+            if(response['ok']){
+                return response['body'];
+            } else {
+                return response['ok'];
+            }
+        })
+    ).toPromise();
+  }
+
 }
 
 

@@ -667,7 +667,7 @@ return this.http.request('delete',`${this.API_URL}/programa_trabajo/`,{body: pro
       id_viatico: viatico.id_viatico,
       invitado: viatico.invitado,
       comentarios: viatico.comentarios,
-      status: 5
+      status: viatico.status
     }).pipe(
         map(response => {
             console.log(response);

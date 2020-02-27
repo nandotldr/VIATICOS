@@ -43,12 +43,12 @@
           <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
             <ion-label *ngIf="value == -1">Cancelado</ion-label>
             <ion-label *ngIf="value == 0">Guardado</ion-label>
-            <ion-label *ngIf="value == 1">Enviado a Jefe Depto.</ion-label>
-            <ion-label *ngIf="value == 2">Rechazado por Jefe Depto.</ion-label>
-            <ion-label *ngIf="value == 3">Aceptado por Jefe Depto.</ion-label>
+            <ion-label *ngIf="value == 1">Enviado a Finanzas.</ion-label>
+            <ion-label *ngIf="value == 2">Rechazado por Finanzas.</ion-label>
+            <ion-label *ngIf="value == 3">Aceptado por Finanzas.</ion-label>
             <ion-label *ngIf="value == 4">Rechazado por Administrador</ion-label>
             <ion-label *ngIf="value == 5">Aceptado por Administrador</ion-label>
-            <ion-label *ngIf="value == 6">Finalizado</ion-label>
+            <ion-label *ngIf="value == 6">Capital Asignado</ion-label>
           </ng-template>
         </ngx-datatable-column>
         <ngx-datatable-column prop="id_viatico" name="Info" width="120">

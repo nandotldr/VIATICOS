@@ -47,7 +47,7 @@
           <ion-button (click)="send()">Enviar</ion-button>
         </div>
         <div *ngIf="!guardado">
-          <ion-button disabled (click)="sendViaticoProyecto()">Enviar</ion-button>
+          <ion-button (click)="sendViaticoProyecto()">Enviar</ion-button>
         </div>
         <!-- <ion-button (click)="saveViatico()">Guardar solicitud</ion-button> -->
         <ion-button routerLink="/home">Regresar</ion-button>
@@ -71,12 +71,12 @@
 
         <ion-item>
           <ion-label>Número de proyecto </ion-label>
-          <ion-input value="{{this.viaticoProyecto.viatico_proyecto[0].numero_proyecto}}" formControlName="numero_proyecto"></ion-input>
+          <ion-input value="{{this.viatico_proyecto.numero_proyecto}}" formControlName="numero_proyecto"></ion-input>
         </ion-item>
 
         <ion-item>
           <ion-label>Cantidad </ion-label>
-          <ion-input value="{{this.viaticoProyecto.viatico_proyecto[0].cantidad}}" type="text" formControlName="cantidad"></ion-input>
+          <ion-input value="{{this.viatico_proyecto.cantidad}}" type="text" formControlName="cantidad"></ion-input>
         </ion-item>
 
         <ion-button type="submit" color="light" [disabled]="this.fgCreate.invalid">Guardar estos datos</ion-button>
@@ -84,7 +84,7 @@
           <ion-button (click)="sendViaticoProyecto()">Enviar</ion-button>
         </div>
         <div *ngIf="!guardado">
-          <ion-button disabled (click)="sendViaticoProyecto()">Enviar</ion-button>
+          <ion-button (click)="sendViaticoProyecto()">Enviar</ion-button>
         </div>
         <!-- <ion-button (click)="saveViatico()">Guardar solicitud</ion-button> -->
         <ion-button routerLink="/home">Regresar</ion-button>

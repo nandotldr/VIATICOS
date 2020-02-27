@@ -20,7 +20,7 @@
     <ion-card-header class="subtitle">
       <ion-card-title>Proyectos</ion-card-title>
     </ion-card-header>
-    <ion-card-content class="background">
+    <ion-card-content class="card-b">
       <table>
         <tr>
           <th>ID de Comisión</th>
@@ -31,9 +31,9 @@
           <th>Acciones</th>
         </tr>
         <tr *ngFor="let proyecto of proyectos">
-          <td>{{ proyecto.id_solicitud_comision }}</td>
-          <td>{{ proyecto.nombre_comision }}</td>
-          <td>{{ proyecto.fecha_elaboracion | date }}</td>
+          <td>{{ proyecto.id }}</td>
+          <td>{{ proyecto.numero_proyecto }}</td>
+          <td>{{ proyecto.fecha_solicitud | date }}</td>
           <td>{{ proyecto.nombre }}</td>
           <td text-center><ion-button (click)="openModal(proyecto.id_solicitud_comision)"><ion-icon name="apps"></ion-icon></ion-button></td>
           <td>

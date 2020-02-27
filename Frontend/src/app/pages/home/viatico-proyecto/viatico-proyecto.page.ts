@@ -15,6 +15,12 @@ export class ViaticoProyectoPage implements OnInit {
   comision: number;
   viatico: any;
   viaticoProyecto: any;
+  viatico_proyecto: {
+    id_solicitud_viatico: Number,
+    numero_proyecto: Number,
+    cantidad: Number,
+    status: Number,
+  }
   fgCreate: FormGroup;
   id_solicitud_viatico: number;
   
@@ -45,7 +51,6 @@ export class ViaticoProyectoPage implements OnInit {
       console.log(resp);
       if (resp['ok']) {
         this.presentToast('Guardado correctamente');
-        this.guardado = true; 
         
         
       } else {
@@ -58,10 +63,16 @@ export class ViaticoProyectoPage implements OnInit {
   }
 
   async sendViaticoProyecto(){
+    if (this.fgCreate.valid) {
     if (confirm("¿Está seguro de enviar los datos? Una vez enviados no podrán ser modificados")) {
-      const resp = await this.auth.createViaticoProyecto(this.id_solicitud_viatico,
-        this.viaticoProyecto.viatico_proyecto[0].numero_proyecto,
-        this.viaticoProyecto.viatico_proyecto[0].cantidad, 1).toPromise();
+      this.viatico_proyecto = this.fgCreate.value;
+      this.viatico_proyecto.status = 1;
+      const resp = await this.auth.createViaticoProyecto(
+        this.viatico_proyecto.id_solicitud_viatico,
+        this.viatico_proyecto.numero_proyecto,
+        this.viatico_proyecto.cantidad,
+        this.viatico_proyecto.status,
+      ).toPromise();
         console.log(resp);
       if (resp['ok']) {
         this.presentToast('Eviado de forma exitosa');
@@ -70,6 +81,9 @@ export class ViaticoProyectoPage implements OnInit {
         this.presentToast('Error');
       }
     }
+  } else {
+    this.presentToast('Viatico Proyecto no capturado');
+  }
   }
 
   async presentToast(message) {
@@ -83,6 +97,7 @@ export class ViaticoProyectoPage implements OnInit {
 
   async getViaticos(){
     const resp = await this.auth.getSolicitudViatico(this.comision).toPromise();
+    console.log(resp);
     if (resp['ok']) {
       this.viatico = resp['body'];
       this.id_solicitud_viatico = this.viatico.folio;

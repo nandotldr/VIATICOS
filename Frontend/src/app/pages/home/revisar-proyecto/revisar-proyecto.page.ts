@@ -10,7 +10,7 @@ import {InformeActivoPage} from '../components/informe-activo/informe-activo.pag
 @Component({
   selector: 'app-revisar-proyecto',
   templateUrl: './revisar-proyecto.page.html',
-  styleUrls: ['./revisar-proyecto.page.scss'],
+  styleUrls: ['./revisar-proyecto.page.scss', '../../../app.component.scss'],
 })
 export class RevisarProyectoPage implements OnInit {
 
@@ -32,9 +32,6 @@ export class RevisarProyectoPage implements OnInit {
     const resp = await this.auth.getRevisarProyecto();
     console.log(resp);
     if (resp) {
-      resp.forEach(element => {
-        element.fecha_elaboracion = formatDate(element.fecha_elaboracion, 'yyyy-MM-dd', 'en');
-      });
       this.proyectos = resp;
     } else {
       this.proyectos = null;
@@ -59,4 +56,91 @@ export class RevisarProyectoPage implements OnInit {
 
     await modal.present();
   }
+
+  async alertConfirm(proyecto) {
+    const alert = await this.alertController.create({
+      header: 'Aceptar Comision',
+      message: '¿Desea aceptar esta solicitud?',
+      buttons: [
+        {
+          text: 'Si',
+          handler: () => {
+            proyecto.status = 2;
+            proyecto.comentario_rechazo = '';
+            this.revisarProyecto(proyecto);
+          }
+        },
+        {
+          text: 'No',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {}
+        }
+      ]
+    });
+    await alert.present();
+    alert.onDidDismiss().then(() => this.getRevisarProyecto());
+  }
+
+  async alertDecline(proyecto) {
+    const alert = await this.alertController.create({
+      header: 'Rechazar Comision!',
+      inputs: [
+        {
+          name: 'name1',
+          type: 'text',
+          placeholder: 'Inserte su justificación...'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Rechazar',
+          handler: data => {
+            proyecto.status = 2;
+            proyecto.comentario_rechazo = data.name1;
+            this.revisarProyecto(proyecto);
+          }
+        },
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Confirm Cancel');
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+    alert.onDidDismiss().then(() => this.getRevisarProyecto());
+  }
+
+  async revisarProyecto(proyecto) {
+      const resp1 = await this.auth.revisarProyecto(proyecto);
+      if (resp1) {
+        this.presentToastSuccess();
+      } else {
+        // this.presentToast();
+      }
+  }
+
+  async presentToast() {
+    const toast = await this.toastController.create({
+      message: 'Datos no validos.',
+      duration: 2000,
+      position: 'bottom'
+    });
+    toast.present();
+  }
+
+  async presentToastSuccess() {
+    const toast = await this.toastController.create({
+      message: 'Usuario Modificado.',
+      duration: 2000,
+      position: 'bottom'
+    });
+    toast.present();
+  }
+
 }

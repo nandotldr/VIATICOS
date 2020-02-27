@@ -6,7 +6,7 @@
       <!-- <img src="../../../assets/images/logo.png" width="25px" style="display:inline-block" height="25px"/> -->
       <!-- <ion-icon slot="icon-only" name="filing"></ion-icon> -->
       <ion-title>
-        VIATICO
+        INFORMACIÓN DEL VIÁTICO
       </ion-title>
     </ion-buttons>
   </ion-toolbar>
@@ -49,17 +49,24 @@
       <ion-label position="floating">Fin</ion-label>
       <ion-input readonly value="{{this.viatico.fecha_fin | date}}"></ion-input>
     </ion-item>
-    <ion-item *ngIf="this.viatico.status">
+    <ion-item>
       <ion-label position="floating">Status del Viatico</ion-label>
-      <ion-input readonly value="{{this.viatico.status}}"></ion-input>
+      <ion-input readonly *ngIf="viatico.status == -1" value="Cancelado"></ion-input>
+      <ion-input readonly *ngIf="viatico.status == 0" value="Guardado"></ion-input>
+      <ion-input readonly *ngIf="viatico.status == 1" value="Enviado a Finanzas"></ion-input>
+      <ion-input readonly *ngIf="viatico.status == 2" value="Rechazado por Finanzas"></ion-input>
+      <ion-input readonly *ngIf="viatico.status == 3" value="Aceptado por Finanzas"></ion-input>
+      <ion-input readonly *ngIf="viatico.status == 4" value="Rechazado por Administrador"></ion-input>
+      <ion-input readonly *ngIf="viatico.status == 5" value="Aceptado por Administrador"></ion-input>
+      <ion-input readonly *ngIf="viatico.status == 6" value="Capital Asignado"></ion-input>
     </ion-item>
     <ion-item *ngIf="this.viatico.fecha_revisado">
       <ion-label position="floating">Fecha Revisado</ion-label>
-      <ion-input readonly value="{{this.viatico.fecha_revisado}}"></ion-input>
+      <ion-input readonly value="{{this.viatico.fecha_revisado | date}}"></ion-input>
     </ion-item>
     <ion-item *ngIf="this.viatico.fecha_aceptado">
       <ion-label position="floating">Fecha Aceptado</ion-label>
-      <ion-input readonly value="{{this.viatico.fecha_aceptado}}"></ion-input>
+      <ion-input readonly value="{{this.viatico.fecha_aceptado | date}}"></ion-input>
     </ion-item>
     <ion-item *ngIf="this.viatico.nombre_revisado">
       <ion-label position="floating">Nombre Revisado</ion-label>
@@ -70,8 +77,66 @@
       <ion-input readonly value="{{this.viatico.nombre_aceptado}}"></ion-input>
     </ion-item>
     <div *ngIf="this.viatico.gastos">
-      <ion-label>Gastos</ion-label>
-      <table>
+      <ion-card>
+        <ion-title>Gastos</ion-title>
+        <ion-grid>
+          <ion-row class="bg-row grid-bot-header">
+            <ion-col>
+              <ion-label>Dia</ion-label>
+            </ion-col>
+            <ion-col>
+              <ion-label>Alimentacion</ion-label>
+            </ion-col>
+            <ion-col>
+              <ion-label>Hospedaje</ion-label>
+            </ion-col>
+            <ion-col>
+              <ion-label>Transporte foraneo</ion-label>
+            </ion-col>
+            <ion-col>
+              <ion-label>Transporte local </ion-label>
+            </ion-col>
+            <ion-col>
+              <ion-label>Combustible </ion-label>
+            </ion-col>
+            <ion-col>
+              <ion-label>Otros conceptos</ion-label>
+            </ion-col>
+            <ion-col>
+              <ion-label>Total del día</ion-label>
+            </ion-col>
+          </ion-row>
+          <ion-row *ngFor="let gasto of this.viatico.gastos" class="grid-bot-rows">
+            <ion-col>
+              <ion-label >{{gasto.dia | date}}</ion-label>
+            </ion-col>
+            <ion-col>
+              <ion-label >{{gasto.alimentacion | currency}}</ion-label>
+            </ion-col>
+            <ion-col>
+              <ion-label >{{gasto.hospedaje | currency}}</ion-label>
+            </ion-col>
+            <ion-col>
+              <ion-label >{{gasto.transporte_foraneo | currency}}</ion-label>
+            </ion-col>
+            <ion-col>
+              <ion-label >{{gasto.transporte_local | currency}}</ion-label>
+            </ion-col>
+            <ion-col>
+              <ion-label >{{gasto.combustible | currency}}</ion-label>
+            </ion-col>
+            <ion-col>
+              <ion-label >{{gasto.otros_conceptos | currency}}</ion-label>
+            </ion-col>
+            <ion-col class="total">
+              <ion-label>{{gasto.alimentacion+gasto.hospedaje+gasto.transporte_foraneo+gasto.transporte_local+gasto.combustible+gasto.otros_conceptos | currency}}</ion-label>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card>
+
+
+      <!--<table>
         <thead>
           <th>DIA</th>
           <th>Alimentacion</th>
@@ -93,7 +158,7 @@
             <td>
           </tr>
         </tbody>
-      </table>
+      </table>-->
     </div>
   </ion-card-content>
 </ion-content>

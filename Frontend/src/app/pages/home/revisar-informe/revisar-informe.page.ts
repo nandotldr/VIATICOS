@@ -9,7 +9,7 @@ import { InformeActivoPage } from '../components/informe-activo/informe-activo.p
 @Component({
   selector: 'app-revisar-informe',
   templateUrl: './revisar-informe.page.html',
-  styleUrls: ['./revisar-informe.page.scss'],
+  styleUrls: ['./revisar-informe.page.scss', '../../../app.component.scss'],
 })
 export class RevisarInformePage implements OnInit {
 

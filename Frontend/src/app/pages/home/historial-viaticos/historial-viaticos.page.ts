@@ -11,7 +11,7 @@ import { CrearGastoPage } from '../components/crear-gasto/crear-gasto.page';
 @Component({
   selector: 'app-historial-viaticos',
   templateUrl: './historial-viaticos.page.html',
-  styleUrls: ['./historial-viaticos.page.scss'],
+  styleUrls: ['./historial-viaticos.page.scss', '../../../app.component.scss'],
 })
 export class HistorialViaticosPage implements OnInit {
   viaticos;

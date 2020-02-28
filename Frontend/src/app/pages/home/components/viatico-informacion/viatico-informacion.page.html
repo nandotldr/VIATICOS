@@ -22,12 +22,16 @@
       <!-- {{ viatico | json}} -->
     </div>
     <ion-item *ngIf="this.viatico.folio">
-      <ion-label position="floating">Folio</ion-label>
+      <ion-label position="floating">Folio Viatico</ion-label>
       <ion-input readonly value="{{this.viatico.folio}}"></ion-input>
     </ion-item>
-    <ion-item *ngIf="this.viatico.id_comision">
+    <ion-item *ngIf="this.viatico.id_solicitud_comision">
       <ion-label position="floating">Folio Comisión</ion-label>
-      <ion-input readonly value="{{this.viatico.id_comision}}"></ion-input>
+      <ion-input readonly value="{{this.viatico.id_solicitud_comision}}"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="this.viatico.nombre_invitado">
+      <ion-label position="floating">Nombre de Invitado</ion-label>
+      <ion-input readonly value="{{this.viatico.nombre_invitado}}"></ion-input>
     </ion-item>
     <ion-item *ngIf="this.viatico.motivo_comision">
       <ion-label position="floating">Justificación</ion-label>

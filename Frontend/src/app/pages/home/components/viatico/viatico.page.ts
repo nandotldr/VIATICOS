@@ -36,7 +36,7 @@ export class ViaticoPage implements OnInit {
       {
         this.ionViewWillEnter();
         this.fgCreate = this.formBuilder.group({
-          nombre_invitado: new FormControl('', [Validators.required]),
+          invitado_nombre: new FormControl('', [Validators.required]),
           comentarios: new FormControl('', [Validators.required]),
           id_comision: new FormControl(this.id_comision,[])
         });

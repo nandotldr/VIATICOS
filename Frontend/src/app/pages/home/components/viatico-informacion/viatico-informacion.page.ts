@@ -58,6 +58,7 @@ export class ViaticoInformacionPage implements OnInit {
       if (resp['ok']) {
         // this.presentToast('Su viatico ha sido enviado.');
         this.cerrarModal();
+        this.presentAlert();
       } else {
         console.log(resp);
       }

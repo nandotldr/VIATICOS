@@ -90,7 +90,7 @@ export class RevisarViaticoPage implements OnInit {
             {
               viatico.status = 5;
             }
-            if(this.auth.userType == 'J')
+            if(this.auth.userType == 'F')
             {
               viatico.status = 3;
             }
@@ -126,7 +126,7 @@ export class RevisarViaticoPage implements OnInit {
           handler: data => {
             if(this.auth.userType == 'A')
               viatico.status = 4;
-            if(this.auth.userType == 'J')
+            if(this.auth.userType == 'F')
               viatico.status = 2;
             viatico.comentario_rechazo = data.name1;
             this.revisarViatico(viatico);

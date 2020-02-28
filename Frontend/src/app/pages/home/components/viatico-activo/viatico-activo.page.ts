@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { ModalController, NavParams, ToastController } from '@ionic/angular';
 import { AuthService } from '../../../../services/auth.service';
-import { NavController } from "@ionic/angular";
+import { NavController } from '@ionic/angular';
 import { formatDate } from '@angular/common';
 
 @Component({

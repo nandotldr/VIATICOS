@@ -12,6 +12,8 @@ import { formatDate } from '@angular/common';
 })
 export class ModificarComisionPage implements OnInit {
 
+  modificarDisabled: Boolean = true;
+
   comision = {
     folio: Number,
     nombres: String,
@@ -185,6 +187,11 @@ export class ModificarComisionPage implements OnInit {
     });
 
     await alert.present();
+  }
+
+  async enableModificar() {
+    console.log("change")
+      this.modificarDisabled = false;
   }
 
 }

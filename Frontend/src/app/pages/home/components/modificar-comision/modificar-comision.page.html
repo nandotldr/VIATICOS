@@ -1,6 +1,9 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Información de la Comisión</ion-title>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="closeModal()"><ion-icon name="arrow-back"></ion-icon></ion-button>
+      <ion-title>Información de la Comisión</ion-title>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -36,30 +39,30 @@
     
     <ion-item *ngIf="comi">
       <ion-label>Nombre       </ion-label>
-      <ion-input text-center  [(ngModel)]="comi.nombre_comision"></ion-input>
+      <ion-input text-center (ionChange)="enableModificar()" [(ngModel)]="comi.nombre_comision"></ion-input>
     </ion-item>
 
     <ion-item *ngIf="comi">
       <ion-label>Objetivo     </ion-label>
-      <ion-input text-center  [(ngModel)]="comi.objetivo_trabajo"></ion-input>
+      <ion-input text-center (ionChange)="enableModificar()" [(ngModel)]="comi.objetivo_trabajo"></ion-input>
     </ion-item>
 
     <ion-item *ngIf="comi">
       <ion-label>Justificación</ion-label>
-      <ion-input text-center  [(ngModel)]="comi.justificacion"></ion-input>
+      <ion-input text-center (ionChange)="enableModificar()" [(ngModel)]="comi.justificacion"></ion-input>
     </ion-item>
 
     <ion-item *ngIf="comi">
       <ion-label>Fecha Inicio </ion-label>
-      <ion-datetime displayFormat="MM/DD/YYYY" max="3000-12-09" [(ngModel)]="comi.fecha_inicio"></ion-datetime>
+      <ion-datetime displayFormat="MM/DD/YYYY" max="3000-12-09" (ionChange)="enableModificar()" [(ngModel)]="comi.fecha_inicio"></ion-datetime>
     </ion-item>
 
     <ion-item *ngIf="comi">
       <ion-label>Fecha Fin    </ion-label>
-      <ion-datetime displayFormat="MM/DD/YYYY" max="3000-12-09" [(ngModel)]="comi.fecha_fin"></ion-datetime>
+      <ion-datetime displayFormat="MM/DD/YYYY" max="3000-12-09" (ionChange)="enableModificar()" [(ngModel)]="comi.fecha_fin"></ion-datetime>
     </ion-item>
 
-    <ion-button (click)="modifyComision(comi)">
+    <ion-button [disabled]="modificarDisabled" (click)="modifyComision(comi)">
       <ion-icon name="brush"></ion-icon>
       <ion-label>Modificar Comision</ion-label>
     </ion-button>
@@ -110,14 +113,10 @@
             <ion-icon name="close"></ion-icon>
           </ion-button>
         </ion-col>
-
       </ion-row>
     </ion-grid>
   </ion-card>
-  
-  <ion-button (click)="closeModal()">
-      <ion-icon name="close"></ion-icon>
-  </ion-button>
+
 
   <ion-button (click)="enviarSolicitud(comi)">
     <ion-icon name="send"></ion-icon>

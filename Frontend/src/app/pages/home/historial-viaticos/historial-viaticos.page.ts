@@ -53,7 +53,6 @@ export class HistorialViaticosPage implements OnInit {
     modal.onDidDismiss().then((detail: OverlayEventDetail) => {
       if (detail !== null) {
         this.getViaticos();
-        this.presentAlert();
       }
     });
 
@@ -104,16 +103,15 @@ export class HistorialViaticosPage implements OnInit {
       console.error(error);
     }
   }
-
+/*
   async presentAlert() {
     const alert = await this.alertController.create({
-      header: 'Viático Enviado',
-      // subHeader: 'Subtitle',
-      message: 'Revisa el estado de tu viático en esta página.',
+      header: 'Header',
+      subHeader: 'Subtitle',
+      message: 'message',
       buttons: ['OK']
     });
-
     await alert.present();
   }
-
+ */
 }

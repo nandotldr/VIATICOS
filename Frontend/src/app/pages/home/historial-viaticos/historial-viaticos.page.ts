@@ -101,17 +101,5 @@ export class HistorialViaticosPage implements OnInit {
       this.gastos = resp['results'];
     }
   }
-/*
-  async sendViatico() {
-    //Llamada a la API
-    if (confirm('¿Está seguro de enviar los datos? Una vez enviados no podrán ser modificados')) {
-      const resp = await this.auth.sendViatico(this.id_viatico, this.viatico.nombre_invitado, this.viatico.comentarios, 1).toPromise();
-      if (resp['ok']) {
-        this.presentToast('Su viatico ha sido enviado.');
-      } else {
-        console.log(resp);
-      }
-    }
-  }
-  */
+
 }

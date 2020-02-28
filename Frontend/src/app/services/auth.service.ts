@@ -392,7 +392,7 @@ export class AuthService {
       id_viatico: +id_comision,
       invitado: invitado_nombre,
       comentarios: _comentarios,
-      status: 3
+      status: 1
     });
   }
 

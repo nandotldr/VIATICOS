@@ -65,9 +65,6 @@
                 <ion-button (click)="openModalGastos(viaticosCopia[rowIndex].id_viatico)">
                   <ion-icon name="cash"></ion-icon> Crear Gasto
                 </ion-button>
-                <ion-button (click)="sendViatico()">
-                  <ion-icon name="send"></ion-icon> Enviar Viático
-                </ion-button>
               </div>
               <div *ngIf="viaticosCopia[rowIndex].status == 5">
                 <ion-button [routerLink]="'/home/viatico-proyecto/'+viaticosCopia[rowIndex].id_comision">

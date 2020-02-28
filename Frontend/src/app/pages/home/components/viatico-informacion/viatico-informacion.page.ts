@@ -49,4 +49,26 @@ export class ViaticoInformacionPage implements OnInit {
     this.modalController.dismiss();
   }
 
+  async sendViatico(id_viatico, nombre_invitado, comentarios, status) {
+    // Llamada a la API
+    if (confirm('¿Está seguro de enviar los datos? Una vez enviados no podrán ser modificados')) {
+      const resp = await this.auth.sendViatico(id_viatico, nombre_invitado, comentarios, 1).toPromise();
+      console.log(id_viatico, nombre_invitado, comentarios, status);
+      if (resp['ok']) {
+        this.presentToast('Su viatico ha sido enviado.');
+      } else {
+        console.log(resp);
+      }
+    }
+  }
+
+  async presentToast(message) {
+    const toast = await this.toastController.create({
+      message,
+      duration: 2000,
+      position: 'bottom'
+    });
+    toast.present();
+  }
+
 }

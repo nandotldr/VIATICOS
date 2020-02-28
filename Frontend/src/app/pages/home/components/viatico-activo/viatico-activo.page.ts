@@ -41,7 +41,7 @@ export class ViaticoActivoPage implements OnInit {
       this.viatic = resp;
       console.log(this.viatic);
     } else {
-      console.log('no jalo')
+      console.log('no jalo');
     }
 
   }
@@ -53,7 +53,7 @@ export class ViaticoActivoPage implements OnInit {
 
   }
 
-  async presentToast() { 
+  async presentToast() {
     const toast = await this.toastController.create({
       message: 'Datos no Validos',
       duration: 2000,
@@ -70,26 +70,27 @@ export class ViaticoActivoPage implements OnInit {
     });
     toast.present();
   }
-  
+  /*
   async deleteViatico(viatico){
-      const resp = 1//await this.auth.deleteViatico(viatico);
-      if (resp) {
-        this.presentToast();
+    const resp = 1//await this.auth.deleteViatico(viatico);
+    if (resp) {
+      this.presentToast();
       } else {
-        this.presentToast();
+      this.presentToast();
       }
     this.getViatico(this.viatico);
   }
 
   async modifyViatico(viatico){
+
     console.log(viatico);
     const resp = 1//await this.auth.modifyViatico(viatico);
     if (resp) {
-      this.presentToast();
-    } else {
-      this.presentToast();
-    }
-  this.closeModal();
-}
-
+        this.presentToast();
+      } else {
+        this.presentToast();
+      }
+    this.closeModal();
+  }
+*/
 }

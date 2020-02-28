@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
-import { ToastController, ModalController, NavParams } from '@ionic/angular';
+import { ToastController, ModalController, NavParams, AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
@@ -20,6 +20,7 @@ export class ViaticoInformacionPage implements OnInit {
     private formBuilder: FormBuilder,
     private auth: AuthService,
     public toastController: ToastController,
+    public alertController: AlertController,
     private modalController: ModalController,
     private router: Router,
     private http: HttpClient,
@@ -55,7 +56,8 @@ export class ViaticoInformacionPage implements OnInit {
       const resp = await this.auth.sendViatico(id_viatico, nombre_invitado, comentarios, 1).toPromise();
       console.log(id_viatico, nombre_invitado, comentarios, status);
       if (resp['ok']) {
-        this.presentToast('Su viatico ha sido enviado.');
+        // this.presentToast('Su viatico ha sido enviado.');
+        this.cerrarModal();
       } else {
         console.log(resp);
       }
@@ -69,6 +71,17 @@ export class ViaticoInformacionPage implements OnInit {
       position: 'bottom'
     });
     toast.present();
+  }
+
+  async presentAlert() {
+    const alert = await this.alertController.create({
+      header: 'Viático Enviado',
+      // subHeader: 'Subtitle',
+      message: 'Revisa el estado de tu viático en esta página.',
+      buttons: ['OK']
+    });
+
+    await alert.present();
   }
 
 }

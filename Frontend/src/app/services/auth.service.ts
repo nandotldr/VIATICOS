@@ -390,7 +390,7 @@ export class AuthService {
   ) {
     return this.http.put(`${this.API_URL}/solicitud_viatico`,{
       id_viatico: +id_comision,
-      invitado: invitado_nombre,
+      nombre_invitado: invitado_nombre,
       comentarios: _comentarios,
       status: 1
     });

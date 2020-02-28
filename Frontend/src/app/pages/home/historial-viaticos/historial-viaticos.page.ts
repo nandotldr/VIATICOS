@@ -2,7 +2,7 @@ import { OverlayEventDetail } from '@ionic/core';
 import { FormBuilder } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
-import { ToastController, ModalController } from '@ionic/angular';
+import { ToastController, ModalController, AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { ViaticoInformacionPage } from '../components/viatico-informacion/viatico-informacion.page';
@@ -24,26 +24,12 @@ export class HistorialViaticosPage implements OnInit {
     private auth: AuthService,
     public toastController: ToastController,
     private modalController: ModalController,
+    public alertController: AlertController,
     private router: Router,
     private http: HttpClient) { }
 
   async ngOnInit() {
-    try {
-      const resp = await this.auth.getHistorialViaticos().toPromise();
-      console.log(resp);
-
-      // tslint:disable-next-line: no-string-literal
-      if (resp['ok']) {
-        // tslint:disable-next-line: no-string-literal
-        this.viaticos = resp['body'];
-        this.viaticosCopia = [...this.viaticos];
-        console.log('historial-viaticos', this.viaticos);
-      } else {
-        this.presentToast('Datos no validos');
-      }
-    } catch (error) {
-      console.error(error);
-    }
+    this.getViaticos();
   }
 
   async presentToast(message) {
@@ -66,7 +52,8 @@ export class HistorialViaticosPage implements OnInit {
         });
     modal.onDidDismiss().then((detail: OverlayEventDetail) => {
       if (detail !== null) {
-        // console.log('The result:', detail.data);
+        this.getViaticos();
+        this.presentAlert();
       }
     });
 
@@ -85,9 +72,6 @@ export class HistorialViaticosPage implements OnInit {
         });
 
     modal.onDidDismiss().then((detail: OverlayEventDetail) => {
-      if (detail !== null) {
-        console.log('The result: ', detail.data);
-      }
       this.getGastos();
     });
 
@@ -100,6 +84,36 @@ export class HistorialViaticosPage implements OnInit {
       // this.guardado = true;
       this.gastos = resp['results'];
     }
+  }
+
+  async getViaticos() {
+    try {
+      const resp = await this.auth.getHistorialViaticos().toPromise();
+      console.log(resp);
+
+      // tslint:disable-next-line: no-string-literal
+      if (resp['ok']) {
+        // tslint:disable-next-line: no-string-literal
+        this.viaticos = resp['body'];
+        this.viaticosCopia = [...this.viaticos];
+        console.log('historial-viaticos', this.viaticos);
+      } else {
+        this.presentToast('Datos no validos');
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async presentAlert() {
+    const alert = await this.alertController.create({
+      header: 'Viático Enviado',
+      // subHeader: 'Subtitle',
+      message: 'Revisa el estado de tu viático en esta página.',
+      buttons: ['OK']
+    });
+
+    await alert.present();
   }
 
 }

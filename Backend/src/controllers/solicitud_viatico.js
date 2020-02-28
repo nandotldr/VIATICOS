@@ -78,7 +78,7 @@ module.exports = {
     },
     modificarSolicitudViatico: async(req, res) => {
         try {
-            const existeViatico = await pool.query("SELECT * FROM solicitud_viatico WHERE id = ? AND id_usuario=?", [req.body.id_viatico, req.user.codigo]);
+            const existeViatico = await pool.query("SELECT * FROM solicitud_viatico WHERE id = ?", [req.body.id_viatico, req.user.codigo]);
             if (existeViatico.length < 1)
                 return res.json({ ok: false, mensaje: 'No existe la solicitud' });
             if (existeViatico[0].status == 0 && req.body.status == 1) {

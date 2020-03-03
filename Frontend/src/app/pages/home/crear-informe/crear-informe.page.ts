@@ -4,7 +4,7 @@ import { AgendaPage } from './../components/agenda/agenda.page';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
-import { ToastController, ModalController } from '@ionic/angular';
+import { ToastController, ModalController, AlertController } from '@ionic/angular';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { FacturaPage } from '../components/factura/factura.page';
@@ -27,6 +27,7 @@ export class CrearInformePage implements OnInit {
     public toastController: ToastController,
     private modalController: ModalController,
     private activatedRoute: ActivatedRoute,
+    public alertController: AlertController,
     private http: HttpClient) {
     // console.log('inicio', this.informeGroup.value);
     this.informeGroup = this.formBuilder.group({
@@ -76,7 +77,7 @@ export class CrearInformePage implements OnInit {
           if (resp['ok']) {
             this.puedeContinuar = true;
             // tslint:disable-next-line
-            this.presentToast(resp['mensaje']);
+            // this.presentToast(resp['mensaje']);
           } else {
             // tslint:disable-next-line
             this.presentToast(resp['mensaje']);
@@ -86,6 +87,7 @@ export class CrearInformePage implements OnInit {
           console.log(resp);
           // tslint:disable-next-line
           if (resp['ok']) {
+            this.presentAlertGuardar();
             this.puedeContinuar = true;
           } else {
             // tslint:disable-next-line
@@ -160,4 +162,16 @@ export class CrearInformePage implements OnInit {
 
     await modal.present();
   }
+
+  async presentAlertGuardar() {
+    const alert = await this.alertController.create({
+      header: 'Informe Guardado',
+      // subHeader: 'Subtitle',
+      message: 'Da clic en siguiente para continuar',
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
+
 }

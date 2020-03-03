@@ -764,6 +764,7 @@ return this.http.request('delete',`${this.API_URL}/programa_trabajo/`,{body: pro
   revisarProyecto(
     proyecto: {
       id_solicitud_viatico: Number,
+      id: Number,
       numero_proyecto: String,
       cantidad: String,
       status: Number
@@ -773,7 +774,8 @@ return this.http.request('delete',`${this.API_URL}/programa_trabajo/`,{body: pro
       id_solicitud_viatico: proyecto.id_solicitud_viatico,
       numero_proyecto: proyecto.numero_proyecto,
       cantidad: proyecto.cantidad,
-      status: proyecto.status
+      status: proyecto.status,
+      id_proyecto: proyecto.id,
     }).pipe(
         map(response => {
             console.log(response);

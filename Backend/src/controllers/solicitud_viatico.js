@@ -101,7 +101,7 @@ module.exports = {
     historialViaticos: async(req, res) => {
 
         try {
-            pool.query('SELECT v.id as id_viatico, v.id_solicitud_comision as id_comision,v.fecha_solicitud, v.status , c.nombre_comision FROM solicitud_viatico as v INNER  JOIN solicitud_comision as c on c.id =v.id_solicitud_comision WHERE v.id_usuario =?', [req.user.codigo], (erroViaticos, viaticos, fields) => {
+            pool.query('SELECT v.id as id_viatico, v.id_solicitud_comision as id_comision,v.fecha_solicitud, v.status , c.nombre_comision FROM solicitud_viatico as v INNER  JOIN solicitud_comision as c on c.id =v.id_solicitud_comision WHERE v.id_usuario =? AND v.status != 7', [req.user.codigo], (erroViaticos, viaticos, fields) => {
                 if (erroViaticos) return res.json({ ok: false, mensaje: erroViaticos });
                 if (viaticos.length < 1) return res.json({ ok: false, mensaje: "No tienes viaticos realizados" });
                 res.json({ ok: true, body: viaticos });

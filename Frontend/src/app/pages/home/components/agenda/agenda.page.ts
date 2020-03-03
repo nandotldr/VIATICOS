@@ -34,7 +34,7 @@ export class AgendaPage implements OnInit {
   }
 
   async crearAgenda() {
-    console.log(this.agendaGroup);
+    console.log(this.navParams.get('id_informe'));
     let { dia, hora_inicio, hora_fin, actividad } = this.agendaGroup.value;
     dia = dia.substring(0, 10);
     // 2020-02-10T17:04:36.372-06:00"

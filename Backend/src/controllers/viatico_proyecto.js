@@ -52,12 +52,12 @@ module.exports = {
 
     modificarViaticoProyecto: (req, res) => {
         try {
-            pool.query('UPDATE viatico_proyecto SET ? WHERE id_solicitud_viatico = ?', [{
+            pool.query('UPDATE viatico_proyecto SET ? WHERE id = ?', [{
                 id_solicitud_viatico: req.body.id_solicitud_viatico,
                 numero_proyecto: req.body.numero_proyecto,
                 cantidad: req.body.cantidad,
                 status: req.body.status,
-            }, req.body.id_solicitud_viatico], (errorModificar, modificarProyecto) => {
+            }, req.body.id_proyecto], (errorModificar, modificarProyecto) => {
                 if (errorModificar) return res.json({ ok: false, mensaje: "error al modificar" });
                 res.json({ ok: true, mensaje: "proyecto modificado exitosamente" });
             });

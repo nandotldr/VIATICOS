@@ -15,7 +15,7 @@ module.exports = {
             if (existeUsuario.length < 1) {
                 return res.json({ ok: false, mensaje: "Este usuario no existe" });
             }
-            const verificarViatico = await pool.query('SELECT C.id FROM solicitud_comision as C INNER JOIN solicitud_viatico AS V ON C.id= V.id_solicitud_comision WHERE   V.status=5 AND C.id= ? ', [req.body.id_solicitud_comision]);
+            const verificarViatico = await pool.query('SELECT C.id FROM solicitud_comision as C INNER JOIN solicitud_viatico AS V ON C.id= V.id_solicitud_comision WHERE   V.status=6 AND C.id= ? ', [req.body.id_solicitud_comision]);
             if (verificarViatico.length < 1) {
                 return res.json({ ok: false, mensaje: "No se puede crear el informe, tu solicitud no esta completa" });
             }

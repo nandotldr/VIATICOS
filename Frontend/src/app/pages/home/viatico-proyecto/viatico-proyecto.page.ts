@@ -102,7 +102,7 @@ export class ViaticoProyectoPage implements OnInit {
       this.viatico = resp['body'];
       this.id_solicitud_viatico = this.viatico.folio;
     } else {
-      this.presentToast(resp['mensaje']);
+      
     }
   }
 

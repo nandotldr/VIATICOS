@@ -14,7 +14,7 @@ module.exports = {
                 return res.json({ ok: false, mensaje: "Este usuario no existe" });
             }
             //si usuario es F mostrar todas las peticiones de proyectos en status 1
-            if (existeUsuario[0].tipo_usuario == 'F') {
+            if (existeUsuario[0].tipo_usuario == 'F' || existeUsuario[0].tipo_usuario == 'A') {
                 const proyecto = await pool.query('SELECT p.id, p.fecha_solicitud, p.numero_proyecto, u.area_adscripcion, p.cantidad , p.id_solicitud_viatico, p.status, concat(u.nombres," ",u.apellidos) as nombre  FROM viatico_proyecto AS p INNER JOIN solicitud_viatico AS v ON p.id_solicitud_viatico = v.id INNER JOIN usuario as u ON u.codigo = v.id_usuario WHERE p.status =1;');
                 if (proyecto.length < 1) return res.json({ ok: false, mensaje: "No hay solicitudes de proyecto por revisar" });
 
@@ -41,7 +41,7 @@ module.exports = {
             const usuario = await pool.query("SELECT CONCAT(u.nombres, ' ' , u.apellidos) as nombre FROM viaticos.usuario as u WHERE codigo = ?", [req.user.codigo]);
             var sqlViatico_proyecto = 'UPDATE viatico_proyecto SET ? WHERE id = ?';
             //si usuario = F modificar fecha_aceptado, nombre aceptado, comentario rechazo
-            if (req.user.tipo_usuario == 'F' && verificarViatico_proyecto[0].status == 1) {
+            if ((req.user.tipo_usuario == 'F' || req.user.tipo_usuario == 'A' )&& verificarViatico_proyecto[0].status == 1) {
                 pool.query(sqlViatico_proyecto, [{
                     fecha_aceptado: new Date(),
                     nombre_aceptado: usuario[0].nombre,

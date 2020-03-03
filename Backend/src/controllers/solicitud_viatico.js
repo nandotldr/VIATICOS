@@ -55,7 +55,7 @@ module.exports = {
                     id_solicitud_comision: viatico[0].id_solicitud_comision,
                     nombre_invitado: viatico[0].invitado_nombre,
                     motivo_comision: viatico[0].justificacion,
-                    // lugar_de_comision: destino[0].nombre,           nombre pertenece a comision no a viatico
+                    lugar_de_comision: destino[0].nombre,
                     fecha_solicitud: viatico[0].fecha_solicitud,
                     comentarios: viatico[0].comentarios,
                     fecha_inicio: viatico[0].fecha_inicio,

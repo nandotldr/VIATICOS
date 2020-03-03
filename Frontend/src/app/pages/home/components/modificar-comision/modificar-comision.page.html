@@ -54,12 +54,12 @@
 
     <ion-item *ngIf="comi">
       <ion-label>Fecha Inicio </ion-label>
-      <ion-datetime displayFormat="MM/DD/YYYY" max="3000-12-09" (ionChange)="enableModificar()" [(ngModel)]="comi.fecha_inicio"></ion-datetime>
+      <ion-datetime displayFormat="MMM/DD/YYYY" max="3000-12-09" (ionChange)="enableModificar()" [(ngModel)]="comi.fecha_inicio"></ion-datetime>
     </ion-item>
 
     <ion-item *ngIf="comi">
       <ion-label>Fecha Fin    </ion-label>
-      <ion-datetime displayFormat="MM/DD/YYYY" max="3000-12-09" (ionChange)="enableModificar()" [(ngModel)]="comi.fecha_fin"></ion-datetime>
+      <ion-datetime displayFormat="MMM/DD/YYYY" max="3000-12-09" (ionChange)="enableModificar()" [(ngModel)]="comi.fecha_fin"></ion-datetime>
     </ion-item>
 
     <ion-button [disabled]="modificarDisabled" (click)="modifyComision(comi)">

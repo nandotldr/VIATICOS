@@ -23,8 +23,9 @@
     <ion-card-content class="card-b">
       <table>
         <tr>
-          <th>ID de Comisión</th>
-          <th>Nombre de la Comisión</th>
+          <th>ID de Solicitud</th>
+          <th>Numero de Proyecto</th>
+          <th>Cantidad</th>
           <th>Fecha de Elaboración</th>
           <th>Nombre Solicitante</th>
           <th>Más Información</th>
@@ -33,6 +34,7 @@
         <tr *ngFor="let proyecto of proyectos">
           <td>{{ proyecto.id }}</td>
           <td>{{ proyecto.numero_proyecto }}</td>
+          <td>{{ proyecto.cantidad | currency }}</td>
           <td>{{ proyecto.fecha_solicitud | date }}</td>
           <td>{{ proyecto.nombre }}</td>
           <td text-center><ion-button (click)="openModal(proyecto.id_solicitud_comision)"><ion-icon name="apps"></ion-icon></ion-button></td>

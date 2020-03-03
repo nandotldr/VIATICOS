@@ -21,7 +21,7 @@ module.exports = {
                 return res.json({ ok: true, body: informe });
 
             } else if (existeUsuario[0].tipo_usuario == 'F') {
-                const informe = await pool.query('SELECT i.id, i.status, u.codigo, u.area_adscripcion, i.fecha_solicitud , c.nombre_comision,concat(u.nombres," ",u.apellidos) as nombre  FROM informe_actividades AS i INNER JOIN usuario as u ON u.codigo=i.id_usuario INNER JOIN solicitud_comision AS c ON i.id_solicitud_comision = c.id WHERE i.status = 1');
+                const informe = await pool.query('SELECT i.id, i.status, u.codigo, u.area_adscripcion, i.fecha_elaboracion , c.nombre_comision,concat(u.nombres," ",u.apellidos) as nombre  FROM informe_actividades AS i INNER JOIN usuario as u ON u.codigo=i.id_usuario INNER JOIN solicitud_comision AS c ON i.id_solicitud_comision = c.id WHERE i.status = 1');
                 if (informe.length < 1) return res.json({ ok: false, mensaje: "No hay informes por aceptar" });
 
                 return res.json({ ok: true, body: informe });

@@ -90,11 +90,12 @@ module.exports = {
         try {
             var sqlinforme = 'SELECT i.id, i.id_usuario, i.resultados, i.observaciones, i.fecha_elaboracion FROM informe_actividades AS i INNER JOIN usuario as u ON u.codigo = i.id_usuario INNER JOIN solicitud_comision as c ON c.id = i.id_solicitud_comision WHERE i.id = ? AND i.id_usuario = ?'
                 //AND (i.status =0 OR i.status=2 OR i.status=4)';
+                console.log(req.body);
             const verificarInforme = await pool.query(sqlinforme, [req.body.id, req.user.codigo]);
             if (verificarInforme.length < 1) {
                 return res.json({ ok: false, mensaje: "No se puede modificar el informe" });
             }
-
+            
             //si estatus =0 modificar fecha solicitud
             //si status = 2 no modificar fecha solicitud or status 4
             if (verificarInforme[0].status == 0)
@@ -103,9 +104,13 @@ module.exports = {
                 fecha_elaboracion: verificarInforme[0].fecha_elaboracion,
                 resultados: req.body.resultados,
                 observaciones: req.body.observaciones,
-                //status: req.body.status
+                status: req.body.status
             }, req.body.id], (errorModificar, modificarInforme) => {
                 if (errorModificar) return res.json({ ok: false, mensaje: errorModificar });
+                if(req.body.status == 6)
+                {   
+                    pool.query('UPDATE solicitud_viatico SET ? WHERE id = ?',[{status: 7},req.body.id_solicitud_viatico]);
+                }
                 console.log(errorModificar);
                 res.json({ ok: true, mensaje: "Informe modificado" });
             });

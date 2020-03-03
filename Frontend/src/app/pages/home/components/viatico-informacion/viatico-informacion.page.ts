@@ -52,7 +52,6 @@ export class ViaticoInformacionPage implements OnInit {
 
   async sendViatico(id_viatico, nombre_invitado, comentarios, status) {
     // Llamada a la API
-    if (confirm('¿Está seguro de enviar los datos? Una vez enviados no podrán ser modificados')) {
       const resp = await this.auth.sendViatico(id_viatico, nombre_invitado, comentarios, 1).toPromise();
       console.log(id_viatico, nombre_invitado, comentarios, status);
       if (resp['ok']) {
@@ -62,7 +61,6 @@ export class ViaticoInformacionPage implements OnInit {
       } else {
         console.log(resp);
       }
-    }
   }
 
   async presentToast(message) {
@@ -83,6 +81,29 @@ export class ViaticoInformacionPage implements OnInit {
     });
 
     await alert.present();
+  }
+
+  async alertConfirm(id_viatico, nombre_invitado, comentarios, status) {
+    const alert = await this.alertController.create({
+      header: 'Enviar Viätico',
+      message: '¿Está seguro de enviar los datos? Una vez enviados no podrán ser modificados',
+      buttons: [
+        {
+          text: 'Si',
+          handler: () => {
+            this.sendViatico(id_viatico, nombre_invitado, comentarios, status);
+          }
+        },
+        {
+          text: 'No',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {}
+        }
+      ]
+    });
+    await alert.present();
+    // alert.onDidDismiss().then(() => this.get());
   }
 
 }

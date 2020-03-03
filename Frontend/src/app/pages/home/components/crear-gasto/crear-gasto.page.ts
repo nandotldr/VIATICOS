@@ -1,4 +1,4 @@
-import { ToastController, ModalController, NavParams } from '@ionic/angular';
+import { ToastController, ModalController, NavParams, AlertController } from '@ionic/angular';
 import { AuthService } from 'src/app/services/auth.service';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
@@ -18,7 +18,8 @@ export class CrearGastoPage implements OnInit {
     private auth: AuthService,
     public toast: ToastController,
     private modalController: ModalController,
-    private navParams: NavParams
+    private navParams: NavParams,
+    public alertController: AlertController
   ) { 
 
     this.idViatico = this.navParams.get('id_viatico');
@@ -46,7 +47,7 @@ export class CrearGastoPage implements OnInit {
         console.log(resp);
         this.presentToast('Gastos creados');
         // PUT en Viatico para cambiar el status
-        this.closeModal();
+        this.presentAlertCreado();
       } else {
         this.presentToast(resp);
       }
@@ -63,6 +64,17 @@ export class CrearGastoPage implements OnInit {
       position: 'bottom'
     });
     toast.present();
+  }
+
+  async presentAlertCreado() {
+    const alert = await this.alertController.create({
+      header: 'Gasto Creado',
+      // subHeader: 'Subtitle',
+      message: 'Agrega otro gasto o accede a "Info" para confirmar tus gastos',
+      buttons: ['OK']
+    });
+
+    await alert.present();
   }
 
   closeModal() {

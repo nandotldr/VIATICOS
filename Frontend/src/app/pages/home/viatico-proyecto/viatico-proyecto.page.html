@@ -6,7 +6,7 @@
         <!-- <img src="../../../assets/images/logo.png" width="25px" style="display:inline-block" height="25px"/> -->
         <!-- <ion-icon slot="icon-only" name="filing"></ion-icon> -->
         <ion-title>
-          Viatico Proyecto
+          VIÁTICO PROYECTO
         </ion-title>
       
     </ion-buttons>
@@ -17,7 +17,6 @@
   <img class="background-image" />
   <ion-card>
 
-    <div class="center-content" *ngIf="!guardado">
       <ion-card-header class="title">
         <ion-card-title>Nuevo Viático Proyecto</ion-card-title>
       </ion-card-header>
@@ -26,10 +25,10 @@
       <ion-card-header class="subtitle">
         <ion-card-title>Información del viático proyecto</ion-card-title>
       </ion-card-header>
-      <form [formGroup]="fgCreate" (ngSubmit)="saveViaticoProyecto()">
+      <form [formGroup]="fgCreate" (ngSubmit)="alertConfirm()">
         <ion-item>
           <ion-label>ID Solicitud Viatico </ion-label>
-          <ion-input value="{{this.id_solicitud_viatico}}" formControlName="id_solicitud_viatico"></ion-input>
+          <ion-input readonly value="{{this.id_solicitud_viatico}}" formControlName="id_solicitud_viatico"></ion-input>
         </ion-item>
 
         <ion-item>
@@ -38,56 +37,12 @@
         </ion-item>
 
         <ion-item>
-          <ion-label>Cantidad </ion-label>
-          <ion-input placeholder="Cantidad" type="text" formControlName="cantidad"></ion-input>
+          <ion-label>Cantidad: $</ion-label>
+          <ion-input placeholder="Cantidad" type="number" formControlName="cantidad"></ion-input>
         </ion-item>
 
-        <ion-button type="submit" color="light" [disabled]="this.fgCreate.invalid">Guardar estos datos</ion-button>
-        <div *ngIf="guardado">
-          <ion-button (click)="send()">Enviar</ion-button>
-        </div>
-        <div *ngIf="!guardado">
-          <ion-button (click)="sendViaticoProyecto()">Enviar</ion-button>
-        </div>
-        <!-- <ion-button (click)="saveViatico()">Guardar solicitud</ion-button> -->
-        <ion-button routerLink="/home">Regresar</ion-button>
+        <ion-button type="submit" color="light" [disabled]="this.fgCreate.invalid">Enviar</ion-button>
       </form>
-    </div>
 
-    <div class="center-content" *ngIf="guardado">
-      <ion-card-header class="title">
-        <ion-card-title>Nuevo Viático Proyecto</ion-card-title>
-      </ion-card-header>
-
-
-      <ion-card-header class="subtitle">
-        <ion-card-title>Información del viático proyecto</ion-card-title>
-      </ion-card-header>
-      <form [formGroup]="fgCreate" (ngSubmit)="saveViaticoProyecto()">
-        <ion-item>
-          <ion-label>ID Solicitud Viatico </ion-label>
-          <ion-input value="{{this.id_solicitud_viatico}}" formControlName="id_solicitud_viatico"></ion-input>
-        </ion-item>
-
-        <ion-item>
-          <ion-label>Número de proyecto </ion-label>
-          <ion-input value="{{this.viatico_proyecto.numero_proyecto}}" formControlName="numero_proyecto"></ion-input>
-        </ion-item>
-
-        <ion-item>
-          <ion-label>Cantidad </ion-label>
-          <ion-input value="{{this.viatico_proyecto.cantidad}}" type="text" formControlName="cantidad"></ion-input>
-        </ion-item>
-
-        <ion-button type="submit" color="light" [disabled]="this.fgCreate.invalid">Guardar estos datos</ion-button>
-        <div *ngIf="guardado">
-          <ion-button (click)="sendViaticoProyecto()">Enviar</ion-button>
-        </div>
-        <div *ngIf="!guardado">
-          <ion-button (click)="sendViaticoProyecto()">Enviar</ion-button>
-        </div>
-        <!-- <ion-button (click)="saveViatico()">Guardar solicitud</ion-button> -->
-      </form>
-    </div>
   </ion-card>
 </ion-content>

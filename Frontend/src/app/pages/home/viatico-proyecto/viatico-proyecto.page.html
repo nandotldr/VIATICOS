@@ -28,7 +28,7 @@
       <form [formGroup]="fgCreate" (ngSubmit)="alertConfirm()">
         <ion-item>
           <ion-label>ID Solicitud Viatico </ion-label>
-          <ion-input readonly value="{{this.id_solicitud_viatico}}" formControlName="id_solicitud_viatico"></ion-input>
+          <ion-input readonly [(ngModel)]="this.id_solicitud_viatico" formControlName="id_solicitud_viatico"></ion-input>
         </ion-item>
 
         <ion-item>

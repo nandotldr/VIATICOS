@@ -33,16 +33,15 @@ module.exports = {
     verViaticoProyecto: (req, res) => {
         const { id } = req.params;
         try {
-            pool.query('SELECT * FROM viatico_proyecto WHERE id_solicitud_viatico = ?', [id], (errorProyecto, proyecto) => {
+            pool.query('SELECT * FROM viatico_proyecto WHERE id = ?', [id], (errorProyecto, proyecto) => {
                 if (errorProyecto) return res.json({ ok: false, mensaje: errorProyecto });
                 if (proyecto.length < 1) return res.json({ ok: false, mensaje: "no existe el proyecto" });
                 pool.query('SELECT * FROM solicitud_viatico WHERE id = ?', [id], (errorViatico, viatico) => {
                     if (errorViatico) return res.json({ ok: false, mensaje: 'Error al obtener la solicitud del viatico' });
                     let json = {
-                        solicitud_viatico: viatico,
-                        viatico_proyecto: proyecto
+                        proyecto
                     };
-                    res.json({ ok: true, body: json });
+                    res.json({ ok: true, body: proyecto[0] });
                 });
             });
         } catch (error) {

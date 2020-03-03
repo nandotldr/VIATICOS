@@ -12,8 +12,8 @@ import { formatDate } from '@angular/common';
 })
 export class ProyectoActivoPage implements OnInit {
 
-  viatico = '1';
-  viatic = '';
+  proyecto = '1';
+  proyect = '';
   fgModify: FormGroup;
   constructor(private modalController: ModalController,
               private navParams: NavParams,
@@ -24,8 +24,8 @@ export class ProyectoActivoPage implements OnInit {
                 this.ionViewWillEnter();
   }
   ionViewWillEnter() {
-    this.viatico = this.navParams.get('viatico');
-    this.getViatico(this.viatico);
+    this.proyecto = this.navParams.get('proyecto');
+    this.getProyecto(this.proyecto);
   }
 
   async myDismiss() {
@@ -33,15 +33,14 @@ export class ProyectoActivoPage implements OnInit {
 
     await this.modalController.dismiss(result);
   }
-  async getViatico(comision_id) {
-    const resp = await this.auth.getViatico(comision_id);
+  async getProyecto(proyecto_id) {
+    const resp = await this.auth.getProyecto(proyecto_id);
+
     if (resp) {
-      resp.fecha_inicio = formatDate(resp.fecha_inicio, 'yyyy-MM-dd', 'en');
-      resp.fecha_fin = formatDate(resp.fecha_fin, 'yyyy-MM-dd', 'en');
-      this.viatic = resp;
-      console.log(this.viatic);
+      this.proyect = resp;
+     
     } else {
-      console.log('no jalo')
+      console.log('no jalo');
     }
 
   }

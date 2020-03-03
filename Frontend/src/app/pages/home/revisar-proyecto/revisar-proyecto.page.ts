@@ -44,7 +44,7 @@ export class RevisarProyectoPage implements OnInit {
           component: ProyectoActivoPage,
           cssClass: 'modal-class',
           componentProps: {
-            folio: folio,
+            proyecto: folio,
           }
         });
 

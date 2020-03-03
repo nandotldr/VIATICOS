@@ -74,6 +74,10 @@ export class ModificarComisionPage implements OnInit {
     this.getComision(this.comision);
   }
 
+  ngOnInit() {
+    this.getComision(this.comision);
+  }
+
   async myDismiss() {
     const result: Date = new Date();
 
@@ -130,9 +134,6 @@ export class ModificarComisionPage implements OnInit {
 
   closeModal() {
     this.modalController.dismiss();
-  }
-  ngOnInit() {
-
   }
 
   async enviarSolicitud(comision) {

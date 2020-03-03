@@ -11,7 +11,7 @@
   <ion-card>
     <ion-item *ngIf="comi">
       <ion-label>Folio</ion-label>
-      <ion-label>{{ comi.folio}}</ion-label>
+      <ion-label>{{ comi.folio }}</ion-label>
     </ion-item>
 
     <ion-item *ngIf="comi">
@@ -62,11 +62,13 @@
       <ion-datetime displayFormat="MMM/DD/YYYY" max="3000-12-09" (ionChange)="enableModificar()" [(ngModel)]="comi.fecha_fin"></ion-datetime>
     </ion-item>
 
-    <ion-button [disabled]="modificarDisabled" (click)="modifyComision(comi)">
-      <ion-icon name="brush"></ion-icon>
-      <ion-label>Modificar Comision</ion-label>
-    </ion-button>
- 
+    <div *ngIf="comi">
+      <ion-button *ngIf="comi.status == 0 || comi.status == 2 || comi.status == 4" [disabled]="modificarDisabled" (click)="modifyComision()">
+        <ion-icon name="brush"></ion-icon>
+        <ion-label>Modificar Comision</ion-label>
+      </ion-button>
+    </div>
+
   </ion-card>
   <ion-card>
     <ion-toolbar>
@@ -117,15 +119,18 @@
     </ion-grid>
   </ion-card>
 
+  <div *ngIf="comi">
+    <ion-button *ngIf="comi.status == 0 || comi.status == 2 || comi.status == 4" (click)="enviarSolicitud(comi)">
+      <ion-icon name="send"></ion-icon>
+      <ion-label>enviar Comision</ion-label>
+    </ion-button>
+  </div>
 
-  <ion-button (click)="enviarSolicitud(comi)">
-    <ion-icon name="send"></ion-icon>
-    <ion-label>enviar Comision</ion-label>
-  </ion-button>
-
-  <ion-button (click)="cancelarSolicitud(comi)">
-    <ion-icon name="trash"></ion-icon>
-    <ion-label>cancelar Comision</ion-label>
-  </ion-button>
+  <div *ngIf="comi">
+    <ion-button *ngIf="comi.status == 0 || comi.status == 2 || comi.status == 4" (click)="cancelarSolicitud(comi)">
+      <ion-icon name="trash"></ion-icon>
+      <ion-label>cancelar Comision</ion-label>
+    </ion-button>
+  </div>
 
 </ion-content>

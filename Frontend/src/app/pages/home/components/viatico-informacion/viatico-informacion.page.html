@@ -138,7 +138,7 @@
             </ion-col>
           </ion-row>
         </ion-grid>
-        <ion-button (click)="alertConfirm(this.viatico.folio, this.viatico.nombre_invitado, this.viatico.comentarios, 1 )">
+        <ion-button *ngIf="viatico.status == 0 || viatico.status == 2" (click)="alertConfirm(this.viatico.folio, this.viatico.nombre_invitado, this.viatico.comentarios, 1 )">
           <ion-icon name="send"></ion-icon> Enviar Viático
         </ion-button>
       </ion-card>

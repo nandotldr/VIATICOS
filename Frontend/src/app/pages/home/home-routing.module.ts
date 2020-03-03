@@ -69,11 +69,6 @@ const routes: Routes = [
         canLoad: [AuthGuardService]
       },
       {
-        path: 'comision-creada',
-        loadChildren: () => import('./comision-creada/comision-creada.module').then(m => m.ComisionCreadaPageModule),
-        canLoad: [AuthGuardService]
-      },
-      {
         path: 'agenda',
         loadChildren: () => import('./components/agenda/agenda.module').then(m => m.AgendaPageModule),
         canLoad: [AuthGuardService]

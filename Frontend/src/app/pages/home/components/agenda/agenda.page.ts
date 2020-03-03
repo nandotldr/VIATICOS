@@ -60,4 +60,8 @@ export class AgendaPage implements OnInit {
     toast.present();
   }
 
+  async closeModal() {
+    this.modalController.dismiss();
+  }
+
 }

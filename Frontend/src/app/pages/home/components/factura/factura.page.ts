@@ -52,4 +52,8 @@ export class FacturaPage implements OnInit {
     toast.present();
   }
 
+  async closeModal() {
+    this.modalController.dismiss();
+  }
+
 }

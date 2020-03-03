@@ -1,6 +1,10 @@
+<!---Este modal se utiliza en la vista Revisar Viatico por parte de Finanzas y Admin-->
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Información del Viatico</ion-title>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="closeModal()"><ion-icon name="arrow-back"></ion-icon></ion-button>
+      <ion-title>INFORMACIÓN DEL VIÁTICO</ion-title>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -111,9 +115,4 @@
       </ion-row>
     </ion-grid>
   </ion-card>
-  
-  <ion-button (click)="closeModal()">
-      <ion-icon name="close"></ion-icon>
-  </ion-button>
-
 </ion-content>

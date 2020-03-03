@@ -1,6 +1,11 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Crear Gasto</ion-title>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="closeModal()"><ion-icon name="arrow-back"></ion-icon></ion-button>
+      <ion-title>
+        CREAR GASTO
+      </ion-title>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -11,9 +16,6 @@
       <ion-card-title>Nuevo Gasto</ion-card-title>
     </ion-card-header>
 
-    <ion-card-header class="subtitle">
-      <ion-card-title>Gastos</ion-card-title>
-    </ion-card-header>
     <form [formGroup]="fgGasto" (ngSubmit)="createGasto()">
       <ion-item>
         <ion-label>ID del viático</ion-label>
@@ -56,8 +58,6 @@
       </ion-item>
 
       <ion-button type="submit" color="light" >Guardar Gastos</ion-button>
-      <!-- <ion-button (click)="saveViatico()">Guardar solicitud</ion-button> -->
-      <ion-button (click)="closeModal()" >Regresar</ion-button>
     </form>
 
   </ion-card>

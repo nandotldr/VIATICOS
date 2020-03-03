@@ -1,13 +1,12 @@
 <ion-header>
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
-      <ion-button href="/home">
+      <ion-button (click)="closeModal()"><ion-icon name="arrow-back"></ion-icon></ion-button>
         <!-- <img src="../../../assets/images/logo.png" width="25px" style="display:inline-block" height="25px"/> -->
         <!-- <ion-icon slot="icon-only" name="filing"></ion-icon> -->
         <ion-title>
           PROGRAMA
         </ion-title>
-      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -41,8 +40,6 @@
           </ion-item>
 
           <ion-button type="submit" color="light" [disabled]="this.fgCreate.invalid">Guardar programa</ion-button>
-          <ion-button (click)="closeModal()" >Regresar</ion-button>
-
           </form>
     </div>
   </ion-card>

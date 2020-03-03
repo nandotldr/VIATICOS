@@ -581,7 +581,7 @@ return this.http.request('delete',`${this.API_URL}/programa_trabajo/`,{body: pro
       numero_proyecto: viatico_proyecto.numero_proyecto,
       cantidad: viatico_proyecto.cantidad,
       id_solicitud_viatico: viatico_proyecto.id_solicitud_viatico,
-      status: 0
+      status: 1
     });
   }
 
@@ -590,11 +590,13 @@ return this.http.request('delete',`${this.API_URL}/programa_trabajo/`,{body: pro
     numero_proyecto: Number,
     cantidad: Number,
     status: Number,
+    id: Number
   ) {
     return this.http.put(`${this.API_URL}/viatico_proyecto`,{ 
       numero_proyecto: numero_proyecto,
       cantidad: cantidad,
       id_solicitud_viatico: id_solicitud_viatico,
+      id_proyecto: id,
       status: status
     });
   }

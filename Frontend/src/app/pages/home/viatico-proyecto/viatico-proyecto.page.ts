@@ -45,13 +45,11 @@ export class ViaticoProyectoPage implements OnInit {
 
   async saveViaticoProyecto(){
     if (this.fgCreate.valid) {
-
       const resp = await this.auth.saveViaticoProyecto(this.fgCreate.value).toPromise();
       console.log(resp);
       if (resp['ok']) {
         this.presentToast('Guardado correctamente');
-
-
+        this.presentAlert();
       } else {
         this.presentToast('Error');
       }
@@ -101,5 +99,16 @@ export class ViaticoProyectoPage implements OnInit {
     });
     await alert.present();
     // alert.onDidDismiss().then(() => this.get());
+  }
+
+  async presentAlert() {
+    const alert = await this.alertController.create({
+      header: 'Proyecto Guardado',
+      // subHeader: 'Subtitle',
+      message: 'Espera a la aprobación del mismo para salir de viaje',
+      buttons: ['OK']
+    });
+
+    await alert.present();
   }
 }

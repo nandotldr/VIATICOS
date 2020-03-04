@@ -25,6 +25,7 @@ export class InformeActivoPage implements OnInit {
 
   ionViewWillEnter() {
     this.folio = this.navParams.get('folio');
+    console.log(this.folio);
     this.getInforme(this.folio);
   }
 

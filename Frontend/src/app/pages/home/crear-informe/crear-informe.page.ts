@@ -66,12 +66,32 @@ export class CrearInformePage implements OnInit {
     }
   }
 
+  async enviar(){
+    try {
+      if (this.informeGroup.valid) {
+          const { resultados, observaciones } = this.informeGroup.value;
+          const resp = await this.auth.modificarInforme({resultados, observaciones, id_informe: this.idInforme,status: 1}).toPromise();
+          console.log(resp);
+          // tslint:disable-next-line
+          if (resp['ok']) {
+            this.puedeContinuar = true;
+            // tslint:disable-next-line
+            this.presentToast(resp['mensaje']);
+          } else {
+            // tslint:disable-next-line
+            this.presentToast(resp['mensaje']);
+          }
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
   async guardar() {
     try {
       if (this.informeGroup.valid) {
         if (this.existiaEnBD) {
           const { resultados, observaciones } = this.informeGroup.value;
-          const resp = await this.auth.modificarInforme({resultados, observaciones, id_informe: this.idInforme}).toPromise();
+          const resp = await this.auth.modificarInforme({resultados, observaciones, id_informe: this.idInforme,status: 0}).toPromise();
           console.log(resp);
           // tslint:disable-next-line
           if (resp['ok']) {

@@ -93,7 +93,7 @@ module.exports = {
             if (verificarInforme.length < 1) {
                 return res.json({ ok: false, mensaje: "No se puede modificar el informe" });
             }
-
+            
             //si estatus =0 modificar fecha solicitud
             //si status = 2 no modificar fecha solicitud or status 4
             if (verificarInforme[0].status == 0)
@@ -102,9 +102,13 @@ module.exports = {
                 fecha_elaboracion: verificarInforme[0].fecha_elaboracion,
                 resultados: req.body.resultados,
                 observaciones: req.body.observaciones,
-                //status: req.body.status
+                status: req.body.status
             }, req.body.id], (errorModificar, modificarInforme) => {
                 if (errorModificar) return res.json({ ok: false, mensaje: errorModificar });
+                if(req.body.status == 6)
+                {   
+                    pool.query('UPDATE solicitud_viatico SET ? WHERE id = ?',[{status: 7},req.body.id_solicitud_viatico]);
+                }
                 console.log(errorModificar);
                 res.json({ ok: true, mensaje: "Informe modificado" });
             });

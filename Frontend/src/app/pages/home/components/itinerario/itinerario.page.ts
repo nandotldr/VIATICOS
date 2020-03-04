@@ -41,7 +41,7 @@ export class ItinerarioPage implements OnInit {
         dia, origen, destino, id_informe_actividades: this.navParams.get('id_informe')
       }).toPromise();
       console.log(resp);
-      
+
       this.presentToast(resp['mensaje']);
     } catch (error) {
       console.error(error);
@@ -56,6 +56,10 @@ export class ItinerarioPage implements OnInit {
       position: 'bottom'
     });
     toast.present();
+  }
+
+  async closeModal() {
+    this.modalController.dismiss();
   }
 
 }

@@ -88,8 +88,7 @@ module.exports = {
     modificarInforme: async(req, res) => {
         //verificar que no este en status cancelado =-1, revision = 1, aceptado por F =3, aceptado por A= 5 o finalizado
         try {
-            var sqlinforme = 'SELECT i.id, i.id_usuario, i.resultados, i.observaciones, i.fecha_elaboracion FROM informe_actividades AS i INNER JOIN usuario as u ON u.codigo = i.id_usuario INNER JOIN solicitud_comision as c ON c.id = i.id_solicitud_comision WHERE i.id = ? AND i.id_usuario = ?'
-                //AND (i.status =0 OR i.status=2 OR i.status=4)';
+            var sqlinforme = 'SELECT i.id, i.id_usuario, i.resultados, i.observaciones, i.fecha_elaboracion FROM informe_actividades AS i INNER JOIN usuario as u ON u.codigo = i.id_usuario INNER JOIN solicitud_comision as c ON c.id = i.id_solicitud_comision WHERE i.id = ? AND i.id_usuario = ? AND (i.status =0 OR i.status=2 OR i.status=4)'
             const verificarInforme = await pool.query(sqlinforme, [req.body.id, req.user.codigo]);
             if (verificarInforme.length < 1) {
                 return res.json({ ok: false, mensaje: "No se puede modificar el informe" });

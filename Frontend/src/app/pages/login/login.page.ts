@@ -41,7 +41,7 @@ export class LoginPage implements OnInit {
 
   async presentToast() {
     const toast = await this.toastController.create({
-      message: 'Datos no validos.',
+      message: 'Usuario o contraseña incorrectos.',
       duration: 2000,
       position: 'bottom'
     });

@@ -235,7 +235,7 @@ export class AuthService {
       evento: comision.evento,
       objetivo_trabajo: comision.objetivo_trabajo,
       justificacion: comision.justificacion,
-      fecha_inicio: comision.fecha_fin.split('T')[0],
+      fecha_inicio: comision.fecha_inicio.split('T')[0],
       fecha_fin: comision.fecha_fin.split('T')[0],
       status: 0
     }).pipe(

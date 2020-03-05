@@ -14,6 +14,7 @@ import { HttpClient } from '@angular/common/http';
 export class ViaticoPage implements OnInit {
 
   perfil = '';
+  flag: Number;
   programa: any;
   id_comision: Number;
   fgCreate: FormGroup;
@@ -38,21 +39,21 @@ export class ViaticoPage implements OnInit {
         this.fgCreate = this.formBuilder.group({
           invitado_nombre: new FormControl('', [Validators.required]),
           comentarios: new FormControl('', [Validators.required]),
-          id_comision: new FormControl(this.id_comision,[])
+          id_comision: new FormControl(this.id_comision, [])
         });
-      } 
+      }
 
   ngOnInit() {
-    this.getUsuario();  
+    this.getUsuario();
     console.log(localStorage.getItem('id_usuario'));
   }
 
   ionViewWillEnter() {
     this.id_comision = this.NavParams.get('id_comision');
-    console.log('id_comision',this.id_comision);
+    console.log('id_comision', this.id_comision);
   }
 
-  async getProgramaComision(){
+  async getProgramaComision() {
     const resp = await this.auth.getProgramaComision(this.id_comision);
     if (resp) {
         resp.forEach(element => {
@@ -60,13 +61,13 @@ export class ViaticoPage implements OnInit {
         });
         this.programa = resp;
         console.log(this.programa);
-        this.presentToastSuccess()
+        this.presentToastSuccess();
       } else {
         this.presentToast();
       }
   }
 
-  async saveViatico(){
+  async saveViatico() {
     if (this.fgCreate.valid) {
       console.log(this.fgCreate.value);
       const resp = await this.auth.saveViatico(this.fgCreate.value).toPromise();
@@ -84,7 +85,7 @@ export class ViaticoPage implements OnInit {
     }
   }
 
-  async getUsuario(){
+  async getUsuario() {
       const resp = await this.auth.getUsuario(localStorage.getItem('id_usuario'));
       if (resp) {
         this.perfil = resp;
@@ -125,5 +126,4 @@ export class ViaticoPage implements OnInit {
 
     await alert.present();
   }
-
 }

@@ -26,8 +26,21 @@
           </ion-item>
 
           <ion-item>
+            <ion-radio-group>
+              <ion-item>
+                <ion-label>Empleado o Funcionario Universitario</ion-label>
+                <ion-radio slot="start" (ionSelect)="flag = 0"></ion-radio>
+              </ion-item>
+              <ion-item>
+                <ion-label>Invitado</ion-label>
+                <ion-radio slot="start" (ionSelect)="flag = 1"></ion-radio>
+              </ion-item>
+            </ion-radio-group>
+          </ion-item>
+
+          <ion-item *ngIf="flag == 1">
             <ion-label>Nombre del invitado</ion-label>
-            <ion-input placeholder="Programa" type="text" formControlName="invitado_nombre"></ion-input>
+            <ion-input value="N/A" type="text" formControlName="invitado_nombre"></ion-input>
           </ion-item>
 
           <ion-item>

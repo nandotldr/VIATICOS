@@ -26,17 +26,17 @@
 
           <ion-item>
             <ion-label pickerOptions="cssClass:'datetime'">Fecha</ion-label>
-            <ion-datetime displayFormat="MM/DD/YYYY" max="3000-12-09" value="{{myDate}}" formControlName="dia"></ion-datetime>
+            <ion-datetime displayFormat="MMM/DD/YYYY" max="3000-12-09" value="{{myDate}}" formControlName="dia"></ion-datetime>
           </ion-item>
 
           <ion-item>
             <ion-label>Lugar Estancia</ion-label>
-            <ion-input placeholder="Programa" type="text" formControlName="lugar_estancia"></ion-input>
+            <ion-input placeholder="Lugar de estancia" type="text" formControlName="lugar_estancia"></ion-input>
           </ion-item>
 
           <ion-item>
             <ion-label>Programa del evento</ion-label>
-            <ion-input placeholder="Programa" type="text" formControlName="tareas_realizar"></ion-input>
+            <ion-input placeholder="Tareas a realizar" type="text" formControlName="tareas_realizar"></ion-input>
           </ion-item>
 
           <ion-button type="submit" color="light" [disabled]="this.fgCreate.invalid">Guardar programa</ion-button>

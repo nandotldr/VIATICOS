@@ -29,26 +29,26 @@
             <ion-radio-group>
               <ion-item>
                 <ion-label>Empleado o Funcionario Universitario</ion-label>
-                <ion-radio slot="start" (ionSelect)="flag = 0"></ion-radio>
+                <ion-radio slot="start" (ionSelect)="flag = 0; fgCreate.controls['invitado_nombre'].setValue('N/A')"></ion-radio>
               </ion-item>
               <ion-item>
                 <ion-label>Invitado</ion-label>
-                <ion-radio slot="start" (ionSelect)="flag = 1"></ion-radio>
+                <ion-radio slot="start" (ionSelect)="flag = 1; fgCreate.controls['invitado_nombre'].setValue('')"></ion-radio>
               </ion-item>
             </ion-radio-group>
           </ion-item>
 
           <ion-item *ngIf="flag == 1">
             <ion-label>Nombre del invitado</ion-label>
-            <ion-input value="N/A" type="text" formControlName="invitado_nombre"></ion-input>
+            <ion-input type="text" formControlName="invitado_nombre" (ionChange)="habilitarSend()"></ion-input>
           </ion-item>
 
           <ion-item>
             <ion-label>Comentarios</ion-label>
-            <ion-input placeholder="Programa" type="text" formControlName="comentarios"></ion-input>
+            <ion-input placeholder="Programa" type="text" formControlName="comentarios" (ionChange)="habilitarSend()"></ion-input>
           </ion-item>
 
-          <ion-button type="submit" color="light" [disabled]="this.fgCreate.invalid">Guardar Viatico</ion-button>
+          <ion-button type="submit" color="light" [disabled]="disabled">Guardar Viatico</ion-button>
           </form>
     </div>
   </ion-card>

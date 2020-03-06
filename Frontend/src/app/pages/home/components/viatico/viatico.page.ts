@@ -15,6 +15,7 @@ export class ViaticoPage implements OnInit {
 
   perfil = '';
   flag: Number;
+  disabled: Boolean = true;
   programa: any;
   id_comision: Number;
   fgCreate: FormGroup;
@@ -37,8 +38,8 @@ export class ViaticoPage implements OnInit {
       {
         this.ionViewWillEnter();
         this.fgCreate = this.formBuilder.group({
-          invitado_nombre: new FormControl('', [Validators.required]),
-          comentarios: new FormControl('', [Validators.required]),
+          invitado_nombre: new FormControl('', []),
+          comentarios: new FormControl('', []),
           id_comision: new FormControl(this.id_comision, [])
         });
       }
@@ -71,7 +72,7 @@ export class ViaticoPage implements OnInit {
     if (this.fgCreate.valid) {
       console.log(this.fgCreate.value);
       const resp = await this.auth.saveViatico(this.fgCreate.value).toPromise();
-      if (resp) {
+      if (resp['ok']) {
         console.log(resp);
         // this.presentToastSuccess();
         this.presentAlert();
@@ -94,9 +95,29 @@ export class ViaticoPage implements OnInit {
       }
   }
 
+  async habilitarSend() {
+    if (this.flag === 0) {
+      if (this.fgCreate.get('comentarios').value != '') {
+        console.log('Empleado Boton Hab');
+        this.disabled = false;
+      } else {
+        console.log('Empleado Boton Inhab');
+        this.disabled = true;
+      }
+    } else {
+      if ((this.fgCreate.get('comentarios').value != '') && (this.fgCreate.get('invitado_nombre').value != '')) {
+        console.log('Invitado Boton Hab');
+        this.disabled = false;
+      } else {
+        console.log('Invitado Boton Inhab');
+        this.disabled = true;
+      }
+    }
+  }
+
   async presentToast() {
     const toast = await this.toastController.create({
-      message: 'Datos no Validos',
+      message: 'Esta comision ya tiene una solicitud de viatico en proceso',
       duration: 2000,
       position: 'bottom'
     });

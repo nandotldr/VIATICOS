@@ -20,8 +20,7 @@ export class AgendaPage implements OnInit {
     public toastController: ToastController,
     private modalController: ModalController,
     public navParams: NavParams,
-    private router: Router,
-    private http: HttpClient) {
+    ) {
     this.agendaGroup = this.formBuilder.group({
       dia: new FormControl('', Validators.required),
       hora_inicio: new FormControl('', Validators.required),

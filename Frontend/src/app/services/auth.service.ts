@@ -386,7 +386,7 @@ export class AuthService {
     id_comision: Number,
     invitado_nombre: string,
     _comentarios: string,
-    status: Number
+    status?: Number
   ) {
     return this.http.put(`${this.API_URL}/solicitud_viatico`,{
       id_viatico: +id_comision,

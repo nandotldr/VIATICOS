@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { ModalController, NavParams, ToastController } from '@ionic/angular';
 import { AuthService } from '../../../../services/auth.service';
-import { NavController } from "@ionic/angular";
-import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-proyecto-activo',
@@ -18,9 +16,8 @@ export class ProyectoActivoPage implements OnInit {
   constructor(private modalController: ModalController,
               private navParams: NavParams,
               private auth: AuthService,
-              private navCtrl: NavController,
               private toastController: ToastController,
-              private formBuilder: FormBuilder) {
+              ) {
                 this.ionViewWillEnter();
   }
   ionViewWillEnter() {

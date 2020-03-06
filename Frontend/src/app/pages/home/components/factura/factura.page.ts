@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators, FormGroup } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { ToastController, ModalController, NavController, NavParams } from '@ionic/angular';
-import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-factura',
@@ -19,8 +17,7 @@ export class FacturaPage implements OnInit {
     public toastController: ToastController,
     private modalController: ModalController,
     private navParams: NavParams,
-    private router: Router,
-    private http: HttpClient) {
+    ) {
     this.facturaGroup = this.formBuilder.group({
       archivo_url: new FormControl('', Validators.required)
     });

@@ -1,15 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ToastController } from '@ionic/angular';
-import { Router } from '@angular/router';
 import { ModalController, NavParams, AlertController } from '@ionic/angular';
 import { AuthService } from 'src/app/services/auth.service';
 import { formatDate } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
 import { ProgramPage } from '../components/program/program.page';
 import { OverlayEventDetail } from '@ionic/core';
-import { analyzeAndValidateNgModules } from '@angular/compiler';
-import { stringify } from '@angular/compiler/src/util';
 
 @Component({
   selector: 'app-create-comision',
@@ -39,8 +35,6 @@ export class CreateComisionPage implements OnInit {
       private auth: AuthService,
       public toastController: ToastController,
       public alertController: AlertController,
-      private router: Router,
-      private http: HttpClient,
       private modalController: ModalController
       ) {
 

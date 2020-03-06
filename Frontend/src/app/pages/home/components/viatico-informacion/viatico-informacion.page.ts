@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { ToastController, ModalController, NavParams, AlertController } from '@ionic/angular';
-import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
 
 
 @Component({
@@ -18,13 +15,10 @@ export class ViaticoInformacionPage implements OnInit {
   totalTotales = 0;
 
   constructor(
-    private formBuilder: FormBuilder,
     private auth: AuthService,
     public toastController: ToastController,
     public alertController: AlertController,
     private modalController: ModalController,
-    private router: Router,
-    private http: HttpClient,
     private navParams: NavParams,
   ) { }
 

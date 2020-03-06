@@ -5,8 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { ToastController, ModalController, AlertController } from '@ionic/angular';
-import { Router, ActivatedRoute } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
 import { FacturaPage } from '../components/factura/factura.page';
 
 @Component({
@@ -27,8 +26,8 @@ export class CrearInformePage implements OnInit {
     public toastController: ToastController,
     private modalController: ModalController,
     private activatedRoute: ActivatedRoute,
-    public alertController: AlertController,
-    private http: HttpClient) {
+    public alertController: AlertController
+    ) {
     // console.log('inicio', this.informeGroup.value);
     this.informeGroup = this.formBuilder.group({
       resultados: new FormControl('', Validators.required),

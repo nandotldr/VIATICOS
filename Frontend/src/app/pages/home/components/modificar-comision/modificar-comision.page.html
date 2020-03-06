@@ -1,8 +1,9 @@
+<!--Modal que se muestra al dar click en "Mas Info" en vista "Lista de Comisiones"-->
 <ion-header>
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
       <ion-button (click)="closeModal()"><ion-icon name="arrow-back"></ion-icon></ion-button>
-      <ion-title>Información de la Comisión</ion-title>
+      <ion-title>INFORMACIÓN DE LA COMISIÓN</ion-title>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -120,7 +121,7 @@
   </ion-card>
 
   <div *ngIf="comi">
-    <ion-button *ngIf="comi.status == 0 || comi.status == 2 || comi.status == 4" (click)="enviarSolicitud(comi)">
+    <ion-button *ngIf="(comi.status == 0 || comi.status == 2 || comi.status == 4) && comi.programa_trabajo != ''" (click)="enviarSolicitud(comi)">
       <ion-icon name="send"></ion-icon>
       <ion-label>enviar Comision</ion-label>
     </ion-button>

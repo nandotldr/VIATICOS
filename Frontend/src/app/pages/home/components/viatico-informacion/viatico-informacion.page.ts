@@ -105,5 +105,18 @@ export class ViaticoInformacionPage implements OnInit {
     await alert.present();
     // alert.onDidDismiss().then(() => this.get());
   }
-
+  /*
+  async sumaTotales() {
+    const tds = document.getElementById('tgasto').getElementsByTagName('ion-col');
+    let sum = 0;
+    // tslint:disable-next-line:prefer-for-of
+    for(let i = 0; i < tds.length; i ++) {
+      if (tds[i].className === 'total') {
+        sum += isNaN(tds[i].innerHTML) ? 0 : parseInt(tds[i].innerHTML);
+      }
+    }
+    document.getElementById('countit').innerHTML += '<ion-row><ion-col>' + sum + '</ion-col><ion-col>total</ion-col></ion-row>';
+    console.log(sum);
+  }
+*/
 }

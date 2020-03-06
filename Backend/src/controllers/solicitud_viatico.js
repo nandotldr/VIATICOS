@@ -20,7 +20,7 @@ module.exports = {
             }
             const existeViatico = await pool.query("SELECT id FROM solicitud_viatico WHERE id_solicitud_comision = ?", [req.body.id]);
             if (existeViatico.length > 0) return res.json({ ok: false, mensaje: "Esta comision ya tiene una solicitud de viatico en proceso" });
-            const resp = await pool.query("INSERT INTO solicitud_viatico SET ? ", [{
+            const resp = await pool.query("INSERT INTO sol|icitud_viatico SET ? ", [{
                 invitado_nombre: req.body.invitado,
                 id_solicitud_comision: req.body.id,
                 comentarios: req.body.comentarios,

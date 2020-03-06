@@ -140,6 +140,16 @@
           <ion-datetime displayFormat="MMM/DD/YYYY" max="3000-12-09" value="{{myDate}}" formControlName="fecha_fin"></ion-datetime>
         </ion-item>
 
+        <ion-item>
+          <ion-label >Subir Programa: </ion-label>
+          <input type="file" (change)="getPrograma($event)" formControlName="programa">
+        </ion-item>
+
+        <ion-item>
+          <ion-label >Subir Invitación: </ion-label>
+          <input type="file" (change)="getInvitacion($event)" formControlName="invitacion">
+        </ion-item>
+
         <ion-button type="submit" color="light" [disabled]="this.fgCreate.invalid">Guardar Solicitud</ion-button>
 
       </form>

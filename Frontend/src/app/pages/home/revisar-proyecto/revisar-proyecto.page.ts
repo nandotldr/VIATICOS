@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { ModalController, ToastController, AlertController } from '@ionic/angular';
 import { OverlayEventDetail } from '@ionic/core';
-import { formatDate } from '@angular/common';
 import { ProyectoActivoPage } from '../components/proyecto-activo/proyecto-activo.page';
-import {InformeActivoPage} from '../components/informe-activo/informe-activo.page';
 
 @Component({
   selector: 'app-revisar-proyecto',
@@ -18,7 +15,7 @@ export class RevisarProyectoPage implements OnInit {
   comentario_rechazo = '';
   userType = '';
 
-  constructor(private router: Router,
+  constructor(
               private auth: AuthService,
               public toastController: ToastController,
               private modalController: ModalController,

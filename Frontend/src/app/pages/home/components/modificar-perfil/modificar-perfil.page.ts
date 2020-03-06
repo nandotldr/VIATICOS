@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController, NavParams, ToastController} from '@ionic/angular';
 import { AuthService } from '../../../../services/auth.service';
-import { NavController } from '@ionic/angular';
-import { FormGroup, FormBuilder, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl} from '@angular/forms';
 
 @Component({
   selector: 'app-modificar-perfil',
@@ -26,7 +25,7 @@ export class ModificarPerfilPage implements OnInit {
               private formBuilder: FormBuilder,
               public  toastController: ToastController,
               private auth: AuthService,
-              private navCtrl: NavController)
+              )
               {
                 this.ionViewWillEnter();
                 this.fgModify = this.formBuilder.group({

@@ -1,10 +1,7 @@
 import { OverlayEventDetail } from '@ionic/core';
-import { FormBuilder } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { ToastController, ModalController, AlertController } from '@ionic/angular';
-import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
 import { ViaticoInformacionPage } from '../components/viatico-informacion/viatico-informacion.page';
 import { CrearGastoPage } from '../components/crear-gasto/crear-gasto.page';
 
@@ -20,13 +17,11 @@ export class HistorialViaticosPage implements OnInit {
   id_viatico: Number;
 
   constructor(
-    private formBuilder: FormBuilder,
     private auth: AuthService,
     public toastController: ToastController,
     private modalController: ModalController,
     public alertController: AlertController,
-    private router: Router,
-    private http: HttpClient) { }
+    ) { }
 
   async ngOnInit() {
     this.getViaticos();

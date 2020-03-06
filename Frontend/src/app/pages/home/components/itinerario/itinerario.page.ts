@@ -2,8 +2,6 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { ToastController, ModalController, NavParams } from '@ionic/angular';
-import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-itinerario',
@@ -20,8 +18,7 @@ export class ItinerarioPage implements OnInit {
     public toastController: ToastController,
     private modalController: ModalController,
     private navParams: NavParams,
-    private router: Router,
-    private http: HttpClient) {
+    ) {
     this.itinerarioGroup = this.formBuilder.group({
       dia: new FormControl('', Validators.required),
       origen: new FormControl('', Validators.required),

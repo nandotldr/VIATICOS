@@ -1,6 +1,5 @@
 import { ViaticoActivoPage } from './../components/viatico-activo/viatico-activo.page';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { ModalController, ToastController, AlertController } from '@ionic/angular';
 import { OverlayEventDetail } from '@ionic/core';
@@ -17,7 +16,6 @@ export class RevisarViaticoPage implements OnInit {
   comentario_rechazo = '';
   userType = '';
   constructor(
-      private router: Router,
       private auth: AuthService,
       public toastController: ToastController,
       private modalController: ModalController,

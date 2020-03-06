@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { ToastController, NavParams, ModalController, AlertController } from '@ionic/angular';
-import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { formatDate } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-viatico',
@@ -14,6 +12,8 @@ import { HttpClient } from '@angular/common/http';
 export class ViaticoPage implements OnInit {
 
   perfil = '';
+  flag: Number;
+  disabled: Boolean = true;
   programa: any;
   id_comision: Number;
   fgCreate: FormGroup;
@@ -27,8 +27,6 @@ export class ViaticoPage implements OnInit {
       private formBuilder: FormBuilder,
       private auth: AuthService,
       public toastController: ToastController,
-      private router: Router,
-      private http: HttpClient,
       private modalController: ModalController,
       private NavParams: NavParams,
       public  alertController: AlertController
@@ -36,23 +34,23 @@ export class ViaticoPage implements OnInit {
       {
         this.ionViewWillEnter();
         this.fgCreate = this.formBuilder.group({
-          invitado_nombre: new FormControl('', [Validators.required]),
-          comentarios: new FormControl('', [Validators.required]),
-          id_comision: new FormControl(this.id_comision,[])
+          invitado_nombre: new FormControl('', []),
+          comentarios: new FormControl('', []),
+          id_comision: new FormControl(this.id_comision, [])
         });
-      } 
+      }
 
   ngOnInit() {
-    this.getUsuario();  
+    this.getUsuario();
     console.log(localStorage.getItem('id_usuario'));
   }
 
   ionViewWillEnter() {
     this.id_comision = this.NavParams.get('id_comision');
-    console.log('id_comision',this.id_comision);
+    console.log('id_comision', this.id_comision);
   }
 
-  async getProgramaComision(){
+  async getProgramaComision() {
     const resp = await this.auth.getProgramaComision(this.id_comision);
     if (resp) {
         resp.forEach(element => {
@@ -60,17 +58,17 @@ export class ViaticoPage implements OnInit {
         });
         this.programa = resp;
         console.log(this.programa);
-        this.presentToastSuccess()
+        this.presentToastSuccess();
       } else {
         this.presentToast();
       }
   }
 
-  async saveViatico(){
+  async saveViatico() {
     if (this.fgCreate.valid) {
       console.log(this.fgCreate.value);
       const resp = await this.auth.saveViatico(this.fgCreate.value).toPromise();
-      if (resp) {
+      if (resp['ok']) {
         console.log(resp);
         // this.presentToastSuccess();
         this.presentAlert();
@@ -84,7 +82,7 @@ export class ViaticoPage implements OnInit {
     }
   }
 
-  async getUsuario(){
+  async getUsuario() {
       const resp = await this.auth.getUsuario(localStorage.getItem('id_usuario'));
       if (resp) {
         this.perfil = resp;
@@ -93,9 +91,29 @@ export class ViaticoPage implements OnInit {
       }
   }
 
+  async habilitarSend() {
+    if (this.flag === 0) {
+      if (this.fgCreate.get('comentarios').value != '') {
+        console.log('Empleado Boton Hab');
+        this.disabled = false;
+      } else {
+        console.log('Empleado Boton Inhab');
+        this.disabled = true;
+      }
+    } else {
+      if ((this.fgCreate.get('comentarios').value != '') && (this.fgCreate.get('invitado_nombre').value != '')) {
+        console.log('Invitado Boton Hab');
+        this.disabled = false;
+      } else {
+        console.log('Invitado Boton Inhab');
+        this.disabled = true;
+      }
+    }
+  }
+
   async presentToast() {
     const toast = await this.toastController.create({
-      message: 'Datos no Validos',
+      message: 'Esta comision ya tiene una solicitud de viatico en proceso',
       duration: 2000,
       position: 'bottom'
     });
@@ -125,5 +143,4 @@ export class ViaticoPage implements OnInit {
 
     await alert.present();
   }
-
 }

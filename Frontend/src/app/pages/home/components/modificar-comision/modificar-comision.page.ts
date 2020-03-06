@@ -2,7 +2,6 @@ import { FormBuilder, FormGroup, FormControl, ReactiveFormsModule } from '@angul
 import { Component, OnInit } from '@angular/core';
 import { ModalController, NavParams, ToastController, AlertController } from '@ionic/angular';
 import { AuthService } from '../../../../services/auth.service';
-import { NavController } from '@ionic/angular';
 import { formatDate } from '@angular/common';
 
 @Component({
@@ -57,7 +56,6 @@ export class ModificarComisionPage implements OnInit {
               public  alertController: AlertController,
               private navParams: NavParams,
               private auth: AuthService,
-              private navCtrl: NavController,
               private toastController: ToastController,
               private formBuilder: FormBuilder) {
                 this.ionViewWillEnter();

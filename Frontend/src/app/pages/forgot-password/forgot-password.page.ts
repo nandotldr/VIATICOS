@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { ToastController } from '@ionic/angular';
+import { ToastController, AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
-import { RestorePasswordModel } from 'siipersu reference (remove after)/SIIPERSU/src/app/interfaces/interfaces'; //ACORDAR CAMBIAR
+import { RestorePasswordModel } from 'siipersu reference (remove after)/SIIPERSU/src/app/interfaces/interfaces'; // ACORDAR CAMBIAR
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -19,6 +19,7 @@ export class ForgotPasswordPage implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private auth: AuthService,
               public toastController: ToastController,
+              public alertController: AlertController,
               private router: Router
   ) {
     this.fgRestore = this.formBuilder.group({
@@ -38,12 +39,13 @@ export class ForgotPasswordPage implements OnInit {
   async restorePassword() {
     try {
       let data = {...this.fgRestore.value} as RestorePasswordModel;
-      //data.birthday = new Date(data.birthday).toJSON().slice(0, 10);
+      // data.birthday = new Date(data.birthday).toJSON().slice(0, 10);
       const resp = await this.auth.restorePassword(data).toPromise();
       // @ts-ignore
       if (resp.ok) {
+        this.presentAlert();
         // @ts-ignore
-        this.token = resp.data.changeToken;
+        // this.token = resp.data.changeToken;
         this.restoreStep++;
       } else {
         this.presentToast('Datos no validos.');
@@ -78,4 +80,17 @@ export class ForgotPasswordPage implements OnInit {
       console.error('Error en restore-password', error);
     }
   }
+
+  async presentAlert() {
+    const alert = await this.alertController.create({
+      header: 'Contraseña Actualizada',
+      // subHeader: 'Subtitle',
+      message: 'Vuelve a iniciar sesión para continuar',
+      buttons: ['OK']
+    });
+
+    await alert.present();
+    alert.onDidDismiss().then(() => this.router.navigateByUrl('/login'));
+  }
+
 }

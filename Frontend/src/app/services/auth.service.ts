@@ -803,6 +803,48 @@ return this.http.request('delete',`${this.API_URL}/programa_trabajo/`,{body: pro
   ).toPromise();
   }
 
+  uploadPrograma(
+    data: {
+      file: File,
+      id: Number
+    }
+  ) {
+    const formData = new FormData();
+    formData.append('archivo', data.file);
+    formData.append('id', data.id.toString());
+    return  this.http.post(`${this.API_URL}/solicitud_comision/subir/programa`,formData).pipe( 
+      map(response => {
+        console.log(response);
+        if(response['ok']){
+          return response;
+        }else{
+          return response['ok'];
+        }
+      })
+    ).toPromise();
+  }
+
+  uploadInvitacion( 
+    data: {
+      file: File,
+      id: Number
+    }
+    ) {
+    const formData = new FormData();
+    formData.append('archivo', data.file);
+    formData.append('id', data.id.toString());
+    return  this.http.post(`${this.API_URL}/solicitud_comision/subir/invitacion`,formData).pipe( 
+      map(response => {
+        console.log(response);
+        if(response['ok']){
+          return response;
+        }else{
+          return response['ok'];
+        }
+      })
+    ).toPromise();
+  }
+
 }
 
 

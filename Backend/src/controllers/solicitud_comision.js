@@ -176,7 +176,7 @@ module.exports = {
                 fs.mkdirSync(`public/files/${req.body.id}`);
             }
             fs.renameSync(req.file.path, `public/files/${req.body.id}/${newFileName}`);
-            // Actuvalizar bd
+            // Actualizar bd
             await pool.query('UPDATE solicitud_comision SET invitacion_evento=? WHERE id=?', [newFileName, req.body.id]);
             // Borrar archivo antiguo si existe
             if (fs.existsSync(`public/files/${req.body.id}/${currentFile}`)) {
@@ -215,7 +215,7 @@ module.exports = {
             }
             res.json({ ok: true, mensaje: 'Archivo agregado.' })
         } catch (error) {
-            res.json({ ok: false, error, mensaje: 'Ocurrio un error inesperado.' });
+            res.json({ ok: false, err: error, mensaje: 'Ocurrio un error inesperado.' });
         }
     },
 }

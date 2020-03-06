@@ -19,6 +19,10 @@ import { stringify } from '@angular/compiler/src/util';
 export class CreateComisionPage implements OnInit {
   flagtipoc: Number;
   destinos = '';
+  programa: File;
+  invitacion: File;
+  id: {id_comision: Number};
+  data: {id: Number,file: File};
   perfil = '';
   id_filtro = '';
   id_destino: Number;
@@ -48,6 +52,8 @@ export class CreateComisionPage implements OnInit {
         justificacion: new FormControl('', [Validators.required]),
         fecha_inicio: new FormControl('', [Validators.required]),
         fecha_fin: new FormControl('', [Validators.required]),
+        programa: new FormControl('', [Validators.required]),
+        invitacion: new FormControl('', [Validators.required]),
         });
       }
 
@@ -61,6 +67,11 @@ export class CreateComisionPage implements OnInit {
       const resp = await this.auth.createComision(this.fgCreate.value);
       if (resp['ok']) {
         this.presentToast(resp['mensaje']);
+        this.id = resp['body'];
+        this.data = {id: this.id.id_comision ,file: this.programa};
+        this.uploadPrograma(this.data);
+        this.data = {id: this.id.id_comision ,file: this.invitacion};
+        this.uploadInvitacion(this.data);
         this.presentAlert();
       } else {
         console.log(resp);
@@ -149,4 +160,39 @@ export class CreateComisionPage implements OnInit {
     await alert.present();
   }
 
+  getInvitacion(event){ 
+    this.invitacion = event.target.files[0]; 
+    console.log(this.invitacion);
+    
+  } 
+
+  getPrograma(event){ 
+    this.programa = event.target.files[0]; 
+    console.log(this.programa);
+
+  } 
+
+  async uploadPrograma(data: {id: Number, file: File }){
+    const resp = await this.auth.uploadPrograma(data);
+    console.log(resp);
+    // if (resp['ok']) {
+    //   this.presentToast(resp['mensaje']);
+    //   this.presentAlert();
+    // } else {
+    //   console.log(resp);
+    //   this.presentToast(resp['mensaje']);
+    // }
+  }
+
+  async uploadInvitacion(data: {id: Number, file: File }){
+    const resp = await this.auth.uploadInvitacion(data);
+    console.log(resp);
+    // if (resp['ok']) {
+    //   this.presentToast(resp['mensaje']);
+    //   this.presentAlert();
+    // } else {
+    //   console.log(resp);
+    //   this.presentToast(resp['mensaje']);
+    // }
+  }
 }

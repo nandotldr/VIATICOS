@@ -15,6 +15,7 @@ export class ViaticoInformacionPage implements OnInit {
   idComision;
   tieneDatos = false;
   viatico = null;
+  totalTotales = 0;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -36,6 +37,7 @@ export class ViaticoInformacionPage implements OnInit {
         this.tieneDatos = true;
         // tslint:disable-next-line: no-string-literal
         this.viatico = resp['body'];
+        this.sumaTotales(this.viatico.gastos);
       }
       console.log('respuesta', resp);
     } catch (error) {
@@ -105,18 +107,15 @@ export class ViaticoInformacionPage implements OnInit {
     await alert.present();
     // alert.onDidDismiss().then(() => this.get());
   }
-  /*
-  async sumaTotales() {
-    const tds = document.getElementById('tgasto').getElementsByTagName('ion-col');
-    let sum = 0;
-    // tslint:disable-next-line:prefer-for-of
-    for(let i = 0; i < tds.length; i ++) {
-      if (tds[i].className === 'total') {
-        sum += isNaN(tds[i].innerHTML) ? 0 : parseInt(tds[i].innerHTML);
-      }
-    }
-    document.getElementById('countit').innerHTML += '<ion-row><ion-col>' + sum + '</ion-col><ion-col>total</ion-col></ion-row>';
-    console.log(sum);
+
+  async sumaTotales( gastos ) {
+    gastos.forEach( gasto => {
+      this.totalTotales +=
+          gasto.alimentacion +
+          gasto.hospedaje +
+          gasto.transporte_foraneo +
+          gasto.transporte_local +
+          gasto.combustible +
+          gasto.otros_conceptos});
   }
-*/
 }

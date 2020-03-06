@@ -45,7 +45,7 @@ export class ForgotPasswordPage implements OnInit {
       if (resp.ok) {
         this.presentAlert();
         // @ts-ignore
-        this.token = resp.data.changeToken;
+        // this.token = resp.data.changeToken;
         this.restoreStep++;
       } else {
         this.presentToast('Datos no validos.');
@@ -90,6 +90,7 @@ export class ForgotPasswordPage implements OnInit {
     });
 
     await alert.present();
+    alert.onDidDismiss().then(() => this.router.navigateByUrl('/login'));
   }
 
 }

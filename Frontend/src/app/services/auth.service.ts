@@ -665,7 +665,7 @@ return this.http.request('delete',`${this.API_URL}/programa_trabajo/`,{body: pro
       status: Number
     }
     ){
-    return this.http.put(`${this.API_URL}/solicitud_viatico`,{
+    return this.http.put(`${this.API_URL}/revisar_solicitud_viatico`,{
       id_viatico: viatico.id_viatico,
       invitado: viatico.invitado,
       comentarios: viatico.comentarios,
@@ -772,12 +772,12 @@ return this.http.request('delete',`${this.API_URL}/programa_trabajo/`,{body: pro
       status: Number
     }
     ){
-    return this.http.put(`${this.API_URL}/viatico_proyecto`,{
+    return this.http.put(`${this.API_URL}/revisar_viatico_proyecto`,{
       id_solicitud_viatico: proyecto.id_solicitud_viatico,
       numero_proyecto: proyecto.numero_proyecto,
       cantidad: proyecto.cantidad,
       status: proyecto.status,
-      id_proyecto: proyecto.id,
+      id: proyecto.id,
     }).pipe(
         map(response => {
             console.log(response);

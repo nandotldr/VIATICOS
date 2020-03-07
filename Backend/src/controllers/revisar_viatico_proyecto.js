@@ -38,7 +38,7 @@ module.exports = {
 
     aceptarViaticoProyecto: async(req, res) => {
         try {
-            var sqlViatico_proyecto = 'SELECT p.id, p.status, u.codigo, p.fecha_solicitud, concat(u.nombres," ",u.apellidos) as nombre, u.tipo_usuario FROM viatico_proyecto AS p INNER JOIN usuario as u ON u.codigo = i.id_usuario WHERE (p.status = 1) AND v.id =?';
+            var sqlViatico_proyecto = 'SELECT p.id, p.status, u.codigo, p.fecha_solicitud, concat(u.nombres," ",u.apellidos) as nombre, u.tipo_usuario FROM viatico_proyecto AS p INNER JOIN solicitud_viatico as v ON p.id_solicitud_viatico = v.id INNER JOIN usuario as u ON u.codigo = v.id_usuario WHERE p.id = ?';
             const verificarViatico_proyecto = await pool.query(sqlViatico_proyecto, [req.body.id]);
             if (verificarViatico_proyecto.length < 1) {
                 return res.json({ ok: false, mensaje: "Error al aceptar la solicitud del proyecto" });
@@ -67,9 +67,9 @@ module.exports = {
                 });
                 return res.json({ ok: true, mensaje: "Solicitud del viatico modificada exitosamente" });
             }
-            res.json({ ok: false, mensaje: "No se hizo la revision correcta" });
+            return res.json({ ok: false, mensaje: "No se hizo la revision correcta" });
         } catch (error) {
-            return res.json({ ok: false, mensaje: "Error inesperado" });
+            return res.json({ ok: false,error, mensaje: "Error inesperado" });
         }
     },
 }

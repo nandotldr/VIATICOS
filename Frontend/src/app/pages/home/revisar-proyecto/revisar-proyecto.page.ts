@@ -62,8 +62,12 @@ export class RevisarProyectoPage implements OnInit {
         {
           text: 'Si',
           handler: () => {
-            proyecto.status = 2;
-            proyecto.comentario_rechazo = '';
+            if(this.auth.userType == 'A')
+            proyecto.status = 5;
+            proyecto.comentario_rechazo = "";
+          if(this.auth.userType == 'F')
+            proyecto.status = 3;
+            proyecto.comentario_rechazo = "";
             this.revisarProyecto(proyecto);
           }
         },
@@ -93,7 +97,10 @@ export class RevisarProyectoPage implements OnInit {
         {
           text: 'Rechazar',
           handler: data => {
-            proyecto.status = 2;
+            if(this.auth.userType == 'A')
+              proyecto.status = 4;
+            if(this.auth.userType == 'F')
+              proyecto.status = 2;
             proyecto.comentario_rechazo = data.name1;
             this.revisarProyecto(proyecto);
           }

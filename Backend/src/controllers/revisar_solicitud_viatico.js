@@ -49,11 +49,13 @@ module.exports = {
                 return res.json({ ok: false, mensaje: "No se puede revisar viatico" });
             }
             const usuario = await pool.query("SELECT CONCAT(u.nombres, ' ' , u.apellidos) as nombre FROM viaticos.usuario as u WHERE codigo = ?",[req.user.codigo]);
+            console.log(usuario[0].nombre);
                 
             var modificarViatico = 'UPDATE solicitud_viatico SET ? WHERE id = ?';
             //si usuario =F modifcar fecha revisado, nombre revisado, comentario rechazo
             //si usuario =A modificar fecha_aceptado, nombre aceptado, comentario rechazo
-            if (req.user.tipo_usuario == 'F' && verificarViatico[0].status == 3) {
+            if (req.user.tipo_usuario == 'F' && verificarViatico[0].status == 1) {
+
                 pool.query(modificarViatico, [{
                     fecha_modificacion: new Date(),
                     fecha_revisado: new Date(),
@@ -67,7 +69,7 @@ module.exports = {
                 });
                 return res.json({ ok: true, mensaje: "Viatico verificado" });
 
-            } else if (req.user.tipo_usuario == 'A' && verificarViatico[0].status == 5) {
+            } else if (req.user.tipo_usuario == 'A' && verificarViatico[0].status == 3) {
                 pool.query(modificarViatico, [{
                     fecha_modificacion: new Date(),
                     fecha_aceptado: new Date(),

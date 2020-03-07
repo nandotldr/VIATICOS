@@ -14,8 +14,14 @@ module.exports = {
                 return res.json({ ok: false, mensaje: "Este usuario no existe" });
             }
             //si usuario es F mostrar todas las peticiones de proyectos en status 1
-            if (existeUsuario[0].tipo_usuario == 'F' || existeUsuario[0].tipo_usuario == 'A') {
-                const proyecto = await pool.query('SELECT p.id, p.fecha_solicitud, p.numero_proyecto, u.area_adscripcion, p.cantidad , p.id_solicitud_viatico, p.status, concat(u.nombres," ",u.apellidos) as nombre  FROM viatico_proyecto AS p INNER JOIN solicitud_viatico AS v ON p.id_solicitud_viatico = v.id INNER JOIN usuario as u ON u.codigo = v.id_usuario WHERE p.status =1;');
+            if (existeUsuario[0].tipo_usuario == 'F') {
+                const proyecto = await pool.query('SELECT p.id, p.fecha_solicitud, p.numero_proyecto, u.area_adscripcion, p.cantidad , p.id_solicitud_viatico, p.status, concat(u.nombres," ",u.apellidos) as nombre  FROM viatico_proyecto AS p INNER JOIN solicitud_viatico AS v ON p.id_solicitud_viatico = v.id INNER JOIN usuario as u ON u.codigo = v.id_usuario WHERE p.status =1 OR p.status =1;');
+                if (proyecto.length < 1) return res.json({ ok: false, mensaje: "No hay solicitudes de proyecto por revisar" });
+
+
+                return res.json({ ok: true, body: proyecto });
+            }else if (existeUsuario[0].tipo_usuario == 'A'){
+                const proyecto = await pool.query('SELECT p.id, p.fecha_solicitud, p.numero_proyecto, u.area_adscripcion, p.cantidad , p.id_solicitud_viatico, p.status, concat(u.nombres," ",u.apellidos) as nombre  FROM viatico_proyecto AS p INNER JOIN solicitud_viatico AS v ON p.id_solicitud_viatico = v.id INNER JOIN usuario as u ON u.codigo = v.id_usuario WHERE p.status =1 OR p.status =3;');
                 if (proyecto.length < 1) return res.json({ ok: false, mensaje: "No hay solicitudes de proyecto por revisar" });
 
 
@@ -37,11 +43,20 @@ module.exports = {
             if (verificarViatico_proyecto.length < 1) {
                 return res.json({ ok: false, mensaje: "Error al aceptar la solicitud del proyecto" });
             }
-            console.log(verificarViatico_proyecto);
             const usuario = await pool.query("SELECT CONCAT(u.nombres, ' ' , u.apellidos) as nombre FROM viaticos.usuario as u WHERE codigo = ?", [req.user.codigo]);
             var sqlViatico_proyecto = 'UPDATE viatico_proyecto SET ? WHERE id = ?';
             //si usuario = F modificar fecha_aceptado, nombre aceptado, comentario rechazo
-            if ((req.user.tipo_usuario == 'F' || req.user.tipo_usuario == 'A' )&& verificarViatico_proyecto[0].status == 1) {
+            if (req.user.tipo_usuario == 'F' && verificarViatico_proyecto[0].status == 1) {
+                pool.query(sqlViatico_proyecto, [{
+                    fecha_aceptado: new Date(),
+                    nombre_aceptado: usuario[0].nombre,
+                    status: req.body.status
+                }, req.body.id], (errorModificar, modificarViatico_proyecto) => {
+                    if (errorModificar) return res.json({ ok: false, mensaje: 'Error al modificar' });
+                    if (modificarViatico_proyecto.affectedRows < 1) return res.json({ ok: false, mensaje: "No se acepto la solicitud" });
+                });
+                return res.json({ ok: true, mensaje: "Solicitud del viatico modificada exitosamente" });
+            }else if (req.user.tipo_usuario == 'A' && verificarViatico_proyecto[0].status == 3){
                 pool.query(sqlViatico_proyecto, [{
                     fecha_aceptado: new Date(),
                     nombre_aceptado: usuario[0].nombre,

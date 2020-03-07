@@ -408,7 +408,7 @@ export class AuthService {
   }) {
     return this.http.post(`${this.API_URL}/gasto`,{
       id_solicitud_viatico: gasto.id_solicitud_viatico,
-      dia: gasto.dia,
+      dia: formatDate(gasto.dia, 'yyyy-MM-dd', 'en'),
       alimentacion: gasto.alimentacion,
       hospedaje: gasto.hospedaje,
       transportelocal: gasto.transporteLocal,

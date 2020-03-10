@@ -26,11 +26,22 @@ export class ForgotPasswordPage implements OnInit {
       code: new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(11)]),
       imss: new FormControl('', [Validators.required]),
       newpassword: new FormControl('', [Validators.required]),
-    });
+      confirmpwd: new FormControl('', [Validators.required])
+    }, {validator: ForgotPasswordPage.passwordsMatch});
     this.fgRestoreToken = this.formBuilder.group({
       password: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(75)]),
       token: new FormControl(''),
     });
+  }
+
+  static passwordsMatch(cg: FormGroup): {[err: string]: any} {
+    const nip = cg.get('newpassword');
+    const nip2 = cg.get('confirmpwd');
+    const rv: {[error: string]: any} = {};
+    if ((nip.touched || nip2.touched) && nip.value !== nip2.value) {
+      rv['passwordMismatch'] = true;
+    }
+    return rv;
   }
 
   ngOnInit() {

@@ -19,7 +19,8 @@ module.exports = {
             }]);
             res.json({ ok: true, mensaje: 'Itinerario creado' });
         } catch (error) {
-            return res.json({ ok: false, mensaje: 'Error al crear el itinerario' });
+            console.log(error);
+            return res.json({ ok: false,error, mensaje: 'Error al crear el itinerario' });
         }
     },
 

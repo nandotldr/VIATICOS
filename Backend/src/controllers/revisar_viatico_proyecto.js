@@ -38,7 +38,7 @@ module.exports = {
 
     aceptarViaticoProyecto: async(req, res) => {
         try {
-            var sqlViatico_proyecto = 'SELECT p.id, p.status, u.codigo, p.fecha_solicitud, concat(u.nombres," ",u.apellidos) as nombre, u.tipo_usuario FROM viatico_proyecto AS p INNER JOIN solicitud_viatico as v ON p.id_solicitud_viatico = v.id INNER JOIN usuario as u ON u.codigo = v.id_usuario WHERE p.id = ?';
+            var sqlViatico_proyecto = 'SELECT p.id, p.id_solicitud_viatico, p.status, u.codigo, p.fecha_solicitud, concat(u.nombres," ",u.apellidos) as nombre, u.tipo_usuario FROM viatico_proyecto AS p INNER JOIN solicitud_viatico as v ON p.id_solicitud_viatico = v.id INNER JOIN usuario as u ON u.codigo = v.id_usuario WHERE p.id = ?';
             const verificarViatico_proyecto = await pool.query(sqlViatico_proyecto, [req.body.id]);
             if (verificarViatico_proyecto.length < 1) {
                 return res.json({ ok: false, mensaje: "Error al aceptar la solicitud del proyecto" });
@@ -64,7 +64,8 @@ module.exports = {
                 }, req.body.id], (errorModificar, modificarViatico_proyecto) => {
                     if (errorModificar) return res.json({ ok: false, mensaje: 'Error al modificar' });
                     if (modificarViatico_proyecto.affectedRows < 1) return res.json({ ok: false, mensaje: "No se acepto la solicitud" });
-                });
+                }); 
+                pool.query('UPDATE solicitud_viatico SET ? WHERE id = ?',[{status: 6},verificarViatico_proyecto[0].id_solicitud_viatico]);
                 return res.json({ ok: true, mensaje: "Solicitud del viatico modificada exitosamente" });
             }
             return res.json({ ok: false, mensaje: "No se hizo la revision correcta" });

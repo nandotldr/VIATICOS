@@ -106,10 +106,6 @@ module.exports = {
                 status: req.body.status
             }, req.body.id], (errorModificar, modificarInforme) => {
                 if (errorModificar) return res.json({ ok: false, mensaje: errorModificar });
-                if(req.body.status == 6)
-                {   
-                    pool.query('UPDATE solicitud_viatico SET ? WHERE id = ?',[{status: 7},req.body.id_solicitud_viatico]);
-                }
                 console.log(errorModificar);
                 res.json({ ok: true, mensaje: "Informe modificado" });
             });

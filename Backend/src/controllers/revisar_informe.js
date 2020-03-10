@@ -38,7 +38,7 @@ module.exports = {
     aceptarInforme: async(req, res) => {
         //verificar que no este en status cancelado =-1, revision = 1, aceptado por J =3, aceptado por A= 5 o finalizado
         try {
-            var sqlInforme = 'SELECT i.id, i.status, u.codigo, i.fecha_elaboracion, concat(u.nombres," ",u.apellidos) as nombre, u.tipo_usuario FROM informe_actividades AS i INNER JOIN usuario as u ON u.codigo = i.id_usuario WHERE (i.status =1 OR i.status=3) AND i.id =?';
+            var sqlInforme = 'SELECT i.id_solicitud_comision, viatico.id as id_solicitud_viatico, i.id, i.status, u.codigo, i.fecha_elaboracion, concat(u.nombres," ",u.apellidos) as nombre, u.tipo_usuario FROM informe_actividades AS i INNER JOIN usuario as u ON u.codigo = i.id_usuario INNER JOIN solicitud_viatico as viatico ON i.id_solicitud_comision = viatico.id_solicitud_comision WHERE (i.status =1 OR i.status=3) AND i.id = ?';
             const verificarInforme = await pool.query(sqlInforme, [req.body.id]);
             if (verificarInforme.length < 1) {
                 return res.json({ ok: false, mensaje: "Error al aceptar informe" });
@@ -71,6 +71,8 @@ module.exports = {
                     if (errorModificar) return res.json({ ok: false, mensaje: errorModificar });
                     if (modificarInforme.affectedRows < 1) return res.json({ ok: false, mensaje: "No se acepto el informe" });
                 });
+                pool.query('UPDATE solicitud_comision SET ? WHERE id = ?',[{status: 6},verificarInforme.id_solicitud_comision]);
+                pool.query('UPDATE solicitud_viatico SET ? WHERE id = ?',[{status: 7},verificarInforme.id_solicitud_viatico]);
                 return res.json({ ok: true, mensaje: "Informe modificado exitosamente" });
             }
             res.json({ ok: false, mensaje: "No se hizo la revision correcta" });

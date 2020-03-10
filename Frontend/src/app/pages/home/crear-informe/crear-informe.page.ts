@@ -32,7 +32,8 @@ export class CrearInformePage implements OnInit {
     this.informeGroup = this.formBuilder.group({
       resultados: new FormControl('', Validators.required),
       observaciones: new FormControl('', Validators.required),
-      id_solicitud_comision: new FormControl(+this.activatedRoute.snapshot.paramMap.get('id'))
+      id_solicitud_comision: new FormControl(+this.activatedRoute.snapshot.paramMap.get('id')),
+      id_informe_actividades: new FormControl(this.idInforme) 
     });
     this.getInforme();
     console.log('inicio', this.informeGroup.value);
@@ -54,7 +55,8 @@ export class CrearInformePage implements OnInit {
           resultados: new FormControl(resp['body'].resultados, Validators.required),
           // tslint:disable-next-line
           observaciones: new FormControl(resp['body'].observaciones, Validators.required),
-          id_solicitud_comision: new FormControl(+this.activatedRoute.snapshot.paramMap.get('id'))
+          id_solicitud_comision: new FormControl(+this.activatedRoute.snapshot.paramMap.get('id')),
+          id_informe_actividades: new FormControl(this.idInforme)
         });
         // tslint:disable-next-line
         this.idInforme = resp['body'].folio;

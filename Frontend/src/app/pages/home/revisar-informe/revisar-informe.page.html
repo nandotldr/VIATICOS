@@ -31,8 +31,8 @@
           <th>Acciones</th>
         </tr>
         <tr *ngFor="let informe of informes">
-          <td>{{ informe.id }}</td>
-          <td>{{ informe.codigo }}</td>
+          <td>{{ informe.id_solicitud_comision }}</td>
+          <td>{{ informe.nombre_comision }}</td>
           <td>{{ informe.fecha_elaboracion | date }}</td>
           <td>{{ informe.nombre }}</td>
           <td text-center><ion-button (click)="openModal(informe.id_solicitud_comision)"><ion-icon name="apps"></ion-icon></ion-button></td>

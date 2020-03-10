@@ -11,7 +11,9 @@ import { formatDate } from '@angular/common';
 export class ViaticoActivoPage implements OnInit {
 
   viatico = '1';
-  viatic = '';
+  viatic = null;
+  totalTotales = 0;
+
   constructor(private modalController: ModalController,
               private navParams: NavParams,
               private auth: AuthService,
@@ -22,6 +24,7 @@ export class ViaticoActivoPage implements OnInit {
   ionViewWillEnter() {
     this.viatico = this.navParams.get('viatico');
     this.getViatico(this.viatico);
+    console.log(this.viatic);
   }
 
   async myDismiss() {
@@ -36,6 +39,7 @@ export class ViaticoActivoPage implements OnInit {
       resp.fecha_fin = formatDate(resp.fecha_fin, 'yyyy-MM-dd', 'en');
       this.viatic = resp;
       console.log(this.viatic);
+      this.sumaTotales(this.viatic.gastos);
     } else {
       console.log('no jalo');
     }
@@ -65,6 +69,17 @@ export class ViaticoActivoPage implements OnInit {
       position: 'bottom'
     });
     toast.present();
+  }
+
+  async sumaTotales( gastos ) {
+    gastos.forEach( gasto => {
+      this.totalTotales +=
+          gasto.alimentacion +
+          gasto.hospedaje +
+          gasto.transporte_foraneo +
+          gasto.transporte_local +
+          gasto.combustible +
+          gasto.otros_conceptos});
   }
   /*
   async deleteViatico(viatico){

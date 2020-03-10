@@ -113,6 +113,16 @@
           <ion-label>{{gasto.alimentacion+gasto.hospedaje+gasto.transporte_foraneo+gasto.transporte_local+gasto.combustible+gasto.otros_conceptos | currency}}</ion-label>
         </ion-col>
       </ion-row>
+      <ion-row>
+        <ion-col></ion-col>
+        <ion-col></ion-col>
+        <ion-col></ion-col>
+        <ion-col></ion-col>
+        <ion-col></ion-col>
+        <ion-col></ion-col>
+        <ion-col>TOTAL: </ion-col>
+        <ion-col><ion-label>{{totalTotales | currency}}</ion-label></ion-col>
+      </ion-row>
     </ion-grid>
   </ion-card>
 </ion-content>

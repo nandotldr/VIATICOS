@@ -40,11 +40,12 @@
 
           <ion-item *ngIf="flag == 1">
             <ion-label>Nombre del invitado</ion-label>
-            <ion-input placeholder="Nombre del invitado" type="text" formControlName="invitado_nombre"></ion-input>
+            <ion-input placeholder="Nombre del invitado" type="text" formControlName="invitado_nombre" (ionChange)="habilitarSend()"></ion-input>
           </ion-item>
 
           <ion-item>
             <ion-label>Comentarios</ion-label>
+            <ion-input placeholder="Comentarios" type="text" formControlName="comentarios" (ionChange)="habilitarSend()"></ion-input>
           </ion-item>
 
           <ion-button type="submit" color="light" [disabled]="disabled">Guardar Viatico</ion-button>

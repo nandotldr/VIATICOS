@@ -16,6 +16,7 @@
 <ion-content *ngIf="tieneDatos">
   <img class="background-image" />
   <ion-card-content class="background">
+    <ion-card>
     <div *ngIf="!tieneDatos">
       No tiene viaticos
     </div>
@@ -81,6 +82,7 @@
       <ion-label position="floating">Nombre aceptado</ion-label>
       <ion-input readonly value="{{this.viatico.nombre_aceptado}}"></ion-input>
     </ion-item>
+  </ion-card>
     <div *ngIf="this.viatico.gastos">
       <ion-card>
         <ion-title>Gastos</ion-title>
@@ -132,6 +134,9 @@
             </ion-col>
             <ion-col>
               <ion-label >{{gasto.otros_conceptos | currency}}</ion-label>
+            </ion-col>
+            <ion-col>
+              <ion-button (click)="deleteGasto(gasto)" class="center"><ion-icon name="close"></ion-icon></ion-button>
             </ion-col>
             <ion-col class="total">
               <ion-label>{{gasto.alimentacion+gasto.hospedaje+gasto.transporte_foraneo+gasto.transporte_local+gasto.combustible+gasto.otros_conceptos | currency}}</ion-label>

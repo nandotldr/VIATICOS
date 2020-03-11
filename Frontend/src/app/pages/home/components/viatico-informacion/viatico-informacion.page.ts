@@ -24,8 +24,12 @@ export class ViaticoInformacionPage implements OnInit {
 
   async ionViewWillEnter() {
     this.idComision = this.navParams.get('id_comision');
+    this.getSolicitudViatico(this.idComision)
+  }
+  async getSolicitudViatico(idComision)
+  {
     try {
-      const resp = await this.auth.getSolicitudViatico(this.idComision).toPromise();
+      const resp = await this.auth.getSolicitudViatico(idComision).toPromise();
       // tslint:disable-next-line: no-string-literal
       if (resp['ok']) {
         this.tieneDatos = true;
@@ -38,7 +42,6 @@ export class ViaticoInformacionPage implements OnInit {
       console.error(error);
     }
   }
-
   ngOnInit() {
   }
 
@@ -100,6 +103,17 @@ export class ViaticoInformacionPage implements OnInit {
     });
     await alert.present();
     // alert.onDidDismiss().then(() => this.get());
+  }
+
+  async deleteGasto(gasto){
+    gasto.idV = this.viatico.folio;
+      const resp = await this.auth.deleteGasto(gasto);
+      if (resp) {
+        this.presentToast(resp);
+      } else {
+        this.presentToast(resp);
+      }
+      this.getSolicitudViatico(this.idComision)
   }
 
   async sumaTotales( gastos ) {

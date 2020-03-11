@@ -433,6 +433,25 @@ export class AuthService {
       }));
   }
 
+  deleteGasto(
+    gasto: { 
+      id: Number,
+      idV: Number
+    }
+  ){
+  return this.http.request('delete',`${this.API_URL}/gasto/`,{body: gasto}).pipe(
+      tap(resp => {
+        console.log(resp);
+        if (resp['ok']) {
+          return resp['mensaje'];
+        }
+      }),
+      map(response => {
+        return response['mensaje'];
+      })
+  ).toPromise();
+  }
+
   modifyComision(
       comision: {
         folio: Number,

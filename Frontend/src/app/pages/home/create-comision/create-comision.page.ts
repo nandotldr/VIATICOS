@@ -46,8 +46,8 @@ export class CreateComisionPage implements OnInit {
         justificacion: new FormControl('', [Validators.required]),
         fecha_inicio: new FormControl('', [Validators.required]),
         fecha_fin: new FormControl('', [Validators.required]),
-        programa: new FormControl('', [Validators.required]),
-        invitacion: new FormControl('', [Validators.required]),
+        programa: new FormControl('', []),
+        invitacion: new FormControl('', []),
         });
       }
 

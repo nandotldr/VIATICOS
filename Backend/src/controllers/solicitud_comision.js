@@ -73,7 +73,7 @@ module.exports = {
                 if (errorPrograma) return res.json({ ok: false, mensaje: 'Error al obtener el programa' });
                 let json = {
                     folio: comision[0].id,
-                    codigo: comision[0].codigo,
+                    codigo: comision[0].id_usuario,
                     area_adscripcion: comision[0].area_adscripcion,
                     plaza_laboral: comision[0].plaza_laboral,
                     tipo_comision: comision[0].tipo_comision,
@@ -91,6 +91,7 @@ module.exports = {
                     fecha_aceptado: comision[0].fecha_aceptado,
                     nombre_revisado: comision[0].nombre_revisado,
                     nombre_aceptado: comision[0].nombre_aceptado,
+                    comentario_rechazo: comision[0].comentario_rechazo,
                     programa_trabajo: programa
                 }
                 res.json({ ok: true, body: json });

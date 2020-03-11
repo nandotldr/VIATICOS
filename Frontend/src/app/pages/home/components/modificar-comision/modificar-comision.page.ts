@@ -41,6 +41,7 @@ export class ModificarComisionPage implements OnInit {
     fecha_aceptado: String,
     nombre_revisado: String,
     nombre_aceptado: String,
+    comentario_rechazo: String,
     programa_trabajo?:
     {
       dia: string,

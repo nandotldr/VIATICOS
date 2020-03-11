@@ -63,6 +63,11 @@
       <ion-datetime displayFormat="MMM/DD/YYYY" max="3000-12-09" (ionChange)="enableModificar()" [(ngModel)]="comi.fecha_fin"></ion-datetime>
     </ion-item>
 
+    <ion-item *ngIf="comi.comentario_rechazo">
+      <ion-label>Comentario Rechazo</ion-label>
+      <ion-label>{{ comi.comentario_rechazo }}</ion-label>
+    </ion-item>
+
     <div *ngIf="comi">
       <ion-button *ngIf="comi.status == 0 || comi.status == 2 || comi.status == 4" [disabled]="modificarDisabled" (click)="modifyComision()">
         <ion-icon name="brush"></ion-icon>

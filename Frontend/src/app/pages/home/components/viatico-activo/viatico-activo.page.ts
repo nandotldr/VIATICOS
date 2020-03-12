@@ -72,6 +72,7 @@ export class ViaticoActivoPage implements OnInit {
   }
 
   async sumaTotales( gastos ) {
+    this.totalTotales = 0;
     gastos.forEach( gasto => {
       this.totalTotales +=
           gasto.alimentacion +
@@ -79,7 +80,7 @@ export class ViaticoActivoPage implements OnInit {
           gasto.transporte_foraneo +
           gasto.transporte_local +
           gasto.combustible +
-          gasto.otros_conceptos});
+          gasto.otros_conceptos;});
   }
   /*
   async deleteViatico(viatico){

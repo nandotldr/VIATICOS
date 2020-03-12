@@ -113,10 +113,11 @@ export class ViaticoInformacionPage implements OnInit {
       } else {
         this.presentToast(resp);
       }
-      this.getSolicitudViatico(this.idComision)
+    this.getSolicitudViatico(this.idComision);
   }
 
   async sumaTotales( gastos ) {
+    this.totalTotales = 0;
     gastos.forEach( gasto => {
       this.totalTotales +=
           gasto.alimentacion +

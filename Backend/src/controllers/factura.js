@@ -32,48 +32,58 @@ module.exports = {
     },
     modificarfactura: async(req, res) => {
         try {
-            const existefactura = await pool.query('SELECT id FROM factura WHERE id=?', [req.body.id]);
-            if (existefactura.length < 1) {
-                return res.json({ ok: false, mensaje: "Este factura no existe" });
+            // Existe archivo
+            if (!req.file) {
+                return res.json({ ok: false, mensaje: 'No subiste ningun archivo.' });
             }
-            pool.query('UPDATE factura SET ? WHERE id = ?', [{
-                archivo_url: req.body.archivo_url
-            }, req.body.id], (errorModificar, modificarfactura) => {
-                if (errorModificar) return res.json({ ok: false, mensaje: 'Error al modificar la factura' });
-
-                res.json({ ok: true, modificarfactura, mensaje: "factura modificada" });
-            });
+            // Existe la comision
+            const informe = await pool.query('SELECT * FROM informe_actividades WHERE id = ?', [req.body.id]);
+            const factura = await pool.query('SELECT archivo_url FROM factura WHERE id = ?', informe[0].id);
+            if (informe.length === 0) {
+                return res.json({ ok: false, mensaje: 'No existe el informe.' });
+            }
+            // Cual es el archivo 
+            let currentFile = factura[0].id;
+            // Mover archivo nuevo
+            let newFileName = `${uniqid()}.${req.file.originalname.split('.')[1]}`;
+            if (!fs.existsSync(`public/facturas/${req.body.id}`)) {
+                fs.mkdirSync(`public/facturas/${req.body.id}`);
+            }
+            fs.renameSync(req.file.path, `public/facturas/${req.body.id}/${newFileName}`);
+            // Actuvalizar bd
+            await pool.query('UPDATE factura SET archivo_url=? WHERE id=?', [newFileName, req.body.id]);
+            // Borrar archivo antiguo si existe
+            if (fs.existsSync(`public/facturas/${req.body.id}/${currentFile}`)) {
+                fs.unlinkSync(`public/facturas/${req.body.id}/${currentFile}`);
+            }
+            res.json({ ok: true, mensaje: 'Archivo modificado.' })
         } catch (error) {
-            return res.json({ ok: false, mensaje: 'Error inesperado' });
+            res.json({ ok: false, err: error, mensaje: 'Ocurrio un error inesperado.' });
         }
     },
 
-    // subirFactura: async(req, res) => {
-    //     try {
-    //         // Existe archivo
-    //         if (!req.file) {
-    //             return res.json({ ok: false, mensaje: 'No subiste ningun archivo.' });
-    //         }
-    //         // Existe la comision
-    //         const existeInforme = await pool.query('SELECT * FROM informe_actividades WHERE id = ?', [req.body.id] pool.query('SELECT archivo_url FROM factura where id_informe_actividades = ?', existeInforme[0].id, (errorFactura, factura) =>
-    //             if (errorFactura) return res.json(errorFactura)));
-    //         if (existeInforme.length === 0) {
-    //             return res.json({ ok: false, mensaje: 'No existe el informe.' });
-    //         }
-    //         // Cual es el archivo 
-    //         let currentFile = informe[0].invitacion_evento;
-    //         // Mover archivo nuevo
-    //         let newFileName = `${uniqid()}.${req.file.originalname.split('.')[1]}`;
-    //         if (!fs.existsSync(`public/files/${req.body.id}`)) {
-    //             fs.mkdirSync(`public/files/${req.body.id}`);
-    //         }
-    //         fs.renameSync(req.file.path, `public/files/${req.body.id}/${newFileName}`);
-    //         // Actuvalizar bd
-    //         await pool.query('UPDATE solicitud_comision SET invitacion_evento=? WHERE id=?', [newFileName, req.body.id]);
-    //         // Borrar archivo antiguo si existe
-    //         res.json({ ok: true, mensaje: 'Archivo agregado.' })
-    //     } catch (error) {
-    //         res.json({ ok: false, error, mensaje: 'Ocurrio un error inesperado.' });
-    //     }
-    // }
+    subirFactura: async(req, res) => {
+        try {
+            // Existe archivo
+            if (!req.file) {
+                return res.json({ ok: false, mensaje: 'No subiste ningun archivo.' });
+            }
+            // Existe la comision
+            const informe = await pool.query('SELECT * FROM informe_actividades WHERE id = ?', [req.body.id]);
+            if (informe.length === 0) {
+                return res.json({ ok: false, mensaje: 'No existe el informe.' });
+            }
+            // Mover archivo nuevo
+            let newFileName = `${uniqid()}.${req.file.originalname.split('.')[1]}`;
+            if (!fs.existsSync(`public/facturas/${req.body.id}`)) {
+                fs.mkdirSync(`public/facturas/${req.body.id}`);
+            }
+            fs.renameSync(req.file.path, `public/facturas/${req.body.id}/${newFileName}`);
+            // Actuvalizar bd
+            await pool.query('INSERT factura SET id_informe_actividades=? WHERE id=?', [newFileName, req.body.id]);
+            res.json({ ok: true, mensaje: 'Archivo agregado.' })
+        } catch (error) {
+            res.json({ ok: false, err: error, mensaje: 'Ocurrio un error inesperado.' });
+        }
+    },
 }

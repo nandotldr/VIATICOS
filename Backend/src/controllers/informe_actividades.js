@@ -62,22 +62,26 @@ module.exports = {
                     if (errorItinerario) return res.json({ ok: false, mensaje: 'No existe el itinerario' });
                     pool.query('SELECT * FROM agenda WHERE id_informe_actividades= ?', [informe[0].id], (errorAgenda, agenda, fields) => {
                         if (errorAgenda) return res.json({ ok: false, mensaje: 'No existe la agenda' });
-                        let json = {
-                            folio: informe[0].id,
-                            id_solicitud_comision: informe[0].id_solicitud_comision,
-                            codigo: informe[0].codigo,
-                            resultados: informe[0].resultados,
-                            observaciones: informe[0].observaciones,
-                            fecha_elaboracion: informe[0].fecha_elaboracion,
-                            fecha_aprobacion: informe[0].fecha_aprobacion,
-                            nombre_aprobacion: informe[0].nombre_aprobacion,
-                            nombre_comision: informe[0].nombre_comision,
-                            objetivo_trabajo: informe[0].objetivo_trabajo,
-                            nombres: informe[0].nombres,
-                            agenda: agenda,
-                            itinerario: itinerario
-                        }
-                        return res.json({ ok: true, body: json });
+                        pool.query('SELECT * FROM factura WHERE id_informe_actividades= ?', [informe[0].id], (errorFactura, factura, fields) => {
+                            if (errorFactura) return res.json({ ok: false, mensaje: 'No existen facturas' });
+                            let json = {
+                                folio: informe[0].id,
+                                id_solicitud_comision: informe[0].id_solicitud_comision,
+                                codigo: informe[0].codigo,
+                                resultados: informe[0].resultados,
+                                observaciones: informe[0].observaciones,
+                                fecha_elaboracion: informe[0].fecha_elaboracion,
+                                fecha_aprobacion: informe[0].fecha_aprobacion,
+                                nombre_aprobacion: informe[0].nombre_aprobacion,
+                                nombre_comision: informe[0].nombre_comision,
+                                objetivo_trabajo: informe[0].objetivo_trabajo,
+                                nombres: informe[0].nombres,
+                                agenda: agenda,
+                                itinerario: itinerario,
+                                facturas: factura
+                            }
+                            return res.json({ ok: true, body: json });
+                        });
                     });
                 });
             });

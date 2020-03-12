@@ -54,7 +54,6 @@ module.exports = {
 
     consultarSolicitudComison: async(req, res) => {
         const { id } = req.params;
-        global.globalString = "hola";
         try {
             const comision = await pool.query('SELECT * FROM solicitud_comision WHERE id = ?', [id]);
             if (comision.length < 1) return res.json({ ok: false, mensaje: "Comision no encontrada" });

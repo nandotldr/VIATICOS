@@ -41,7 +41,7 @@ module.exports = {
         const { id } = req.params;
 
         try {
-            const viatico = await pool.query('SELECT v.id, v.id_solicitud_comision, v.invitado_nombre, v.comentarios, v.fecha_solicitud, c.justificacion, c.fecha_inicio,c.fecha_fin, v.status, v.fecha_revisado, v.nombre_revisado,v.fecha_aceptado,v.nombre_aceptado, c.tipo_comision, c.id_pais, c.id_municipio FROM solicitud_viatico as v INNER JOIN solicitud_comision as c ON  c.id = v.id_solicitud_comision where v.id=? ', [id]);
+            const viatico = await pool.query('SELECT v.id, v.id_solicitud_comision, v.invitado_nombre, v.comentarios, v.fecha_solicitud, c.justificacion, c.fecha_inicio,c.fecha_fin, v.status, v.fecha_revisado, v.nombre_revisado,v.fecha_aceptado,v.nombre_aceptado,v.comentario_rechazo, c.tipo_comision, c.id_pais, c.id_municipio FROM solicitud_viatico as v INNER JOIN solicitud_comision as c ON  c.id = v.id_solicitud_comision where v.id=? ', [id]);
             if (viatico.length < 1) return res.json({ ok: false, mensaje: "No se ha creado viatico" });
             if (viatico[0].tipo_comision == 0) {
                 destino = await pool.query('SELECT nombre FROM pais WHERE id = ?', [viatico[0].id_pais]);
@@ -65,6 +65,7 @@ module.exports = {
                     fecha_aceptado: viatico[0].fecha_aceptado,
                     nombre_revisado: viatico[0].nombre_revisado,
                     nombre_aceptado: viatico[0].nombre_aceptado,
+                    comentario_rechazo: viatico[0].comentario_rechazo,
                     gastos: gastos
                 }
                 res.json({ ok: true, body: json });

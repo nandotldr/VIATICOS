@@ -681,14 +681,16 @@ return this.http.request('delete',`${this.API_URL}/programa_trabajo/`,{body: pro
       id_viatico: Number,
       invitado: String,
       comentarios: String,
-      status: Number
+      status: Number,
+      comentario_rechazo: String
     }
-    ){
+    ) {
     return this.http.put(`${this.API_URL}/revisar_solicitud_viatico`,{
       id_viatico: viatico.id_viatico,
       invitado: viatico.invitado,
       comentarios: viatico.comentarios,
-      status: viatico.status
+      status: viatico.status,
+      comentario_rechazo: viatico.comentario_rechazo
     }).pipe(
         map(response => {
             console.log(response);

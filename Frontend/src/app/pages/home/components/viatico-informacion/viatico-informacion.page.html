@@ -158,6 +158,7 @@
             <ion-col></ion-col>
             <ion-col>TOTAL: </ion-col>
             <ion-col><ion-label>{{totalTotales | currency}}</ion-label></ion-col>
+            <ion-col></ion-col>
           </ion-row>
         </ion-grid>
         <ion-button *ngIf="viatico.status == 0 || viatico.status == 2" (click)="alertConfirm(this.viatico.folio, this.viatico.nombre_invitado, this.viatico.comentarios, 1 )">

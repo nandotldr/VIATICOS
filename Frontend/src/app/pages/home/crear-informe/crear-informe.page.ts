@@ -71,6 +71,7 @@ export class CrearInformePage implements OnInit {
     try {
       if (this.informeGroup.valid) {
           const { resultados, observaciones } = this.informeGroup.value;
+          this.getInforme();
           const resp = await this.auth.modificarInforme({resultados, observaciones, id_informe: this.idInforme,status: 1}).toPromise();
           console.log(resp);
           // tslint:disable-next-line
@@ -108,6 +109,7 @@ export class CrearInformePage implements OnInit {
           console.log(resp);
           // tslint:disable-next-line
           if (resp['ok']) {
+            this.idInforme = resp['body']['id_informe']
             this.presentAlertGuardar();
             this.puedeContinuar = true;
           } else {

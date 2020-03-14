@@ -14,6 +14,10 @@
         <ion-label position="floating">Factura </ion-label>
         <ion-input type="text" formControlName="archivo_url" placeholder="Ingresa la url (como texto) de la factura (drive, fb, etc.)"></ion-input>
       </ion-item>
+      <ion-item>
+        <ion-label >Subir Archivos: </ion-label>
+        <input type="file" (change)="getFactura($event)" formControlName="archivo">
+      </ion-item>
       <ion-button (click)="crearFactura()" [disabled]="facturaGroup.invalid">Crear</ion-button>
     </form>
   </ion-list>

@@ -14,36 +14,25 @@ module.exports = {
         try{
         var id_viatico = req.body.id_solicitud_viatico;
         var dias = req.body.dia;
-        var aliment = req.body.alimentacion;
-        var hos = req.body.hospedaje;
-        var transporteLocal = req.body.transportelocal;
-        var transporteForaneo = req.body.transporteforaneo;
-        var combustible_viaje = req.body.combustible;
-        var otros = req.body.otros;
+        var rubro = req.body.rubro;
+        var cantidad = req.body.cantidad;
+        var proyecto = req.body.proyecto;
+        var estatus = req.body.estatus;
 
         var buscarSolicitudV = 'SELECT id FROM solicitud_viatico WHERE id = ? AND (status = 0 OR status = 2 OR status = 4)';
         var insertarGasto = 'INSERT INTO gasto SET ?';
         
-            aliment = (aliment < 1) ? 0:aliment;
-            hos = (hos < 1) ? 0:hos;
-            transporteLocal = (transporteLocal < 1) ? 0:transporteLocal;
-            transporteForaneo = (transporteForaneo < 1) ? 0:transporteForaneo;
-            combustible_viaje = (combustible_viaje < 1) ? 0:combustible_viaje;
-            otros = (otros.length < 1) ? 0:otros;
-
-
+            cantidad = (cantidad < 1) ? 0:cantidad;
 
             const existe = await pool.query(buscarSolicitudV, [id_viatico]);
             if (existe.length == 0)
                 return res.json({ ok: false, mensaje: 'No existe el viatico o no se puede crear con el estatus actual' });
             var valuesSolicitud = {
                 dia: dias,
-                alimentacion: aliment,
-                hospedaje: hos,
-                transporte_local: transporteLocal,
-                transporte_foraneo: transporteForaneo,
-                combustible: combustible_viaje,
-                otros_conceptos: otros,
+                rubro: rubro,
+                cantidad: cantidad,
+                proyecto: proyecto,
+                estatus: estatus,
                 id_solicitud_viatico: id_viatico
             };
             pool.query(insertarGasto, [valuesSolicitud], (error, results) => {
@@ -78,12 +67,10 @@ module.exports = {
         var idGasto = req.body.idGasto;
         var idSolViatico = req.body.idViatico;
         var dias = req.body.dia;
-        var aliment = req.body.alimentacion;
-        var hos = req.body.hospedaje;
-        var transporteLocal = req.body.transportelocal;
-        var transporteForaneo = req.body.transporteforaneo;
-        var combustible_viaje = req.body.combustible;
-        var otros = req.body.otros;
+        var rubro = req.body.rubro;
+        var cantidad = req.body.cantidad;
+        var proyecto = req.body.proyecto;
+        var estatus = req.body.estatus;
 
         var buscarSolicitudG = 'SELECT id FROM solicitud_viatico WHERE id = ? AND (status = 0 OR status = 2 OR status = 4)';
         var actualizarSolicitudG = 'UPDATE gasto SET ? AND id = ?';
@@ -94,12 +81,10 @@ module.exports = {
                 return res.json({ ok: false, mensaje: 'El gasto no puede ser modificado actualmente' });
             var valuesGasto = {
                 dia: dias,
-                alimentacion: aliment,
-                hospedaje: hos,
-                transporte_local: transporteLocal,
-                transporte_foraneo: transporteForaneo,
-                combustible: combustible_viaje,
-                otros_conceptos: otros,
+                rubro: rubro,
+                cantidad: cantidad,
+                proyecto: proyecto,
+                estatus: estatus,
             };
             pool.query(actualizarSolicitudG, [valuesGasto, idGasto], (error, results) => {
                 if (error) return res.json(error);

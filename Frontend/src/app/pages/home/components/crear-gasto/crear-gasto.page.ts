@@ -22,16 +22,17 @@ export class CrearGastoPage implements OnInit {
     private modalController: ModalController,
     private navParams: NavParams,
     public alertController: AlertController
-  ) { 
+  ) {
 
     this.idViatico = this.navParams.get('id_viatico');
 
     this.fgGasto = this.formBuilder.group({
       id_solicitud_viatico: new FormControl(this.idViatico, []),
-      dia: new FormControl('', []),
+      dia: new FormControl(this.myDate, []),
       rubro: new FormControl('',[Validators.required]),
-      monto: new FormControl('',[Validators.required]),
-      proyecto: new FormControl('',[Validators.required])
+      cantidad: new FormControl('',[Validators.required]),
+      proyecto: new FormControl('',[Validators.required]),
+      estatus: new FormControl(0,[])
     });
   }
 
@@ -40,6 +41,7 @@ export class CrearGastoPage implements OnInit {
   }
 
   async createGasto(){
+    console.log(this.fgGasto.value);
     if (this.fgGasto.valid){
       const resp = await this.auth.createGasto(this.fgGasto.value).toPromise();
       if (resp) {

@@ -396,25 +396,21 @@ export class AuthService {
     });
   }
 
-  createGasto(gasto: { 
-    id_solicitud_viatico: Number,
-    dia: string,
-    alimentacion: Number,
-    hospedaje: Number,
-    transporteLocal: Number,
-    transporteForaneo: Number,
-    combustible: Number,
-    otros: Number
+  createGasto(gasto: {
+      id_solicitud_viatico: Number,
+      dia: string,
+      rubro: string,
+      cantidad: Number,
+      proyecto: string,
+      estatus: Number
   }) {
-    return this.http.post(`${this.API_URL}/gasto`,{
+      return this.http.post(`${this.API_URL}/gasto`,{
       id_solicitud_viatico: gasto.id_solicitud_viatico,
       dia: formatDate(gasto.dia, 'yyyy-MM-dd', 'en'),
-      alimentacion: gasto.alimentacion,
-      hospedaje: gasto.hospedaje,
-      transportelocal: gasto.transporteLocal,
-      transporteforaneo: gasto.transporteForaneo,
-      combustible: gasto.combustible,
-      otros: gasto.otros
+      rubro: gasto.rubro,
+      cantidad: gasto.cantidad,
+      proyecto: gasto.proyecto,
+      estatus: gasto.estatus,
     })/*.pipe(
       map(response => {
         if(response['ok']){

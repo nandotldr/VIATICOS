@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button menu="menu"></ion-menu-button>
+      <!-- <img src="../../../assets/images/logo.png" width="25px" style="display:inline-block" height="25px"/> -->
+      <!-- <ion-icon slot="icon-only" name="filing"></ion-icon> -->
+      <ion-title>
+        REVISAR GASTOS
+      </ion-title>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <img class="background-image"/>
+  <ion-card >
+    <ion-card-header class="title">
+      <ion-card-title>Gastos Pendientes de Aprobación</ion-card-title>
+    </ion-card-header>
+    <ion-card-header class="subtitle">
+      <ion-card-title>Gastos</ion-card-title>
+    </ion-card-header>
+    <ion-card-content class="card-b">
+      <table>
+        <tr>
+          <th>ID Comision</th>
+          <th>Fecha de Elaboración</th>
+          <th>Nombre Solicitante</th>
+          <th>Rubro</th>
+          <th>Cantidad</th>
+          <th>Numero de Proyecto</th>
+          <th>Más Información</th>
+          <th>Acciones</th>
+        </tr>
+        <tr *ngFor="let gasto of gastos">
+          <td>{{ gasto.id }}</td>
+          <td>{{ gasto.numero_proyecto }}</td>
+          <td>{{ gasto.cantidad | currency }}</td>
+          <td>{{ gasto.fecha_solicitud | date }}</td>
+          <td>{{ gasto.nombre }}</td>
+          <td text-center><ion-button (click)="openModal(gasto.id)"><ion-icon name="apps"></ion-icon></ion-button></td>
+          <td>
+            <ion-button (click)="alertConfirm(gasto)"><ion-icon name="checkmark-circle-outline"></ion-icon></ion-button>
+            <ion-button (click)="alertDecline(gasto)"><ion-icon name="close-circle-outline"></ion-icon></ion-button>
+          </td>
+        </tr>
+      </table>
+
+    </ion-card-content>
+    <ion-card *ngIf="gastos == null" class="primary"> No hay elementos para mostrar </ion-card>
+  </ion-card>
+
+</ion-content>

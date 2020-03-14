@@ -111,9 +111,19 @@ const routes: Routes = [
         path: 'revisar-proyecto',
         loadChildren: () => import('./revisar-proyecto/revisar-proyecto.module').then( m => m.RevisarProyectoPageModule),
         canLoad: [AuthGuardService]
+      },
+      {
+        path: 'revisar-gasto',
+        loadChildren: () => import('./revisar-gasto/revisar-gasto.module').then( m => m.RevisarGastoPageModule),
+        canLoad: [AuthGuardService]
+      },
+      {
+        path: 'gasto-activo',
+        loadChildren: () => import('./components/gasto-activo/gasto-activo.module').then( m => m.GastoActivoPageModule),
+        canLoad: [AuthGuardService]
       }
     ]
-  },
+  }
 ];
 
 @NgModule({

@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.17, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.19, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: viaticos
+-- Host: localhost    Database: viaticos
 -- ------------------------------------------------------
--- Server version	8.0.17
+-- Server version	8.0.19
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -23,16 +23,16 @@ DROP TABLE IF EXISTS `agenda`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `agenda` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `dia` date DEFAULT NULL,
   `hora_inicio` time(3) DEFAULT NULL,
   `hora_fin` time(3) DEFAULT NULL,
   `actividad` tinytext,
-  `id_informe_actividades` int(11) NOT NULL,
+  `id_informe_actividades` int NOT NULL,
   PRIMARY KEY (`id`,`id_informe_actividades`),
   KEY `fk_agenda_informe_actividades1_idx` (`id_informe_actividades`),
   CONSTRAINT `fk_agenda_informe_actividades1` FOREIGN KEY (`id_informe_actividades`) REFERENCES `informe_actividades` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,6 +41,7 @@ CREATE TABLE `agenda` (
 
 LOCK TABLES `agenda` WRITE;
 /*!40000 ALTER TABLE `agenda` DISABLE KEYS */;
+INSERT INTO `agenda` VALUES (2,'2020-08-08','23:45:00.000','23:59:00.000','Ver Tele',1),(3,'2020-03-02','21:19:12.483','10:19:12.484','Coshar',5),(4,'2020-03-11','21:27:13.116','21:28:13.116','aa',8);
 /*!40000 ALTER TABLE `agenda` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -52,7 +53,7 @@ DROP TABLE IF EXISTS `area_adscripcion`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `area_adscripcion` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
@@ -65,7 +66,7 @@ CREATE TABLE `area_adscripcion` (
 
 LOCK TABLES `area_adscripcion` WRITE;
 /*!40000 ALTER TABLE `area_adscripcion` DISABLE KEYS */;
-INSERT INTO `area_adscripcion` VALUES (1,NULL),(2,'Departamento de Fisica'),(3,'Departamento de Matematicas'),(4,'Departamento de Quimica'),(5,'Departamento de Ingenieria Civil y Topografia'),(6,'Departamento de Ingenieria Industrial'),(7,'Departamento de Ingenieria Mecanica Electrica'),(8,'Departamento de Ingenieria de Proyectos'),(9,'Departamento de Ingenieria Quimica'),(10,'Departamento de Madera Celulosa y Papel'),(11,'Departamento de Ciencias Computacionales'),(12,'Departamento de Electronica');
+INSERT INTO `area_adscripcion` VALUES (1,'Departamento de Farmacobiologia'),(2,'Departamento de Fisica'),(3,'Departamento de Matematicas'),(4,'Departamento de Quimica'),(5,'Departamento de Ingenieria Civil y Topografia'),(6,'Departamento de Ingenieria Industrial'),(7,'Departamento de Ingenieria Mecanica Electrica'),(8,'Departamento de Ingenieria de Proyectos'),(9,'Departamento de Ingenieria Quimica'),(10,'Departamento de Madera Celulosa y Papel'),(11,'Departamento de Ciencias Computacionales'),(12,'Departamento de Electronica');
 /*!40000 ALTER TABLE `area_adscripcion` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -77,7 +78,7 @@ DROP TABLE IF EXISTS `continente`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `continente` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL,
   `nombre` varchar(10) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -101,7 +102,7 @@ DROP TABLE IF EXISTS `estado`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `estado` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL,
   `nombre` varchar(40) NOT NULL COMMENT 'NOM_ENT - Nombre de la entidad'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Estados de la República Mexicana';
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -124,13 +125,13 @@ DROP TABLE IF EXISTS `factura`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `factura` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `archivo_url` varchar(45) DEFAULT NULL,
-  `id_informe_actividades` int(11) NOT NULL,
+  `id_informe_actividades` int NOT NULL,
   PRIMARY KEY (`id`,`id_informe_actividades`),
   KEY `fk_factura_informe_actividades1_idx` (`id_informe_actividades`),
   CONSTRAINT `fk_factura_informe_actividades1` FOREIGN KEY (`id_informe_actividades`) REFERENCES `informe_actividades` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -139,6 +140,7 @@ CREATE TABLE `factura` (
 
 LOCK TABLES `factura` WRITE;
 /*!40000 ALTER TABLE `factura` DISABLE KEYS */;
+INSERT INTO `factura` VALUES (1,'wwww',8);
 /*!40000 ALTER TABLE `factura` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -150,7 +152,7 @@ DROP TABLE IF EXISTS `gasto`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `gasto` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `dia` date DEFAULT NULL,
   `alimentacion` decimal(10,2) DEFAULT NULL,
   `hospedaje` decimal(10,2) DEFAULT NULL,
@@ -158,11 +160,11 @@ CREATE TABLE `gasto` (
   `transporte_local` decimal(10,2) DEFAULT NULL,
   `combustible` decimal(10,2) DEFAULT NULL,
   `otros_conceptos` decimal(10,2) DEFAULT NULL,
-  `id_solicitud_viatico` int(11) NOT NULL,
+  `id_solicitud_viatico` int NOT NULL,
   PRIMARY KEY (`id`,`id_solicitud_viatico`),
   KEY `fk_gastos_solicitud_viatico1_idx` (`id_solicitud_viatico`),
   CONSTRAINT `fk_gastos_solicitud_viatico1` FOREIGN KEY (`id_solicitud_viatico`) REFERENCES `solicitud_viatico` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -171,6 +173,7 @@ CREATE TABLE `gasto` (
 
 LOCK TABLES `gasto` WRITE;
 /*!40000 ALTER TABLE `gasto` DISABLE KEYS */;
+INSERT INTO `gasto` VALUES (1,'2020-01-01',345.00,32.00,NULL,NULL,NULL,123.00,1),(2,'2020-01-02',765.00,9000.00,NULL,45.00,100.00,NULL,1),(3,'2020-04-20',150.00,300.00,0.00,50.00,0.00,20.00,2),(4,'2020-04-19',0.00,0.00,0.00,0.00,0.00,0.00,2),(5,'2020-04-22',20.00,12.00,30.00,52.00,0.00,0.00,2),(6,'2020-01-19',0.00,0.00,0.00,0.00,0.00,0.00,2),(7,'2020-06-19',0.00,0.00,0.00,0.00,0.00,0.00,2),(8,'2020-04-20',150.00,300.00,0.00,150.00,0.00,50.00,3),(9,'2020-04-20',200.00,500.00,0.00,200.00,0.00,20.00,4),(16,'2020-02-28',1.00,1.00,1.00,1.00,1.00,1.00,21),(17,'2020-03-06',500.00,500.00,0.00,500.00,0.00,25.00,23),(18,'2020-03-07',250.00,0.00,0.00,200.00,0.00,0.00,23),(19,'2020-03-08',22.00,0.00,0.00,0.00,1.00,0.00,23),(20,'2020-03-05',112.00,3.00,5.00,0.00,5.00,6.00,24),(21,'2020-03-04',0.00,0.00,0.00,0.00,0.00,0.00,24),(22,'2020-03-06',240.00,0.00,979.00,0.00,50.00,0.00,26),(23,'2020-03-07',160.00,0.00,979.00,100.00,0.00,0.00,26),(24,'2020-03-10',150.00,500.00,500.00,50.00,0.00,12.00,27),(28,'2020-03-11',500.00,200.00,600.00,300.00,50.00,25.00,27),(29,'2020-03-13',50.00,50.00,50.00,50.00,50.00,50.00,27),(30,'2020-03-12',10.00,10.00,10.00,10.00,10.00,10.00,27);
 /*!40000 ALTER TABLE `gasto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -182,15 +185,15 @@ DROP TABLE IF EXISTS `informe_actividades`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `informe_actividades` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `resultados` text,
   `observaciones` tinytext,
   `fecha_elaboracion` datetime DEFAULT NULL,
   `fecha_aprobacion` datetime DEFAULT NULL,
   `nombre_aprobacion` varchar(45) DEFAULT NULL,
-  `id_usuario` int(11) NOT NULL,
-  `id_solicitud_comision` int(11) NOT NULL,
-  `status` int(11) NOT NULL,
+  `id_usuario` int NOT NULL,
+  `id_solicitud_comision` int NOT NULL,
+  `status` int NOT NULL,
   `fecha_revisado` datetime DEFAULT NULL,
   `nombre_revisado` varchar(45) DEFAULT NULL,
   `constancia` tinytext,
@@ -200,7 +203,7 @@ CREATE TABLE `informe_actividades` (
   KEY `fk_informe_actividades_solicitud_comision1_idx` (`id_solicitud_comision`),
   CONSTRAINT `fk_informe_actividades_solicitud_comision1` FOREIGN KEY (`id_solicitud_comision`) REFERENCES `solicitud_comision` (`id`),
   CONSTRAINT `fk_informe_actividades_usuario1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`codigo`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -209,6 +212,7 @@ CREATE TABLE `informe_actividades` (
 
 LOCK TABLES `informe_actividades` WRITE;
 /*!40000 ALTER TABLE `informe_actividades` DISABLE KEYS */;
+INSERT INTO `informe_actividades` VALUES (1,'no compre nada','estaba muy caro todo','2020-02-04 00:29:00','2020-03-02 21:40:22','ADMIN NORIEGA',21169376,16,1,NULL,NULL,NULL,''),(2,'Me titule','Todo bien chavs','2020-02-04 00:29:00','2020-02-13 19:38:11','ADMIN NORIEGA',122,20,1,NULL,NULL,NULL,'Eres un pendejo'),(5,'AJAM','YES','2020-03-02 21:10:27',NULL,NULL,1,27,3,'2020-03-09 22:06:53','FINZA NORIEGA',NULL,''),(6,'Estuvo bien','Conoci gente','2020-03-06 18:24:04',NULL,NULL,216308919,32,0,NULL,NULL,NULL,NULL),(7,'u','op','2020-03-09 21:47:09',NULL,NULL,1,31,0,NULL,NULL,NULL,NULL),(8,'Aprendi','Chido','2020-03-11 21:03:21',NULL,NULL,50,33,3,'2020-03-11 21:34:31','FINZA NORIEGA',NULL,'');
 /*!40000 ALTER TABLE `informe_actividades` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -220,11 +224,11 @@ DROP TABLE IF EXISTS `itinerario`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `itinerario` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `dia` datetime DEFAULT NULL,
   `origen` varchar(45) DEFAULT NULL,
   `destino` varchar(45) DEFAULT NULL,
-  `id_informe_actividades` int(11) NOT NULL,
+  `id_informe_actividades` int NOT NULL,
   PRIMARY KEY (`id`,`id_informe_actividades`),
   KEY `fk_itinerario_informe_actividades1_idx` (`id_informe_actividades`),
   CONSTRAINT `fk_itinerario_informe_actividades1` FOREIGN KEY (`id_informe_actividades`) REFERENCES `informe_actividades` (`id`)
@@ -237,6 +241,7 @@ CREATE TABLE `itinerario` (
 
 LOCK TABLES `itinerario` WRITE;
 /*!40000 ALTER TABLE `itinerario` DISABLE KEYS */;
+INSERT INTO `itinerario` VALUES (2,'2020-08-08 00:00:00','Oaxaca','Tijuana',1),(3,'2020-08-08 00:00:00','Oaxaca','Tijuana',1),(4,'2020-03-11 00:00:00','q','w',8);
 /*!40000 ALTER TABLE `itinerario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -248,10 +253,10 @@ DROP TABLE IF EXISTS `municipio`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `municipio` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_estado` int(11) DEFAULT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_estado` int DEFAULT NULL,
   `nombre` varchar(100) DEFAULT NULL,
-  `zona` int(11) DEFAULT NULL,
+  `zona` int DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2464 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -274,10 +279,10 @@ DROP TABLE IF EXISTS `pais`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `pais` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) DEFAULT NULL,
-  `id_continente` int(11) DEFAULT NULL,
-  `zona` int(11) DEFAULT NULL,
+  `id_continente` int DEFAULT NULL,
+  `zona` int DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=184 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -300,15 +305,15 @@ DROP TABLE IF EXISTS `programa_trabajo`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `programa_trabajo` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `dia` datetime DEFAULT NULL,
   `lugar_estancia` varchar(45) DEFAULT NULL,
   `tareas_realizar` text,
-  `id_solicitud_comision` int(11) NOT NULL,
+  `id_solicitud_comision` int NOT NULL,
   PRIMARY KEY (`id`,`id_solicitud_comision`),
   KEY `fk_programa_trabajo_solicitud_comision1_idx` (`id_solicitud_comision`),
   CONSTRAINT `fk_programa_trabajo_solicitud_comision1` FOREIGN KEY (`id_solicitud_comision`) REFERENCES `solicitud_comision` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -317,6 +322,7 @@ CREATE TABLE `programa_trabajo` (
 
 LOCK TABLES `programa_trabajo` WRITE;
 /*!40000 ALTER TABLE `programa_trabajo` DISABLE KEYS */;
+INSERT INTO `programa_trabajo` VALUES (1,'2020-02-12 00:00:00','zapopan','exponer',2),(2,'2020-02-13 00:00:00','guadalajara','exponer',2),(4,'2020-07-12 00:00:00','no','ne',20),(5,'2020-04-20 00:00:00','Aeropuerto','Llegar',21),(6,'2020-04-21 00:00:00','Palacio','Marchar',21),(7,'2020-04-20 00:00:00','aqui','smn',20),(8,'2020-04-22 00:00:00','aca','yes',20),(9,'2020-04-20 00:00:00','Aeropuerto','Llegar',22),(10,'2020-03-21 00:00:00','Hotel','Descansar',22),(11,'2020-04-22 00:00:00','Concierto','Divertirse',22),(12,'2020-04-23 00:00:00','Aeropuerto','Nos vamos',22),(13,'2020-03-08 00:00:00','Zocalo','Marchar',24),(14,'2020-02-28 00:00:00','q','r',26),(15,'2020-03-06 00:00:00','yasss','aja',27),(17,'2020-03-07 00:00:00','KEK','POS HAZLO',27),(18,'2020-03-05 00:00:00','w','w',31),(19,'2020-04-04 00:00:00','a','a',30),(20,'2020-03-06 00:00:00','Universidad','Inauguracion',32),(21,'2020-03-07 00:00:00','Universidad','Clausura',32),(22,'2020-03-10 00:00:00','Playa','Asolearse',33),(23,'2020-03-11 00:00:00','Centro','Turistear',33),(24,'2020-03-12 00:00:00','Hotel','Descansar',33),(25,'2020-03-13 00:00:00','No importa','Pues ya nada',33);
 /*!40000 ALTER TABLE `programa_trabajo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -328,16 +334,16 @@ DROP TABLE IF EXISTS `solicitud_comision`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `solicitud_comision` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `fecha_solicitud` datetime DEFAULT NULL,
   `fecha_inicio` date DEFAULT NULL,
   `fecha_fin` date DEFAULT NULL,
-  `tipo_comision` int(11) NOT NULL,
-  `id_pais` int(11) DEFAULT NULL,
-  `id_municipio` int(11) DEFAULT NULL,
-  `id_usuario` int(11) NOT NULL,
+  `tipo_comision` int NOT NULL,
+  `id_pais` int DEFAULT NULL,
+  `id_municipio` int DEFAULT NULL,
+  `id_usuario` int NOT NULL,
   `justificacion` text,
-  `status` int(11) NOT NULL,
+  `status` int NOT NULL,
   `objetivo_trabajo` tinytext,
   `area_adscripcion` varchar(45) DEFAULT NULL,
   `nombre_comision` varchar(45) DEFAULT NULL,
@@ -357,7 +363,7 @@ CREATE TABLE `solicitud_comision` (
   CONSTRAINT `fk_solicitud_comision_municipio1` FOREIGN KEY (`id_municipio`) REFERENCES `municipio` (`id`),
   CONSTRAINT `fk_solicitud_comision_pais` FOREIGN KEY (`id_pais`) REFERENCES `pais` (`id`),
   CONSTRAINT `fk_solicitud_comision_usuario1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`codigo`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -366,6 +372,7 @@ CREATE TABLE `solicitud_comision` (
 
 LOCK TABLES `solicitud_comision` WRITE;
 /*!40000 ALTER TABLE `solicitud_comision` DISABLE KEYS */;
+INSERT INTO `solicitud_comision` VALUES (2,'2020-01-28 16:35:29','2020-02-12','2020-02-15',1,NULL,1,210545544,'necesito saber',6,'saber it',NULL,'tecnologias','',NULL,'2020-01-30 03:22:47',NULL,'Jairo Jahaziel Gonzalez Casillas','programatecno','intacioneve','2020-01-28 16:35:29','2020-01-30 03:22:47'),(3,'2020-01-28 16:40:03','2020-02-12','2020-02-15',1,NULL,1,210545544,'necesito saber',6,'saber it',NULL,'tecnologias',NULL,NULL,NULL,NULL,NULL,'programatecno','z19kthjok67je7f9.js','2020-01-28 16:40:03',NULL),(4,'2020-01-28 16:41:05','2020-02-12','2020-02-15',1,NULL,1,210545544,'necesito saber',1,'saber it',NULL,'tecnologias',NULL,NULL,NULL,NULL,NULL,'programatecno','intacioneve','2020-01-28 16:41:05',NULL),(5,'2020-01-28 16:42:35','2020-02-12','2020-02-15',1,NULL,1,2828001,'necesito saber',2,'saber it',NULL,'tecnologias','','2020-02-12 22:44:46','2020-02-20 21:25:30','JEFE NORIEGA','ADMIN NORIEGA','programatecno','intacioneve','2020-01-28 16:42:35','2020-02-20 21:25:30'),(6,'2020-01-28 16:43:58','2020-02-12','2020-02-15',1,NULL,1,2828001,'necesito saber',4,'saber it',NULL,'DEPTO. DE FISICA','','2020-02-12 22:44:48','2020-02-24 18:39:39','JEFE NORIEGA','ADMIN NORIEGA','programatecno','intacioneve','2020-01-28 16:43:58','2020-02-24 18:39:39'),(8,'2020-01-28 17:19:24','2020-02-12','2020-02-15',0,1,NULL,2828001,'necesito saber',4,'saber it',NULL,'DEPTO. DE FISICA','','2020-02-12 22:44:50','2020-02-24 18:39:38','JEFE NORIEGA','ADMIN NORIEGA','programatecno','intacioneve','2020-01-28 17:19:24','2020-02-24 18:39:38'),(9,'2020-01-28 17:20:25','2020-02-12','2020-02-15',1,NULL,1,2828001,'necesito saber',4,'saber it',NULL,'DEPTO. DE FISICA','','2020-02-12 22:47:10','2020-02-24 18:39:36','JEFE NORIEGA','ADMIN NORIEGA','programatecno','intacioneve','2020-01-28 17:20:25','2020-02-24 18:39:36'),(10,'2020-01-28 22:30:27','2020-03-12','2020-03-25',0,1,NULL,2828001,'necesito ',4,'saber ang',NULL,'DEPTO. DE FISICA','','2020-02-12 22:47:12','2020-02-24 18:39:34','JEFE NORIEGA','ADMIN NORIEGA',NULL,NULL,'2020-01-28 22:30:27','2020-02-24 18:39:34'),(12,'2020-01-29 23:16:40','2020-02-29','0000-00-00',0,1,NULL,210545544,'Quiero ir a una conferencia.',1,'Aprender cosas y traer regalos.',NULL,'Comic-Con Estambul 2019',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2020-01-29 23:16:40',NULL),(13,'2020-01-30 19:29:28','2020-04-04','2020-04-07',0,1,NULL,210545544,'Quiero ir a una .',1,'Aprender cosas.',NULL,' Madrid 2020',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2020-01-29 23:20:18','2020-01-30 19:29:28'),(14,'2020-01-29 23:22:37','2020-03-04','2020-03-07',1,NULL,1,210545544,'Quiero ir a una conferencia.',5,'Aprender cosas y traer regalos.',NULL,'Comic-Con Estambul 2019','',NULL,'2020-02-12 21:20:30',NULL,'ADMIN NORIEGA',NULL,NULL,'2020-01-29 23:22:37','2020-02-12 21:20:30'),(15,'2020-01-29 23:27:42','2020-03-04','2020-03-07',1,NULL,1,210545544,'Quiero ir a una conferencia.',5,'Aprender cosas y traer regalos.',NULL,'Comic-Con Estambul 2019','',NULL,'2020-02-12 21:51:41',NULL,'ADMIN NORIEGA',NULL,NULL,'2020-01-29 23:27:42','2020-02-12 21:51:41'),(16,'2020-01-29 23:28:12','2020-03-04','2020-03-07',1,NULL,1,210545544,'Quiero ir a una conferencia.',4,'Aprender cosas y traer regalos.',NULL,'Comic-Con Estambul 2019','','2020-01-30 22:40:49','2020-02-24 18:39:32','Octavio  Romo','ADMIN NORIEGA',NULL,NULL,'2020-01-29 23:28:12','2020-02-24 18:39:32'),(17,'2020-01-30 19:18:22','2020-03-04','2020-03-07',1,NULL,1,210545544,'Quiero ir a una conferencia.',4,'Aprender cosas y traer regalos.',NULL,'Comic-Con Estambul 2019','',NULL,'2020-02-24 18:39:30',NULL,'ADMIN NORIEGA',NULL,NULL,'2020-01-30 19:18:22','2020-02-24 18:39:30'),(18,'2020-02-04 01:32:27','2020-04-04','2020-04-04',0,1,1,123,'Quiero aprender',6,'Aprender',NULL,'CampusParty2020',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2020-02-04 01:32:27',NULL),(19,'2020-02-08 15:51:25','2020-03-10','2020-03-10',1,NULL,2,123,'Necesito ser furro',5,'Ser furro',NULL,'Conferencia FURRY',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2020-02-08 15:51:25',NULL),(20,'2020-02-20 19:43:34','2020-02-14','2020-02-14',1,NULL,19,122,'ehtr',6,'erh',NULL,'dbg','','2020-02-20 20:03:50',NULL,'JEFE NORIEGA',NULL,NULL,NULL,'2020-02-12 22:39:32','2020-02-20 20:03:50'),(21,'2020-02-19 21:01:18','2020-04-24','2020-04-24',1,NULL,25,1,'Ta caon',-1,'Marchar','DEPTO. DE FISICA','Marcha LGBT','','2020-02-19 21:06:11','2020-02-19 21:07:42','JEFE NORIEGA','ADMIN NORIEGA',NULL,NULL,'2020-02-19 20:59:31','2020-02-19 21:07:42'),(22,'2020-02-20 20:39:29','2020-04-25','2020-04-25',0,75,NULL,122,'EAAAAA',6,'Cotorrear','DEPTO. DE FISICA','Perth Music Festival','','2020-02-20 20:39:57','2020-02-20 20:40:54','JEFE NORIEGA','ADMIN NORIEGA',NULL,NULL,'2020-02-20 20:16:26','2020-02-20 20:40:54'),(23,'2020-02-20 21:23:43','2020-04-22','2020-04-22',1,NULL,372,111,'nelpastel',6,'Cachondeo','DEPTO. DE FISICA','Acashore 2020','','2020-02-20 21:24:34',NULL,'JEFE NORIEGA',NULL,NULL,NULL,'2020-02-20 21:22:11','2020-02-20 21:24:34'),(24,'2020-02-24 18:38:29','2020-03-09','2020-03-09',1,NULL,500,1,'Ser aliade',-1,'Marchar','DEPTO. DE FISICA','Marcha Feminista','','2020-02-24 18:39:02','2020-02-24 18:39:27','JEFE NORIEGA','ADMIN NORIEGA',NULL,NULL,'2020-02-24 18:26:19','2020-02-24 18:39:27'),(26,'2020-02-27 21:13:22','2020-02-29','2020-02-29',0,33,NULL,2,'007',5,'Pecar','DEPTO. DE FISICA','Casino Royale',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2020-02-27 21:12:33','2020-02-27 21:13:22'),(27,'2020-03-02 18:23:03','2020-03-07','2020-03-07',0,43,NULL,1,'Yis',-1,'Wondeba','DEPTO. DE FISICA','Wunderwaffen',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2020-03-02 18:15:39','2020-03-02 18:23:03'),(28,'2020-03-04 18:50:44','2020-03-05','2020-03-05',1,NULL,1,1,'Test',-1,'Test','DEPTO. DE FISICA','Test1 4 de marzo-5 de marzo',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2020-03-04 18:50:44',NULL),(29,'2020-03-04 18:53:42','2020-03-10','2020-03-10',1,NULL,1,1,'Test',-1,'Test','DEPTO. DE FISICA','Test2 5 de marzo-10 de marzo',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2020-03-04 18:53:42',NULL),(30,'2020-03-04 18:58:17','2020-03-06','2020-03-10',0,1,NULL,1,'Test',5,'Test','DEPTO. DE FISICA','Test3 6 marzo - 10 marzo',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2020-03-04 18:58:17','2020-03-04 21:20:05'),(31,'2020-03-04 19:05:42','2020-03-01','2020-03-15',1,NULL,1,1,'test',-1,'Objetivo serio','DEPTO. DE FISICA','Nombre serio',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2020-03-04 19:05:42','2020-03-04 20:10:43'),(32,'2020-03-06 18:12:00','2020-03-06','2020-03-07',1,NULL,1804,216308919,'Ahi esta la uni',5,'Visitar','DEPTO. DE CIENCIAS COMPUTACIONALES','Arkansas University','','2020-03-06 18:12:36','2020-03-06 18:12:49','JEFE NORIEGA','ADMIN NORIEGA',NULL,NULL,'2020-03-06 18:11:16','2020-03-06 18:12:49'),(33,'2020-03-10 20:03:58','2020-03-10','2020-03-13',1,NULL,72,50,'Me dio cáncer y quiero conocer antes de morir',5,'Conocer Colima','DEPTO. DE MATEMATICAS','Colimazo 2020','','2020-03-10 20:37:32','2020-03-10 20:50:56','JEFE NORIEGA','ADMIN NORIEGA',NULL,NULL,'2020-03-10 20:01:05','2020-03-10 20:50:56');
 /*!40000 ALTER TABLE `solicitud_comision` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -377,12 +384,12 @@ DROP TABLE IF EXISTS `solicitud_viatico`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `solicitud_viatico` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_solicitud_comision` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_solicitud_comision` int NOT NULL,
   `invitado_nombre` varchar(45) DEFAULT NULL,
   `fecha_solicitud` datetime DEFAULT NULL,
   `comentarios` varchar(45) DEFAULT NULL,
-  `status` int(11) NOT NULL,
+  `status` int NOT NULL,
   `comentario_rechazo` tinytext,
   `fecha_revisado` datetime DEFAULT NULL,
   `nombre_revisado` varchar(45) DEFAULT NULL,
@@ -390,13 +397,13 @@ CREATE TABLE `solicitud_viatico` (
   `nombre_aceptado` varchar(45) DEFAULT NULL,
   `fecha_creacion` datetime NOT NULL,
   `fecha_modificacion` datetime DEFAULT NULL,
-  `id_usuario` int(11) NOT NULL,
+  `id_usuario` int NOT NULL,
   PRIMARY KEY (`id`,`id_solicitud_comision`,`id_usuario`),
   KEY `fk_solicitud_viatico_solicitud_comision1_idx` (`id_solicitud_comision`),
   KEY `fk_solicitud_viatico_usuario1_idx` (`id_usuario`),
   CONSTRAINT `fk_solicitud_viatico_solicitud_comision1` FOREIGN KEY (`id_solicitud_comision`) REFERENCES `solicitud_comision` (`id`),
   CONSTRAINT `fk_solicitud_viatico_usuario1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`codigo`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -405,6 +412,7 @@ CREATE TABLE `solicitud_viatico` (
 
 LOCK TABLES `solicitud_viatico` WRITE;
 /*!40000 ALTER TABLE `solicitud_viatico` DISABLE KEYS */;
+INSERT INTO `solicitud_viatico` VALUES (1,16,NULL,'2020-01-30 23:51:00','verificar factura',6,NULL,'2020-01-30 23:51:00','OCTAVIO ROMO','2020-01-30 23:51:00','JAIRO GONZALEZ','2020-01-30 23:51:00',NULL,1),(2,21,NULL,'2020-02-19 21:55:33','Vamoa pistiar',6,NULL,NULL,NULL,NULL,NULL,'2020-02-19 21:35:02','2020-02-19 21:55:33',1),(3,20,NULL,'2020-02-20 21:18:13',NULL,2,NULL,NULL,NULL,NULL,NULL,'2020-02-20 20:07:51','2020-02-27 21:28:07',122),(4,22,'Johnny Mentero','2020-02-20 20:45:01','Es muy guapo',0,NULL,NULL,NULL,NULL,NULL,'2020-02-20 20:45:01',NULL,122),(21,26,'Inv','2020-02-27 21:57:46',NULL,1,NULL,NULL,NULL,NULL,NULL,'2020-02-27 21:14:11','2020-02-27 21:57:46',2),(22,19,'null','2020-02-27 23:32:45','w',0,NULL,NULL,NULL,NULL,NULL,'2020-02-27 23:32:45',NULL,123),(23,27,NULL,'2020-03-02 18:56:36',NULL,1,NULL,NULL,NULL,NULL,NULL,'2020-03-02 18:25:25','2020-03-02 19:02:11',1),(24,31,'q','2020-03-04 19:11:49','q',6,NULL,NULL,NULL,NULL,NULL,'2020-03-04 19:11:49',NULL,1),(25,30,'N/A','2020-03-05 20:13:01','aehaerh',6,NULL,NULL,NULL,NULL,NULL,'2020-03-05 20:13:01',NULL,1),(26,32,NULL,'2020-03-06 18:17:42',NULL,6,NULL,NULL,NULL,NULL,NULL,'2020-03-06 18:13:22','2020-03-06 18:22:28',216308919),(27,33,'N/A','2020-03-11 19:43:18','N/A',0,'','2020-03-11 20:59:25','FINZA NORIEGA','2020-03-11 21:00:29','ADMIN NORIEGA','2020-03-10 20:51:17','2020-03-11 21:00:29',50);
 /*!40000 ALTER TABLE `solicitud_viatico` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -416,7 +424,7 @@ DROP TABLE IF EXISTS `usuario`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `usuario` (
-  `codigo` int(11) NOT NULL,
+  `codigo` int NOT NULL,
   `nombres` varchar(45) NOT NULL,
   `apellidos` varchar(45) NOT NULL,
   `tipo_usuario` varchar(2) NOT NULL,
@@ -437,7 +445,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (4636,'RUTH','PADILLA MUÑOZ','A','$2a$09$ZkmcLMALbpHgPU3O4A7DOOMIFJAKXnMN5swAYpPfhEUj6Pvb7ICh6','RECTORIA','RECTORA DE CENTRO','2020-03-04 14:48:02',NULL,'1234',NULL);
+INSERT INTO `usuario` VALUES (1,'PROFE','NORIEGA','P','$2a$09$eKjMNpiTO6pnPJ.s3F05puRgGCJU7xk.f9dqGSN5FpE6iAMuMt6Z6','DEPTO. DE FISICA','YES','2020-02-19 20:46:03',NULL,'123456789',NULL),(2,'PROFE','ALT','P','$2a$09$/WFNZdsyBelkiQm1cT4In..gWw.fIpezME5tzR/ER/BSLlYKo3IG2','DEPTO. DE FISICA','Q','2020-02-27 19:15:05',NULL,'4444',NULL),(3,'jose','ramirez','J','$12$OTK/E10mpkjrs/78j7w3Ie6XLlW44OnuGeqEJMyy8E9v1nfnxY2vq','QUIMICA','Investigador','2020-01-30 03:43:00',NULL,'9288282828',NULL),(50,'MR','FIFTY','P','$2a$09$fBgHsjcyFV8qS5XsYb0Pk.4PzpiqB2ubNjYlOlvktDrpVZJtEo8TS','DEPTO. DE MATEMATICAS','R','2020-02-26 00:02:28',NULL,'111',NULL),(111,'PROFE','NORIEGA','P','$2a$09$PlBdIrADlWPVxVMVD.0OvOwtQfzBbW/5luyQenXJzfMm2g7zo3v8u','DEPTO. DE FISICA','TESTER','2020-02-10 17:54:44','2020-02-20 21:22:38','987654321',NULL),(122,'JEFE','NORIEGA','J','$2a$09$4Uz8SF3lzOx0JC5k1NHnqecV2UV.6fEqOWRzoKRi3xt9sxllGOkmC','DEPTO. DE MATEMATICAS','TESTER','2020-02-10 17:58:39','2020-03-06 18:12:30','122',NULL),(123,'ADMIN','NORIEGA','A','$2a$09$GRYbY5m6c1vVVLPMQG1Vneh9yJHVjigvYI0AK.ydDdHI8y.61FMga','DEPTO. DE FISICA','TESTER','2020-02-08 15:47:28','2020-02-10 19:46:19','123456789',NULL),(124,'FINZA','NORIEGA','F','$2a$09$c3W25OC3jiItfS1NwNVHCuSKPvU3dIxqefSeU8layVh40T1UZ0LcK','DEPTO. DE FISICA','CONTADOR','2020-02-24 18:03:02',NULL,'123456',NULL),(666,'THE BEAST','THE NUMBER OF','P','$2a$09$Cbexd3LhjmVoIjWNT8eJi.wLq7GTbxL0vz6Q0O5lUvvlMh2R6YAl6','DEPTO. DE MADERA CELULOSA Y PAPEL','SATAN','2020-02-10 19:35:20',NULL,'666420',NULL),(999,'WWW','QQQ','P','$2a$09$dKfWDFEArXTQmBthHMJ1VOe5eDa7oQcamBqagNeFM3sGWfQne2PW6','DEPTO. DE FISICA','1234','2020-03-04 20:01:47',NULL,'1234',NULL),(88271,'PATTY','Gonzalez Casillas','J','$2a$09$WBCsQa.yAccnuaKn5ktgDeFRcgrULfifmvz0UWn3twmDhNoB9yIxy','Informatica','Maestro','2020-01-30 22:26:52',NULL,'1234',NULL),(2828001,'Jario ','Gonzalez','P','\r\n$2y$12$OTK/E10mpkjrs/78j7w3Ie6XLlW44OnuGeqEJMyy8E9v1nfnxY2vq\r\n','DEPTO. DE FISICA','Investigador','2020-01-28 12:13:47',NULL,'99939392993',NULL),(7894651,'USER','TEST','P','$2a$09$m1vB3n7u0RTEGB3CPrDP4uZg6cB0Z2NGM/wlaFgNe4OcjN/gnziUC','12','YES','2020-02-10 18:32:59',NULL,'45678854',NULL),(21169376,'Octavio ','Romo','J','$2a$09$FaPQTHMHmix2UStVDp2ODekH14SM9NqBsSI8e04ELVJgV8ka6Veg2','QUIMICA','Maestro','2020-01-30 22:33:39',NULL,'1234',NULL),(78020819,'ALEJANDRO ','GONZALEZ','P','$2a$09$XuBWzoOJYpM6kyY2IqIAGeCh7mLjv2kzw2LFN4wOIeeZOwzRS0246','ELECTRONICA','MAESTRO','2020-01-30 23:06:17',NULL,'1234',NULL),(210545544,'MONSERRAT','GUERRERO GARCIA','A','$2y$12$pb.nwfTsME7POgW5SVz5jev0nVFY7nqhgm96aIemqPS2gmvjAkGn6','QUIMICA','ESTUDIANTE','2020-01-28 11:49:00','2020-02-06 22:10:21','8837020188839',NULL),(211707262,'Jairo Jahaziel','Gonzalez Casillas','A','$2a$09$wE5M33GL.KG9DoMMK5quFe6tBRxiEK5z55uXYGZut4IPXI.E.WQHG','INFORMATICA','Maestro','2020-01-29 01:50:35',NULL,'1234',NULL),(211707263,'JAIRO JAHAZIEL','GONZALEZ CASILLAS','P','$2a$09$.pXfONTdkV94TuHoPWI6eu5I9TbX/vdmFrqUJ4APfhrwgdXtZ3b52','INFORMATICA','MAESTRO','2020-02-04 21:36:45',NULL,'123456789',NULL),(216308919,'ALEJANDRO','NORIEGA GONZALEZ','P','$2a$09$eMZXHurqr27zgXvyFbCZKufHFkt7XUya9OEj4SoJq0.XKIEXNBkQ2','DEPTO. DE CIENCIAS COMPUTACIONALES','TESTER','2020-03-06 18:09:38',NULL,'1111',NULL);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -449,18 +457,18 @@ DROP TABLE IF EXISTS `viatico_proyecto`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `viatico_proyecto` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `fecha_solicitud` datetime NOT NULL,
   `numero_proyecto` varchar(45) NOT NULL,
   `cantidad` decimal(10,2) DEFAULT NULL,
-  `id_solicitud_viatico` int(11) NOT NULL,
+  `id_solicitud_viatico` int NOT NULL,
   `fecha_aceptado` datetime DEFAULT NULL,
   `nombre_aceptado` varchar(45) DEFAULT NULL,
-  `status` int(11) NOT NULL,
+  `status` int NOT NULL,
   PRIMARY KEY (`id`,`id_solicitud_viatico`),
   KEY `fk_proyecto_solicitud_viatico1_idx` (`id_solicitud_viatico`),
   CONSTRAINT `fk_proyecto_solicitud_viatico1` FOREIGN KEY (`id_solicitud_viatico`) REFERENCES `solicitud_viatico` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -469,6 +477,7 @@ CREATE TABLE `viatico_proyecto` (
 
 LOCK TABLES `viatico_proyecto` WRITE;
 /*!40000 ALTER TABLE `viatico_proyecto` DISABLE KEYS */;
+INSERT INTO `viatico_proyecto` VALUES (1,'2020-02-27 21:30:34','007',6.00,21,NULL,NULL,2),(4,'2020-03-02 20:13:29','69',420.00,23,NULL,NULL,2),(6,'2020-03-02 20:19:24','454',800.00,23,NULL,NULL,2),(7,'2020-03-02 21:37:25','23421',2000.00,1,NULL,NULL,2),(8,'2020-03-06 18:23:14','420',2508.00,26,NULL,NULL,2),(9,'2020-03-11 21:00:57','258999',3000.00,27,'2020-03-11 21:02:41','ADMIN NORIEGA',5);
 /*!40000 ALTER TABLE `viatico_proyecto` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -481,4 +490,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-03-04 14:53:40
+-- Dump completed on 2020-03-13 22:21:11

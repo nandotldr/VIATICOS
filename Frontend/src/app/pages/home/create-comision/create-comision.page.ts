@@ -154,17 +154,15 @@ export class CreateComisionPage implements OnInit {
     await alert.present();
   }
 
-  getInvitacion(event){ 
-    this.invitacion = event.target.files[0]; 
+  getInvitacion(event){
+    this.invitacion = event.target.files[0];
     console.log(this.invitacion);
-    
-  } 
+  }
 
-  getPrograma(event){ 
-    this.programa = event.target.files[0]; 
+  getPrograma(event){
+    this.programa = event.target.files[0];
     console.log(this.programa);
-
-  } 
+  }
 
   async uploadPrograma(data: {id: Number, file: File }){
     const resp = await this.auth.uploadPrograma(data);

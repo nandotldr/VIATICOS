@@ -712,7 +712,7 @@ return this.http.request('delete',`${this.API_URL}/programa_trabajo/`,{body: pro
   ).toPromise();
     }
 
-    getRevisarProyecto(){
+    getRevisarProyecto() {
         return this.http.get(`${this.API_URL}/revisar_viatico_proyecto`).pipe(
             map(response => {
                 if(response['ok']){
@@ -725,8 +725,40 @@ return this.http.request('delete',`${this.API_URL}/programa_trabajo/`,{body: pro
         ).toPromise();
     }
 
+    getRevisarGasto() {
+        return this.http.get(`${this.API_URL}/gasto/revisar`).pipe(
+            map(response => {
+                if(response['ok']){
+                    console.log(response);
+                    return response['body'];
+                } else {
+                    return response['ok'];
+                }
+            })
+        ).toPromise();
+    }
+
+    revisarGasto(
+        gasto: {
+            id: Number,
+        }
+    ){
+        return this.http.patch(`${this.API_URL}/gasto/revisar`,{
+            id: gasto.id,
+        }).pipe(
+            map(response => {
+                console.log(response);
+                if(response['ok']){
+                    return response['body'];
+                } else {
+                    return response['ok'];
+                }
+            })
+        ).toPromise();
+    }
+
     deleteViatico(
-      viatico: { 
+      viatico: {
         id: Number,
         idV: Number
       }

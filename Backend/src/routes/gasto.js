@@ -9,8 +9,8 @@ router.post('/', oauth('P', 'J', 'A', 'S'), gastoCtl.insert);
 router.get('/:id', oauth('P', 'J', 'A', 'S'), gastoCtl.select);
 router.put('/', oauth('P', 'J', 'A', 'S'), gastoCtl.update);
 router.delete('/', oauth('P', 'J', 'A', 'S'), gastoCtl.delete);
-router.patch('/revisar',oauth('P', 'J', 'A', 'S'), gastoCtl.aceptarGasto);
-router.get('/revisar/gasto', oauth('P', 'J', 'A', 'S'), gastoCtl.gastosPorRevisar);
+router.patch('/revisar',oauth('A', 'F'), gastoCtl.aceptarGasto);
+router.get('/revisar/gasto', oauth('A', 'F'), gastoCtl.gastosPorRevisar);
 
 // Rutas extras del controlador como archivos, etc.
 

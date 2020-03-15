@@ -135,7 +135,7 @@ module.exports = {
 
     },
 
-    aceptargasto: async(req, res) => {
+    aceptarGasto: async(req, res) => {
         //verificar que no este en status cancelado =-1, revision = 1, aceptado por J =3, aceptado por A= 5 o finalizado
         try {
             var sqlSolComision = 'SELECT c.id, c.status, u.codigo, c.fecha_solicitud , concat(u.nombres," ",u.apellidos) as nombre, u.tipo_usuario FROM solicitud_comision AS c INNER JOIN usuario as u ON u.codigo = c.id_usuario WHERE c.id = ? AND (c.status=1 or c.status=3)';

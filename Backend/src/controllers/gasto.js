@@ -63,13 +63,13 @@ module.exports = {
         });
     },
 
-    selectOne: (req, res) => {
+    selectOne: async (req, res) => {
         const { id } = req.params;
         var consultaGasto = 'SELECT * FROM gasto WHERE id = ?';
-        pool.query(consultaGasto, [id], (error, results) => {
-            if (error) return res.json(error, 'Error al consultar el gasto');
-            res.json({ ok: true, results, controller: 'conceptoGasto select' });
-        });
+        gasto = await pool.query(consultaGasto, [id]);
+        if(!gasto.length)
+            return res.json({ ok: false, mensaje: 'No existe el gasto' });
+        res.json({ ok: true, body: gasto[0], mensaje: '' });
     },
 
     update: async(req, res) => {
@@ -86,7 +86,7 @@ module.exports = {
 
         try {
             const existe = await pool.query(buscarSolicitudG, [idSolViatico]);
-            if (existe.length == 0)
+            if (!existe.length)
                 return res.json({ ok: false, mensaje: 'El gasto no puede ser modificado actualmente' });
             var valuesGasto = {
                 dia: dias,
@@ -109,7 +109,7 @@ module.exports = {
         if (cuantos.length <= 1)
             return res.json({ ok: false, mensaje: 'El viatico no puede quedar sin gastos o no tiene gastos actualmente' });
         const verificar = await pool.query('SELECT * FROM solicitud_viatico WHERE id = ? AND (status = 0 OR status = 2 OR status = 4)', [req.body.idV]);
-        if (verificar.length == 0)
+        if (!verificar.length)
             return res.json({ ok: false, mensaje: 'El gasto no puede ser eliminado actualmente' });
         pool.query('DELETE FROM gasto WHERE id = ?', [req.body.id], (error, results) => {
             if (error) return res.json(error);

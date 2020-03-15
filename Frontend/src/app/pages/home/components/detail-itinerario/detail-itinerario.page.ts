@@ -13,7 +13,7 @@ export class DetailItinerarioPage implements OnInit {
 
   modificarDisabled: Boolean = true;
 
-  id_comision: number;
+  id_informe: number;
 
   comision = {
     folio: Number,
@@ -79,12 +79,12 @@ export class DetailItinerarioPage implements OnInit {
                 });
   }
   ionViewWillEnter() {
-    this.id_comision = this.navParams.get('id_comision');
-    this.getInforme();
+    this.id_informe = this.navParams.get('id_informe');
+    this.getItinerario();
   }
 
   ngOnInit() {
-    this.getInforme();
+    this.getItinerario();
   }
 
   async myDismiss() {
@@ -93,9 +93,9 @@ export class DetailItinerarioPage implements OnInit {
     await this.modalController.dismiss(result);
   }
   
-  async getInforme() {
+  async getItinerario() {
     try {
-      const resp = await this.auth.getInforme({id_solicitud_comision: this.id_comision}).toPromise();
+      const resp = await this.auth.getItinerario(this.id_informe);
       // tslint:disable-next-line
       if (resp['ok']) {
         console.log(resp);
@@ -128,7 +128,7 @@ export class DetailItinerarioPage implements OnInit {
       } else {
         this.presentToast(resp);
       }
-    this.getInforme();
+    this.getItinerario();
   }
 
   closeModal() {

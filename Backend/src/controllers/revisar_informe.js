@@ -71,8 +71,8 @@ module.exports = {
                     if (errorModificar) return res.json({ ok: false, mensaje: errorModificar });
                     if (modificarInforme.affectedRows < 1) return res.json({ ok: false, mensaje: "No se acepto el informe" });
                 });
-                pool.query('UPDATE solicitud_comision SET ? WHERE id = ?',[{status: 6},verificarInforme.id_solicitud_comision]);
-                pool.query('UPDATE solicitud_viatico SET ? WHERE id = ?',[{status: 7},verificarInforme.id_solicitud_viatico]);
+                pool.query('UPDATE solicitud_comision SET ? WHERE id = ?',[{status: 6},verificarInforme[0].id_solicitud_comision]);
+                pool.query('UPDATE solicitud_viatico SET ? WHERE id = ?',[{status: 7},verificarInforme[0].id_solicitud_viatico]);
                 return res.json({ ok: true, mensaje: "Informe modificado exitosamente" });
             }
             res.json({ ok: false, mensaje: "No se hizo la revision correcta" });

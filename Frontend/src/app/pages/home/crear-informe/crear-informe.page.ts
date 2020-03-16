@@ -195,7 +195,7 @@ export class CrearInformePage implements OnInit {
           component: DetailFacturaPage,
           cssClass: 'modal-class',
           componentProps: {
-            id_comision: +this.activatedRoute.snapshot.paramMap.get('id')
+            id_informe: this.idInforme
            }
         });
     modal.onDidDismiss().then((detail: OverlayEventDetail) => {
@@ -213,7 +213,7 @@ export class CrearInformePage implements OnInit {
           component: DetailItinerarioPage,
           cssClass: 'modal-class',
           componentProps: {
-            id_comision: +this.activatedRoute.snapshot.paramMap.get('id')
+            id_informe: this.idInforme
            }
         });
     modal.onDidDismiss().then((detail: OverlayEventDetail) => {
@@ -231,7 +231,7 @@ export class CrearInformePage implements OnInit {
           component: DetailAgendaPage,
           cssClass: 'modal-class',
           componentProps: {
-            id_comision: +this.activatedRoute.snapshot.paramMap.get('id')
+            id_informe: this.idInforme
            }
         });
     modal.onDidDismiss().then((detail: OverlayEventDetail) => {

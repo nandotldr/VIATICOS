@@ -1,9 +1,60 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>detail-agenda</ion-title>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="closeModal()"><ion-icon name="arrow-back"></ion-icon></ion-button>
+      <ion-title>
+        DETALLE AGENDA
+      </ion-title>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-card>
+    <ion-toolbar>
+      <ion-title>Agenda</ion-title>
+    </ion-toolbar>
+    <ion-grid>
+      <ion-row class="bg-row">
+        <ion-col>
+          <ion-label>Fecha</ion-label>
+        </ion-col>
+        <ion-col>
+          <ion-label>Hora Inicio</ion-label>
+        </ion-col>
+        <ion-col>
+          <ion-label>Hora Fin</ion-label>
+        </ion-col>
+        <ion-col>
+          <ion-label>Actividad</ion-label>
+        </ion-col>
+        <ion-col>
+          <ion-label>Acciones</ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngFor="let agenda of agendas">
+        <ion-col>
+          <ion-input value="{{ agenda.dia | date }}"></ion-input>
+        </ion-col>
+        <ion-col>
+          <ion-input value="{{ agenda.hora_inicio }}"></ion-input>
+        </ion-col>
+        <ion-col>
+          <ion-input value="{{ agenda.hora_fin }}"></ion-input>
+        </ion-col>
+        <ion-col>
+          <ion-input value="{{ agenda.actividad }}"></ion-input>
+        </ion-col>
+        <ion-col>
+          <ion-button (click)="modifyAgenda(agenda)">
+            <ion-icon name="brush"></ion-icon>
+          </ion-button>
+          <ion-button (click)="deleteAgenda(agenda)">
+            <ion-icon name="close"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
 
 </ion-content>

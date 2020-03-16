@@ -27,6 +27,7 @@ export class ViaticoInformacionPage implements OnInit {
     this.idComision = this.navParams.get('id_comision');
     this.getSolicitudViatico(this.idComision);
   }
+
   async getSolicitudViatico(idComision)
   {
     try {

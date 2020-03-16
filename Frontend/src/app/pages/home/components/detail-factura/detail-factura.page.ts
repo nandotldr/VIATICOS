@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController, NavParams, ToastController, AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-detail-factura',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DetailFacturaPage implements OnInit {
 
-  constructor() { }
+  constructor(
+      private modalController: ModalController
+  ) { }
 
   ngOnInit() {
+  }
+
+  closeModal() {
+    this.modalController.dismiss();
   }
 
 }

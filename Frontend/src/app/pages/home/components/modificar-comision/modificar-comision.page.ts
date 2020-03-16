@@ -103,7 +103,7 @@ export class ModificarComisionPage implements OnInit {
       } else {
         this.presentToast(resp);
       }
-    this.closeModal();
+      this.closeModal();
   }
 
   async modifyPrograma(programa){
@@ -116,7 +116,7 @@ export class ModificarComisionPage implements OnInit {
       } else {
         this.presentToast(resp);
       }
-    this.closeModal();
+      this.closeModal();
   }
 
   async deletePrograma(programa){

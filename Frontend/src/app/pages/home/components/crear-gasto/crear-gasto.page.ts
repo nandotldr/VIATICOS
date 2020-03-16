@@ -2,7 +2,7 @@ import { ToastController, ModalController, NavParams, AlertController } from '@i
 import { AuthService } from 'src/app/services/auth.service';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import {formatDate} from "@angular/common";
+import {formatDate} from '@angular/common';
 
 @Component({
   selector: 'app-crear-gasto',

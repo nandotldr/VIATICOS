@@ -129,7 +129,7 @@ export class ViaticoInformacionPage implements OnInit {
   async gastosAprobados( gastos ) {
     this.enviarEnabled = true;
     gastos.forEach( gasto => {
-      if (gasto.estatus !== 1) {
+      if (gasto.estatus !== 3) {
         this.enviarEnabled = false;
       }
     });

@@ -126,8 +126,9 @@
             </ion-col>
             <ion-col>
               <ion-label *ngIf="gasto.estatus == 0" >Enviado</ion-label>
-              <ion-input *ngIf="gasto.estatus == 1" >Aceptado</ion-input>
-              <ion-input *ngIf="gasto.estatus == 2" >Rechazado</ion-input>
+              <ion-label *ngIf="gasto.estatus == 1" >En Proceso</ion-label>
+              <ion-label *ngIf="gasto.estatus == 2" >Rechazado</ion-label>
+              <ion-label *ngIf="gasto.estatus == 3" >Aceptado</ion-label>
             </ion-col>
             <ion-col>
               <ion-button *ngIf="gasto.estatus == 2" (click)="deleteGasto(gasto)" class="center"><ion-icon name="close"></ion-icon></ion-button>

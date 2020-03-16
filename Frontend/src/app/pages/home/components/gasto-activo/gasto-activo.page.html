@@ -1,9 +1,81 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>gasto-activo</ion-title>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="closeModal()"><ion-icon name="arrow-back"></ion-icon></ion-button>
+      <ion-title>
+        Informacion del Gasto
+      </ion-title>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-card>
+
+    <ion-item>
+      <ion-label>Id Comisión</ion-label>
+      <ion-label>{{ gasto.id_comision }}</ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Nombre de la Comisión</ion-label>
+      <ion-label>{{ gasto.nombre_comision }}</ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Id Gasto</ion-label>
+      <ion-label>{{ gasto.id_gasto }}</ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Fecha Elaboracion</ion-label>
+      <ion-label>{{ gasto.dia | date }}</ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Rubro</ion-label>
+      <ion-label>{{ gasto.rubro }}</ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Cantidad</ion-label>
+      <ion-label >{{ gasto.cantidad | currency}}</ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Numero Proyecto</ion-label>
+      <ion-label>{{ gasto.proyecto }}</ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Estado</ion-label>
+      <ion-label *ngIf="gasto.estatus == 0">Guardado</ion-label>
+      <ion-label *ngIf="gasto.estatus == 1">En Proceso</ion-label>
+      <ion-label *ngIf="gasto.estatus == 2">Rechazado</ion-label>
+      <ion-label *ngIf="gasto.estatus == 3">Aceptado</ion-label>
+    </ion-item>
+
+    <ion-item *ngIf="gasto.nombre_revisado">
+      <ion-label>Nombre Revisado</ion-label>
+      <ion-label>{{ gasto.nombre_revisado }}</ion-label>
+    </ion-item>
+    <ion-item *ngIf="gasto.fecha_revisado">
+      <ion-label>Fecha Revisado</ion-label>
+      <ion-label >{{ gasto.fecha_revisado | date }}</ion-label>
+    </ion-item>
+    <ion-item *ngIf="gasto.nombre_aceptado">
+      <ion-label>Nombre Aceptado</ion-label>
+      <ion-label>{{ gasto.nombre_aceptado }}</ion-label>
+    </ion-item>
+    <ion-item *ngIf="gasto.fecha_aceptado">
+      <ion-label>Fecha Aceptado</ion-label>
+      <ion-label >{{ gasto.fecha_aceptado | date }}</ion-label>
+    </ion-item>
+
+    <ion-item *ngIf="gasto.comentario_rechazo">
+      <ion-label>Comentario Rechazo</ion-label>
+      <ion-label>{{gasto.comentario_rechazo}}</ion-label>
+    </ion-item>
+  </ion-card>
 
 </ion-content>

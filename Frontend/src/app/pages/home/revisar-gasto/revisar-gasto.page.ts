@@ -70,7 +70,7 @@ export class RevisarGastoPage implements OnInit {
               gasto.estatus = 3;
             }
             gasto.comentario_rechazo = '';
-            this.revisarGasto(gasto);
+            this.aprobarGasto(gasto);
           }
         },
         {
@@ -107,7 +107,7 @@ export class RevisarGastoPage implements OnInit {
               gasto.estatus = 2;
             }
             gasto.comentario_rechazo = data.name1;
-            this.revisarGasto(gasto);
+            this.rechazarGasto(gasto);
           }
         },
         {
@@ -125,8 +125,17 @@ export class RevisarGastoPage implements OnInit {
     alert.onDidDismiss().then(() => this.getRevisarGasto());
   }
 
-  async revisarGasto(gasto) {
-    const resp1 = await this.auth.revisarGasto(gasto);
+  async aprobarGasto(gasto) {
+    const resp1 = await this.auth.aprobarGasto(gasto);
+    if (resp1) {
+      this.presentToastSuccess();
+    } else {
+      this.presentToast();
+    }
+  }
+
+  async rechazarGasto(gasto) {
+    const resp1 = await this.auth.rechazarGasto(gasto);
     if (resp1) {
       this.presentToastSuccess();
     } else {

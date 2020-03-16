@@ -429,12 +429,26 @@ export class AuthService {
       }));
   }
 
+  getOneGasto(idGasto) {
+      return this.http.get(`${this.API_URL}/gasto/select/${idGasto}`).pipe(
+          map(response => {
+              if(response['ok']){
+                  return response['body'];
+              } else {
+                  return response['ok'];
+              }
+          })
+      ).toPromise();
+  }
+
+
+
   deleteGasto(
-    gasto: { 
+    gasto: {
       id: Number,
       idV: Number
     }
-  ){
+  ) {
   return this.http.request('delete',`${this.API_URL}/gasto/`,{body: gasto}).pipe(
       tap(resp => {
         console.log(resp);
@@ -726,7 +740,7 @@ return this.http.request('delete',`${this.API_URL}/programa_trabajo/`,{body: pro
     }
 
     getRevisarGasto() {
-        return this.http.get(`${this.API_URL}/gasto/revisar`).pipe(
+        return this.http.get(`${this.API_URL}/gasto/revisar/gasto`).pipe(
             map(response => {
                 if(response['ok']){
                     console.log(response);
@@ -738,13 +752,34 @@ return this.http.request('delete',`${this.API_URL}/programa_trabajo/`,{body: pro
         ).toPromise();
     }
 
-    revisarGasto(
+    aprobarGasto(
         gasto: {
-            id: Number,
+            id_gasto: Number,
         }
     ){
-        return this.http.patch(`${this.API_URL}/gasto/revisar`,{
-            id: gasto.id,
+        return this.http.patch(`${this.API_URL}/gasto/aprobar`,{
+            id: gasto.id_gasto,
+        }).pipe(
+            map(response => {
+                console.log(response);
+                if(response['ok']){
+                    return response['body'];
+                } else {
+                    return response['ok'];
+                }
+            })
+        ).toPromise();
+    }
+
+    rechazarGasto(
+        gasto: {
+            id_gasto: Number,
+            comentario_rechazo: String,
+        }
+    ){
+        return this.http.patch(`${this.API_URL}/gasto/rechazar`,{
+            id: gasto.id_gasto,
+            comentario_rechazo: gasto.comentario_rechazo
         }).pipe(
             map(response => {
                 console.log(response);

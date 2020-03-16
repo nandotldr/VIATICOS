@@ -35,9 +35,8 @@ export class ProyectoActivoPage implements OnInit {
 
     if (resp) {
       this.proyect = resp;
-     
     } else {
-      console.log('no jalo');
+      console.log('Error');
     }
 
   }

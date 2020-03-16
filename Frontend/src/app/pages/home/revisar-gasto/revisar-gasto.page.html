@@ -34,11 +34,11 @@
         </tr>
         <tr *ngFor="let gasto of gastos">
           <td>{{ gasto.id_comision }}</td>
-          <td>{{ gasto.fecha_solicitud | date }}</td>
-          <td>{{ gasto.nombre_solicitante }}</td>
+          <td>{{ gasto.dia | date }}</td>
+          <td>{{ gasto.nombre }}</td>
           <td>{{ gasto.rubro }}</td>
           <td>{{ gasto.cantidad | currency }}</td>
-          <td>{{ gasto.numero_proyecto }}</td>
+          <td>{{ gasto.proyecto }}</td>
           <td text-center><ion-button (click)="openModal(gasto.id_gasto)"><ion-icon name="apps"></ion-icon></ion-button></td>
           <td>
             <ion-button (click)="alertConfirm(gasto)"><ion-icon name="checkmark-circle-outline"></ion-icon></ion-button>

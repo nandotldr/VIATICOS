@@ -107,6 +107,17 @@ export class ViaticoInformacionPage implements OnInit {
     // alert.onDidDismiss().then(() => this.get());
   }
 
+  async alertRechazo(rechazo) {
+    const alert = await this.alertController.create({
+      header: 'Gasto Rechazado',
+      subHeader: 'Razón:',
+      message: rechazo,
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
+
   async deleteGasto(gasto){
     gasto.idV = this.viatico.folio;
       const resp = await this.auth.deleteGasto(gasto);

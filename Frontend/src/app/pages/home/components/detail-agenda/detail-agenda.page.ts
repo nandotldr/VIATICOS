@@ -43,9 +43,9 @@ export class DetailAgendaPage implements OnInit {
 /*
   async modifyAgenda(agenda){
     console.log(agenda);
-    agenda.id_programa = programa.id;
-    programa.id_solicitud_comision = this.comi.folio;
-    const resp = await this.auth.modifyPrograma(programa);
+    // agenda.id_programa = programa.id;
+    // agenda.id_solicitud_comision = this.comi.folio;
+    // const resp = await this.auth.modifyAgenda(agenda);
     if (resp) {
       this.presentToast(resp);
     } else {
@@ -54,16 +54,16 @@ export class DetailAgendaPage implements OnInit {
     this.closeModal();
   }
 
-  async deletePrograma(programa){
-    programa.id_solicitud_comision = this.comi.folio;
-    programa.id_programa = programa.id;
-    const resp = await this.auth.deleteAgenda(programa);
+  async deleteAgenda(agenda){
+    // agenda.id_solicitud_comision = this.comi.folio;
+    // agenda.id_programa = programa.id;
+    // const resp = await this.auth.deleteAgenda(agenda);
     if (resp) {
       this.presentToast(resp);
     } else {
       this.presentToast(resp);
     }
-    this.getComision(this.comision);
+    this.getAgenda(this.agendas);
   }
 */
   async presentToast(message: string) {

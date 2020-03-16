@@ -65,7 +65,7 @@ module.exports = {
 
     selectOne: async (req, res) => {
         const { id } = req.params;
-        var consultaGasto = 'SELECT * FROM gasto WHERE id = ?';
+        var consultaGasto = 'SELECT gasto.dia, gasto.estatus, gasto.id as id_gasto,gasto.rubro, gasto.cantidad, gasto.proyecto, c.id as id_comision, c.nombre_comision,concat(u.nombres," ",u.apellidos) as nombre FROM solicitud_comision AS c  INNER JOIN usuario as u ON u.codigo=c.id_usuario INNER JOIN solicitud_viatico ON c.id = solicitud_viatico.id_solicitud_comision INNER JOIN gasto ON solicitud_viatico.id = gasto.id_solicitud_viatico WHERE gasto.id = ?';
         gasto = await pool.query(consultaGasto, [id]);
         if(!gasto.length)
             return res.json({ ok: false, mensaje: 'No existe el gasto' });
@@ -159,12 +159,11 @@ module.exports = {
             //si usuario =A modificar fecha_aceptado, nombre aceptado, comentario rechazo
             if (req.user.tipo_usuario == 'F' && verificarGasto[0].estatus == 0) {
                 pool.query(modificarGasto, [{
-                    fecha_modificacion: new Date(),
                     fecha_revisado: new Date(),
                     nombre_revisado: usuario[0].nombre,
                     comentario_rechazo: req.body.comentario_rechazo,
                     estatus: 1,
-                }, req.body.id_comision], (errorModificar, modificarGasto) => {
+                }, req.body.id], (errorModificar, modificarGasto) => {
                     if (errorModificar) return res.json({ ok: false, mensaje: errorModificar });
                     if (modificarGasto.affectedRows < 1) return res.json({ ok: false, mensaje: "No se acepto la comision" });
 
@@ -173,14 +172,12 @@ module.exports = {
                 return res.json({ ok: true, mensaje: "Gasto aceptado" });
 
             } else if (req.user.tipo_usuario == 'A' && verificarGasto[0].estatus == 1) {
-                console.log("usuario A");
                 pool.query(modificarGasto, [{
-                    fecha_modificacion: new Date(),
                     fecha_aceptado: new Date(),
                     nombre_aceptado: usuario[0].nombre,
                     comentario_rechazo: req.body.comentario_rechazo,
                     estatus: 3,
-                }, req.body.id_comision], (errorModificar, modificarGasto) => {
+                }, req.body.id], (errorModificar, modificarGasto) => {
                     if (errorModificar) return res.json({ ok: false, mensaje: errorModificar });
                     if (modificarGasto.affectedRows < 1) return res.json({ ok: false, mensaje: "No se acepto la comision" });
 
@@ -188,7 +185,7 @@ module.exports = {
                 return res.json({ ok: true, mensaje: "Gasto aceptado" });
 
             }
-            res.json({ ok: false, mensaje: "No se hizo la revision correcta" });
+            return res.json({ ok: false, mensaje: "No se hizo la revision correcta" });
         } catch (error) {
             return res.json({ ok: false, mensaje: "Error inesperado" });
         }
@@ -209,12 +206,11 @@ module.exports = {
             //si usuario =A modificar fecha_aceptado, nombre aceptado, comentario rechazo
             if (req.user.tipo_usuario == 'F' && verificarGasto[0].estatus == 0) {
                 pool.query(modificarGasto, [{
-                    fecha_modificacion: new Date(),
                     fecha_revisado: new Date(),
                     nombre_revisado: usuario[0].nombre,
                     comentario_rechazo: req.body.comentario_rechazo,
                     estatus: 2,
-                }, req.body.id_comision], (errorModificar, modificarGasto) => {
+                }, req.body.id], (errorModificar, modificarGasto) => {
                     if (errorModificar) return res.json({ ok: false, mensaje: errorModificar });
                     if (modificarGasto.affectedRows < 1) return res.json({ ok: false, mensaje: "No se acepto la comision" });
 
@@ -225,12 +221,11 @@ module.exports = {
             } else if (req.user.tipo_usuario == 'A' && verificarGasto[0].estatus == 1) {
                 console.log("usuario A");
                 pool.query(modificarGasto, [{
-                    fecha_modificacion: new Date(),
                     fecha_aceptado: new Date(),
                     nombre_aceptado: usuario[0].nombre,
                     comentario_rechazo: req.body.comentario_rechazo,
                     estatus: 2,
-                }, req.body.id_comision], (errorModificar, modificarGasto) => {
+                }, req.body.id], (errorModificar, modificarGasto) => {
                     if (errorModificar) return res.json({ ok: false, mensaje: errorModificar });
                     if (modificarGasto.affectedRows < 1) return res.json({ ok: false, mensaje: "No se acepto la comision" });
 

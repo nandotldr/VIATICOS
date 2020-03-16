@@ -86,7 +86,7 @@ export class RevisarViaticoPage implements OnInit {
           handler: () => {
             if(this.auth.userType == 'A')
             {
-              viatico.status = 5;
+              viatico.status = 6;
             }
             if(this.auth.userType == 'F')
             {

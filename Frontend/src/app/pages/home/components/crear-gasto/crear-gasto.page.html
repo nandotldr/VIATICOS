@@ -23,38 +23,31 @@
       </ion-item>
        
       <ion-item>
-        <ion-label position="floating">Dia</ion-label>
-        <ion-datetime displayFormat="MMM/DD/YYYY" max="3000-12-09" value="{{myDate}}" formControlName="dia"></ion-datetime>
+        <ion-label position="floating">Fecha Solicitud</ion-label>
+        <ion-datetime displayFormat="MMM/DD/YYYY" max="3000-12-09" value="{{myDate}}" formControlName="dia" readonly></ion-datetime>
       </ion-item>
 
       <ion-item>
-        <ion-label>Alimentacion: $</ion-label>
-        <ion-input placeholder="Ingresa un monto" type="number" formControlName="alimentacion"></ion-input>
+        <ion-label>Rubro:</ion-label>
+        <ion-select formControlName="rubro">
+          <ion-label>Rubro:</ion-label>
+          <ion-select-option>Alimentacion</ion-select-option>
+          <ion-select-option>Hospedaje</ion-select-option>
+          <ion-select-option>Transporte Local</ion-select-option>
+          <ion-select-option>Transporte Foraneo</ion-select-option>
+          <ion-select-option>Combustible</ion-select-option>
+          <ion-select-option>Otros</ion-select-option>
+        </ion-select>
       </ion-item>
 
       <ion-item>
-        <ion-label>Hospedaje: $</ion-label>
-        <ion-input placeholder="Ingresa un monto" type="number" formControlName="hospedaje"></ion-input>
+        <ion-label>Monto: $</ion-label>
+        <ion-input placeholder="Ingresa un monto" type="number" formControlName="cantidad"></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-label>Transporte Local: $</ion-label>
-        <ion-input placeholder="Ingresa un monto" type="Number" formControlName="transporteLocal"></ion-input>
-      </ion-item>
-
-      <ion-item>
-        <ion-label>Transporte Foraneo: $</ion-label>
-        <ion-input placeholder="Ingresa un monto" type="number" formControlName="transporteForaneo"></ion-input>
-      </ion-item>
-
-      <ion-item>
-        <ion-label>Combustible: $</ion-label>
-        <ion-input placeholder="Ingresa un monto" type="number" formControlName="combustible"></ion-input>
-      </ion-item>
-
-      <ion-item>
-        <ion-label>Otros: $</ion-label>
-        <ion-input placeholder="Ingresa un monto" type="number" formControlName="otros"></ion-input>
+        <ion-label>Número de Proyecto</ion-label>
+        <ion-input placeholder="Ingresa un codigo de proyecto" type="text" formControlName="proyecto"></ion-input>
       </ion-item>
 
       <ion-button type="submit" color="light" >Guardar Gastos</ion-button>

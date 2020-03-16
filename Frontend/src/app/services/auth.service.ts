@@ -396,25 +396,21 @@ export class AuthService {
     });
   }
 
-  createGasto(gasto: { 
-    id_solicitud_viatico: Number,
-    dia: string,
-    alimentacion: Number,
-    hospedaje: Number,
-    transporteLocal: Number,
-    transporteForaneo: Number,
-    combustible: Number,
-    otros: Number
+  createGasto(gasto: {
+      id_solicitud_viatico: Number,
+      dia: string,
+      rubro: string,
+      cantidad: Number,
+      proyecto: string,
+      estatus: Number
   }) {
-    return this.http.post(`${this.API_URL}/gasto`,{
+      return this.http.post(`${this.API_URL}/gasto`,{
       id_solicitud_viatico: gasto.id_solicitud_viatico,
       dia: formatDate(gasto.dia, 'yyyy-MM-dd', 'en'),
-      alimentacion: gasto.alimentacion,
-      hospedaje: gasto.hospedaje,
-      transportelocal: gasto.transporteLocal,
-      transporteforaneo: gasto.transporteForaneo,
-      combustible: gasto.combustible,
-      otros: gasto.otros
+      rubro: gasto.rubro,
+      cantidad: gasto.cantidad,
+      proyecto: gasto.proyecto,
+      estatus: gasto.estatus,
     })/*.pipe(
       map(response => {
         if(response['ok']){
@@ -433,12 +429,26 @@ export class AuthService {
       }));
   }
 
+  getOneGasto(idGasto) {
+      return this.http.get(`${this.API_URL}/gasto/select/${idGasto}`).pipe(
+          map(response => {
+              if(response['ok']){
+                  return response['body'];
+              } else {
+                  return response['ok'];
+              }
+          })
+      ).toPromise();
+  }
+
+
+
   deleteGasto(
-    gasto: { 
+    gasto: {
       id: Number,
       idV: Number
     }
-  ){
+  ) {
   return this.http.request('delete',`${this.API_URL}/gasto/`,{body: gasto}).pipe(
       tap(resp => {
         console.log(resp);
@@ -716,7 +726,7 @@ return this.http.request('delete',`${this.API_URL}/programa_trabajo/`,{body: pro
   ).toPromise();
     }
 
-    getRevisarProyecto(){
+    getRevisarProyecto() {
         return this.http.get(`${this.API_URL}/revisar_viatico_proyecto`).pipe(
             map(response => {
                 if(response['ok']){
@@ -729,8 +739,61 @@ return this.http.request('delete',`${this.API_URL}/programa_trabajo/`,{body: pro
         ).toPromise();
     }
 
+    getRevisarGasto() {
+        return this.http.get(`${this.API_URL}/gasto/revisar/gasto`).pipe(
+            map(response => {
+                if(response['ok']){
+                    console.log(response);
+                    return response['body'];
+                } else {
+                    return response['ok'];
+                }
+            })
+        ).toPromise();
+    }
+
+    aprobarGasto(
+        gasto: {
+            id_gasto: Number,
+        }
+    ){
+        return this.http.patch(`${this.API_URL}/gasto/aprobar`,{
+            id: gasto.id_gasto,
+        }).pipe(
+            map(response => {
+                console.log(response);
+                if(response['ok']){
+                    return response['body'];
+                } else {
+                    return response['ok'];
+                }
+            })
+        ).toPromise();
+    }
+
+    rechazarGasto(
+        gasto: {
+            id_gasto: Number,
+            comentario_rechazo: String,
+        }
+    ){
+        return this.http.patch(`${this.API_URL}/gasto/rechazar`,{
+            id: gasto.id_gasto,
+            comentario_rechazo: gasto.comentario_rechazo
+        }).pipe(
+            map(response => {
+                console.log(response);
+                if(response['ok']){
+                    return response['body'];
+                } else {
+                    return response['ok'];
+                }
+            })
+        ).toPromise();
+    }
+
     deleteViatico(
-      viatico: { 
+      viatico: {
         id: Number,
         idV: Number
       }

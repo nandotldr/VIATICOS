@@ -4,51 +4,46 @@ import { ModalController, NavParams, ToastController } from '@ionic/angular';
 import { AuthService } from '../../../../services/auth.service';
 
 @Component({
-  selector: 'app-proyecto-activo',
-  templateUrl: './proyecto-activo.page.html',
-  styleUrls: ['./proyecto-activo.page.scss'],
+  selector: 'app-gasto-activo',
+  templateUrl: './gasto-activo.page.html',
+  styleUrls: ['./gasto-activo.page.scss'],
 })
-export class ProyectoActivoPage implements OnInit {
+export class GastoActivoPage implements OnInit {
 
-  proyecto = '1';
-  proyect = '';
-  fgModify: FormGroup;
+  gasto: any;
+
   constructor(private modalController: ModalController,
               private navParams: NavParams,
               private auth: AuthService,
-              private toastController: ToastController,
-              ) {
-                this.ionViewWillEnter();
+              private toastController: ToastController
+  ) {
+    this.ionViewWillEnter();
   }
+
   ionViewWillEnter() {
-    this.proyecto = this.navParams.get('proyecto');
-    this.getProyecto(this.proyecto);
+    this.gasto = this.navParams.get('gasto');
+    this.getGasto(this.gasto);
   }
 
-  async myDismiss() {
-    const result: Date = new Date();
-
-    await this.modalController.dismiss(result);
-  }
-  async getProyecto(proyecto_id) {
-    const resp = await this.auth.getProyecto(proyecto_id);
+  // tslint:disable-next-line:variable-name
+  async getGasto(gasto_id) {
+    const resp = await this.auth.getOneGasto(gasto_id);
 
     if (resp) {
-      this.proyect = resp;
+      this.gasto = resp;
     } else {
       console.log('Error');
     }
-
   }
 
   closeModal() {
     this.modalController.dismiss();
   }
-  ngOnInit() {
 
+  ngOnInit() {
   }
 
-  async presentToast() { 
+  async presentToast() {
     const toast = await this.toastController.create({
       message: 'Datos no Validos',
       duration: 2000,
@@ -65,5 +60,4 @@ export class ProyectoActivoPage implements OnInit {
     });
     toast.present();
   }
-
 }

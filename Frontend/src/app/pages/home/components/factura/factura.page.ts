@@ -49,6 +49,11 @@ export class FacturaPage implements OnInit {
     toast.present();
   }
 
+  getFactura(event){
+    // this.factura = event.target.files[0];
+    // console.log(this.factura);
+  }
+
   async closeModal() {
     this.modalController.dismiss();
   }

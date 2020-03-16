@@ -2,6 +2,7 @@ import { ToastController, ModalController, NavParams, AlertController } from '@i
 import { AuthService } from 'src/app/services/auth.service';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import {formatDate} from "@angular/common";
 
 @Component({
   selector: 'app-crear-gasto',
@@ -12,6 +13,7 @@ export class CrearGastoPage implements OnInit {
 
   idViatico: Number;
   fgGasto: FormGroup;
+  myDate = formatDate(new Date(), 'yyyy-MM-dd', 'en');
 
   constructor(
     private formBuilder: FormBuilder,
@@ -20,19 +22,17 @@ export class CrearGastoPage implements OnInit {
     private modalController: ModalController,
     private navParams: NavParams,
     public alertController: AlertController
-  ) { 
+  ) {
 
     this.idViatico = this.navParams.get('id_viatico');
 
     this.fgGasto = this.formBuilder.group({
-      id_solicitud_viatico: new FormControl(this.idViatico, [Validators.required]),
-      dia: new FormControl('', [Validators.required]),
-      alimentacion: new FormControl('', [Validators.required]),
-      hospedaje: new FormControl('', [Validators.required]),
-      transporteLocal: new FormControl('', [Validators.required]),
-      transporteForaneo: new FormControl('', [Validators.required]),
-      combustible: new FormControl('', [Validators.required]),
-      otros: new FormControl('', [Validators.required])
+      id_solicitud_viatico: new FormControl(this.idViatico, []),
+      dia: new FormControl(this.myDate, []),
+      rubro: new FormControl('',[Validators.required]),
+      cantidad: new FormControl('',[Validators.required]),
+      proyecto: new FormControl('',[Validators.required]),
+      estatus: new FormControl(0,[])
     });
   }
 
@@ -41,6 +41,7 @@ export class CrearGastoPage implements OnInit {
   }
 
   async createGasto(){
+    console.log(this.fgGasto.value);
     if (this.fgGasto.valid){
       const resp = await this.auth.createGasto(this.fgGasto.value).toPromise();
       if (resp) {

@@ -68,28 +68,22 @@
     <ion-grid>
       <ion-row class="bg-row grid-bot-header">
         <ion-col>
-          <ion-label>Dia</ion-label>
+          <ion-label>Fecha Solicitud</ion-label>
         </ion-col>
         <ion-col>
-          <ion-label>Alimentacion</ion-label>
+          <ion-label>Rubro</ion-label>
         </ion-col>
         <ion-col>
-          <ion-label>Hospedaje</ion-label>
+          <ion-label>Cantidad</ion-label>
         </ion-col>
         <ion-col>
-          <ion-label>Transporte foraneo</ion-label>
+          <ion-label>Numero de Proyecto</ion-label>
         </ion-col>
         <ion-col>
-          <ion-label>Transporte local </ion-label>
+          <ion-label>Estado</ion-label>
         </ion-col>
         <ion-col>
-          <ion-label>Combustible </ion-label>
-        </ion-col>
-        <ion-col>
-          <ion-label>Otros conceptos</ion-label>
-        </ion-col>
-        <ion-col>
-          <ion-label>Total del día</ion-label>
+          <ion-label>Acciones</ion-label>
         </ion-col>
       </ion-row>
       <ion-row *ngFor="let gasto of this.viatic.gastos" class="grid-bot-rows">
@@ -97,36 +91,30 @@
           <ion-label >{{gasto.dia | date}}</ion-label>
         </ion-col>
         <ion-col>
-          <ion-label >{{gasto.alimentacion | currency}}</ion-label>
+          <ion-label >{{gasto.rubro}}</ion-label>
         </ion-col>
         <ion-col>
-          <ion-label >{{gasto.hospedaje | currency}}</ion-label>
+          <ion-label >{{gasto.cantidad | currency}}</ion-label>
         </ion-col>
         <ion-col>
-          <ion-label >{{gasto.transporte_foraneo | currency}}</ion-label>
+          <ion-label >{{gasto.proyecto}}</ion-label>
         </ion-col>
         <ion-col>
-          <ion-label >{{gasto.transporte_local | currency}}</ion-label>
+          <ion-label >{{gasto.estatus}}</ion-label>
         </ion-col>
         <ion-col>
-          <ion-label >{{gasto.combustible | currency}}</ion-label>
-        </ion-col>
-        <ion-col>
-          <ion-label >{{gasto.otros_conceptos | currency}}</ion-label>
-        </ion-col>
-        <ion-col class="total">
-          <ion-label>{{gasto.alimentacion+gasto.hospedaje+gasto.transporte_foraneo+gasto.transporte_local+gasto.combustible+gasto.otros_conceptos | currency}}</ion-label>
+          <ion-button (click)="aceptarGasto(gasto)" class="center"><ion-icon name="checkmark-circle-outline"></ion-icon></ion-button>
+          <ion-button (click)="rechazarGasto(gasto)" class="center"><ion-icon name="close-circle-outline"></ion-icon></ion-button>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col></ion-col>
+        <ion-col>TOTAL:</ion-col>
+        <ion-col>$</ion-col>
         <ion-col></ion-col>
         <ion-col></ion-col>
         <ion-col></ion-col>
         <ion-col></ion-col>
-        <ion-col></ion-col>
-        <ion-col>TOTAL: </ion-col>
-        <ion-col><ion-label>{{totalTotales | currency}}</ion-label></ion-col>
       </ion-row>
     </ion-grid>
   </ion-card>

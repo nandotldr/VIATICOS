@@ -13,6 +13,7 @@ export class ViaticoInformacionPage implements OnInit {
   tieneDatos = false;
   viatico = null;
   totalTotales = 0;
+  enviarEnabled: boolean;
 
   constructor(
     private auth: AuthService,
@@ -24,7 +25,7 @@ export class ViaticoInformacionPage implements OnInit {
 
   async ionViewWillEnter() {
     this.idComision = this.navParams.get('id_comision');
-    this.getSolicitudViatico(this.idComision)
+    this.getSolicitudViatico(this.idComision);
   }
   async getSolicitudViatico(idComision)
   {
@@ -36,6 +37,7 @@ export class ViaticoInformacionPage implements OnInit {
         // tslint:disable-next-line: no-string-literal
         this.viatico = resp['body'];
         this.sumaTotales(this.viatico.gastos);
+        this.gastosAprobados(this.viatico.gastos);
       }
       console.log('respuesta', resp);
     } catch (error) {
@@ -120,11 +122,16 @@ export class ViaticoInformacionPage implements OnInit {
     this.totalTotales = 0;
     gastos.forEach( gasto => {
       this.totalTotales +=
-          gasto.alimentacion +
-          gasto.hospedaje +
-          gasto.transporte_foraneo +
-          gasto.transporte_local +
-          gasto.combustible +
-          gasto.otros_conceptos});
+          gasto.cantidad;
+          });
+  }
+
+  async gastosAprobados( gastos ) {
+    this.enviarEnabled = true;
+    gastos.forEach( gasto => {
+      if (gasto.estatus !== 3) {
+        this.enviarEnabled = false;
+      }
+    });
   }
 }

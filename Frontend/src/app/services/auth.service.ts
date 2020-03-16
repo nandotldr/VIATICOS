@@ -933,9 +933,9 @@ return this.http.request('delete',`${this.API_URL}/programa_trabajo/`,{body: pro
     return this.http.get(`${this.API_URL}/itinerario/${id_informe}`).pipe(
     map(response => {
         if(response['ok']){
-            return response['body'];
+            return response;
         } else {
-            return response['mensaje'];
+            return response;
         }
     })
   ).toPromise();
@@ -946,9 +946,9 @@ return this.http.request('delete',`${this.API_URL}/programa_trabajo/`,{body: pro
     map(response => {
         if(response['ok']){
             console.log(response);
-            return response['body'];
+            return response;
         } else {
-            return response['ok'];
+            return response;
         }
     })
   ).toPromise();
@@ -959,9 +959,9 @@ return this.http.request('delete',`${this.API_URL}/programa_trabajo/`,{body: pro
     map(response => {
         if(response['ok']){
             console.log(response);
-            return response['body'];
+            return response;
         } else {
-            return response['ok'];
+            return response;
         }
     })
   ).toPromise();

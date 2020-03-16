@@ -933,17 +933,16 @@ return this.http.request('delete',`${this.API_URL}/programa_trabajo/`,{body: pro
     return this.http.get(`${this.API_URL}/itinerario/${id_informe}`).pipe(
     map(response => {
         if(response['ok']){
-            console.log(response);
             return response['body'];
         } else {
-            return response['ok'];
+            return response['mensaje'];
         }
     })
   ).toPromise();
   }
 
   getAgenda(id_informe: Number){
-    return this.http.get(`${this.API_URL}/itinerario/${id_informe}`).pipe(
+    return this.http.get(`${this.API_URL}/agenda/${id_informe}`).pipe(
     map(response => {
         if(response['ok']){
             console.log(response);
@@ -956,7 +955,7 @@ return this.http.request('delete',`${this.API_URL}/programa_trabajo/`,{body: pro
   }
 
   getFactura(id_informe: Number){
-    return this.http.get(`${this.API_URL}/itinerario/${id_informe}`).pipe(
+    return this.http.get(`${this.API_URL}/factura/${id_informe}`).pipe(
     map(response => {
         if(response['ok']){
             console.log(response);

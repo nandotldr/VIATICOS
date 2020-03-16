@@ -929,6 +929,44 @@ return this.http.request('delete',`${this.API_URL}/programa_trabajo/`,{body: pro
     ).toPromise();
   }
 
+  getItinerario(id_informe: Number){
+    return this.http.get(`${this.API_URL}/itinerario/${id_informe}`).pipe(
+    map(response => {
+        if(response['ok']){
+            console.log(response);
+            return response['body'];
+        } else {
+            return response['ok'];
+        }
+    })
+  ).toPromise();
+  }
+
+  getAgenda(id_informe: Number){
+    return this.http.get(`${this.API_URL}/itinerario/${id_informe}`).pipe(
+    map(response => {
+        if(response['ok']){
+            console.log(response);
+            return response['body'];
+        } else {
+            return response['ok'];
+        }
+    })
+  ).toPromise();
+  }
+
+  getFactura(id_informe: Number){
+    return this.http.get(`${this.API_URL}/itinerario/${id_informe}`).pipe(
+    map(response => {
+        if(response['ok']){
+            console.log(response);
+            return response['body'];
+        } else {
+            return response['ok'];
+        }
+    })
+  ).toPromise();
+  }
 }
 
 

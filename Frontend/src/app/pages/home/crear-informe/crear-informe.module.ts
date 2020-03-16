@@ -1,3 +1,6 @@
+import { DetailFacturaPageModule } from './../components/detail-factura/detail-factura.module';
+import { DetailAgendaPageModule } from './../components/detail-agenda/detail-agenda.module';
+import { DetailItinerarioPageModule } from './../components/detail-itinerario/detail-itinerario.module';
 import { ItinerarioPageModule } from './../components/itinerario/itinerario.module';
 import { FacturaPageModule } from './../components/factura/factura.module';
 import { NgModule } from '@angular/core';
@@ -20,7 +23,10 @@ import { AgendaPageModule } from '../components/agenda/agenda.module';
     ReactiveFormsModule,
     AgendaPageModule,
     FacturaPageModule,
-    ItinerarioPageModule
+    ItinerarioPageModule,
+    DetailItinerarioPageModule,
+    DetailAgendaPageModule,
+    DetailFacturaPageModule
   ],
   declarations: [CrearInformePage]
 })

@@ -1,3 +1,4 @@
+import { DetailAgendaPage } from './../components/detail-agenda/detail-agenda.page';
 import { ItinerarioPage } from './../components/itinerario/itinerario.page';
 import { OverlayEventDetail } from '@ionic/core';
 import { AgendaPage } from './../components/agenda/agenda.page';
@@ -7,6 +8,8 @@ import { AuthService } from 'src/app/services/auth.service';
 import { ToastController, ModalController, AlertController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { FacturaPage } from '../components/factura/factura.page';
+import { DetailFacturaPage } from '../components/detail-factura/detail-factura.page';
+import { DetailItinerarioPage } from '../components/detail-itinerario/detail-itinerario.page';
 
 @Component({
   selector: 'app-crear-informe',
@@ -71,6 +74,7 @@ export class CrearInformePage implements OnInit {
     try {
       if (this.informeGroup.valid) {
           const { resultados, observaciones } = this.informeGroup.value;
+          this.getInforme();
           const resp = await this.auth.modificarInforme({resultados, observaciones, id_informe: this.idInforme,status: 1}).toPromise();
           console.log(resp);
           // tslint:disable-next-line
@@ -108,6 +112,7 @@ export class CrearInformePage implements OnInit {
           console.log(resp);
           // tslint:disable-next-line
           if (resp['ok']) {
+            this.idInforme = resp['body']['id_informe']
             this.presentAlertGuardar();
             this.puedeContinuar = true;
           } else {
@@ -184,6 +189,60 @@ export class CrearInformePage implements OnInit {
     await modal.present();
   }
 
+  async detalleFactura() {
+    const modal: HTMLIonModalElement =
+        await this.modalController.create({
+          component: DetailFacturaPage,
+          cssClass: 'modal-class',
+          componentProps: {
+            id_comision: +this.activatedRoute.snapshot.paramMap.get('id')
+           }
+        });
+    modal.onDidDismiss().then((detail: OverlayEventDetail) => {
+      if (detail !== null) {
+        // console.log('The result:', detail.data);
+      }
+    });
+
+    await modal.present();
+  }
+
+  async detalleItinerario() {
+    const modal: HTMLIonModalElement =
+        await this.modalController.create({
+          component: DetailItinerarioPage,
+          cssClass: 'modal-class',
+          componentProps: {
+            id_comision: +this.activatedRoute.snapshot.paramMap.get('id')
+           }
+        });
+    modal.onDidDismiss().then((detail: OverlayEventDetail) => {
+      if (detail !== null) {
+        // console.log('The result:', detail.data);
+      }
+    });
+
+    await modal.present();
+  }
+
+  async detalleAgenda() {
+    const modal: HTMLIonModalElement =
+        await this.modalController.create({
+          component: DetailAgendaPage,
+          cssClass: 'modal-class',
+          componentProps: {
+            id_comision: +this.activatedRoute.snapshot.paramMap.get('id')
+           }
+        });
+    modal.onDidDismiss().then((detail: OverlayEventDetail) => {
+      if (detail !== null) {
+        // console.log('The result:', detail.data);
+      }
+    });
+
+    await modal.present();
+  }
+  
   async presentAlertGuardar() {
     const alert = await this.alertController.create({
       header: 'Informe Guardado',

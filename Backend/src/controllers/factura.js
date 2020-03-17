@@ -21,7 +21,8 @@ module.exports = {
     },
 
     selectfactura: (req, res) => {
-        pool.query('SELECT * FROM factura WHERE id_informe_actividades = ?', [req.body.id_informe_actividades], (errorfactura, factura) => {
+        const { id } = req.params;
+        pool.query('SELECT * FROM factura WHERE id_informe_actividades = ?', [id], (errorfactura, factura) => {
             if (errorfactura) return res.json({ ok: false, mensaje: 'No existe esta factura' });
             if (factura.length < 1) return res.json({ ok: false, mensaje: "No existen facturas registradas en este informe" });
 
@@ -38,7 +39,7 @@ module.exports = {
             }
             // Existe la comision
             const informe = await pool.query('SELECT * FROM informe_actividades WHERE id = ?', [req.body.id]);
-            const factura = await pool.query('SELECT archivo_url FROM factura WHERE id = ?', informe[0].id);
+            const factura = await pool.query('SELECT archivo_url FROM factura WHERE id_informe_actividades = ?', informe[0].id);
             if (informe.length === 0) {
                 return res.json({ ok: false, mensaje: 'No existe el informe.' });
             }
@@ -50,7 +51,7 @@ module.exports = {
                 fs.mkdirSync(`public/facturas/${req.body.id}`);
             }
             fs.renameSync(req.file.path, `public/facturas/${req.body.id}/${newFileName}`);
-            // Actuvalizar bd
+            // Actualizar bd
             await pool.query('UPDATE factura SET archivo_url=? WHERE id=?', [newFileName, req.body.id]);
             // Borrar archivo antiguo si existe
             if (fs.existsSync(`public/facturas/${req.body.id}/${currentFile}`)) {

@@ -966,6 +966,150 @@ return this.http.request('delete',`${this.API_URL}/programa_trabajo/`,{body: pro
     })
   ).toPromise();
   }
+
+  deleteAgenda(
+    gasto: {
+      id: Number,
+      id_informe: Number
+    }
+  ) {
+  return this.http.request('delete',`${this.API_URL}/agenda/`,{body: gasto}).pipe(
+      tap(resp => {
+        console.log(resp);
+        if (resp['ok']) {
+          return resp['mensaje'];
+        }
+      }),
+      map(response => {
+        return response['mensaje'];
+      })
+  ).toPromise();
+  }
+
+  deleteItinerario(
+    gasto: {
+      id: Number,
+      id_informe: Number
+    }
+  ) {
+    
+  return this.http.request('delete',`${this.API_URL}/itinerario/`,{body: gasto}).pipe(
+      tap(resp => {
+        console.log(resp);
+        if (resp['ok']) {
+          return resp['mensaje'];
+        }
+      }),
+      map(response => {
+        return response['mensaje'];
+      })
+  ).toPromise();
+  }
+
+  deleteFactura(
+    gasto: {
+      id: Number,
+      id_informe: Number
+    }
+  ) {
+  return this.http.request('delete',`${this.API_URL}/factura/`,{body: gasto}).pipe(
+      tap(resp => {
+        console.log(resp);
+        if (resp['ok']) {
+          return resp['mensaje'];
+        }
+      }),
+      map(response => {
+        return response['mensaje'];
+      })
+  ).toPromise();
+  }
+
+  uploadFactura(
+    factura: {
+      file: File,
+      id: Number
+    }
+  ) {
+    const formData = new FormData();
+    formData.append('archivo', factura.file);
+    formData.append('id', factura.id.toString());
+    return  this.http.post(`${this.API_URL}/factura/subir/factura`,formData).pipe( 
+      map(response => {
+        console.log(response);
+        if(response['ok']){
+          return response;
+        }else{
+          return response['ok'];
+        }
+      })
+    ).toPromise();
+  }
+
+  modifyItinerario(
+    itinerario: {
+      dia: string,
+      origen: string,
+      destino: string,
+      }
+  ){
+    formatDate(itinerario.dia, 'yyyy-MM-dd', 'en')
+    return this.http.put(`${this.API_URL}/itinerario`, itinerario).pipe(
+        tap(resp => {
+          console.log(resp);
+          if (resp['ok']) {
+            return resp;
+          }
+        }),
+        map(response => {
+          return response['ok'];
+        })
+    ).toPromise();
+  }
+
+  modifyFactura(
+    factura: {
+      file: File,
+      id: Number
+    }
+  ){
+    const formData = new FormData();
+    formData.append('archivo', factura.file);
+    formData.append('id', factura.id.toString());
+    return this.http.put(`${this.API_URL}/factura`, formData).pipe(
+        tap(resp => {
+          console.log(resp);
+          if (resp['ok']) {
+            return resp['body'];
+          }
+        }),
+        map(response => {
+          return response['ok'];
+        })
+    ).toPromise();
+  }
+
+  modifyAgenda(
+    agenda: {
+      dia: string,
+      hora_inicio: string,
+      hora_fin: string,
+      actividad: string,
+      }
+  ){
+    return this.http.put(`${this.API_URL}/agenda`, 
+      agenda
+    ).pipe(
+        tap(resp => {
+          console.log(resp);
+          if (resp['ok']) {
+            return resp['body'];
+          }
+        }),
+        map(response => {
+          return response['ok'];
+        })
+    ).toPromise();
+  }
+
 }
-
-

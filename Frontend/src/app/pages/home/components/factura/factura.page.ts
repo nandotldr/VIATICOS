@@ -19,7 +19,8 @@ export class FacturaPage implements OnInit {
     private navParams: NavParams,
     ) {
     this.facturaGroup = this.formBuilder.group({
-      archivo_url: new FormControl('', Validators.required)
+      archivo_url: new FormControl('', Validators.required),
+      archivo:  new FormControl('', Validators.required)
     });
   }
 

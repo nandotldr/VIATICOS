@@ -130,7 +130,7 @@ export class RevisarGastoPage implements OnInit {
     if (resp1) {
       this.presentToastSuccess();
     } else {
-      this.presentToast();
+      //this.presentToast();
     }
   }
 

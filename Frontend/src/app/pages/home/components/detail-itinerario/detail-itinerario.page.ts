@@ -11,42 +11,10 @@ import { formatDate } from '@angular/common';
 })
 export class DetailItinerarioPage implements OnInit {
 
-  modificarDisabled: Boolean = true;
-
   id_informe: number;
 
-  comision = {
-    folio: Number,
-    nombres: String,
-    apellidos: String,
-    area_adscripcion: String,
-    plaza_laboral: String,
-    nss: String,
-    status: Number,
-  };
-  
-  informe: {
-    folio: Number,
-    id_solicitud_comision: String,
-    codigo: Number,
-    resultados: String,
-    observaciones: String,
-    fecha_elaboracion: string,
-    fecha_aprobacion: string,
-    status: Number,
-    nombre_aprobacion: String,
-    nombre_comision: String,
-    objetivo_trabajo: String,
-    nombres: String,
-    agenda?:
-    {
-      dia: string,
-      hora_inicio: string,
-      hora_fin: string,
-      actividad: string,
-      id_informe_actividades: Number
-    }
-    itinerario?:
+  itinerarios:
+  [
     {
       dia: string,
       origen: string,
@@ -54,37 +22,22 @@ export class DetailItinerarioPage implements OnInit {
       id: Number,
       id_informe_actividades: Number
     }
-    facturas?:
-    {
-      archivo_url: string,
-      id: Number,
-      id_informe_actividades: Number
-    }
-  };
+  ];
 
-  fgModify: FormGroup;
   constructor(private modalController: ModalController,
               public  alertController: AlertController,
               private navParams: NavParams,
               private auth: AuthService,
               private toastController: ToastController,
               private formBuilder: FormBuilder) {
-                this.ionViewWillEnter();
-                this.fgModify = this.formBuilder.group({
-                  nombres: new FormControl('', []),
-                  apellidos: new FormControl('', []),
-                  area_adscripcion: new FormControl('', []),
-                  plaza_laboral: new FormControl('', []),
-                  nss: new FormControl('', [])
-                });
+              this.id_informe = this.navParams.get('id_informe');
   }
   ionViewWillEnter() {
-    this.id_informe = this.navParams.get('id_informe');
     this.getItinerario();
   }
 
   ngOnInit() {
-    this.getItinerario();
+    
   }
 
   async myDismiss() {
@@ -99,6 +52,7 @@ export class DetailItinerarioPage implements OnInit {
       // tslint:disable-next-line
       if (resp['ok']) {
         console.log(resp);
+        this.itinerarios = resp['body']
         // tslint:disable-next-line
       }
     } catch (error) {
@@ -106,23 +60,17 @@ export class DetailItinerarioPage implements OnInit {
     }
   }
 
-  async modifyPrograma(programa){
-      console.log(programa);
-      programa.id_programa = programa.id;
-      programa.id_solicitud_comision = this.informe.folio;
-      const resp = await this.auth.modifyPrograma(programa);
-      if (resp) {
-        this.presentToast(resp);
-      } else {
-        this.presentToast(resp);
-      }
+  async modifyItinerario(itinerario){
+    console.log(itinerario);
+      const resp = await this.auth.modifyItinerario(itinerario);
+      this.presentToast(resp['mensaje']);
+
     this.closeModal();
   }
 
-  async deletePrograma(programa){
-    programa.id_solicitud_comision = this.informe.folio;
-    programa.id_programa = programa.id;
-      const resp = await this.auth.deletePrograma(programa);
+  async deleteItinerario(itinerario){
+      itinerario.id_informe = this.id_informe;
+      const resp = await this.auth.deleteItinerario(itinerario);
       if (resp) {
         this.presentToast(resp);
       } else {
@@ -133,18 +81,6 @@ export class DetailItinerarioPage implements OnInit {
 
   closeModal() {
     this.modalController.dismiss();
-  }
-
-  async cancelarSolicitud(comision) {
-    comision.status = -1;
-    comision.destino = 0;
-    const resp = await this.auth.modificarInforme(this.informe).toPromise();
-    if (resp['ok']) {
-      this.presentToast(resp['mensaje']);
-    } else {
-      this.presentToast(resp['mensaje']);
-    }
-  this.closeModal();
   }
 
   async presentToast(message: string) { 
@@ -174,11 +110,6 @@ export class DetailItinerarioPage implements OnInit {
     });
 
     await alert.present();
-  }
-
-  async enableModificar() {
-    console.log("change")
-      this.modificarDisabled = false;
   }
 
 }

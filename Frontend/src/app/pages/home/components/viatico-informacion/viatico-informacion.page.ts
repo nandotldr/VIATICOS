@@ -37,6 +37,7 @@ export class ViaticoInformacionPage implements OnInit {
         this.tieneDatos = true;
         // tslint:disable-next-line: no-string-literal
         this.viatico = resp['body'];
+        console.log(JSON.stringify(this.viatico))
         this.sumaTotales(this.viatico.gastos);
         this.gastosAprobados(this.viatico.gastos);
       }
@@ -87,7 +88,7 @@ export class ViaticoInformacionPage implements OnInit {
 
   async alertConfirm(id_viatico, nombre_invitado, comentarios, status) {
     const alert = await this.alertController.create({
-      header: 'Enviar Viätico',
+      header: 'Enviar Viático',
       message: '¿Está seguro de enviar los datos? Una vez enviados no podrán ser modificados',
       buttons: [
         {

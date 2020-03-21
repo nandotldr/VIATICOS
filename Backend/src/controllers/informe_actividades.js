@@ -1,5 +1,8 @@
 const pool = require('../database');
-
+const puppeteer = require('puppeteer');
+const fs = require("fs");
+const path = require("path");
+const handlebars = require("handlebars");
 /*
  * La información se puede sacar de 
  * req.body, req.get, req.params
@@ -116,5 +119,56 @@ module.exports = {
         } catch (error) {
             return res.json({ ok: false, mensaje: 'Error inesperado' });
         }
+    },
+
+    pdfInforme: async(req, res) => {
+        //pdf
+        const data = {
+            title: "A new Brazilian School",
+            date: "05/12/2018",
+            name: "Rodolfo Luis Marcos",
+            age: 28,
+            birthdate: "12/07/1990",
+            course: "Computer Science",
+            obs: "Graduated in 2014 by Federal University of Lavras, work with Full-Stack development and E-commerce."
+        }
+
+        var templateHtml = fs.readFileSync(path.join(process.cwd(), '/templates/informe_pdf.hbs'), 'utf8');
+        var template = handlebars.compile(templateHtml);
+        var html = template(data);
+        console.log(html);
+
+        var milis = new Date();
+        milis = milis.getTime();
+
+        var pdfPath = path.join('pdf', `${data.name}-${milis}.pdf`);
+
+        var options = {
+            width: '1230px',
+            headerTemplate: "<p></p>",
+            footerTemplate: "<p></p>",
+            displayHeaderFooter: false,
+            margin: {
+                top: "10px",
+                bottom: "30px"
+            },
+            printBackground: true,
+            path: 'uploads/mypdf.pdf'
+        }
+
+        const browser = await puppeteer.launch({
+            args: ['--no-sandbox'],
+            headless: true
+        });
+
+        var page = await browser.newPage();
+        
+        page.setContent(html);
+
+        page.emulateMedia('screen');
+
+        await page.pdf(options);
+        await browser.close();
+        res.json({ ok: true, mensaje: "Informe pdf" });
     }
 }

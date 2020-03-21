@@ -54,7 +54,7 @@ module.exports = {
                 dia: req.body.dia,
                 origen: req.body.origen,
                 destino: req.body.destino,
-            }, req.body.id_itinerario], (errorModificar, modificaritinerario) => {
+            }, req.body.id], (errorModificar, modificaritinerario) => {
                 if (errorModificar) return res.json({ ok: false, mensaje: 'Error al modificar' });
 
                 res.json({ ok: true, modificaritinerario, mensaje: "Itinerario modificado" });

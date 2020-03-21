@@ -11,7 +11,15 @@ import {Observable} from 'rxjs';
 export class DetailAgendaPage implements OnInit {
 
   idInforme;
-  agendas: any;
+  agendas:
+  [
+    {
+      dia: string,
+      hora_inicio: string,
+      hora_fin: string,
+      actividad: string,
+    }
+  ];
 
   constructor(
       private modalController: ModalController,
@@ -40,32 +48,28 @@ export class DetailAgendaPage implements OnInit {
 
   ngOnInit() {
   }
-/*
+
   async modifyAgenda(agenda){
     console.log(agenda);
-    // agenda.id_programa = programa.id;
-    // agenda.id_solicitud_comision = this.comi.folio;
-    // const resp = await this.auth.modifyAgenda(agenda);
+    const resp = await this.auth.modifyAgenda(agenda);
     if (resp) {
-      this.presentToast(resp);
+      this.presentToast(resp['mensaje']);
     } else {
-      this.presentToast(resp);
+      this.presentToast(resp['mensaje']);
     }
     this.closeModal();
   }
 
   async deleteAgenda(agenda){
-    // agenda.id_solicitud_comision = this.comi.folio;
-    // agenda.id_programa = programa.id;
-    // const resp = await this.auth.deleteAgenda(agenda);
+    const resp = await this.auth.deleteAgenda(agenda);
     if (resp) {
       this.presentToast(resp);
     } else {
       this.presentToast(resp);
     }
-    this.getAgenda(this.agendas);
+    this.getAgenda(this.idInforme);
   }
-*/
+
   async presentToast(message: string) {
     const toast = await this.toastController.create({
       message: message,

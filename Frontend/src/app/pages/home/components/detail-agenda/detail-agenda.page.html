@@ -33,14 +33,15 @@
         </ion-col>
       </ion-row>
       <ion-row *ngFor="let agenda of agendas">
+
         <ion-col>
-          <ion-input value="{{ agenda.dia | date }}"></ion-input>
+          <ion-datetime displayFormat="MMM/DD/YYYY" max="3000-12-09" [(ngModel)]="agenda.dia"></ion-datetime>
         </ion-col>
         <ion-col>
-          <ion-input value="{{ agenda.hora_inicio }}"></ion-input>
+          <ion-datetime displayFormat="h:mm a" max="3000-12-09" [(ngModel)]="agenda.hora_inicio"></ion-datetime>
         </ion-col>
         <ion-col>
-          <ion-input value="{{ agenda.hora_fin }}"></ion-input>
+          <ion-datetime displayFormat="h:mm a" max="3000-12-09" [(ngModel)]="agenda.hora_fin"></ion-datetime>
         </ion-col>
         <ion-col>
           <ion-input value="{{ agenda.actividad }}"></ion-input>

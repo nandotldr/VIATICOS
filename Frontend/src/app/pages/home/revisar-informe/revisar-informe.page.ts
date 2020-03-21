@@ -69,7 +69,16 @@ export class RevisarInformePage implements OnInit {
 
   async presentToastSuccess() {
     const toast = await this.toastController.create({
-      message: 'Usuario Modificado.',
+      message: 'Datos Modificados.',
+      duration: 2000,
+      position: 'bottom'
+    });
+    toast.present();
+  }
+
+  async presentToastPDF() {
+    const toast = await this.toastController.create({
+      message: 'Generando Informe PDF',
       duration: 2000,
       position: 'bottom'
     });
@@ -84,12 +93,11 @@ export class RevisarInformePage implements OnInit {
         {
           text: 'Si',
           handler: () => {
-            if(this.auth.userType == 'A')
-            {
+            if (this.auth.userType === 'A') {
               informe.status = 6;
+              this.generarPDF();
             }
-            if(this.auth.userType == 'F')
-            {
+            if (this.auth.userType === 'F') {
               informe.status = 3;
             }
             informe.comentario_rechazo = '';
@@ -122,10 +130,12 @@ export class RevisarInformePage implements OnInit {
         {
           text: 'Rechazar',
           handler: data => {
-            if(this.auth.userType == 'A')
+            if (this.auth.userType === 'A') {
               informe.status = 4;
-            if(this.auth.userType == 'F')
+            }
+            if (this.auth.userType === 'F') {
               informe.status = 2;
+            }
             informe.comentario_rechazo = data.name1;
             this.revisarInforme(informe);
           }
@@ -152,5 +162,10 @@ export class RevisarInformePage implements OnInit {
     } else {
       // this.presentToast();
     }
+  }
+
+  async generarPDF() {
+    const pdf = 1;
+    this.presentToastPDF();
   }
 }

@@ -44,8 +44,8 @@ module.exports = {
             }
             pool.query('UPDATE agenda SET ? WHERE id = ?', [{
                 dia: req.body.dia,
-                hora_inicio: req.body.origen,
-                hora_fin: req.body.destino,
+                hora_inicio: req.body.hora_inicio,
+                hora_fin: req.body.hora_fin,
                 actividad: req.body.actividad
             }, req.body.id], (errorModificar, modificaragenda) => {
                 console.log(errorModificar);

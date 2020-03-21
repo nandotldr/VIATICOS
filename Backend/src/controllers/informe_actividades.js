@@ -136,7 +136,6 @@ module.exports = {
         var templateHtml = fs.readFileSync(path.join(process.cwd(), '/templates/informe_pdf.hbs'), 'utf8');
         var template = handlebars.compile(templateHtml);
         var html = template(data);
-        console.log(html);
 
         var milis = new Date();
         milis = milis.getTime();
@@ -169,6 +168,7 @@ module.exports = {
 
         await page.pdf(options);
         await browser.close();
+        return res.download('uploads/mypdf.pdf');
         res.json({ ok: true, mensaje: "Informe pdf" });
     }
 }

@@ -122,8 +122,8 @@ export class ModificarComisionPage implements OnInit {
   async deletePrograma(programa){
     programa.id_solicitud_comision = this.comi.folio;
     programa.id_programa = programa.id;
-      const resp = await this.auth.deletePrograma(programa);
-      if (resp) {
+    const resp = await this.auth.deletePrograma(programa);
+    if (resp) {
         this.presentToast(resp);
       } else {
         this.presentToast(resp);

@@ -968,12 +968,12 @@ return this.http.request('delete',`${this.API_URL}/programa_trabajo/`,{body: pro
   }
 
   deleteAgenda(
-    gasto: {
+    agenda: {
       id: Number,
       id_informe: Number
     }
   ) {
-  return this.http.request('delete',`${this.API_URL}/agenda/`,{body: gasto}).pipe(
+  return this.http.request('delete',`${this.API_URL}/agenda/`,{body: agenda}).pipe(
       tap(resp => {
         console.log(resp);
         if (resp['ok']) {
@@ -987,13 +987,13 @@ return this.http.request('delete',`${this.API_URL}/programa_trabajo/`,{body: pro
   }
 
   deleteItinerario(
-    gasto: {
+    itinerario: {
       id: Number,
       id_informe: Number
     }
   ) {
     
-  return this.http.request('delete',`${this.API_URL}/itinerario/`,{body: gasto}).pipe(
+  return this.http.request('delete',`${this.API_URL}/itinerario/`,{body: itinerario}).pipe(
       tap(resp => {
         console.log(resp);
         if (resp['ok']) {

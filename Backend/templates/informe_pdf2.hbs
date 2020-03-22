@@ -1,0 +1,94 @@
+<style type="text/css">
+    .tg  {border-collapse:collapse;border-spacing:0; position: center; margin-left:auto; 
+    margin-right:auto; width: 450px;margin-top: 30px;}
+    .tgg  {border-collapse:collapse;border-spacing:0; position: center; margin-left:auto; 
+    margin-right:auto; width: 200px;}
+    .tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+    .tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+    .tgg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+    .tgg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+    .tgg .tg-uu90{font-weight:bold;background-color:#d2cbcb;color:#000000;text-align:center;vertical-align:top}
+    .tgg .tg-z9od{font-size:12px;text-align:center;vertical-align:top}
+    .tg .tg-vy4e{font-weight:bold;font-size:14px;background-color:#d2cbcb;color:#000000;text-align:center;vertical-align:top}
+    .tg .tg-3bew{background-color:#d2cbcb;text-align:center;vertical-align:top}
+    .tg .tg-req6{font-size:12px;background-color:#d2cbcb;text-align:center;vertical-align:top}
+    .tg .tg-0lax{text-align:center;vertical-align:top}
+    .tg .tg-55ei{font-weight:bold;font-size:14px;background-color:#d2cbcb;text-align:center;vertical-align:top}
+    .tg .tg-098m{font-weight:bold;background-color:#d2cbcb;text-align:center;vertical-align:top}
+    .tg .tg-baqh{text-align:center;vertical-align:top}
+    .tg .tg-0lax{text-align:center;vertical-align:top}
+    .tg .tg-ad0n{font-weight:bold;font-size:14px;background-color:#d2cbcb;color:#000000;border-color:#000000;text-align:center;vertical-align:top}
+    .tg .tg-h1nz{font-weight:bold;background-color:#d2cbcb;border-color:#000000;text-align:center;vertical-align:top}
+    .tg .tg-ynlj{font-size:14px;background-color:#ffffff;border-color:#000000;text-align:center;vertical-align:top}
+</style>
+
+<table class="tgg" width="400px">
+    <tr>
+    <th class="tg-uu90">Fecha de elaboración</th>
+    </tr>
+    <tr>
+    <td class="tg-z9od">{{informe.fecha_elaboracion }}</td>
+    </tr>
+</table>
+
+<table class="tg">
+    <tr>
+        <th class="tg-vy4e" width="100%" colspan="4">Datos del comisionado</th>
+      </tr>
+      <tr>
+        <td class="tg-55ei" width="50%" colspan="2">Código</td>
+        <td class="tg-55ei" width="50%" colspan="2">Dependencia</td>
+      </tr>
+      <tr>
+        <td class="tg-baqh" width="50%" colspan="2">{{informe.codigo}}</td>
+        <td class="tg-baqh" width="50%" colspan="2">{{informe.area_adscripcion}}</td>
+      </tr>
+      <tr>
+        <td class="tg-55ei" colspan="4">Nombre</td>
+      </tr>
+      <tr>
+        <td class="tg-0lax" colspan="4">{{informe.nombres}}</td>
+      </tr>
+</table>
+
+  <table class="tg">
+    <tr>
+      <th class="tg-vy4e" colspan="4">Datos de la comisión</th>
+    </tr>
+    <tr>
+      <td class="tg-55ei" colspan="4">Nombre</td>
+    </tr>
+    <tr>
+      <td class="tg-baqh" colspan="4">{{informe.nombre_comision}}</td>
+    </tr>
+    <tr>
+      <td class="tg-55ei" width="50%" colspan="2">Lugar</td>
+      <td class="tg-098m" width="50%" colspan="2">Tipo</td>
+    </tr>
+    <tr>
+      <td class="tg-baqh" colspan="2">{{destino.nombre}}</td>
+      <td class="tg-baqh" colspan="2">{{destino.tipo}}</td>
+    </tr>
+    <tr>
+      <td class="tg-098m" colspan="4">Periodo</td>
+    </tr>
+    <tr>
+      <td class="tg-0lax" width="50%" colspan="2">{{informe.fecha_inicio}}</td>
+      <td class="tg-0lax" width="50%" colspan="2">{{informe.fecha_fin}}</td>
+    </tr>
+</table>
+
+<table class="tg">
+    <tr>
+      <th class="tg-ad0n" colspan="4">Objetivos</th>
+    </tr>
+    <tr>
+      <td class="tg-ynlj" colspan="4">{{informe.objetivo_trabajo}}</td>
+    </tr>
+    <tr>
+      <td class="tg-h1nz" colspan="4">Justificación</td>
+    </tr>
+    <tr>
+      <td class="tg-ynlj" colspan="4">{{informe.justificacion}}</td>
+    </tr>
+</table>

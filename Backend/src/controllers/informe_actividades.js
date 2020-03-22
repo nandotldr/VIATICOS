@@ -3,6 +3,7 @@ const puppeteer = require('puppeteer');
 const fs = require("fs");
 const path = require("path");
 const handlebars = require("handlebars");
+var moment = require('moment');
 /*
  * La información se puede sacar de 
  * req.body, req.get, req.params
@@ -123,24 +124,41 @@ module.exports = {
 
     pdfInforme: async(req, res) => {
         //pdf
-        const data = {
-            title: "A new Brazilian School",
-            date: "05/12/2018",
-            name: "Rodolfo Luis Marcos",
-            age: 28,
-            birthdate: "12/07/1990",
-            course: "Computer Science",
-            obs: "Graduated in 2014 by Federal University of Lavras, work with Full-Stack development and E-commerce."
-        }
+        const { id } = req.params;
 
-        var templateHtml = fs.readFileSync(path.join(process.cwd(), '/templates/informe_pdf.hbs'), 'utf8');
+        informe = await pool.query('SELECT inf.id_solicitud_comision, inf.id, inf.fecha_elaboracion, inf.resultados, inf.observaciones, inf.fecha_aprobacion,inf.nombre_aprobacion,c.fecha_inicio,c.fecha_fin,c.tipo_comision,c.id_pais,c.id_municipio,c.nombre_comision,c.area_adscripcion,c.objetivo_trabajo,c.justificacion, concat(u.nombres , " " ,u.apellidos) as nombres , u.codigo FROM viaticos.informe_actividades AS inf INNER JOIN viaticos.solicitud_comision as c on c.id = inf.id_solicitud_comision INNER JOIN viaticos.usuario as u on u.codigo = inf.id_usuario where inf.id = ?', [id]);
+
+        itinerarios = await pool.query('SELECT * FROM itinerario WHERE id_informe_actividades= ?', [id]);
+
+        if(informe[0].tipo_comision == 1)
+        {
+            destino = await pool.query('SELECT * FROM municipio WHERE id= ?', [informe[0].id_municipio]);
+            destino[0].tipo = "Nacional";
+        }else
+        {
+            destino = await pool.query('SELECT * FROM pais WHERE id= ?', [informe[0].id_pais]);
+            destino[0].tipo = "Internacional";
+        }
+        
+
+        informe[0].fecha_elaboracion = await moment(informe[0].fecha_elaboracion).format("YYYY-MM-DD")
+        informe[0].fecha_inicio = await moment(informe[0].fecha_inicio).format("YYYY-MM-DD")
+        informe[0].fecha_fin = await moment(informe[0].fecha_fin).format("YYYY-MM-DD")
+        
+        data = {
+            informe: informe[0],
+            itinerarios: itinerarios,
+            destino: destino[0]
+        }
+        console.log(data);
+        var templateHtml = fs.readFileSync(path.join(process.cwd(), '/templates/informe_pdf2.hbs'), 'utf8');
         var template = handlebars.compile(templateHtml);
         var html = template(data);
 
         var milis = new Date();
         milis = milis.getTime();
 
-        var pdfPath = path.join('pdf', `${data.name}-${milis}.pdf`);
+        var pdfPath = 'uploads/informe-'+id+'.pdf';
 
         var options = {
             width: '1230px',
@@ -152,7 +170,7 @@ module.exports = {
                 bottom: "30px"
             },
             printBackground: true,
-            path: 'uploads/mypdf.pdf'
+            path: pdfPath
         }
 
         const browser = await puppeteer.launch({
@@ -168,7 +186,7 @@ module.exports = {
 
         await page.pdf(options);
         await browser.close();
-        return res.download('uploads/mypdf.pdf');
-        res.json({ ok: true, mensaje: "Informe pdf" });
+        return res.download(pdfPath);
+
     }
 }

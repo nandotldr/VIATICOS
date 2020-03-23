@@ -57,7 +57,6 @@ export class DetailAgendaPage implements OnInit {
     } else {
       this.presentToast(resp['mensaje']);
     }
-    this.closeModal();
   }
 
   async deleteAgenda(agenda){
@@ -81,7 +80,7 @@ export class DetailAgendaPage implements OnInit {
 
   async presentToastSuccess() {
     const toast = await this.toastController.create({
-      message: 'Comision Modificada.',
+      message: 'Agenda Modificada.',
       duration: 2000,
       position: 'bottom'
     });

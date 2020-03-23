@@ -17,7 +17,7 @@ module.exports = {
                 actividad: req.body.actividad,
                 id_informe_actividades: req.body.id_informe_actividades
             }]);
-            res.json({ ok: true, mensaje: 'agenda creada' });
+            res.json({ ok: true, mensaje: 'Agenda Creada' });
         } catch (error) {
             return res.json({ ok: false, mensaje: "Error inesperado" });
         }
@@ -60,11 +60,11 @@ module.exports = {
 
     eliminarAgenda: async(req, res) => {
         const numAgenda = await pool.query("SELECT id FROM agenda WHERE id_informe_actividades= ? ", [req.body.id_informe_actividades]);
-        if (numAgenda.length == 1) return res.json({ ok: false, mensaje: "No puedes eliminar la ultima agenda" });
+        if (numAgenda.length == 1) return res.json({ ok: false, mensaje: "No puedes eliminar la última actividad de la agenda" });
 
         pool.query('DELETE FROM agenda WHERE id = ?', [req.body.id], (error, results) => {
             if (error) return res.json({ ok: false, mensaje: error });
-            res.json({ ok: true, results, mensaje: 'agenda eliminado' });
+            res.json({ ok: true, results, mensaje: 'Actividad eliminada de Agenda' });
         });
     }
 }

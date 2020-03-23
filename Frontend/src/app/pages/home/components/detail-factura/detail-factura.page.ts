@@ -61,23 +61,21 @@ export class DetailFacturaPage implements OnInit {
     }
   }
 
-  async modifyItinerario(itinerario){
-    console.log(itinerario);
-      const resp = await this.auth.modifyItinerario(itinerario);
-      this.presentToast(resp['mensaje']);
-
-    this.closeModal();
+  async modifyFactura(factura){
+    console.log(factura);
+    const resp = await this.auth.modifyFactura(factura);
+    this.presentToast(resp['mensaje']);
   }
 
-  async deleteItinerario(itinerario){
-      itinerario.id_informe = this.id_informe;
-      const resp = await this.auth.deleteItinerario(itinerario);
+  async deleteFactura(factura){
+      factura.id_informe = this.id_informe;
+      const resp = await this.auth.deleteFactura(factura);
       if (resp) {
         this.presentToast(resp);
       } else {
         this.presentToast(resp);
       }
-    this.getFactura();
+      this.getFactura();
   }
 
   closeModal() {

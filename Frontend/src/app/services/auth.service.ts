@@ -1007,12 +1007,12 @@ return this.http.request('delete',`${this.API_URL}/programa_trabajo/`,{body: pro
   }
 
   deleteFactura(
-    gasto: {
+    factura: {
       id: Number,
       id_informe: Number
     }
   ) {
-  return this.http.request('delete',`${this.API_URL}/factura/`,{body: gasto}).pipe(
+  return this.http.request('delete',`${this.API_URL}/factura/`,{body: factura}).pipe(
       tap(resp => {
         console.log(resp);
         if (resp['ok']) {
@@ -1062,7 +1062,7 @@ return this.http.request('delete',`${this.API_URL}/programa_trabajo/`,{body: pro
           }
         }),
         map(response => {
-          return response['ok'];
+          return response;
         })
     ).toPromise();
   }

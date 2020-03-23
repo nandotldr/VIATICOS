@@ -62,10 +62,8 @@ export class DetailItinerarioPage implements OnInit {
 
   async modifyItinerario(itinerario){
     console.log(itinerario);
-      const resp = await this.auth.modifyItinerario(itinerario);
-      this.presentToast(resp['mensaje']);
-
-    this.closeModal();
+    const resp = await this.auth.modifyItinerario(itinerario);
+    this.presentToast(resp['mensaje']);
   }
 
   async deleteItinerario(itinerario){

@@ -4,6 +4,7 @@ const fs = require("fs");
 const path = require("path");
 const handlebars = require("handlebars");
 var moment = require('moment');
+const merge = require('easy-pdf-merge');
 /*
  * La información se puede sacar de 
  * req.body, req.get, req.params
@@ -141,16 +142,19 @@ module.exports = {
         }
         
 
-        informe[0].fecha_elaboracion = await moment(informe[0].fecha_elaboracion).format("YYYY-MM-DD")
-        informe[0].fecha_inicio = await moment(informe[0].fecha_inicio).format("YYYY-MM-DD")
-        informe[0].fecha_fin = await moment(informe[0].fecha_fin).format("YYYY-MM-DD")
+        informe[0].fecha_elaboracion = await moment(informe[0].fecha_elaboracion).locale('es').format("LL")
+        informe[0].fecha_inicio = await moment(informe[0].fecha_inicio).locale('es').format("LL")
+        informe[0].fecha_fin = await moment(informe[0].fecha_fin).locale('es').format("LL")
         
         data = {
             informe: informe[0],
             itinerarios: itinerarios,
             destino: destino[0]
         }
-        console.log(data);
+
+        //console.log(data);
+        // for (let index = 0; index < 2; index++) {
+
         var templateHtml = fs.readFileSync(path.join(process.cwd(), '/templates/informe_pdf2.hbs'), 'utf8');
         var template = handlebars.compile(templateHtml);
         var html = template(data);
@@ -159,12 +163,16 @@ module.exports = {
         milis = milis.getTime();
 
         var pdfPath = 'uploads/informe-'+id+'.pdf';
-
+        
+            
+            
+        
+        // var pagePath = 'uploads/informe'+makeid(5)+'.pdf';
         var options = {
             width: '1230px',
-            headerTemplate: "<p></p>",
+            headerTemplate: "<p>INFORME DE ACTIVIDADES</p>",
             footerTemplate: "<p></p>",
-            displayHeaderFooter: false,
+            displayHeaderFooter: true,
             margin: {
                 top: "10px",
                 bottom: "30px"
@@ -185,8 +193,25 @@ module.exports = {
         page.emulateMedia('screen');
 
         await page.pdf(options);
+        // }
         await browser.close();
+        // merge(source_files,pdfPath,function(err){
+        //     if(err) {
+        //       return console.log(err)
+        //     }
+        //     console.log('Success')
+        //   });
+        
         return res.download(pdfPath);
 
+        function makeid(length) {
+            var result           = '';
+            var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            var charactersLength = characters.length;
+            for ( var i = 0; i < length; i++ ) {
+               result += characters.charAt(Math.floor(Math.random() * charactersLength));
+            }
+            return result;
+         }
     }
 }

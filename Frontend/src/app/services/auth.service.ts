@@ -1026,7 +1026,7 @@ return this.http.request('delete',`${this.API_URL}/programa_trabajo/`,{body: pro
   }
 
   uploadFactura(
-    factura: {
+        factura: {
       file: File,
       id: Number
     }
@@ -1034,7 +1034,7 @@ return this.http.request('delete',`${this.API_URL}/programa_trabajo/`,{body: pro
     const formData = new FormData();
     formData.append('archivo', factura.file);
     formData.append('id', factura.id.toString());
-    return  this.http.post(`${this.API_URL}/factura/subir/factura`,formData).pipe( 
+    return  this.http.post(`${this.API_URL}/factura/subir/factura`, formData).pipe( 
       map(response => {
         console.log(response);
         if(response['ok']){
@@ -1066,7 +1066,7 @@ return this.http.request('delete',`${this.API_URL}/programa_trabajo/`,{body: pro
         })
     ).toPromise();
   }
-
+/*
   modifyFactura(
     factura: {
       file: File,
@@ -1088,7 +1088,7 @@ return this.http.request('delete',`${this.API_URL}/programa_trabajo/`,{body: pro
         })
     ).toPromise();
   }
-
+*/
   modifyAgenda(
     agenda: {
       dia: string,

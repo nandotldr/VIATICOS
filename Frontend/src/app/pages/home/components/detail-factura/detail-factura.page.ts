@@ -60,13 +60,13 @@ export class DetailFacturaPage implements OnInit {
       console.error(error);
     }
   }
-
+/*
   async modifyFactura(factura){
     console.log(factura);
     const resp = await this.auth.modifyFactura(factura);
     this.presentToast(resp['mensaje']);
   }
-
+*/
   async deleteFactura(factura){
       factura.id_informe = this.id_informe;
       const resp = await this.auth.deleteFactura(factura);
@@ -82,7 +82,7 @@ export class DetailFacturaPage implements OnInit {
     this.modalController.dismiss();
   }
 
-  async presentToast(message: string) { 
+  async presentToast(message: string) {
     const toast = await this.toastController.create({
       message: message,
       duration: 2000,

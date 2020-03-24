@@ -16,34 +16,26 @@
     </ion-toolbar>
     <ion-grid *ngIf="facturas">
       <ion-row class="bg-row">
-
         <ion-col>
-          <ion-label>Origen</ion-label>
+          <ion-label>ID de Factura</ion-label>
         </ion-col>
-
         <ion-col>
-          <ion-label>ID del informe</ion-label>
+          <ion-label>Vizualizar</ion-label>
         </ion-col>
-
         <ion-col>
-          <ion-label>Acciones</ion-label>
+          <ion-label>Eliminar</ion-label>
         </ion-col>
       </ion-row>
       <ion-row *ngFor="let Factura of facturas">
-
         <ion-col>
-          <ion-input [(ngModel)]="Factura.archivo_url"></ion-input>
+          <ion-input readonly [(ngModel)]="Factura.id"></ion-input>
         </ion-col>
-
         <ion-col>
-          <ion-input [(ngModel)]="Factura.id_informe_actividades"></ion-input>
-        </ion-col>
-
-        <ion-col>
-          <ion-button (click)="modifyFactura(Factura)">
-            <ion-icon name="brush"></ion-icon>
+          <ion-button>
+            <ion-icon name="open"></ion-icon>
           </ion-button>
-
+        </ion-col>
+        <ion-col>
           <ion-button (click)="deleteFactura(Factura)">
             <ion-icon name="close"></ion-icon>
           </ion-button>

@@ -1,12 +1,12 @@
 <style type="text/css">
     .tg  {border-collapse:collapse;border-spacing:0; position: center; margin-left:auto; 
-    margin-right:auto; width: 450px;margin-top: 30px;}
+    margin-right:auto; width: 850px;margin-top: 30px;page-break-inside: avoid;}
     .tgg  {border-collapse:collapse;border-spacing:0; position: center; margin-left:auto; 
-    margin-right:auto; width: 200px;}
-    .tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
-    .tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
-    .tgg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
-    .tgg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+    margin-right:auto; width: 400px;page-break-inside: avoid;}
+    .tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;page-break-inside: avoid;}
+    .tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;page-break-inside: avoid;}
+    .tgg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;page-break-inside: avoid;}
+    .tgg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;page-break-inside: avoid;}
     .tgg .tg-uu90{font-weight:bold;background-color:#d2cbcb;color:#000000;text-align:center;vertical-align:top}
     .tgg .tg-z9od{font-size:12px;text-align:center;vertical-align:top}
     .tg .tg-vy4e{font-weight:bold;font-size:14px;background-color:#d2cbcb;color:#000000;text-align:center;vertical-align:top}
@@ -20,9 +20,19 @@
     .tg .tg-ad0n{font-weight:bold;font-size:14px;background-color:#d2cbcb;color:#000000;border-color:#000000;text-align:center;vertical-align:top}
     .tg .tg-h1nz{font-weight:bold;background-color:#d2cbcb;border-color:#000000;text-align:center;vertical-align:top}
     .tg .tg-ynlj{font-size:14px;background-color:#ffffff;border-color:#000000;text-align:center;vertical-align:top}
+    .tg .tg-c3ow{border-color:inherit;text-align:center;vertical-align:top}
+    .tg .tg-llyw{background-color:#d2cbcb;border-color:inherit;text-align:center;text-align:center;vertical-align:top}
+    .tg .tg-jkz3{font-weight:bold;font-size:14px;background-color:#d2cbcb;color:#000000;border-color:inherit;text-align:center;vertical-align:top}
+    .tg .tg-m2fn{font-weight:bold;font-size:14px;background-color:#d2cbcb;border-color:inherit;text-align:center;vertical-align:top}
+    .tg .tg-ycg2{font-size:14px;background-color:#d2cbcb;border-color:inherit;text-align:center;vertical-align:top}
+    .tg .tg-3xi5{background-color:#ffffff;border-color:inherit;text-align:center;vertical-align:top}
+    .tg .tg-0pky{border-color:inherit;text-align:center;vertical-align:top}
+    .tg .tg-signature{font-size:14px;background-color:#ffffff;border-color:#000000;text-align:center;vertical-align:top;border-color:inherit;bottom:0;left:50%;margin-left: -50%;text-align:center;vertical-align:top;padding-top: 200px;}
 </style>
 
-<table class="tgg" width="400px">
+<h1 style="font-size:30px;text-align:center;">INFORME DE ACTIVIDADES</h1>
+
+<table class="tgg" width="500px">
     <tr>
     <th class="tg-uu90">Fecha de elaboración</th>
     </tr>
@@ -78,7 +88,7 @@
     </tr>
 </table>
 
-<table class="tg">
+<table class="tg" >
     <tr>
       <th class="tg-ad0n" colspan="4">Objetivos</th>
     </tr>
@@ -90,5 +100,115 @@
     </tr>
     <tr>
       <td class="tg-ynlj" colspan="4">{{informe.justificacion}}</td>
+    </tr>
+</table>
+
+<table class="tg" >
+  <tr>
+    <th class="tg-jkz3" colspan="4">Programa de trabajo inicial</th>
+  </tr>
+  <tr>
+    <td class="tg-ad0n">#</td>
+    <td class="tg-ad0n">Fecha</td>
+    <td class="tg-ad0n">Lugar</td>
+    <td class="tg-ad0n">Tareas a realizar</td>
+  </tr>
+  {{#each programa}}
+  <tr>
+    <td class="tg-3xi5">{{this.id}}</td>
+    <td class="tg-0pky">{{this.dia}}</td>
+    <td class="tg-c3ow">{{this.lugar_estancia}}</td>
+    <td class="tg-0pky">{{this.tareas_realizar}}</td>
+  </tr>
+  {{/each}}
+</table>
+
+<table class="tg">
+  <tr>
+    <th class="tg-jkz3" colspan="4">Viáticos solicitados</th>
+  </tr>
+  <tr>
+    <td class="tg-ad0n">#</td>
+    <td class="tg-ad0n">Fecha</td>
+    <td class="tg-ad0n">Concepto</td>
+    <td class="tg-ad0n">No. proyecto de apoyo</td>
+  </tr>
+  {{#each gastos}}
+  <tr>
+    <td class="tg-3xi5">{{this.id}}</td>
+    <td class="tg-0pky">{{this.dia}}</td>
+    <td class="tg-c3ow">{{this.rubro}}</td>
+    <td class="tg-0pky">{{this.proyecto}}</td>
+  </tr>
+  {{/each}}
+</table>
+
+<table class="tg">
+  <tr>
+    <th class="tg-jkz3" colspan="4">Itinerario</th>
+  </tr>
+  <tr>
+    <td class="tg-ad0n">#</td>
+    <td class="tg-ad0n">Dia</td>
+    <td class="tg-ad0n">Origen</td>
+    <td class="tg-ad0n">Destino</td>
+  </tr>
+  {{#each itinerarios}}
+  <tr>
+    <td class="tg-3xi5">{{this.id}}</td>
+    <td class="tg-0pky">{{this.dia}}</td>
+    <td class="tg-c3ow">{{this.origen}}</td>
+    <td class="tg-0pky">{{this.destino}}</td>
+  </tr>
+  {{/each}}
+</table>
+
+<table class="tg" >
+  <tr>
+    <th class="tg-jkz3" colspan="5">Agenda</th>
+  </tr>
+  <tr>
+    <td class="tg-ad0n">#</td>
+    <td class="tg-ad0n">Fecha</td>
+    <td class="tg-ad0n">Hora Inicio</td>
+    <td class="tg-ad0n">Hora Fin</td>
+    <td class="tg-ad0n">Actividad</td>
+  </tr>
+  {{#each agendas}}
+  <tr>
+    <td class="tg-3xi5">{{this.id}}</td>
+    <td class="tg-0pky">{{this.dia}}</td>
+    <td class="tg-c3ow">{{this.hora_inicio}}</td>
+    <td class="tg-0pky">{{this.hora_fin}}</td>
+    <td class="tg-0pky">{{this.actividad}}</td>
+  </tr>
+  {{/each}}
+</table>
+
+<table class="tg">
+    <tr>
+      <th class="tg-ad0n" colspan="4">Resultados</th>
+    </tr>
+    <tr>
+      <td class="tg-ynlj" colspan="4">{{informe.resultados}}</td>
+    </tr>
+</table>
+
+<table class="tg">
+    <tr>
+      <th class="tg-ad0n" colspan="4">Observaciones</th>
+    </tr>
+    <tr>
+      <td class="tg-ynlj" colspan="4">{{informe.observaciones}}</td>
+    </tr>
+</table>
+
+<table class="tg">
+    <tr>
+      <th class="tg-ad0n" colspan="4">Firmas</th>
+    </tr>
+    <tr>
+      <td class="tg-signature" colspan="2">Firma del comisionado</td>
+      <td class="tg-signature" colspan="2">Vo. Bo. de Autorización</td>
     </tr>
 </table>

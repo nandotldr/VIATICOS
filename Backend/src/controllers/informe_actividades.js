@@ -141,20 +141,46 @@ module.exports = {
             destino[0].tipo = "Internacional";
         }
         
+        agendas = await pool.query('SELECT * FROM agenda WHERE id_informe_actividades= ?', [id]);
 
-        informe[0].fecha_elaboracion = await moment(informe[0].fecha_elaboracion).locale('es').format("LL")
-        informe[0].fecha_inicio = await moment(informe[0].fecha_inicio).locale('es').format("LL")
-        informe[0].fecha_fin = await moment(informe[0].fecha_fin).locale('es').format("LL")
+        viatico = await pool.query('SELECT id FROM solicitud_viatico WHERE id_solicitud_comision = ?', [informe[0].id_solicitud_comision]);
+        
+        gastos = await pool.query('SELECT * FROM gasto WHERE id_solicitud_viatico = ?', [viatico[0].id]);
+
+        programa = await pool.query('SELECT * FROM programa_trabajo WHERE id_solicitud_comision = ?', [informe[0].id_solicitud_comision]);
+        
+        informe[0].fecha_elaboracion = await moment(informe[0].fecha_elaboracion).locale('es').format("LL");
+        informe[0].fecha_inicio = await moment(informe[0].fecha_inicio).locale('es').format("LL");
+        informe[0].fecha_fin = await moment(informe[0].fecha_fin).locale('es').format("LL");
+
+        itinerarios.forEach( function(valor, indice, array) {
+            itinerarios[indice].dia = moment(itinerarios[indice].dia).locale('es').format("LL");
+        });
+        
+        agendas.forEach( function(valor, indice, array) {
+            agendas[indice].dia = moment(agendas[indice].dia).locale('es').format("LL");
+            agendas[indice].hora_inicio = moment(agendas[indice].hora_inicio,'h:mm:ss a').locale('es').format("LT");
+            agendas[indice].hora_fin = moment(agendas[indice].hora_fin,'h:mm:ss a').locale('es').format("LT");
+        });
+        
+        gastos.forEach( function(valor, indice, array) {
+            gastos[indice].dia = moment(gastos[indice].dia).locale('es').format("LL");
+        });
+
+        programa.forEach( function(valor, indice, array) {
+            programa[indice].dia = moment(programa[indice].dia).locale('es').format("LL");
+        });
+
         
         data = {
             informe: informe[0],
             itinerarios: itinerarios,
-            destino: destino[0]
+            destino: destino[0],
+            agendas: agendas,
+            gastos: gastos,
+            programa: programa
         }
-
-        //console.log(data);
-        // for (let index = 0; index < 2; index++) {
-
+        console.log(data);
         var templateHtml = fs.readFileSync(path.join(process.cwd(), '/templates/informe_pdf2.hbs'), 'utf8');
         var template = handlebars.compile(templateHtml);
         var html = template(data);
@@ -164,10 +190,6 @@ module.exports = {
 
         var pdfPath = 'uploads/informe-'+id+'.pdf';
         
-            
-            
-        
-        // var pagePath = 'uploads/informe'+makeid(5)+'.pdf';
         var options = {
             width: '1230px',
             headerTemplate: "<p>INFORME DE ACTIVIDADES</p>",
@@ -188,19 +210,13 @@ module.exports = {
 
         var page = await browser.newPage();
         
-        page.setContent(html);
+        await page.setContent(html);
 
-        page.emulateMedia('screen');
+        await page.emulateMedia('screen');
 
         await page.pdf(options);
-        // }
+
         await browser.close();
-        // merge(source_files,pdfPath,function(err){
-        //     if(err) {
-        //       return console.log(err)
-        //     }
-        //     console.log('Success')
-        //   });
         
         return res.download(pdfPath);
 

@@ -60,6 +60,21 @@ export class DetailFacturaPage implements OnInit {
       console.error(error);
     }
   }
+
+  async downloadFactura(id_factura) {
+    try {
+      const resp = await this.auth.downloadFactura(id_factura);
+      // tslint:disable-next-line
+      if (resp) {
+        console.log(resp);
+        const url= window.URL.createObjectURL(resp);
+        window.open(url);
+        // tslint:disable-next-line
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
 /*
   async modifyFactura(factura){
     console.log(factura);
@@ -68,7 +83,6 @@ export class DetailFacturaPage implements OnInit {
   }
 */
   async deleteFactura(factura){
-      factura.id_informe = this.id_informe;
       const resp = await this.auth.deleteFactura(factura);
       if (resp) {
         this.presentToast(resp);

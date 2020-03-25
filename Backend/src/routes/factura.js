@@ -8,6 +8,8 @@ const router = express.Router();
 
 router.post('/', oauth('P', 'J', 'A', 'S'), facturaCtl.crearfactura);
 router.get('/:id', oauth('P', 'J', 'A', 'S', 'F'), facturaCtl.selectfactura);
+router.get('/download/:id', oauth('P', 'J', 'A', 'S', 'F'), facturaCtl.downloadfactura);
+router.delete('/:id', oauth('P', 'J', 'A', 'S', 'F'), facturaCtl.deletefactura);
 router.put('/', oauth('P', 'J', 'A', 'S'), facturaCtl.modificarfactura);
 
 // Rutas extras del controlador como archivos, etc.

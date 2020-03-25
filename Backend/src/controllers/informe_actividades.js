@@ -180,7 +180,7 @@ module.exports = {
             gastos: gastos,
             programa: programa
         }
-        console.log(data);
+
         var templateHtml = fs.readFileSync(path.join(process.cwd(), '/templates/informe_pdf2.hbs'), 'utf8');
         var template = handlebars.compile(templateHtml);
         var html = template(data);

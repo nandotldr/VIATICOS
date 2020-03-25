@@ -954,6 +954,19 @@ return this.http.request('delete',`${this.API_URL}/programa_trabajo/`,{body: pro
   ).toPromise();
   }
 
+  downloadFactura(id_factura: Number){
+    return this.http.get(`${this.API_URL}/factura/download/${id_factura}`,{responseType: 'blob'}).pipe(
+    map(response => {
+        if(response['ok']){
+            console.log(response);
+            return response;
+        } else {
+            return response;
+        }
+    })
+  ).toPromise();
+  }
+
   getFactura(id_informe: Number){
     return this.http.get(`${this.API_URL}/factura/${id_informe}`).pipe(
     map(response => {
@@ -1007,12 +1020,11 @@ return this.http.request('delete',`${this.API_URL}/programa_trabajo/`,{body: pro
   }
 
   deleteFactura(
-    factura: {
-      id: Number,
-      id_informe: Number
-    }
+
+      id: Number
+
   ) {
-  return this.http.request('delete',`${this.API_URL}/factura/`,{body: factura}).pipe(
+  return this.http.delete(`${this.API_URL}/factura/${id}`).pipe(
       tap(resp => {
         console.log(resp);
         if (resp['ok']) {

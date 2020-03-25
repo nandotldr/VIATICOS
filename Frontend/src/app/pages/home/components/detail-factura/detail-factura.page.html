@@ -31,12 +31,12 @@
           <ion-input readonly [(ngModel)]="Factura.id"></ion-input>
         </ion-col>
         <ion-col>
-          <ion-button>
-            <ion-icon name="open"></ion-icon>
+          <ion-button (click)="downloadFactura(Factura.id)">
+            <ion-icon  name="open"></ion-icon>
           </ion-button>
         </ion-col>
         <ion-col>
-          <ion-button (click)="deleteFactura(Factura)">
+          <ion-button (click)="deleteFactura(Factura.id)">
             <ion-icon name="close"></ion-icon>
           </ion-button>
         </ion-col>

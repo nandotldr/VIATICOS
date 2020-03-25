@@ -10,7 +10,7 @@ import { ToastController, ModalController, NavController, NavParams } from '@ion
 })
 export class FacturaPage implements OnInit {
   facturaGroup: FormGroup;
-
+  archivo: File;
   constructor(
     private formBuilder: FormBuilder,
     private auth: AuthService,
@@ -19,7 +19,7 @@ export class FacturaPage implements OnInit {
     private navParams: NavParams,
     ) {
     this.facturaGroup = this.formBuilder.group({
-      archivo_url: new FormControl('', Validators.required),
+      archivo_url: new FormControl('',),
       archivo:  new FormControl('', Validators.required)
     });
   }
@@ -30,9 +30,9 @@ export class FacturaPage implements OnInit {
   async crearFactura() {
     const { archivo_url } = this.facturaGroup.value;
     try {
-      const resp = await this.auth.createFactura({
-        archivo_url, id_informe_actividades: this.navParams.get('id_informe')
-      }).toPromise();
+      const resp = await this.auth.uploadFactura({
+        file: this.archivo, id: this.navParams.get('id_informe')
+      });
       console.log(resp);
       this.presentToast(resp['mensaje']);
     } catch (error) {
@@ -51,8 +51,8 @@ export class FacturaPage implements OnInit {
   }
 
   getFactura(event){
-    // this.factura = event.target.files[0];
-    // console.log(this.factura);
+    this.archivo = event.target.files[0];
+    console.log(this.archivo);
   }
 
   async closeModal() {

@@ -1,5 +1,6 @@
 const pool = require('../database');
-
+var uniqid = require('uniqid');
+const fs = require("fs");
 /*
  * La información se puede sacar de 
  * req.body, req.get, req.params
@@ -30,6 +31,15 @@ module.exports = {
         });
 
 
+    },
+    downloadfactura: (req, res) => {
+        const { id } = req.params;
+        pool.query('SELECT * FROM factura WHERE id = ?', [id], (errorfactura, factura) => {
+            if (errorfactura) return res.json({ ok: false, mensaje: 'No existe esta factura' });
+            if (factura.length < 1) return res.json({ ok: false, mensaje: "No existe esta factura" });
+            console.log(factura[0].archivo_url);
+            res.download(factura[0].archivo_url);
+        });
     },
     modificarfactura: async(req, res) => {
         try {
@@ -74,15 +84,43 @@ module.exports = {
             if (informe.length === 0) {
                 return res.json({ ok: false, mensaje: 'No existe el informe.' });
             }
+            
             // Mover archivo nuevo
-            let newFileName = `${uniqid()}.${req.file.originalname.split('.')[1]}`;
-            if (!fs.existsSync(`public/facturas/${req.body.id}`)) {
-                fs.mkdirSync(`public/facturas/${req.body.id}`);
+            let newFileName = `uploads/factura-${req.body.id}.${req.file.originalname.split('.')[1]}`;
+            if (fs.existsSync(`uploads`)) {
+                fs.renameSync(`uploads/${req.file.filename}`, newFileName, function (err) {
+                    if (err) throw err;
+                    console.log('Saved!');
+                  });
             }
-            fs.renameSync(req.file.path, `public/facturas/${req.body.id}/${newFileName}`);
-            // Actuvalizar bd
-            await pool.query('INSERT factura SET id_informe_actividades=? WHERE id=?', [newFileName, req.body.id]);
-            res.json({ ok: true, mensaje: 'Archivo agregado.' })
+            //Actualizar bd
+            await pool.query('INSERT INTO factura (archivo_url,id_informe_actividades) VALUES (? , ?)', [newFileName, req.body.id]);
+            return res.json({ ok: true, mensaje: 'Archivo agregado.' })
+            } catch (error) {
+                res.json({ ok: false, err: error, mensaje: 'Ocurrio un error inesperado.' });
+            }
+            
+
+    },
+    deletefactura: async(req, res) => {
+        try {
+            const { id } = req.params;
+            // Existe la comision
+            const factura = await pool.query('SELECT archivo_url FROM factura WHERE id = ?', [id]);
+            if (factura.length === 0) {
+                return res.json({ ok: false, mensaje: 'No existe la factura.' });
+            }
+            
+            // Cual es el archivo 
+            let currentFile = factura[0].archivo_url;
+            // Actualizar bd
+            await pool.query('DELETE FROM factura WHERE id = ?', [id]);
+            // Borrar archivo
+            console.log(factura);
+            if (fs.existsSync(`${currentFile}`)) {
+                fs.unlinkSync(`${currentFile}`);
+            }
+            res.json({ ok: true, mensaje: 'Archivo eliminado.' })
         } catch (error) {
             res.json({ ok: false, err: error, mensaje: 'Ocurrio un error inesperado.' });
         }

@@ -229,5 +229,112 @@ module.exports = {
             }
             return result;
          }
+    },
+    pdfInformeLegacy: async(req, res) => {
+        //pdf
+        const { id } = req.params;
+
+        informe = await pool.query('SELECT usuario.plaza_laboral,inf.id_solicitud_comision, inf.id, inf.fecha_elaboracion, inf.resultados, inf.observaciones, inf.fecha_aprobacion,inf.nombre_aprobacion,c.fecha_inicio,c.fecha_fin,c.tipo_comision,c.id_pais,c.id_municipio,c.nombre_comision,c.area_adscripcion,c.objetivo_trabajo,c.justificacion, concat(u.nombres , " " ,u.apellidos) as nombres , u.codigo FROM viaticos.informe_actividades AS inf INNER JOIN viaticos.solicitud_comision as c on c.id = inf.id_solicitud_comision INNER JOIN viaticos.usuario as u on u.codigo = inf.id_usuario JOIN usuario on c.id_usuario = usuario.codigo WHERE inf.id = ?', [id]);
+
+        itinerarios = await pool.query('SELECT * FROM itinerario WHERE id_informe_actividades= ?', [id]);
+
+        if(informe[0].tipo_comision == 1)
+        {
+            destino = await pool.query('SELECT * FROM municipio WHERE id= ?', [informe[0].id_municipio]);
+            destino[0].tipo = "Nacional";
+        }else
+        {
+            destino = await pool.query('SELECT * FROM pais WHERE id= ?', [informe[0].id_pais]);
+            destino[0].tipo = "Internacional";
+        }
+        
+        agendas = await pool.query('SELECT * FROM agenda WHERE id_informe_actividades= ?', [id]);
+
+        viatico = await pool.query('SELECT id FROM solicitud_viatico WHERE id_solicitud_comision = ?', [informe[0].id_solicitud_comision]);
+        
+        gastos = await pool.query('SELECT * FROM gasto WHERE id_solicitud_viatico = ?', [viatico[0].id]);
+
+        programa = await pool.query('SELECT * FROM programa_trabajo WHERE id_solicitud_comision = ?', [informe[0].id_solicitud_comision]);
+        
+        informe[0].fecha_elaboracion = await moment(informe[0].fecha_elaboracion).locale('es').format("LL");
+        informe[0].fecha_inicio = await moment(informe[0].fecha_inicio).locale('es').format("LL");
+        informe[0].fecha_fin = await moment(informe[0].fecha_fin).locale('es').format("LL");
+
+        itinerarios.forEach( function(valor, indice, array) {
+            itinerarios[indice].dia = moment(itinerarios[indice].dia).locale('es').format("LL");
+        });
+        
+        agendas.forEach( function(valor, indice, array) {
+            agendas[indice].dia = moment(agendas[indice].dia).locale('es').format("LL");
+            agendas[indice].hora_inicio = moment(agendas[indice].hora_inicio,'h:mm:ss a').locale('es').format("LT");
+            agendas[indice].hora_fin = moment(agendas[indice].hora_fin,'h:mm:ss a').locale('es').format("LT");
+        });
+        
+        gastos.forEach( function(valor, indice, array) {
+            gastos[indice].dia = moment(gastos[indice].dia).locale('es').format("LL");
+        });
+
+        programa.forEach( function(valor, indice, array) {
+            programa[indice].dia = moment(programa[indice].dia).locale('es').format("LL");
+        });
+
+        
+        data = {
+            informe: informe[0],
+            itinerarios: itinerarios,
+            destino: destino[0],
+            agendas: agendas,
+            gastos: gastos,
+            programa: programa
+        }
+
+        var templateHtml = fs.readFileSync(path.join(process.cwd(), '/templates/informe_legacy.hbs'), 'utf8');
+        var template = handlebars.compile(templateHtml);
+        var html = template(data);
+
+        var milis = new Date();
+        milis = milis.getTime();
+
+        var pdfPath = 'uploads/informe-'+id+'.pdf';
+        
+        var options = {
+            width: '1230px',
+            headerTemplate: "",
+            footerTemplate: "",
+            displayHeaderFooter: true,
+            margin: {
+                top: "10px",
+                bottom: "30px"
+            },
+            printBackground: true,
+            path: pdfPath
+        }
+
+        const browser = await puppeteer.launch({
+            args: ['--no-sandbox'],
+            headless: true
+        });
+
+        var page = await browser.newPage();
+        
+        await page.setContent(html);
+
+        await page.emulateMedia('screen');
+
+        await page.pdf(options);
+
+        await browser.close();
+        
+        return res.download(pdfPath);
+
+        function makeid(length) {
+            var result           = '';
+            var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            var charactersLength = characters.length;
+            for ( var i = 0; i < length; i++ ) {
+               result += characters.charAt(Math.floor(Math.random() * charactersLength));
+            }
+            return result;
+         }
     }
 }

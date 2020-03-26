@@ -8,6 +8,7 @@ router.get('/', auth('P', 'J', 'A', 'S'), informe_actividadesCtl.historialInform
 router.get('/:id', auth('P', 'J', 'A', 'S', 'F'), informe_actividadesCtl.verInforme);
 router.put('/', auth('P', 'J', 'A', 'S'), informe_actividadesCtl.modificarInforme);
 router.get('/pdf/:id', auth('P', 'J', 'A', 'S'), informe_actividadesCtl.pdfInforme);
+router.get('/pdf_legacy/:id', auth('P', 'J', 'A', 'S'), informe_actividadesCtl.pdfInformeLegacy);
 // Rutas extras del controlador como archivos, etc.
 
 module.exports = router;

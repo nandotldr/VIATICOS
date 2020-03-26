@@ -15,7 +15,7 @@ export class HistorialViaticosPage implements OnInit {
   viaticosCopia;
   gastos: any;
   id_viatico: Number;
-
+  idInforme: Number;
   constructor(
     private auth: AuthService,
     public toastController: ToastController,
@@ -97,6 +97,37 @@ export class HistorialViaticosPage implements OnInit {
     } catch (error) {
       console.error(error);
     }
+  }
+  async generarPDF(id_comision: any) {
+    try {
+      const resp3 = await this.auth.getInforme({id_solicitud_comision: id_comision}).toPromise();
+      // tslint:disable-next-line
+      if (resp3['ok']) {
+        this.idInforme = resp3['body'].folio;
+      }
+      else{
+        return this.presentToast('No jalo')
+      }
+      const resp = await this.auth.downloadInforme(this.idInforme);
+      // tslint:disable-next-line
+      if (resp) {
+        console.log(resp);
+        const url= window.URL.createObjectURL(resp);
+        await window.open(url);
+        // tslint:disable-next-line
+      }
+      const resp2 = await this.auth.downloadInformeLegacy(this.idInforme);
+      // tslint:disable-next-line
+      if (resp2) {
+        console.log(resp2);
+        const url= window.URL.createObjectURL(resp2);
+        await window.open(url);
+        // tslint:disable-next-line
+      }
+    } catch (error) {
+      console.error(error);
+    }
+    
   }
 /*
   async presentAlert() {

@@ -967,6 +967,34 @@ return this.http.request('delete',`${this.API_URL}/programa_trabajo/`,{body: pro
   ).toPromise();
   }
 
+  
+  downloadInforme(id_informe: Number){
+    return this.http.get(`${this.API_URL}/informe_actividades/pdf/${id_informe}`,{responseType: 'blob'}).pipe(
+    map(response => {
+        if(response['ok']){
+            console.log(response);
+            return response;
+        } else {
+            return response;
+        }
+    })
+  ).toPromise();
+  }
+
+  
+  downloadInformeLegacy(id_informe: Number){
+    return this.http.get(`${this.API_URL}/informe_actividades/pdf_legacy/${id_informe}`,{responseType: 'blob'}).pipe(
+    map(response => {
+        if(response['ok']){
+            console.log(response);
+            return response;
+        } else {
+            return response;
+        }
+    })
+  ).toPromise();
+  }
+
   getFactura(id_informe: Number){
     return this.http.get(`${this.API_URL}/factura/${id_informe}`).pipe(
     map(response => {

@@ -59,7 +59,7 @@
             </ion-button>
           </ng-template>
         </ngx-datatable-column>
-        <ngx-datatable-column prop="id_solicitud_comision" name="Acciones" width="465">
+        <ngx-datatable-column prop="id_comision" name="Acciones" width="465">
           <ng-template let-row="row" let-value="value" let-rowIndex="rowIndex" ngx-datatable-cell-template>
             <ion-buttons>
               <div *ngIf="viaticosCopia[rowIndex].status == 0 || viaticosCopia[rowIndex].status == 2">
@@ -75,6 +75,11 @@
               <div *ngIf="viaticosCopia[rowIndex].status == 6">
                 <ion-button [routerLink]="'/home/crear-informe/'+viaticosCopia[rowIndex].id_comision">
                   <ion-icon name="add-circle"></ion-icon> Crear informe
+                </ion-button>
+              </div>
+              <div *ngIf="viaticosCopia[rowIndex].status == 7">
+                <ion-button (click)="generarPDF(value)">
+                  <ion-icon name="add-circle"></ion-icon> Descargar informe
                 </ion-button>
               </div>
             </ion-buttons>

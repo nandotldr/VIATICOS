@@ -95,7 +95,7 @@ export class RevisarInformePage implements OnInit {
           handler: () => {
             if (this.auth.userType === 'A') {
               informe.status = 6;
-              this.generarPDF();
+              this.generarPDF(informe.id);
             }
             if (this.auth.userType === 'F') {
               informe.status = 3;
@@ -164,8 +164,29 @@ export class RevisarInformePage implements OnInit {
     }
   }
 
-  async generarPDF() {
-    const pdf = 1;
-    this.presentToastPDF();
+  async generarPDF(id_informe: Number) {
+    try {
+      const resp = await this.auth.downloadInforme(id_informe);
+      // tslint:disable-next-line
+      if (resp) {
+        console.log(resp);
+        const url= window.URL.createObjectURL(resp);
+        window.open(url);
+        this.presentToastPDF();
+        // tslint:disable-next-line
+      }
+      const resp2 = await this.auth.downloadInformeLegacy(id_informe);
+      // tslint:disable-next-line
+      if (resp2) {
+        console.log(resp2);
+        const url= window.URL.createObjectURL(resp2);
+        window.open(url);
+        this.presentToastPDF();
+        // tslint:disable-next-line
+      }
+    } catch (error) {
+      console.error(error);
+    }
+    
   }
 }

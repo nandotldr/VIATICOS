@@ -28,12 +28,11 @@
         <ion-col>
           <ion-label>Actividad</ion-label>
         </ion-col>
-        <ion-col>
+        <ion-col *ngIf="modificable === true">
           <ion-label>Acciones</ion-label>
         </ion-col>
       </ion-row>
       <ion-row *ngFor="let agenda of agendas">
-
         <ion-col>
           <ion-datetime displayFormat="MMM/DD/YYYY" max="3000-12-09" [(ngModel)]="agenda.dia"></ion-datetime>
         </ion-col>
@@ -46,7 +45,7 @@
         <ion-col>
           <ion-input value="{{ agenda.actividad }}"></ion-input>
         </ion-col>
-        <ion-col>
+        <ion-col *ngIf="modificable === true">
           <ion-button (click)="modifyAgenda(agenda)">
             <ion-icon name="brush"></ion-icon>
           </ion-button>

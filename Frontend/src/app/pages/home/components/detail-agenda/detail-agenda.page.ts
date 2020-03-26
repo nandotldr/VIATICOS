@@ -10,6 +10,7 @@ import {Observable} from 'rxjs';
 })
 export class DetailAgendaPage implements OnInit {
 
+  modificable = true;
   idInforme;
   agendas:
   [
@@ -31,6 +32,7 @@ export class DetailAgendaPage implements OnInit {
   ionViewWillEnter() {
     this.idInforme = this.navParams.get('id_informe');
     this.getAgenda(this.idInforme);
+    this.modificable = this.navParams.get('modificable');
   }
 
   async getAgenda(idInforme) {

@@ -11,6 +11,7 @@ import { formatDate } from '@angular/common';
 })
 export class DetailFacturaPage implements OnInit {
 
+  modificable = true;
   id_informe: number;
 
   facturas:
@@ -32,6 +33,7 @@ export class DetailFacturaPage implements OnInit {
               private toastController: ToastController,
               private formBuilder: FormBuilder) {
               this.id_informe = this.navParams.get('id_informe');
+              this.modificable = this.navParams.get('modificable');
   }
   ionViewWillEnter() {
     this.getFactura();

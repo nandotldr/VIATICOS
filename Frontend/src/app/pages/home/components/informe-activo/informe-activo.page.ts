@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController, NavParams, ToastController } from '@ionic/angular';
 import { AuthService } from '../../../../services/auth.service';
+import { DetailAgendaPage } from '../detail-agenda/detail-agenda.page';
+import { DetailFacturaPage } from '../detail-factura/detail-factura.page';
+import { DetailItinerarioPage } from '../detail-itinerario/detail-itinerario.page';
+import {OverlayEventDetail} from "@ionic/core";
 
 @Component({
   selector: 'app-informe-activo',
@@ -37,6 +41,63 @@ export class InformeActivoPage implements OnInit {
     } else {
       console.log('no jalo');
     }
+  }
+
+  async detalleAgenda(informe) {
+    const modal: HTMLIonModalElement =
+        await this.modalController.create({
+          component: DetailAgendaPage,
+          cssClass: 'modal-class',
+          componentProps: {
+            id_informe: informe,
+            modificable: false
+          }
+        });
+    modal.onDidDismiss().then((detail: OverlayEventDetail) => {
+      if (detail !== null) {
+        // console.log('The result:', detail.data);
+      }
+    });
+
+    await modal.present();
+  }
+
+  async detalleItinerario(informe) {
+    const modal: HTMLIonModalElement =
+        await this.modalController.create({
+          component: DetailItinerarioPage,
+          cssClass: 'modal-class',
+          componentProps: {
+            id_informe: informe,
+            modificable: false
+          }
+        });
+    modal.onDidDismiss().then((detail: OverlayEventDetail) => {
+      if (detail !== null) {
+        // console.log('The result:', detail.data);
+      }
+    });
+
+    await modal.present();
+  }
+
+  async detalleFactura(informe) {
+    const modal: HTMLIonModalElement =
+        await this.modalController.create({
+          component: DetailFacturaPage,
+          cssClass: 'modal-class',
+          componentProps: {
+            id_informe: informe,
+            modificable: false
+          }
+        });
+    modal.onDidDismiss().then((detail: OverlayEventDetail) => {
+      if (detail !== null) {
+        // console.log('The result:', detail.data);
+      }
+    });
+
+    await modal.present();
   }
 
   closeModal() {

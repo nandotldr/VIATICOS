@@ -11,6 +11,7 @@ import { formatDate } from '@angular/common';
 })
 export class DetailItinerarioPage implements OnInit {
 
+  modificable = false;
   id_informe: number;
 
   itinerarios:
@@ -31,6 +32,7 @@ export class DetailItinerarioPage implements OnInit {
               private toastController: ToastController,
               private formBuilder: FormBuilder) {
               this.id_informe = this.navParams.get('id_informe');
+              this.modificable = this.navParams.get('modificable');
   }
   ionViewWillEnter() {
     this.getItinerario();

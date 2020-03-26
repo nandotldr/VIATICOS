@@ -195,7 +195,8 @@ export class CrearInformePage implements OnInit {
           component: DetailFacturaPage,
           cssClass: 'modal-class',
           componentProps: {
-            id_informe: this.idInforme
+              id_informe: this.idInforme,
+              modificable: true
            }
         });
     modal.onDidDismiss().then((detail: OverlayEventDetail) => {
@@ -213,7 +214,8 @@ export class CrearInformePage implements OnInit {
           component: DetailItinerarioPage,
           cssClass: 'modal-class',
           componentProps: {
-            id_informe: this.idInforme
+              id_informe: this.idInforme,
+              modificable: true
            }
         });
     modal.onDidDismiss().then((detail: OverlayEventDetail) => {
@@ -231,7 +233,8 @@ export class CrearInformePage implements OnInit {
           component: DetailAgendaPage,
           cssClass: 'modal-class',
           componentProps: {
-            id_informe: this.idInforme
+              id_informe: this.idInforme,
+              modificable: true
            }
         });
     modal.onDidDismiss().then((detail: OverlayEventDetail) => {

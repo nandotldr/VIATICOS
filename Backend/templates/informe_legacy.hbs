@@ -27,6 +27,7 @@
         border-collapse: collapse;
         font-family:Arial, sans-serif;
         font-size:14px;
+        page-break-inside: avoid;
     }
     .tooltips{
         text-align: right;
@@ -70,24 +71,24 @@
 
 </style>
 <div style="position: center; max-width: 900px;margin: auto;">
-    <img src="../../Frontend/src/assets/images/fondo_udg.png" alt="logo_udg">
+    <img src="https://lh3.googleusercontent.com/proxy/kZOqgj1SOsaF9VfxQx5N6Kb2a63vyeqjQ02VbzWsg21fLQkyZ0h27SN5ycY47v4l9l3d9UY3oXBeUnnAK-79lS4-oqP3kXa4DydnhMVO2WBjEfnm7Uw4xkrDGpREMhEymQ" alt="logo_udg">
     <h1><br>UNIVERSIDAD DE GUADALAJARA<br>INFORME DE ACTIVIDADES VIÁTICOS</h1>
     <table class="top-table">
         <tr style="padding-bottom: 5px">
             <td style="border: none" class="label-column">DEPENDENCIA: </td>
-            <td class="data-column"></td>
+            <td class="data-column">{{informe.area_adscripcion}}</td>
         </tr>
         <tr>
             <td style="border: none" class="label-column">NOMBRE: </td>
-            <td class="data-column"></td>
+            <td class="data-column">{{informe.nombres}}</td>
         </tr>
         <tr>
             <td style="border: none" class="label-column">CARGO: </td>
-            <td class="data-column"></td>
+            <td class="data-column">{{informe.plaza_laboral}}</td>
         </tr>
         <tr>
             <td style="border: none" class="label-column">LUGAR DE COMISION: </td>
-            <td class="data-column"></td>
+            <td class="data-column">{{destino.nombre}}</td>
         </tr>
     </table>
 
@@ -97,7 +98,7 @@
             <td  class="tooltips">MOTIVO DE LA COMISION</td>
         </tr>
         <tr>
-            <td colspan="2" class="section-content">  </td>
+            <td colspan="2" class="section-content">{{informe.justificacion}}</td>
         </tr>
     </table>
 
@@ -107,7 +108,7 @@
             <td  class="tooltips">FECHAS Y NOMBRES DE LUGARES DE ORIGEN Y DESTINOS</td>
         </tr>
         <tr>
-            <td colspan="2" class="section-content">  </td>
+            <td colspan="2" class="section-content">{{#each itinerarios}}{{this.dia}} - Origen: {{this.origen}} -> Destino: {{this.destino}}<br>{{/each}}</td>
         </tr>
     </table>
 
@@ -117,7 +118,7 @@
             <td  class="tooltips">HORARIOS Y/O TEMAS DE LAS ACTIVIDADES REALIZADAS</td>
         </tr>
         <tr>
-            <td colspan="2" class="section-content">  </td>
+            <td colspan="2" class="section-content">{{#each agendas}}{{this.dia}} - Inicio: {{this.hora_inicio}} - Fin: {{this.hora_fin}} | Actividad: {{this.actividad}}<br>{{/each}}</td>
         </tr>
     </table>
 
@@ -127,7 +128,7 @@
             <td  class="tooltips">DESCRIPCIÓN DEL TRABAJO REALIZADO</td>
         </tr>
         <tr>
-            <td colspan="2" class="section-content">  </td>
+            <td colspan="2" class="section-content">{{informe.resultados}}</td>
         </tr>
     </table>
 
@@ -136,7 +137,7 @@
             <td style="width: 1000px" class="section-title">OBSERVACIONES:</td>
         </tr>
         <tr>
-            <td class="section-content">  </td>
+            <td class="section-content">{{informe.observaciones}}</td>
         </tr>
     </table>
 

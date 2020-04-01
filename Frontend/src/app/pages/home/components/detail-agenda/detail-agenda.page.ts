@@ -59,6 +59,7 @@ export class DetailAgendaPage implements OnInit {
     } else {
       this.presentToast(resp['mensaje']);
     }
+    this.getAgenda(this.idInforme);
   }
 
   async deleteAgenda(agenda){

@@ -1138,8 +1138,6 @@ return this.http.request('delete',`${this.API_URL}/programa_trabajo/`,{body: pro
       }
   ){
     agenda.dia = formatDate(agenda.dia, 'yyyy-MM-dd', 'en');
-    agenda.hora_inicio = agenda.hora_inicio.substring(11, 23);
-    agenda.hora_fin = agenda.hora_fin.substring(11, 23);
     return this.http.put(`${this.API_URL}/agenda`, 
       agenda
     ).pipe(

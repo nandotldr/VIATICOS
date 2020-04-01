@@ -67,6 +67,20 @@
       <ion-label>Comentario Rechazo</ion-label>
       <ion-label>{{ comi.comentario_rechazo }}</ion-label>
     </ion-item>
+
+    <ion-item *ngIf="comi.programa_evento">
+      <ion-label>Programa Evento</ion-label>
+      <ion-label>
+        <ion-button (click)="downloadPrograma(comi.folio)"><ion-icon name="open"></ion-icon></ion-button>
+      </ion-label>
+    </ion-item>
+
+    <ion-item *ngIf="comi.invitacion_evento">
+        <ion-label>Invitación Evento</ion-label>
+        <ion-label>
+          <ion-button (click)="downloadInvitacion(comi.folio)"><ion-icon name="open"></ion-icon></ion-button>
+        </ion-label>
+    </ion-item>
   </ion-card>
 
   <ion-card>

@@ -50,7 +50,7 @@ export class ComisionActivaPage implements OnInit {
 
   }
 
-  async presentToast() { 
+  async presentToast() {
     const toast = await this.toastController.create({
       message: 'Datos no Validos',
       duration: 2000,
@@ -66,6 +66,32 @@ export class ComisionActivaPage implements OnInit {
       position: 'bottom'
     });
     toast.present();
+  }
+
+  async downloadPrograma(idComision) {
+    try {
+      const resp = await this.auth.downloadPrograma(idComision);
+      if (resp) {
+        console.log(resp);
+        const url = window.URL.createObjectURL(resp);
+        window.open(url);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async downloadInvitacion(idComision) {
+    try {
+      const resp = await this.auth.downloadInvitacion(idComision);
+      if (resp) {
+        console.log(resp);
+        const url = window.URL.createObjectURL(resp);
+        window.open(url);
+      }
+    } catch (error) {
+      console.error(error);
+    }
   }
 
 }

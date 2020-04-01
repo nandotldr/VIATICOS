@@ -954,6 +954,32 @@ return this.http.request('delete',`${this.API_URL}/programa_trabajo/`,{body: pro
   ).toPromise();
   }
 
+    downloadPrograma(idComision: Number){
+        return this.http.get(`${this.API_URL}/solicitud_comision/download_programa/${idComision}`,{responseType: 'blob'}).pipe(
+            map(response => {
+                if(response['ok']){
+                    console.log(response);
+                    return response;
+                } else {
+                    return response;
+                }
+            })
+        ).toPromise();
+    }
+
+    downloadInvitacion(idComision: Number){
+        return this.http.get(`${this.API_URL}/solicitud_comision/download_invitacion/${idComision}`,{responseType: 'blob'}).pipe(
+            map(response => {
+                if(response['ok']){
+                    console.log(response);
+                    return response;
+                } else {
+                    return response;
+                }
+            })
+        ).toPromise();
+    }
+
   downloadFactura(id_factura: Number){
     return this.http.get(`${this.API_URL}/factura/download/${id_factura}`,{responseType: 'blob'}).pipe(
     map(response => {

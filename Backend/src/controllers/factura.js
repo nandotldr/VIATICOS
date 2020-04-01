@@ -85,7 +85,7 @@ module.exports = {
                 return res.json({ ok: false, mensaje: 'No existe el informe.' });
             }
             
-            // Mover archivo nuevo
+            // Rename al archivo
             let newFileName = `uploads/factura-${req.body.id}.${req.file.originalname.split('.')[1]}`;
             if (fs.existsSync(`uploads`)) {
                 fs.renameSync(`uploads/${req.file.filename}`, newFileName, function (err) {

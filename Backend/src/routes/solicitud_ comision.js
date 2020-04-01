@@ -14,6 +14,8 @@ router.put('/', auth('P', 'J', 'A', 'S'), solicitud_comisionCtl.modificarComisio
 // Rutas extras del controlador como archivos, etc.
 router.post('/subir/invitacion', [auth('P', 'J', 'A', 'S'), upload.single('archivo')], solicitud_comisionCtl.subirInvitacion);
 router.post('/subir/programa', [auth('P', 'J', 'A', 'S'), upload.single('archivo')], solicitud_comisionCtl.subirPrograma);
+router.get('/download_invitacion/:id', auth('P', 'J', 'A', 'S', 'F'), solicitud_comisionCtl.downloadInvitacion);
+router.get('/download_programa/:id', auth('P', 'J', 'A', 'S', 'F'), solicitud_comisionCtl.downloadPrograma);
 
 
 module.exports = router;

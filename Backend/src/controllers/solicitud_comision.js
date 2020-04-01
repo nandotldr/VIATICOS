@@ -47,6 +47,7 @@ module.exports = {
             };
             res.json({ ok: true, mensaje: "Comision creada correctamente", body: json });
         } catch (error) {
+            console.log(error);
             return res.json({ ok: false, mensaje: 'Error inesperado' });
 
         }
@@ -137,6 +138,7 @@ module.exports = {
             });
 
         } catch (error) {
+            console.log(error);
             return res.json({ ok: false, mensaje: 'Error inesperado' });
         }
     },
@@ -168,24 +170,20 @@ module.exports = {
             if (comisiones.length === 0) {
                 return res.json({ ok: false, mensaje: 'No existe la comisión.' });
             }
-            // Cual es el archivo 
-            let currentFile = comisiones[0].invitacion_evento;
-            // Mover archivo nuevo
-            let newFileName = `${uniqid()}.${req.file.originalname.split('.')[1]}`;
-            if (!fs.existsSync(`public/files/${req.body.id}`)) {
-                fs.mkdirSync(`public/files/${req.body.id}`);
+            // Rename al archivo
+            let newFileName = `uploads/invitacion-${req.body.id}.${req.file.originalname.split('.')[1]}`;
+            if (fs.existsSync(`uploads`)) {
+                fs.renameSync(`uploads/${req.file.filename}`, newFileName, function (err) {
+                    if (err) throw err;
+                    console.log('Saved!');
+                  });
             }
-            fs.renameSync(req.file.path, `public/files/${req.body.id}/${newFileName}`);
-            // Actualizar bd
-            await pool.query('UPDATE solicitud_comision SET invitacion_evento=? WHERE id=?', [newFileName, req.body.id]);
-            // Borrar archivo antiguo si existe
-            if (fs.existsSync(`public/files/${req.body.id}/${currentFile}`)) {
-                fs.unlinkSync(`public/files/${req.body.id}/${currentFile}`);
+            //Actualizar bd
+            await pool.query('UPDATE solicitud_comision SET invitacion_evento = ? WHERE id = ?', [newFileName,req.body.id]);
+            return res.json({ ok: true, mensaje: 'Archivo agregado.' })
+            } catch (error) {
+                res.json({ ok: false, err: error, mensaje: 'Ocurrio un error inesperado.' });
             }
-            res.json({ ok: true, mensaje: 'Archivo agregado.' })
-        } catch (error) {
-            res.json({ ok: false, error, mensaje: 'Ocurrio un error inesperado.' });
-        }
     },
 
     subirPrograma: async(req, res) => {
@@ -199,23 +197,37 @@ module.exports = {
             if (comisiones.length === 0) {
                 return res.json({ ok: false, mensaje: 'No existe la comisión.' });
             }
-            // Cual es el archivo 
-            let currentFile = comisiones[0].programa_evento;
-            // Mover archivo nuevo
-            let newFileName = `${uniqid()}.${req.file.originalname.split('.')[1]}`;
-            if (!fs.existsSync(`public/files/${req.body.id}`)) {
-                fs.mkdirSync(`public/files/${req.body.id}`);
+            // Rename al archivo
+            let newFileName = `uploads/programa-${req.body.id}.${req.file.originalname.split('.')[1]}`;
+            if (fs.existsSync(`uploads`)) {
+                fs.renameSync(`uploads/${req.file.filename}`, newFileName, function (err) {
+                    if (err) throw err;
+                    console.log('Saved!');
+                  });
             }
-            fs.renameSync(req.file.path, `public/files/${req.body.id}/${newFileName}`);
-            // Actuvalizar bd
-            await pool.query('UPDATE solicitud_comision SET programa_evento=? WHERE id=?', [newFileName, req.body.id]);
-            // Borrar archivo antiguo si existe
-            if (fs.existsSync(`public/files/${req.body.id}/${currentFile}`)) {
-                fs.unlinkSync(`public/files/${req.body.id}/${currentFile}`);
+            //Actualizar bd
+            await pool.query('UPDATE solicitud_comision SET programa_evento = ? WHERE id = ?', [newFileName,req.body.id]);
+            return res.json({ ok: true, mensaje: 'Archivo agregado.' })
+            } catch (error) {
+                res.json({ ok: false, err: error, mensaje: 'Ocurrio un error inesperado.' });
             }
-            res.json({ ok: true, mensaje: 'Archivo agregado.' })
-        } catch (error) {
-            res.json({ ok: false, err: error, mensaje: 'Ocurrio un error inesperado.' });
-        }
+    },
+    downloadInvitacion: (req, res) => {
+        const { id } = req.params;
+        pool.query('SELECT * FROM solicitud_comision WHERE id = ?', [id], (errorinvitacion, invitacion) => {
+            if (errorinvitacion) return res.json({ ok: false, mensaje: 'No existe esta invitacion' });
+            if (invitacion.length < 1) return res.json({ ok: false, mensaje: "No existe esta invitacion" });
+            console.log(invitacion[0].invitacion_evento);
+            res.download(invitacion[0].invitacion_evento);
+        });
+    },
+    downloadPrograma: (req, res) => {
+        const { id } = req.params;
+        pool.query('SELECT * FROM solicitud_comision WHERE id = ?', [id], (errorprograma, programa) => {
+            if (errorprograma) return res.json({ ok: false, mensaje: 'No existe esta programa' });
+            if (programa.length < 1) return res.json({ ok: false, mensaje: "No existe esta programa" });
+            console.log(programa[0].programa_evento);
+            res.download(programa[0].programa_evento);
+        });
     },
 }

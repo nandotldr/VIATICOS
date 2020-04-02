@@ -116,7 +116,7 @@ module.exports = {
             }, req.body.id], (errorModificar, modificarInforme) => {
                 if (errorModificar) return res.json({ ok: false, mensaje: errorModificar });
                 console.log(errorModificar);
-                res.json({ ok: true, mensaje: "Informe modificado" });
+                res.json({ ok: true, mensaje: "Informe Creado" });
             });
         } catch (error) {
             return res.json({ ok: false, mensaje: 'Error inesperado' });

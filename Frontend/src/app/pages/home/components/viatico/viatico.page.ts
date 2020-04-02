@@ -137,7 +137,7 @@ export class ViaticoPage implements OnInit {
     const alert = await this.alertController.create({
       header: 'Viatico Creado',
       // subHeader: 'Subtitle',
-      message: 'Tu viático fue registrado, consulta la página "Lista de Viáticos" para agregar tus gastos por día.',
+      message: 'Tu viático fue registrado, consulta la página "Lista de Viáticos" para agregar tus gastos',
       buttons: ['OK']
     });
 

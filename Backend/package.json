@@ -24,7 +24,7 @@
     "easy-pdf-merge": "^0.2.2",
     "express": "^4.17.1",
     "express-validator": "^6.4.0",
-    "handlebars": "^4.7.3",
+    "handlebars": "^4.7.7",
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.20.8",
     "moment": "^2.24.0",
